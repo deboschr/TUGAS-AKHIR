@@ -4,6 +4,7 @@ Perancangan antarmuka pengguna dibuat dalam bentuk desain fidelitas tinggi denga
     \item \textbf{Jendela Utama} \\
     Jendela utama merupakan tampilan awal yang muncul ketika aplikasi dijalankan. Halaman ini memfasilitasi pengguna untuk memasukkan URL situs web yang akan diperiksa, memulai atau menghentikan proses pemeriksaan, serta menampilkan hasil secara langsung. Elemen-elemen penting pada jendela ini ditunjukkan pada Gambar~\ref{fig:rancangan-jendela-utama} dan dijelaskan sebagai berikut:
     
+    \vspace{2mm}
     \begin{enumerate}
         
         \item \textbf{Kolom Masukan URL}: digunakan untuk memasukkan alamat situs web yang akan diperiksa.
@@ -51,12 +52,7 @@ Perancangan antarmuka pengguna dibuat dalam bentuk desain fidelitas tinggi denga
     
     \end{enumerate}
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.95\textwidth]{Gambar/040301-jendela-utama.png}
-        \caption{Rancangan Halaman Utama}
-        \label{fig:rancangan-jendela-utama}
-    \end{figure}
+
 
     \item \textbf{Jendela Detail Broken Link} \\
     Jendela ini muncul ketika pengguna memilih salah satu tautan rusak pada tabel hasil. Elemen-elemen penting pada jendela ini ditunjukkan pada Gambar~\ref{fig:rancangan-jendela-detail-broken-link} dan dijelaskan sebagai berikut:
@@ -64,6 +60,10 @@ Perancangan antarmuka pengguna dibuat dalam bentuk desain fidelitas tinggi denga
     \begin{enumerate}
         
         \item \textbf{Kolom URL}: menampilkan alamat lengkap dari tautan rusak yang sedang diperiksa.
+        
+        \item \textbf{Kolom \textit{Final} URL}: menampilkan alamat terakhir tautan rusak hasil dari \textit{redirection}.
+        
+        \item \textbf{Kolom \textit{Content Type}}: menampilkan format data dari sumber daya tautan.
         
         \item \textbf{Kolom Status}: menampilkan kode status HTTP dan \textit{reason phrase}.
         
@@ -74,11 +74,18 @@ Perancangan antarmuka pengguna dibuat dalam bentuk desain fidelitas tinggi denga
         \end{enumerate}
     \end{enumerate}
 
+\end{enumerate}
+
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.95\textwidth]{Gambar/040302-jendela-detail-broken-link.png}
+        \includegraphics[width=0.85\textwidth]{Gambar/040301-jendela-utama.png}
+        \caption{Rancangan Halaman Utama}
+        \label{fig:rancangan-jendela-utama}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.85\textwidth]{Gambar/040302-jendela-detail-broken-link.png}
         \caption{Rancangan Jendela Detail Broken Link}
         \label{fig:rancangan-jendela-detail-broken-link}
     \end{figure}
-
-\end{enumerate}
