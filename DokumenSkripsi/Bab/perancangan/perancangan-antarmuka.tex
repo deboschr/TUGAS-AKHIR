@@ -1,4 +1,4 @@
-Perancangan antarmuka pengguna dibuat dalam bentuk desain fidelitas tinggi dengan tujuan untuk memberikan gambaran visual yang mendekati tampilan akhir aplikasi berbasis JavaFX. Perancangan ini mempertimbangkan aspek keterbacaan, konsistensi elemen antarmuka, serta kemudahan interaksi bagi pengguna dalam menjalankan proses pemeriksaan tautan rusak.
+\textit{Perancangan antarmuka} pengguna dibuat dalam bentuk desain fidelitas tinggi dengan tujuan untuk memberikan gambaran visual yang mendekati tampilan akhir aplikasi berbasis JavaFX. Perancangan ini mempertimbangkan aspek keterbacaan, konsistensi elemen antarmuka, serta kemudahan interaksi bagi pengguna dalam menjalankan proses pemeriksaan tautan rusak.
 
 \begin{enumerate}
     \item \textbf{Jendela Utama} \\
@@ -7,29 +7,29 @@ Perancangan antarmuka pengguna dibuat dalam bentuk desain fidelitas tinggi denga
     \vspace{2mm}
     \begin{enumerate}
         
-        \item \textbf{Kolom Masukan URL}: digunakan untuk memasukkan alamat situs web yang akan diperiksa.
+        \item \textbf{Kolom Masukan URL}: Digunakan untuk memasukkan alamat situs web yang akan diperiksa.
         
-        \item \textbf{Tombol Start}: digunakan untuk memulai proses pemeriksaan tautan.
+        \item \textbf{Tombol Start}: Digunakan untuk memulai proses pemeriksaan tautan.
         
-        \item \textbf{Tombol Stop}: menghentikan proses pemeriksaan yang sedang berlangsung.
+        \item \textbf{Tombol Stop}: Digunakan untuk menghentikan proses pemeriksaan.
         
-        \item \textbf{Checking Status}: menampilkan status terkini dari proses pemeriksaan, seperti \textit{Checking}, \textit{Stopped}, atau \textit{Completed}.
+        \item \textbf{Checking Status}: Menunjukkan status terkini dari proses pemeriksaan.
         
-        \item \textbf{Total Links}: menunjukkan jumlah total tautan yang ditemukan selama proses \textit{crawling}.
+        \item \textbf{Total Links}: Menunjukkan jumlah total tautan yang ditemukan selama proses pemeriksaan.
         
-        \item \textbf{Webpage Links}: menunjukkan jumlah tautan yang merupakan halaman situs web.
+        \item \textbf{Webpage Links}: Menunjukkan jumlah tautan yang merupakan halaman situs web.
         
-        \item \textbf{Broken Links}: menunjukkan jumlah tautan rusak yang ditemukan selama proses pemeriksaan.
+        \item \textbf{Broken Links}: Menunjukkan jumlah tautan rusak yang ditemukan.
         
-        \item \textbf{Opsi Filter URL}: digunakan untuk menentukan jenis pencarian pada kolom URL. Opsi yang tersedia adalah:
+        \item \textbf{Opsi Filter URL}: Digunakan untuk menentukan jenis pencarian pada kolom URL. Opsi yang tersedia adalah:
         \begin{itemize}
-            \item \textbf{Equals}: menampilkan hasil dengan URL yang sama persis.
-            \item \textbf{Contains}: menampilkan hasil yang mengandung teks tertentu pada URL.
-            \item \textbf{Starts With}: menampilkan hasil dengan URL yang diawali teks tertentu.
-            \item \textbf{Ends With}: menampilkan hasil dengan URL yang diakhiri teks tertentu.
+            \item \textbf{\textit{Equals}}: Menampilkan hasil dengan URL yang sama persis.
+            \item \textbf{\textit{Contains}}: Menampilkan hasil yang mengandung teks tertentu pada URL.
+            \item \textbf{\textit{Starts With}}: Menampilkan hasil dengan URL yang diawali teks tertentu.
+            \item \textbf{\textit{Ends With}}: Menampilkan hasil dengan URL yang diakhiri teks tertentu.
         \end{itemize}
         
-        \item \textbf{Kolom Masukan Filter URL}: berfungsi untuk memasukkan kata kunci pencarian URL sesuai dengan opsi filter yang dipilih sebelumnya.
+        \item \textbf{Kolom Masukan Filter URL}: Digunakan untuk memasukkan kata kunci pencarian URL sesuai dengan opsi \textit{filter} yang dipilih sebelumnya.
         
         \item \textbf{Opsi Filter Status Code}: digunakan untuk menyaring hasil berdasarkan kategori kode status HTTP. Opsi yang tersedia adalah:
         \begin{itemize}
@@ -55,7 +55,7 @@ Perancangan antarmuka pengguna dibuat dalam bentuk desain fidelitas tinggi denga
 
 
     \item \textbf{Jendela Detail Broken Link} \\
-    Jendela ini muncul ketika pengguna memilih salah satu tautan rusak pada tabel hasil. Elemen-elemen penting pada jendela ini ditunjukkan pada Gambar~\ref{fig:rancangan-jendela-detail-broken-link} dan dijelaskan sebagai berikut:
+    Jendela ini muncul ketika pengguna memilih salah satu tautan rusak pada tabel hasil. Elemen-elemen penting pada jendela ini ditunjukkan pada Gambar~\ref{fig:rancangan-jendela-broken-link} dan dijelaskan sebagai berikut:
     
     \begin{enumerate}
         
@@ -67,25 +67,25 @@ Perancangan antarmuka pengguna dibuat dalam bentuk desain fidelitas tinggi denga
         
         \item \textbf{Kolom Status}: menampilkan kode status HTTP dan \textit{reason phrase}.
         
-        \item \textbf{Tabel Referensi Tautan}: berisi daftar halaman yang menjadi sumber dimana tautan rusak ditemukan, dengan dua kolom utama:
+        \item \textbf{Tabel \textit{Webpage Link}}: berisi daftar halaman yang menjadi sumber dimana tautan rusak ditemukan, dengan dua kolom utama:
         \begin{enumerate}
-            \item \textbf{Anchor Text}: teks tautan yang muncul pada halaman sumber.
+            \item \textbf{Anchor Text}: Teks tautan yang muncul pada halaman sumber.
             \item \textbf{Source Webpage}: URL halaman tempat tautan rusak ditemukan.
         \end{enumerate}
     \end{enumerate}
 
 \end{enumerate}
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.85\textwidth]{Gambar/040301-jendela-utama.png}
-        \caption{Rancangan Halaman Utama}
-        \label{fig:rancangan-jendela-utama}
-    \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Gambar/040301-jendela-utama.png}
+    \caption{Rancangan Halaman Utama}
+    \label{fig:rancangan-jendela-utama}
+\end{figure}
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.85\textwidth]{Gambar/040302-jendela-detail-broken-link.png}
-        \caption{Rancangan Jendela Detail Broken Link}
-        \label{fig:rancangan-jendela-detail-broken-link}
-    \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Gambar/040302-jendela-broken-link.png}
+    \caption{Rancangan Jendela Broken Link}
+    \label{fig:rancangan-jendela-broken-link}
+\end{figure}
