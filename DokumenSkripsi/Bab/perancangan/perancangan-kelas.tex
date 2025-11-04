@@ -1,27 +1,123 @@
-Struktur kelas pada aplikasi \textit{Broken Link Checker} dibagi menjadi tiga \textit{package} utama, yaitu \texttt{Network}, \texttt{Web Crawling}, dan \texttt{GUI Manager}. \textit{Package} \texttt{Network} berisi pustaka eksternal yang digunakan untuk melakukan pengambilan dan pemrosesan konten web. \textit{Package} \texttt{Web Crawling} berisi kelas inti yang mengatur proses pemeriksaan tautan, sedangkan \textit{package} \texttt{GUI Manager} menangani antarmuka pengguna dengan JavaFX. Diagram kelas aplikasi ini dapat dilihat pada Gambar~\ref{fig:class-diagram}.
 
-Berikut adalah penjelasan dari diagram pada Gambar~\ref{fig:class-diagram}:
+Rancangan kelas aplikasi ditampilkan dalam bentuk diagram kelas pada Gambar~\ref{fig:class-diagram}, penjelasan dari setiap kelas adalah sebagai berikut:
 
 \begin{enumerate}
-    \item \textbf{Kelas Jsoup dan OkHttp}\\
-    Kedua kelas ini termasuk dalam \textit{package} \texttt{Network} dan merupakan representasi dari pustaka eksternal yang digunakan oleh aplikasi.
+    \item \textbf{Kelas Application}\\
+    Kelas ini bertanggung jawab untuk memulai aplikasi JavaFX, menyiapkan jendela utama, serta membuka jendela lain seperti detail tautan dan notifikasi.
     \begin{itemize}
-        \item \texttt{Jsoup} : Digunakan untuk mengambil dan mengurai dokumen HTML pada halaman \textit{same-host} menggunakan parser toleran kesalahan.
-        \item \texttt{OkHttp} : Digunakan untuk melakukan permintaan HTTP.
+        \item \texttt{main}: Metode utama untuk menjalankan aplikasi.
+        \item \texttt{start}: Metode untuk menginisialisasi aplikasi.
+        \item \texttt{openMainWindow}: Metode untuk membuka jendela utama aplikasi.
+        \item \texttt{openLinkWindow}: Metode untuk membuka jendela detail tautan.
+        \item \texttt{openNotificationWindow}: Metode untuk membuka jendela notifikasi.
+    \end{itemize}
+
+    \item \textbf{Kelas MainController}\\
+    Kelas ini bertanggung jawab untuk mengendalikan logika antarmuka jendela utama aplikasi.
+    \begin{itemize}
+        \item \texttt{crawler}: Atribut ini menyimpan objek dari kelas \texttt{Crawler} yang menangani proses \textit{crawling}.
+        \item \texttt{summary}: Atribut ini menyimpan objek dari kelas \texttt{Summary} untuk menampilkan rinkasan proses \textit{crawling}.
+        \item \texttt{allLinks}: Atribut ini menyimpan daftar semua tautan yang ditemukan selama proses crawling.
+        \item \texttt{webpageLinks}: Atribut ini menyimpan daftar tautan dari halaman situs web.
+        \item \texttt{brokenLinks}: Atribut ini menyimpan daftar tautan yang terdeteksi rusak.
+        \item \texttt{onStartClick}: Metode untuk menangani \textit{event} ketika tombol \textit{start} ditekan, untuk memulai proses pemeriksaan.
+        \item \texttt{onStopClick}: Metode untuk menangani \textit{event} ketika tombol \textit{stop} ditekan, untuk menghentikan proses pemeriksaan.
+        \item \texttt{onExportClick}: Metode untuk menangani \textit{event} ketika tombol \textit{export} ditekan, untuk mengekspor isi tabel.
+        \item \texttt{setSummaryCard}: Metode untuk mengatur data yang akan ditampilkan pada ringkasan.
+        \item \texttt{setFilterCard}: Metode untuk mengatur logika filter pada tampilan hasil.
+        \item \texttt{setTableView}: Metode untuk menentukan data yang akan ditampilkan pada tabel.
+        \item \texttt{setPagination}: Metode untuk mengatur logika \textit{pagination} untuk tampilan tabel \textit{broken link}.
+    \end{itemize}
+
+    \item \textbf{Kelas LinkController}\\
+    Kelas ini bertanggung jawab untuk mengendalikan logika antarmuka jendela detail tautan.
+    \begin{itemize}
+        \item \texttt{webpageLinks}: Atribut ini menyimpan peta yang berisi pasangan \textit{webpage link} dan \textit{anchor text}
+        \item \texttt{setFieldValue}: Metode untuk menetapkan nilai \textit{field} pada jendela detail tautan.
+        \item \texttt{setTableView}: Metode untuk menentukan data yang akan ditampilkan pada tabel \textit{webpage link}.
+    \end{itemize}
+    
+    \item \textbf{Kelas NotificationController}\\
+    Kelas ini bertanggung jawab untuk mengendalikan logika antarmuka jendela notifikasi. Metode pada kelas ini adalah \texttt{setNotification} yang bertugas untuk menetapkan nilai pada jendela notifikasi.
+
+    \item \textbf{Kelas Crawler}\\
+    Kelas ini bertanggung jawab untuk menjalankan proses \textit{web crawling}.
+    \begin{itemize}
+        \item \texttt{rootHost}: Atribut ini menyimpan \textit{host} dari URL awal yang digunakan untuk membedakan tautan internal dan eksternal.
+        \item \texttt{isStopped}: Atribut ini menyimpan \textit{boolean} yang menandakan apakah proses \textit{crawling} dihentikan oleh pengguna.
+        \item \texttt{frontier}: Atribut ini menyimpan antrean halaman yang akan dikunjungi.
+        \item \texttt{repositories}: Atribut ini menyimpan daftar seluruh tautan yang ditemukan untuk memastikan setiap tautan dikunjungi satu kali.
+        \item \texttt{rateLimiters}: Atribut ini menyimpan peta yang berisi pasangan \textit{host} dan objek kelas \texttt{RateLimiter} untuk membatasi kecepatan \textit{fetching} per-\textit{host}.
+        \item \texttt{linkConsumer}: Atribut ini menyimpan fungsi \textit{callback} untuk mengirim tautan yang ditemukan ke antarmuka pengguna.
+        \item \texttt{OK\_HTTP}: Atribut ini menyimpan objek klien HTTP yang digunakan untuk \textit{fetching} URL.
+        \item \texttt{start}: Metode untuk memulai proses \textit{web crawling}.
+        \item \texttt{stop}: Metode untuk mengentikan proses \textit{web crawling}.
+        \item \texttt{fetchLink}: Metode untuk memeriksa dan melakukan \textit{parse} dokumen HTML.
+        \item \texttt{extractLink}: Metode untuk mengekstraksi seluruh tautan dari sebuah dokumen HTML.
     \end{itemize}
 
     \item \textbf{Kelas Link}\\
-    Kelas \texttt{Link} merepresentasikan satu entitas tautan (URL) yang ditemukan selama proses \textit{crawling}. 
-    Objek \texttt{Link} dapat mewakili halaman web maupun tautan eksternal yang diperiksa statusnya.
+    Kelas ini merepresentasikan tautan yang ditemukan dalam proses \textit{crawling}.
     \begin{itemize}
-        \item \texttt{url} : Menyimpan alamat asli dari tautan.
-        \item \texttt{finalUrl} : Menyimpan URL akhir setelah mengikuti pengalihan (jika ada).
-        \item \texttt{statusCode} : Menyimpan kode status HTTP dari hasil pemeriksaan.
-        \item \texttt{contentType} : Menyimpan tipe konten dari respons HTTP.
-        \item \texttt{error} : Menyimpan keterangan atau pesan kesalahan (jika terjadi).
-        \item \texttt{accessTime} : Menyimpan waktu akses terakhir dalam format \texttt{Instant}.
-        \item \texttt{connections} : Menyimpan relasi ke objek \texttt{Link} lain beserta konteks kemunculannya.
+        \item \texttt{url}: Atribut ini menyimpan URL asli dari tautan.
+        \item \texttt{finalUrl}: Atribut ini menyimpan URL terakhir setelah proses \textit{redirect}.
+        \item \texttt{statusCode}: Atribut ini menyimpan kode status HTTP hasil pemeriksaan.
+        \item \texttt{contentType}: Atribut ini menyimpan jenis konten dari tautan.
+        \item \texttt{error}: Atribut ini menyimpan pesan error jika tautan gagal diperiksa.
+        \item \texttt{connections}: Atribut ini menyimpan peta hubungan antara tautan ini dengan tautan lain beserta \textit{anchor text}-nya.
     \end{itemize}
+
+    \item \textbf{Kelas Summary}\\
+    Kelas ini merepresentasikan ringkasan dari proses \textit{crawling}.
+    \begin{itemize}
+        \item \texttt{status}: Attribute ini menyimpan objek dari enum Status untuk menampilkan status proses \textit{crawling}.
+        \item \texttt{allLinkCount}: Attribute ini menyimpan jumlah seluruh tautan yang ditemukan.
+        \item \texttt{webpageLinkCount}: Attribute ini menyimpan jumlah tautan halaman situs web.
+        \item \texttt{brokenLinkCount}: Attribute ini menyimpan jumlah tautan rusak.
+    \end{itemize}
+
+    \item \textbf{Enum Status}\\
+    Enum ini merepresentasikan status dari proses \textit{crawling}.
+    \begin{itemize}
+        \item \texttt{IDLE}: Proses belum dimulai.
+        \item \texttt{CHECKING}: Proses pemeriksaan sedang berlangsung.
+        \item \texttt{STOPPED}: Proses pemeriksaan dihentikan oleh pengguna.
+        \item \texttt{COMPLETED}: Proses pemeriksaan selesai dilakukan.
+    \end{itemize}
+
+    \item \textbf{Kelas Exporter}\\
+    Kelas ini bertanggung jawab untuk mengekspor hasil pemeriksaan ke berbagai format file.
+    \begin{itemize}
+        \item \texttt{toExcel}: Metode untuk mengekspor hasil ke file Excel.
+        \item \texttt{toJSON}: Metode untuk mengekspor hasil ke file JSON.
+        \item \texttt{toCSV}: Metode untuk mengekspor hasil ke file CSV.
+    \end{itemize}
+    
+    \item \textbf{Kelas RateLimiter}\\
+    Kelas ini bertanggung jawab untuk membatasi kecepatan HTTP \textit{request}.
+    \begin{itemize}
+        \item \texttt{INTERVAL}: Atribut ini menyimpan jarak minimum antar HTTP \textit{request}.
+        \item \texttt{lastRequestTime}: Atribut ini menyimpan waktu terakhir HTTP \textit{request} dilakukan.
+        \item \texttt{delay}: Metode untuk memberikan jeda antar HTTP \textit{request}.
+    \end{itemize}
+    
+    \item \textbf{Kelas UrlHandler}\\
+    Kelas ini bertanggung jawab untuk menyediakan utilitas untuk manipulasi URL.
+    \begin{itemize}
+        \item \texttt{getHost}: Metode untuk mengambil nama \textit{host} dari URL.
+        \item \texttt{normalizeUrl}: Metode untuk menormalkan struktur URL.
+        \item \texttt{normalizePath}: Metode untuk menormalkan struktur \textit{path} URL.
+    \end{itemize}
+    
+    \item \textbf{Kelas HttpStatus}\\
+    Kelas ini bertanggung jawab untuk menyediakan peta kode status HTTP ke \textit{reason phrase} yang sesuai.
+    \begin{itemize}
+        \item \texttt{ERROR\_STATUS\_MAP}: Atribut ini menyimpan peta yang berisi pasangan kode status HTTP dan \textit{reason phrase}.
+        \item \texttt{getErrorStatus}: Metode untuk mengambil kombinasi kode status HTTP dan \textit{reason phrase}.
+    \end{itemize}
+
+\end{enumerate}
+
 
 \begin{figure}[H]
     \centering
@@ -29,63 +125,3 @@ Berikut adalah penjelasan dari diagram pada Gambar~\ref{fig:class-diagram}:
     \caption{Diagram kelas aplikasi}
     \label{fig:class-diagram}
 \end{figure}
-
-    \item \textbf{Kelas Crawler}\\
-    Kelas \texttt{Crawler} termasuk dalam \textit{package} \texttt{Web Crawling} dan merupakan inti dari proses \textit{web crawling}. Kelas ini bertugas mengelola antrean URL, mengambil konten halaman, mengekstrak tautan, serta mengirim hasil pemeriksaan secara \textit{streaming} ke antarmuka pengguna.
-    \begin{itemize}
-        \item \texttt{rootHost} : Atribut bertipe \textit{String} yang menyimpan nama host dari URL awal.
-        \item \texttt{frontier} : Atribut bertipe \textit{Queue<Link>} yang digunakan sebagai antrean URL yang akan diproses.
-        \item \texttt{repository} : Atribut bertipe \textit{Set<String>} yang berisi daftar URL yang sudah pernah dikunjungi untuk mencegah duplikasi pemeriksaan.
-        \item \texttt{checkingStatusConsumer}, \texttt{webpageLinkConsumer}, \texttt{brokenLinkConsumer}, \texttt{linkConsumer} : Atribut bertipe \textit{Consumer} yang digunakan sebagai saluran komunikasi ke \texttt{Controller}.
-        \item \texttt{OK\_HTTP} : Atribut statis bertipe \texttt{OkHttpClient} sebagai klien HTTP utama.
-        \item \texttt{USER\_AGENT} : Atribut statis bertipe \textit{String} untuk identitas permintaan HTTP.
-        \item \texttt{TIMEOUT} : Atribut statis bertipe \textit{int} yang menentukan batas waktu koneksi.
-        \item \texttt{start(seedUrl : String)} : Metode untuk memulai proses \textit{crawling} dari URL awal.
-        \item \texttt{stop()} : Metode untuk menghentikan proses \textit{crawling}.
-        \item \texttt{fetchUrl(url : String, isParseDoc : boolean)} : Metode untuk mengambil konten halaman menggunakan \texttt{Jsoup} atau \texttt{OkHttp}.
-        \item \texttt{normalizeUrl(url : String)} : Metode untuk menormalkan URL agar memiliki format yang konsisten.
-        \item \texttt{extractUrl(doc : Document)} : Metode untuk mengekstrak semua tautan dari suatu dokumen HTML.
-        \item \texttt{getHost(url : String)} : Metode untuk memperoleh host dari sebuah URL.
-        \item \texttt{sendData(consumer : Consumer<T>, data : T)} : Metode generik untuk mengirim data hasil \textit{crawl} ke \texttt{Controller}.
-    \end{itemize}
-
-    \item \textbf{Kelas HttpStatus}\\
-    Kelas \texttt{HttpStatus} berfungsi sebagai kelas utilitas yang memetakan kode status HTTP dengan keterangan resminya.
-    \begin{itemize}
-        \item \texttt{STATUS\_MAP} : Atribut statis bertipe \textit{Map<Integer, String>} yang menyimpan pasangan antara kode status HTTP dan keterangan (\textit{reason phrase}).
-        \item \texttt{getStatus(statusCode : int)} : Metode statis untuk mendapatkan deskripsi teks dari suatu kode status HTTP.
-    \end{itemize}
-
-    \item \textbf{Kelas Controller}\\
-    Kelas \texttt{Controller} termasuk dalam \textit{package} \texttt{GUI Manager} dan berperan sebagai pengendali antarmuka pengguna (UI). Kelas ini mengatur interaksi pengguna dengan aplikasi, memulai proses pemeriksaan tautan, dan memperbarui tampilan hasil secara langsung.
-    \begin{itemize}
-        \item \texttt{crawler} : Atribut bertipe \texttt{Crawler} yang digunakan untuk menjalankan proses pemeriksaan tautan.
-        \item \texttt{summaryCard} : Atribut bertipe \texttt{Summary} yang merepresentasikan model data untuk kartu ringkasan.
-        \item \texttt{totalLinks}, \texttt{webpageLinks}, \texttt{brokenLinks} : Koleksi bertipe \texttt{ObservableList} yang menampung hasil pemeriksaan untuk ditampilkan ke tabel.
-        \item \texttt{initialize()} : Metode yang dijalankan otomatis saat antarmuka dimuat untuk melakukan inisialisasi awal.
-        \item \texttt{onStartClick()} : Metode yang menangani event ketika tombol \textit{Start} ditekan dan memulai proses pemeriksaan tautan.
-        \item \texttt{onStopClick()} : Metode yang digunakan untuk menghentikan proses pemeriksaan yang sedang berjalan.
-        \item \texttt{onExportClick()} : Metode untuk mengekspor hasil pemeriksaan (belum diimplementasikan).
-        \item \texttt{validateSeedUrl(rawUrl : String)} : Metode untuk memvalidasi dan menormalkan URL awal sesuai aturan RFC 3986.
-        \item \texttt{normalizePath(path : String)} : Metode untuk membersihkan segmen path dari karakter titik (dot-segment).
-        \item \texttt{showAlert(message : String)} : Metode utilitas untuk menampilkan pesan informasi di UI.
-    \end{itemize}
-
-    \item \textbf{Kelas Summary}\\
-    Kelas \texttt{Summary} merepresentasikan model data yang menyimpan informasi ringkasan proses pemeriksaan tautan. Kelas ini berelasi dengan \texttt{Controller} untuk menampilkan nilai ke label pada antarmuka pengguna.
-    \begin{itemize}
-        \item \texttt{checkingStatus} : Atribut bertipe \texttt{enum} yang memiliki nilai \texttt{IDLE}, \texttt{CHECKING}, \texttt{STOPPED}, dan \texttt{COMPLETED}.
-        \item \texttt{totalLink} : Menyimpan jumlah total tautan yang diperiksa.
-        \item \texttt{webpageLink} : Menyimpan jumlah halaman web yang berhasil di-\textit{crawl}.
-        \item \texttt{brokenLink} : Menyimpan jumlah tautan rusak yang ditemukan.
-    \end{itemize}
-
-    \item \textbf{Kelas Application}\\
-    Kelas \texttt{Application} merupakan titik masuk (\textit{entry point}) dari program JavaFX. Kelas ini memuat berkas \texttt{FXML} utama dan menginisialisasi objek \texttt{Controller}.
-    \begin{itemize}
-        \item \texttt{main()} : Metode utama untuk menjalankan aplikasi.
-        \item \texttt{start(stage : Stage)} : Metode untuk memuat antarmuka pengguna dan menampilkan jendela utama aplikasi.
-    \end{itemize}
-\end{enumerate}
-
-

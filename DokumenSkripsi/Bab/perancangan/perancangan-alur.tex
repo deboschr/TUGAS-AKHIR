@@ -13,9 +13,9 @@ Perancangan alur menggambarkan interaksi antarobjek pada sistem \textit{Broken L
 Berikut adalah penjelasan dari diagram pada Gambar~\ref{fig:sequence-diagram}:
 
 \begin{enumerate}
-    \item (1) Pengguna memasukkan \textit{seed URL} pada GUI.  
-    \item (2) Pengguna menekan tombol \textit{Check}.  
-    \item (3) GUI memanggil metode \texttt{onCheckClick()} pada \texttt{Controller}.  
+    \item (1) Pengguna memasukkan URL pada GUI.  
+    \item (2) Pengguna menekan tombol \textit{Start}.  
+    \item (3) GUI memanggil metode \texttt{onStartClick()} pada \texttt{MainController}.  
     \item (4) \texttt{Controller} membuat objek \texttt{Crawler} baru.  
     \item (5) \texttt{Crawler} menambahkan URL awal ke \texttt{Frontier} melalui \texttt{enqueueUrl()}.  
     \item (6) \texttt{Controller} memanggil \texttt{startCrawling()} pada \texttt{Crawler}.  
