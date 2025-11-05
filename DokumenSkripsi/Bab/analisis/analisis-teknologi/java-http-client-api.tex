@@ -1,0 +1,22 @@
+% \subsection{Java HTTP Client API}
+% \label{subsec:0304-httpclient}
+
+Selain Jsoup yang digunakan untuk mengambil dan memproses halaman situs web, sistem ini juga membutuhkan mekanisme pemeriksaan terhadap tautan lain, baik tautan eksternal maupun tautan non-halaman (misalnya berkas gambar, skrip, atau sumber daya lain). Untuk kebutuhan ini dipilih Java HTTP Client API, sebagaimana dijelaskan pada Subbab~\ref{sec:02-java-http-client-api}. API ini merupakan bagian resmi dari Java sejak versi 11, sehingga tidak memerlukan pustaka tambahan dan terintegrasi langsung dengan ekosistem bahasa Java.  
+
+Pemanfaatan Java HTTP Client API sejalan dengan beberapa kebutuhan non-fungsional, antara lain penerapan batas waktu (\textit{timeout}) agar pemeriksaan tidak menggantung terlalu lama, pengendalian laju permintaan melalui konfigurasi \texttt{HttpClient}, serta dukungan eksekusi paralel yang memanfaatkan sifat \textit{thread-safe} dari objek \texttt{HttpClient}. Dari sisi fungsional, API ini memungkinkan sistem untuk memperoleh status kode HTTP dari setiap tautan, yang kemudian ditampilkan dengan label yang jelas pada antarmuka (lihat Subsubbab~\ref{subsec:0303-kebutuhan-fungsional} dan Subsubbab~\ref{subsec:0303-kebutuhan-non-fungsional}).
+
+Beberapa kelas dan method utama dari API ini yang digunakan dalam implementasi adalah sebagai berikut:
+
+\begin{itemize}
+  \item \texttt{HttpClient}\\
+  Kelas ini dipakai sebagai titik masuk untuk membangun klien HTTP. Objek dibuat melalui \texttt{HttpClient.newBuilder()}, dengan konfigurasi penting seperti \texttt{version()} untuk memilih protokol HTTP/1.1 atau HTTP/2, \texttt{connectTimeout(Duration)} untuk menetapkan batas waktu koneksi, dan \texttt{followRedirects()} untuk menentukan kebijakan pengalihan. Objek yang dihasilkan bersifat \textit{immutable} dan \textit{thread-safe}, sehingga dapat digunakan secara bersamaan oleh banyak \textit{thread} pemeriksaan.
+
+  \item \texttt{HttpRequest}\\
+  Kelas ini digunakan untuk menyusun permintaan HTTP yang akan dikirim. Metode \texttt{uri(URI)} menentukan alamat tujuan, sementara \texttt{header()} dipakai untuk menyertakan informasi tambahan seperti \texttt{User-Agent}. Jenis operasi HTTP ditentukan dengan \texttt{method()} atau \texttt{GET()}, sedangkan \texttt{timeout(Duration)} memastikan setiap permintaan memiliki batas waktu pemrosesan.
+
+  \item \texttt{HttpResponse}\\
+  Objek ini merepresentasikan hasil tanggapan dari server. Informasi utama yang digunakan adalah kode status HTTP melalui \texttt{statusCode()}, \textit{header} melalui \texttt{headers()}, serta isi respon melalui \texttt{body()}. Data ini akan dicatat dan ditampilkan pada antarmuka, termasuk untuk mengidentifikasi tautan rusak (misalnya dengan status 404) atau tautan yang terblokir.
+
+  \item \texttt{HttpHeaders}\\
+  Digunakan untuk membaca seluruh \textit{header} dari respon, misalnya \texttt{Content-Type} atau \texttt{Set-Cookie}. Informasi ini relevan untuk analisis tambahan, namun yang paling penting adalah mendukung pelabelan hasil pemeriksaan agar pengguna dapat memahami konteks status setiap tautan.
+\end{itemize}

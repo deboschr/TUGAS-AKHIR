@@ -1,0 +1,165 @@
+Java HTTP Client API secara garis besar adalah sebuah API dari Java yang digunakan untuk mengirim \textit{request} dan menerima \textit{response} melalui protokol HTTP. API ini pertama kali diperkenalkan pada Java 9 dengan nama \texttt{jdk.incubator.httpclient} sebagai \textit{incubating module}, yaitu modul percobaan yang digunakan untuk memperkenalkan API baru sebelum akhirnya ditetapkan sebagai bagian resmi dari Java 11. Java HTTP Client API mendukung penggunaan protokol HTTP/1.1 dan HTTP/2. Secara bawaan, pemilihan versi protokol dilakukan secara otomatis, di mana \texttt{HttpClient} akan mencoba menggunakan HTTP/2 terlebih dahulu dan melakukan \textit{fallback} ke HTTP/1.1 apabila server tidak mendukung HTTP/2. Selain mekanisme bawaan tersebut, pengembang juga dapat menetapkan versi protokol secara eksplisit melalui metode yang tersedia pada kelas \texttt{HttpClient}.
+
+Selain mendukung dua versi protokol HTTP, API ini juga menyediakan dua model komunikasi, yaitu sinkron dan asinkron. Komunikasi sinkron berarti eksekusi program akan menunggu hingga \textit{response} (\textit{response}) dari server diterima sepenuhnya sebelum melanjutkan instruksi berikutnya. Sebaliknya, komunikasi asinkron menggunakan kelas \texttt{CompletableFuture}, yang memungkinkan hasil komputasi diperoleh di masa mendatang tanpa harus menunggu proses selesai. Objek \texttt{HttpClient} dalam API ini juga memiliki karakteristik penting untuk penggunaan di lingkungan \textit{multithreaded}. Objek ini bersifat \textit{immutable}, artinya konfigurasi tidak dapat diubah setelah dibuat, serta bersifat \textit{thread-safe}, artinya dapat diakses secara bersamaan oleh beberapa \textit{thread} tanpa menimbulkan \textit{race condition}.
+
+\subsection{\texttt{HttpClient}}
+\label{subsec:0228-httpclient}
+
+Kelas \texttt{HttpClient} merupakan komponen inti dalam Java HTTP Client API yang digunakan untuk mengirim \textit{request} HTTP dan menerima \textit{response} dari server. Objek dari kelas ini dapat dibuat dengan menggunakan \textit{static method} \texttt{newHttpClient} dengan konfigurasi bawaan yang siap pakai, atau bisa menggunakan \textit{static method} \texttt{newBuilder} apabila ingin membuat objek dengan konfigurasi yang disesuaikan.
+
+Berikut ini adalah beberapa \textit{method} untuk menetapkan konfigurasi, yang tersedia pada objek \textit{builder} \texttt{newBuilder}:
+
+\begin{itemize}
+    \item \texttt{version}\\
+    \textit{Method} ini berfungsi untuk menentukan versi protokol HTTP yang akan digunakan, yaitu \texttt{HTTP\_1\_1} atau \texttt{HTTP\_2}. Nilai yang diberikan berasal dari enum \texttt{HttpClient.Version}. Dengan pengaturan ini, klien dapat diarahkan untuk selalu memakai versi tertentu atau menyesuaikan melalui negosiasi otomatis dengan server. Pengaturan versi yang jelas membantu menjaga konsistensi komunikasi dan mencegah terjadinya ketidakcocokan protokol antara klien dan server.
+    
+    \item \texttt{connectTimeout}\\
+    \textit{Method} ini menerima sebuah objek \texttt{Duration} yang menyatakan batas waktu maksimal dalam membangun koneksi ke server. Jika dalam jangka waktu tersebut koneksi tidak berhasil dibuat, maka proses akan dihentikan dan menghasilkan \textit{exception}. Dengan demikian, aplikasi tidak akan menggantung terlalu lama ketika mencoba mengakses server yang tidak responsif.
+    
+    \item \texttt{cookieHandler}\\
+    \textit{Method} ini digunakan untuk menetapkan objek \texttt{CookieHandler} yang akan menangani manajemen \textit{cookie} selama komunikasi antara \textit{client} dan \textit{server}. Ketika sebuah \textit{request} atau \textit{response} berisi \textit{cookie}, objek \texttt{CookieHandler} akan menyimpan, memperbarui, dan mengirimkan kembali \textit{cookie} tersebut sesuai aturan yang ditentukan. Dengan pengaturan ini, \textit{client} dapat mempertahankan sesi secara otomatis, mirip dengan perilaku \textit{browser} yang menyimpan \textit{cookie} dan menggunakannya kembali pada \textit{request} berikutnya.
+
+    \item \texttt{followRedirects}\\
+    \textit{Method} ini mengatur kebijakan ketika server memberikan instruksi \textit{redirect}. Parameter yang digunakan adalah nilai dari enum \texttt{HttpClient.Redirect}, seperti \texttt{ALWAYS} untuk selalu mengikuti \textit{redirect}, \texttt{NEVER} untuk tidak pernah mengikuti, dan \texttt{NORMAL} untuk selalu mengikuti \textit{redirect}, kecuali dari URL dengan \textit{scheme} HTTPS ke HTTP.
+    
+    \item \texttt{authenticator}\\
+    \textit{Method} ini digunakan untuk menetapkan sebuah objek \texttt{Authenticator} yang akan dipanggil ketika server meminta autentikasi. Misalnya, saat server meminta kredensial melalui HTTP Basic Authentication, objek ini dapat menyediakan username dan password. Dengan demikian, akses ke sumber daya yang dilindungi dapat dilakukan secara otomatis tanpa perlu intervensi manual.
+    
+    \item \texttt{build}\\
+    Setelah seluruh konfigurasi ditentukan, \textit{method} ini dipanggil untuk menghasilkan sebuah objek \texttt{HttpClient} yang siap digunakan. Objek ini bersifat \textit{immutable}, artinya setelah dibangun, konfigurasi tidak dapat diubah lagi, sehingga memastikan konsistensi perilaku selama penggunaan.
+\end{itemize}
+
+Selain \textit{static method}, kelas \texttt{HttpClient} juga menyediakan sejumlah \textit{instance method} yang digunakan secara langsung pada objek hasil \textit{build}. Salah satu yang paling penting adalah \texttt{send}, yaitu \textit{method} yang menjalankan sebuah \textit{request} HTTP secara sinkron. \textit{Method} ini menerima parameter berupa objek \texttt{HttpRequest} dan \texttt{HttpResponse.BodyHandler}, kemudian mengeksekusi \textit{request} hingga selesai dan mengembalikan objek \texttt{HttpResponse} yang berisi \textit{status code}, \textit{header}, serta isi \textit{response body}. Selain itu, terdapat juga \textit{method} \texttt{sendAsync} yang bekerja secara asinkron. Sama seperti \texttt{send}, \textit{method} ini menerima objek \texttt{HttpRequest} dan \texttt{HttpResponse.BodyHandler}, namun alih-alih langsung menghasilkan \texttt{HttpResponse}, \textit{method} ini mengembalikan sebuah \texttt{CompletableFuture} yang merepresentasikan hasil \textit{response} yang akan tersedia di kemudian waktu.
+
+
+
+\subsection{\texttt{HttpRequest}}
+\label{subsec:0228-httprequest}
+
+
+Kelas \texttt{HttpRequest} merepresentasikan sebuah \textit{request} HTTP yang akan dikirim menggunakan \texttt{HttpClient}. Objek dari kelas ini bersifat \textit{immutable}, sehingga setiap konfigurasi harus ditentukan terlebih dahulu melalui \texttt{HttpRequest.Builder} sebelum \textit{request} dibangun. Setelah dibuat, konfigurasi sebuah \texttt{HttpRequest} tidak dapat diubah lagi.
+
+Untuk membangun sebuah \texttt{HttpRequest}, dapat digunakan \textit{static method} \texttt{newBuilder} yang menghasilkan objek \texttt{HttpRequest.Builder}. Pada \textit{builder} ini tersedia sejumlah \textit{method} yang digunakan untuk menetapkan konfigurasi permintaan:
+
+\begin{itemize}
+    \item \texttt{uri}\\
+    \textit{Method} ini digunakan untuk menentukan alamat tujuan dari \textit{request} HTTP dalam bentuk objek \texttt{java.net.URI}. URI bersifat wajib karena menentukan ke mana \textit{request} akan dikirim.
+    
+    \item \texttt{header} dan \texttt{headers}\\
+    \textit{Method} \texttt{header} menetapkan satu pasangan \textit{name-value} sebagai \textit{header}, sedangkan \texttt{headers} digunakan untuk menetapkan beberapa pasangan sekaligus. Header merupakan informasi tambahan yang menyertai permintaan, seperti \texttt{Content-Type} atau \texttt{Authorization}.
+    
+    \item \texttt{timeout}\\
+    \textit{Method} ini menerima parameter berupa objek \texttt{Duration} untuk menentukan batas waktu maksimal pemrosesan permintaan. Jika respons tidak diterima dalam waktu yang ditetapkan, maka akan terjadi \textit{timeout}.
+    
+    \item \texttt{version}\\
+    \textit{Method} ini digunakan untuk menentukan versi protokol HTTP yang akan digunakan pada \textit{request} tertentu. Nilai yang diberikan berupa enum \texttt{HttpClient.Version}.
+    
+    \item \texttt{expectContinue}\\
+    \textit{Method} ini mengatur apakah \textit{request} menggunakan mekanisme \textit{Expect: 100-continue}. Jika diset true, client akan mengirim \textit{header} terlebih dahulu dan menunggu konfirmasi dari server sebelum mengirim isi \textit{request body}. Mekanisme ini berguna untuk \textit{request} dengan \textit{request body} berukuran besar.
+    
+    \item \texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE}, dan \texttt{method}\\
+    \textit{Methods} ini menentukan jenis operasi HTTP yang akan dilakukan. \texttt{GET} dan \texttt{DELETE} tidak menyertakan \textit{request body}, sementara \texttt{POST} dan \texttt{PUT} membutuhkan objek \texttt{BodyPublisher} untuk mendefinisikan data yang akan dikirim melalui \textit{request body}. \textit{Method} generik \texttt{method} memungkinkan penentuan jenis operasi lain seperti PATCH dan HEAD.
+
+    
+    \item \texttt{build}\\
+    Setelah semua konfigurasi ditetapkan, \textit{method} ini dipanggil untuk menghasilkan sebuah objek \texttt{HttpRequest} yang siap digunakan oleh \texttt{HttpClient}.
+\end{itemize}
+
+
+
+\subsection{\texttt{HttpResponse}}
+\label{subsec:0228-httpresponse}
+
+Kelas \texttt{HttpResponse} merepresentasikan \textit{response} yang diterima setelah sebuah \textit{request} dieksekusi oleh \texttt{HttpClient}. Kelas ini menggunakan parameter generik \texttt{<T>} yang menunjukkan tipe data dari isi \textit{response body}. Nilai generik ini ditentukan oleh \texttt{HttpResponse.BodyHandler} yang digunakan saat mengirim permintaan.
+
+Beberapa \textit{method} penting yang tersedia pada \texttt{HttpResponse} antara lain:
+
+\begin{itemize}
+    \item \texttt{statusCode}\\
+    Mengembalikan nilai berupa bilangan bulat yang merepresentasikan HTTP \textit{status code} dari \textit{response}, misalnya \texttt{200} untuk \textit{OK} atau \texttt{404} untuk \textit{Not Found}.
+    
+    \item \texttt{headers}\\
+    Mengembalikan objek \texttt{HttpHeaders} yang berisi seluruh \textit{header} dari \textit{response}. Setiap \textit{header} dapat diakses berdasarkan nama dan dapat memiliki lebih dari satu nilai.
+    
+    \item \texttt{body}\\
+    Mengembalikan isi \textit{response body} dengan tipe data sesuai parameter generik \texttt{<T>}. Contohnya, jika menggunakan \texttt{BodyHandler<String>}, maka \textit{response body} akan dikembalikan dalam bentuk string.
+    
+    \item \texttt{previousResponse}\\
+    Mengembalikan objek \texttt{Optional<HttpResponse<T>>} yang berisi \textit{response} sebelumnya apabila terjadi \textit{redirect}. Jika tidak ada, nilai yang dikembalikan adalah kosong.
+    
+    \item \texttt{sslSession}\\
+    Mengembalikan informasi sesi SSL dalam bentuk \texttt{Optional<SSLSession>} jika koneksi dilakukan melalui protokol HTTPS.
+    
+    \item \texttt{uri}\\
+    Mengembalikan objek \texttt{URI} yang merepresentasikan alamat tujuan akhir dari permintaan, termasuk setelah terjadi \textit{redirect}.
+    
+    \item \texttt{version}\\
+    Mengembalikan versi protokol HTTP yang digunakan pada komunikasi, berupa nilai dari enum \texttt{HttpClient.Version}.
+    
+    \item \texttt{request}\\
+    Mengembalikan objek \texttt{HttpRequest} yang digunakan untuk menghasilkan \textit{response} ini.
+\end{itemize}
+
+
+
+\subsection{\texttt{HttpHeaders}}
+\label{subsec:0228-httpheaders}
+
+Kelas \texttt{HttpHeaders} merepresentasikan kumpulan \textit{header} yang terdapat pada \textit{request} maupun \textit{response} HTTP. Objek dari kelas ini bersifat \textit{immutable}, sehingga nilai yang tersimpan tidak dapat diubah setelah dibuat. Setiap \textit{header} dapat memiliki lebih dari satu nilai, dan semua nilai disimpan dalam struktur yang mempertahankan urutan kemunculannya.
+
+Beberapa \textit{method} penting yang tersedia pada \texttt{HttpHeaders} antara lain:
+
+\begin{itemize}
+    \item \texttt{firstValue}\\
+    Mengembalikan nilai pertama dari \textit{header} dengan nama tertentu dalam bentuk \textit{string}. \textit{Method} ini berguna ketika hanya satu nilai yang relevan dari sebuah \textit{header} yang mungkin memiliki banyak nilai.
+    
+    \item \texttt{allValues}\\
+    Mengembalikan seluruh nilai dari \textit{header} dengan nama tertentu dalam bentuk daftar. \textit{Method} ini digunakan ketika sebuah \textit{header} dapat berisi lebih dari satu nilai.
+    
+    \item \texttt{map}\\
+    Mengembalikan seluruh isi \textit{header} dalam bentuk struktur \texttt{Map<String, List<String>>}, dengan setiap kunci berupa nama \textit{header} dan nilainya berupa daftar nilai terkait. Dengan cara ini, semua \textit{header} dan nilainya dapat diakses secara langsung.
+\end{itemize}
+
+
+\subsection{Contoh Kode Program}
+\label{subsec:0228-contoh-kode-program}
+
+Kode~\ref{lst:httpclient-example} menunjukkan contoh penggunaan Java HTTP Client API untuk melakukan permintaan HTTP ke sebuah alamat web dan menampilkan hasil tanggapannya. Kode ini ditulis untuk menggambarkan bagaimana kelas-kelas utama yang telah dijelaskan sebelumnya, yaitu \texttt{HttpClient}, \texttt{HttpRequest}, \texttt{HttpResponse}, dan \texttt{HttpHeaders}, digunakan secara bersama-sama dalam sebuah program nyata. Hasil eksekusi dari kode ini berupa informasi \textit{status code}, daftar \textit{header}, serta isi \textit{response body} yang diterima dari server tujuan.
+
+\begin{lstlisting}[language=Java, caption={Contoh penggunaan Java HTTP Client API}, label={lst:httpclient-example}]
+public class HttpClientExample {
+    public static void main(String[] args) throws Exception {
+        // Membangun HttpClient dengan konfigurasi yang relevan
+        HttpClient client = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_2)
+                .connectTimeout(Duration.ofSeconds(5))
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build();
+
+        // Menyusun HttpRequest: URI, header, timeout, dan method GET
+        HttpRequest request = HttpRequest.newBuilder(URI.create("https://informatika.unpar.ac.id"))
+                .header("User-Agent", "BrokenLinkChecker 1.0")
+                .timeout(Duration.ofSeconds(10))
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(
+                request, HttpResponse.BodyHandlers.ofString()
+        );
+
+        System.out.println("Status Code : " + response.statusCode());
+
+        HttpHeaders headers = response.headers();
+        Map<String, List<String>> headerMap = headers.map();
+        for (Map.Entry<String, List<String>> e : headerMap.entrySet()) {
+            String name = e.getKey();
+            String values = String.join(", ", e.getValue());
+            System.out.println(name + ": " + values);
+        }
+
+        System.out.println("Body        : " + response.body());
+    }
+}
+\end{lstlisting}
+
+Alur dari Kode~\ref{lst:httpclient-example} dimulai dengan pembuatan objek \texttt{HttpClient} melalui \texttt{newBuilder()} dan penetapan beberapa konfigurasi, yaitu versi protokol HTTP melalui \texttt{version()}, batas waktu koneksi dengan \texttt{connectTimeout()}, serta kebijakan \textit{redirect} menggunakan \texttt{followRedirects()}. Setelah itu dipanggil \texttt{build()} untuk menghasilkan objek \texttt{HttpClient}. Berikutnya, sebuah \texttt{HttpRequest} dibangun dengan \texttt{HttpRequest.newBuilder(URI)} untuk menentukan alamat tujuan, kemudian ditambahkan informasi tambahan melalui \texttt{header()}, ditetapkan batas waktu menggunakan \texttt{timeout()}, dan jenis operasi HTTP dipilih dengan \texttt{GET()}, lalu diselesaikan dengan \texttt{build()}. Permintaan tersebut dikirim menggunakan \texttt{HttpClient.send()} dengan parameter \texttt{HttpResponse.BodyHandlers.ofString()}, sehingga isi \textit{response body} diproses menjadi \textit{string}. Hasil eksekusi berupa objek \texttt{HttpResponse} yang menyediakan \textit{status code}, kumpulan \textit{header}, serta isi \textit{response body}. Daftar \textit{header} diperoleh dari \texttt{HttpHeaders.map()}, kemudian ditampilkan seluruhnya dalam bentuk pasangan \textit{name-value}, diikuti dengan pencetakan isi \textit{response body}.
