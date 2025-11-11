@@ -368,17 +368,23 @@
     TextField,TextArea,ImageView,TableView,TableColumn},
   morestring=[b]",
   morecomment=[s]{<!--}{-->},
+  commentstyle=\color{green!50!black}\itshape,
+  moredelim=[s][\color{black}]{>}{<},
   sensitive=true,
 }
+
+
 
 % ------------------ CSS ------------------
 \lstdefinelanguage{CSS}{
   morekeywords={color,background,margin,padding,border,display,flex,align,justify,font,
     position,top,bottom,left,right,width,height,min-width,min-height,max-width,max-height,
     content,grid,transition,animation,transform,box-shadow,overflow,visibility,opacity},
+  sensitive=true,
   morecomment=[s]{/*}{*/},
   morestring=[b]",
-  sensitive=true,
+  alsoletter={:},
+  moredelim=[s][\color{redstrings}]{:}{;},
 }
 
 % ------------------ Style umum ------------------
