@@ -343,25 +343,59 @@
 \setlist{nosep}
 %=============================================================================
 
+% Pewarnaan tambahan untuk kode program Java, FXML, dan CSS
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{bluekeywords}{rgb}{0.0,0.0,0.7}
+\definecolor{greencomments}{rgb}{0.0,0.5,0.0}
+\definecolor{redstrings}{rgb}{0.6,0,0}
 
+% ------------------ JAVA ------------------
+\lstdefinelanguage{Java}{
+  morekeywords={abstract,assert,boolean,break,byte,case,catch,char,class,const,continue,
+    default,do,double,else,enum,extends,false,final,finally,float,for,goto,if,implements,
+    import,instanceof,int,interface,long,native,new,null,package,private,protected,public,
+    return,short,static,strictfp,super,switch,synchronized,this,throw,throws,transient,true,
+    try,void,volatile,while,var},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+}
 
-\lstdefinelanguage{Groovy}{
-    keywords={
-        abstract, as, assert, break, case, catch, class, const, continue,
-        def, default, do, else, enum, extends, false, final, finally, for,
-        goto, if, implements, import, in, instanceof, interface, new, null,
-        package, private, protected, public, return, static, super, switch,
-        this, throw, throws, trait, true, try, while, var
-    },
-    morekeywords={
-        id, implementation, testImplementation, repositories, dependencies,
-        mavenCentral, plugins, application
-    },
-    sensitive=true,
-    comment=[l]{//},
-    morecomment=[s]{/*}{*/},
-    commentstyle=\color{green!50!black}\itshape,
-    stringstyle=\color{red!70!black},
-    morestring=[b]',
-    morestring=[b]",
+% ------------------ FXML (XML) ------------------
+\lstdefinelanguage{FXML}{
+  morekeywords={fx,fx:controller,xmlns,AnchorPane,GridPane,Pane,HBox,VBox,Label,Button,
+    TextField,TextArea,ImageView,TableView,TableColumn},
+  morestring=[b]",
+  morecomment=[s]{<!--}{-->},
+  sensitive=true,
+}
+
+% ------------------ CSS ------------------
+\lstdefinelanguage{CSS}{
+  morekeywords={color,background,margin,padding,border,display,flex,align,justify,font,
+    position,top,bottom,left,right,width,height,min-width,min-height,max-width,max-height,
+    content,grid,transition,animation,transform,box-shadow,overflow,visibility,opacity},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  sensitive=true,
+}
+
+% ------------------ Style umum ------------------
+\lstset{
+  backgroundcolor=\color{white},
+  basicstyle=\fontfamily{fvm}\selectfont\footnotesize,
+  keywordstyle=\color{bluekeywords}\bfseries,
+  commentstyle=\color{greencomments}\itshape,
+  stringstyle=\color{redstrings},
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  stepnumber=1,
+  numbersep=6pt,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{gray},
+  captionpos=t,
+  tabsize=4
 }
