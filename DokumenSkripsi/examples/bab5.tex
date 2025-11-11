@@ -1,0 +1,248 @@
+\chapter{Implementasi dan Pengujian}
+\label{chap:implementasiPengujian}
+\section{Implementasi}
+
+Bab ini terdiri dari dua bagian, yaitu Implementasi Perangkat Lunak dan Pengujian Perangkat Lunak. Bagian implementasi berisi penjelasan lingkungan pengembangan perangkat lunak dan hasil implementasi. Sedangkan bagian pengujian berisi hasil pengujian fungsional dan eksperimental terhadap perangkat lunak yang telah dibangun.
+\subsection{Lingkungan Implementasi}
+		\label{sec:lingkungan_implementasi}
+			Implementasi perangkat lunak ini dilakukan di komputer penulis dengan spesifikasi berikut :
+				\begin{enumerate}
+					\item Processor: Intel Core i5 9400F
+					\item RAM: 8.00 GB DDR4 
+					\item Sistem Operasi: Windows 10
+					\item Versi Android Software Development Kit : API 29 (Android 10.0(Q))
+					\item Versi Java : Java 8
+				\end{enumerate}
+\subsection{Hasil Implementasi}
+Hasil implementasi berupa aplikasi \textit{Android} IFStudentPortal. Aplikasi akan dapat diunduh melalui \textit{Google Play Store}. Namun saat ini penyebaran aplikasi belum dilakukan melalui layanan \textit{Google Play Store} karena ada masalah terkait \textit{digital signature key} yang dipakai untuk merilis aplikasi di \textit{Google Play Store}. Saat skripsi ini ditulis, peneliti sudah meminta bantuan teknis ke pihak \textit{Google Play Store} agar dikemudian hari aplikasi bisa dirilis di \textit{Google Play Store}\footnote{Bantuan teknis sudah diajukan pada tanggal 25 Juni 2021}. Aplikasi IFStudentPortal terdiri dari 6 halaman yaitu:
+			\begin{enumerate}	 
+			    \item\textbf{Halaman \textit{Splash Screen}}\\
+				Halaman \textit{splash screen} ditampilkan saat pengguna membuka aplikasi di perangkat bergerak. Pada halaman ini, ditampilkan animasi berlogo Teknik Informatika UNPAR. Tangkapan layar dari halaman animasi dapat dilihat pada Gambar \ref{fig:anim}.
+				
+				\item\textbf{Halaman \textit{Login}}\\
+				Halaman \textit{login} digunakan pengguna untuk masuk ke dalam aplikasi. Pada halaman ini, pengguna dapat melakukan \textit{login} dengan mengisi \textit{email} pada kolom \textit{email} dan \textit{password} pada kolom \textit{password} kemudian mengklik tombol login. Tangkapan layar dari halaman \textit{login} dapat dilihat pada Gambar \ref{fig:login}.
+				
+				\item\textbf{Halaman \textit{Home} / Halaman Utama }\\
+				Halaman utama ini ditampilkan saat pengguna berhasil melakukan \textit{login}. Pada halaman ini, pengguna dapat melihat informasi profil pengguna seperti nama, npm, dan foto profil. Pada halaman ini terdapat tombol-tombol untuk mengakses fitur yang ada seperti jadwal, syarat kelulusan, dan persiapan perwalian. Tangkapan layar dari halaman utama dapat dilihat pada Gambar \ref{fig:home}.
+
+				\item\textbf{Halaman Jadwal}\\
+				Halaman jadwal ini ditampilkan saat pengguna menekan tombol jadwal di halaman utama. Pada halaman ini, pengguna dapat melihat informasi jadwal kuliah pengguna dalam bentuk grafik yang ter-urut berdasarkan hari. Jadwal dapat ditekan seperti tombol untuk melihat informasi detail mata kuliah tersebut. Tangkapan layar dari halaman jadwal dapat dilihat pada Gambar \ref{fig:jadwal}.
+
+				\item\textbf{Halaman Persiapan Perwalian}\\
+				Halaman persiapan perwalian ini ditampilkan saat pengguna menekan persiapan perwalian di halaman utama. Pada halaman ini, pengguna dapat melihat informasi mata kuliah pengguna dalam bentuk tabel dengan keterangan mata kuliah tersebut. Untuk setiap mata kuliah akan terdapat salah 1 keterangan antara sudah lulus, tidak memiliki prasyarat, belum memenuhi prasyarat, atau sudah memenuhi prasyarat. Tangkapan layar dari halaman persiapan perwalian dapat dilihat pada Gambar \ref{fig:perwalian}.
+
+				\item\textbf{Halaman Syarat Kelulusan}\\
+				Halaman syarat kelulusan ini ditampilkan saat pengguna menekan tombol syarat kelulusan di halaman utama. Pada halaman ini, pengguna dapat melihat informasi syarat-syarat kelulusan dan statusnya dalam bentuk tabel. Tangkapan layar dari halaman syarat kelulusan dapat dilihat pada Gambar \ref{fig:lulus}.
+				\end{enumerate}
+						\begin{figure}[H]
+\centering
+   \begin{subfigure}{0.49\linewidth} \centering
+     \includegraphics[scale=0.2]{Gambar/antarmuka_animasi.jpg}
+     \caption{Halaman \textit{splash screen.}}\label{fig:anim}
+   \end{subfigure}
+   \begin{subfigure}{0.49\linewidth} \centering
+     \includegraphics[scale=0.2]{Gambar/antarmuka_login.jpg}
+     \caption{Halaman \textit{login}.}\label{fig:login}
+   \end{subfigure}
+\caption{Tangkapan layar IFStudentPortal} \label{fig:twofigs1}
+\end{figure}
+						\begin{figure}[H]
+\centering
+   \begin{subfigure}{0.49\linewidth} \centering
+     \includegraphics[scale=0.2]{Gambar/antarmuka_home.jpg}
+      \caption{Halaman utama.}\label{fig:home}
+   \end{subfigure}
+   \begin{subfigure}{0.49\linewidth} \centering
+     \includegraphics[scale=0.2]{Gambar/antarmuka_jadwal.jpg}
+      \caption{Halaman jadwal.}\label{fig:jadwal}
+   \end{subfigure}
+\caption{Tangkapan layar IFStudentPortal} \label{fig:twofigs2}
+\end{figure}
+						\begin{figure}[H]
+\centering
+   \begin{subfigure}{0.49\linewidth} \centering
+     \includegraphics[scale=0.2]{Gambar/antarmuka_prasyarat.jpg}
+      \caption{Halaman persiapan perwalian.}\label{fig:perwalian}
+   \end{subfigure}
+   \begin{subfigure}{0.49\linewidth} \centering
+     \includegraphics[scale=0.2]{Gambar/antarmuka_kelulusan.jpg}
+      \caption{Halaman syarat kelulusan.}\label{fig:lulus}
+   \end{subfigure}
+\caption{Tangkapan layar IFStudentPortal} \label{fig:twofigs3}
+\end{figure}				
+            
+\section{Pengujian}
+    \subsection{Pengujian Fungsional}
+    Pengujian fungsional dilakukan untuk mengetahui kesesuaian reaksi perangkat lunak dengan reaksi yang diharapkan berdasarkan aksi pengguna terhadap perangkat lunak. Pengujian ini dilakukan pada berbagai perangkat bergerak Android dan memberikan hasil yang sama. Perangkat untuk pengujian fungsional ini adalah Google Pixel 2 dengan versi \textit{Android 9 (Pie)}, Google Pixel 2 dengan versi \textit{Android 10 (Q)}, Google Pixel 2 dengan versi \textit{Android 11 (R)}, dan OPPO F7 dengan versi \textit{Android 10 (Q)}. Ketiga perangkat Google Pixel 2 adalah simulator perangkat dari \textit{Android Studio}, sedangkan perangkat OPPO F7 adalah \textit{smart phone} milik penulis. Terdapat enam tes kasus yang diujikan, detail serta hasilnya dapat dilihat pada Tabel \ref{table:hasilFungsional}.
+	
+	\begin{table}[H]
+			\centering
+			\caption{Tabel Pengujian Fungsional}
+				\begin{tabular}{|p{0.25cm}| p{3.5cm}| p{5cm}| p{3cm}| p{2cm}|} \hline
+				No.	&	Aksi Pengguna	&	Reaksi yang diharapkan	&	Reaksi Perangkat Lunak & Status\\ \hline
+				1.	&	Pengguna menjalankan aplikasi	&	Animasi pembuka dimulai dan halaman \textit{login} akan ditampilkan	&	Sesuai	& Terpenuhi\\ \hline
+				2.	&	Pengguna memasukkan nomor pokok mahasiswa dan \textit{password}	&	Jika nomor pokok mahasiswa dan \textit{password} sesuai, pengguna akan diarahkan ke halaman utama. & sesuai, namun foto profil tidak muncul jika foto profil di  Portal Akademik Mahasiswa tidak tersedia & Terpenuhi\\ \hline
+					&	&	Jika nomor pokok mahasiswa yang dimasukkan bukan nomor pokok mahasiswa teknik informatika, akan ditampilkan pesan ``Bukan NPM Mahasiswa Teknik Informatika UNPAR''	& Sesuai	& Terpenuhi	\\ \hline
+					&	&	Jika nomor pokok mahasiswa dan \textit{password} tidak sesuai, akan ditampilkan pesan ``NPM / Password salah!''	&	Sesuai	& Terpenuhi	\\ \hline
+				3.	&	Pengguna memilih menu ``Persiapan Perwalian'' &	Jika pengguna sudah memiliki riwayat nilai	akan ditampilkan tabel prasyarat mata kuliah beserta status pengambilannya	&	Sesuai	& Terpenuhi	\\ \hline
+				4.	&	Pengguna memilih menu ``Jadwal Kuliah'' &	Jika pengguna belum melakukan FRS, cuti studi, atau jadwal kuliah pengguna belum tersedia, akan ditampilkan pesan ``JADWAL KULIAH BELUM TERSEDIA'' &	Sesuai	& Terpenuhi	\\ \hline
+					&	&	Jika jadwal kuliah pengguna sudah tersedia, akan ditampilkan jadwal kuliah dalam bentuk kalendar yang sudah diurutkan berdasarkan hari &	Sesuai	& Terpenuhi	\\ \hline
+				5.	&	Pengguna memilih menu ``Kelulusan'' &	Jika pengguna sudah memiliki riwayat nilai, akan ditampilkan ringkasan data akademik mahasiswa berupa IPS semester terakhir, IPK, SKS lulus, sisa SKS kelulusan, dan ringkasan data mata kuliah pilihan dan wajib & Sesuai	& Terpenuhi	\\ \hline
+				6.	&	Pengguna memilih tombol \textit{log out}	&	Pengguna akan diarahkan kembali ke halaman \textit{login} &	Sesuai	& Terpenuhi	\\ \hline
+				
+				\end{tabular}
+				\label{table:hasilFungsional}
+			\end{table}
+		
+		Selain pengujian fungsional, dilakukan juga pengujian untuk mengetahui apakah aplikasi yang dibuat sudah mengikuti panduan \textit{Material Design} dan panduan kualitas aplikasi. Pada tabel \ref{tab:material} dipaparkan kesesuaian aplikasi dengan panduan \textit{Material Design}. Pada tabel \ref{tab:kualitas} dipaparkan kesesuaian aplikasi dengan panduan kualitas aplikasi. 
+		\begin{table}[H]
+			\centering
+			\caption{Tabel Pemenuhan Panduan \textit{Material Design}}
+				\begin{tabular}{|p{0.25cm}| p{1.25cm}| p{5.5cm}| p{5.5cm}| p{2cm}|} \hline
+				No.	&	Kode	&	Panduan yang Diberikan	&	Implementasi di Perangkat Lunak & Status \\ \hline
+				1.	&	HR-01	&	Warna latar belakang akan memiliki kontras yang cukup dengan warna teks	&	Latar belakang putih dengan teks hitam seperti di gambar \ref{fig:home}. Latar belakang berwarna dengan teks putih seperti di gambar \ref{fig:jadwal} & Terpenuhi	\\ \hline
+					&	&	Ukuran teks menyesuaikan dengan ukuran layar	&	Implementasi ukuran teks menggunakan satuan \textit{sp} & Terpenuhi	\\ \hline
+					&	&	Pengisian \textit{form} mengalir dari atas ke bawah dengan tombol \textit{submit} berada di bawah \textit{form} 	&	Halaman \textit{login} di gambar \ref{fig:login} memiliki \textit{form} yang mengalir dari atas ke bawah dengan tombol \textit{submit} di bawah & Terpenuhi	\\ \hline
+				    &	&	Penyampaian informasi mengalir dari atas ke bawah 	&	Daftar mata kuliah di halaman persiapan perwalian di gambar \ref{fig:perwalian} dan daftar syarat kelulusan di halaman kelulusan di gambar \ref{fig:lulus} disajikan mengalir ke bawah & Terpenuhi	\\ \hline
+				    &	&	Tombol diletakan di tempat yang mudah dijangkau dan area tekan besar 	&	Tombol di halaman utama di gambar \ref{fig:home} diletakan di tengah dan memenuhi layar & Terpenuhi	\\ \hline
+				 2.   & WK-01	&	Peringatan atau pesan \textit{error} diberi warna merah dan keterangan 	&	Peringatan tidak memenuhi prasyarat mata kuliah di halaman persiapan perwalian di gambar \ref{fig:perwalian} diberi warna merah & Terpenuhi	\\ \hline
+				 3.   & TL-01	&	Menggunakan \textit{layout} yang fleksibel dan responsif  	&	Daftar mata kuliah di halaman persiapan perwalian dibuat dengan \textit{Recycler View} yang fleksibel dan responsif. & Terpenuhi	\\ \hline
+				 4.   & GB-01	&	Menggunakan gambar untuk melengkapi informasi yang disajikan 	&	Terdapat foto profil mahasiswa di halaman utama untuk memperjelas pengguna \textit{login} ke akun yang benar & Terpenuhi	\\ \hline
+				 5.   & IA-01	&	Aplikasi meminta izin pengguna terlebih dahulu sebelum mengakses hal tertentu 	&	Aplikasi tidak memerlukan dan menggunakan hal-hal yang perlu izin pengguna. & Tidak dapat diaplikasikan	\\ \hline
+				\end{tabular}
+				\label{tab:material}
+			\end{table}
+			\begin{center}
+			\setlength\LTleft{-0.75cm}
+			%\setlength{\tabcolsep}{1pt}
+			%\begin{xltabular}{\linewidth}{|l|c|>{\arraybackslash}X|>{\arraybackslash}X|c|}
+			\begin{longtable}{|p{0.25cm}| p{1.25cm}| p{6cm}| p{6cm}| p{2cm}|}
+\caption{Tabel pemenuhan Panduan Kualitas Aplikasi} \label{tab:kualitas} \\
+
+\hline \multicolumn{1}{|c|}{\textbf{No.}} & \multicolumn{1}{c|}{\textbf{Kode}} & \multicolumn{1}{c|}{\textbf{Panduan yang diberikan}} & \multicolumn{1}{c|}{\textbf{Implementasi di perangkat lunak}} & \multicolumn{1}{c|}{\textbf{Status}}\\ \hline 
+\endfirsthead
+
+\multicolumn{3}{c}%
+{{\bfseries \tablename\ \thetable{} -- Lanjutan dari halaman sebelumnya}} \\
+\hline \multicolumn{1}{|c|}{\textbf{No.}} & \multicolumn{1}{c|}{\textbf{Kode}} & \multicolumn{1}{c|}{\textbf{Panduan yang diberikan}} & \multicolumn{1}{c|}{\textbf{Implementasi di perangkat lunak}}& \multicolumn{1}{c|}{\textbf{Status}}\\ \hline 
+\endhead
+
+\hline \multicolumn{3}{|r|}{{Dilanjutkan ke halaman selanjutnya}} \\ \hline
+\endfoot
+
+\hline \hline
+\endlastfoot
+1. & UX-B1 & Aplikasi menggunakan ikon yang tidak ambigu & Menggunakan ikon yang disediakan \textit{Material Design} dan dicocokkan dengan fungsi tombol. Contohnya tombol jadwal di halaman utama di gambar \ref{fig:home} memiliki ikon kalender & Tidak dapat disimpulkan\footnote{Tidak ada instrumen pengukuran yang bisa menghitung nilai keambiguan suatu ikon}	\\ \hline
+2. & UX-S2 & Aplikasi menggunakan notifikasi untuk memberi tahu informasi/kontrol kejadian yang sedang berlangsung & Aplikasi tidak memiliki fitur notifikasi & Tidak dapat diaplikasikan\\ \hline
+3. & FN-P1 & Aplikasi meminta izin untuk mengakses hal yang mendukung fungsionalitas aplikasi & Aplikasi tidak mengakses hal-hal yang memerlukan izin dari pengguna & Tidak dapat diaplikasikan	\\ \hline
+4. & FN-L1 & Aplikasi harus berfungsi normal jika dipasang di kartu SD & Aplikasi berjalan normal jika dipasang di kartu SD & Terpenuhi\\ \hline
+5. & FN-A1 & Audio tidak boleh diputar di layar utama, saat layar mati, dibalik layar, atau saat layar dikunci kecuali memutar audio adalah fitur utama & Aplikasi tidak memutar audio apapun & Tidak dapat diaplikasikan\\ \hline
+6. & FN-U1 & Jika memungkinkan aplikasi mendukung orientasi \textit{landscape} dan \textit{portrait}, dan menggunakan seluruh layar untuk kedua orientasi & Aplikasi hanya mendukung orientasi \textit{portrait} & Tidak terpenuhi \\ \hline
+7. & FN-S1 & Aplikasi tidak boleh membiarkan layanan tetap aktif saat di latar belakang layar,kecuali jika diperlukan fitur utama & Aplikasi akan memberhentikan layanan saat pengguna menutup aplikasi sehingga aplikasi tidak aktif saat di belakang layar & Terpenuhi\\ \hline
+8. & FN-S2 & Aplikasi akan mempertahankan \textit{state login} selama ada aktivitas atau sampai batas waktu yang ditentukan & Selama pengguna belum menutup aplikasi atau menekan tombol \textit{log out} maka \textit{login state} akan dipertahankan, namun jika pengguna mengganti aplikasi atau menekan tombol \textit{home} lalu membuka aplikasi lagi, maka aplikasi akan kembali ke halaman \textit{login} & Terpenuhi sebagian\\ \hline
+9. & PS-S1 & Aplikasi diharapkan tidak macet, berfungsi tidak normal, menutup sendiri di perangkat yang menjalankan & Aplikasi dibangun dengan \textit{library, dependencies, software development kit} versi terbaru yang sudah stabil untuk meminimalisir kemungkinan aplikasi macet. Aplikasi juga diuji sebelum rilis untuk mencari dan memperbaiki \textit{bug} & Terpenuhi\\ \hline
+10. & PS-P1 & Aplikasi dimuat dengan cepat atau memberikan indikasi kepada pengguna tentang kapan aplikasi selesai dimuat & Aplikasi tidak menggunakan algoritma yang kompleks dan melakukan proses yang berat sehingga tidak perlu waktu lama untuk memuat aplikasi dan ada indikator saat proses memuat. Namun durasi pengambilan data mata kuliah mahasiswa untuk diolah dan ditampilkan di halaman persiapan perwalian dan halaman kelulusan bisa bergantung dengan kecepatan koneksi perangkat pengguna ke Portal Akademik Mahasiswa & Terpenuhi\\ \hline
+11. & PS-T1 & Aplikasi dibuat dengan \textit{SDK} terbaru dan berjalan di \textit{Android} versi terbaru tanpa kendala & Aplikasi dibangun dengan \textit{SDK} terbaru dan diuji di perangkat terbaru dan di perangkat yang populer & Terpenuhi\\ \hline
+12. & PS-M1 & Aplikasi memutar video dan audio dengan lancar, tidak tersendat, suara dan gambar tidak pecah, atau cacat lainnya & Aplikasi tidak memutar audio dan video & Tidak dapat diaplikasikan\\ \hline
+13. & PS-V1 & Aplikasi menyediakan grafik berkualitas tinggi untuk semua ukuran layar yang ditargetkan dan menampilkan elemen antarmuka tanpa pikselasi, distorsi, dan tidak bergerigi pada tepian & \textit{Layout} aplikasi dibuat secara dinamis dan menggunakan satuan dp untuk elemennya sehingga menyesuaikan dengan ukuran layar dengan baik. Namun kualitas foto profil mahasiswa di halaman utama bergantung pada kualitas foto profil di Portal Akademik Mahasiswa & Terpenuhi\\ \hline
+14. & PS-B1 & Aplikasi mendukung fitur pengelolaan daya baterai \textit{(Android 6.0+)} & Aplikasi ini sederhana sehingga tidak memerlukan perhatian khusus untuk pengelolaan daya baterai & Tidak dapat diaplikasikan\\ \hline
+15. & SC-D1 & Aplikasi harus menyimpan data pribadi di penyimpanan internal aplikasi dan tidak boleh mencatat data pribadi di \textit{log} & Aplikasi tidak menyimpan data pribadi & Terpenuhi\\ \hline
+16. & SC-D2 & Aplikasi harus memverifikasi data eksternal sebelum digunakan & Aplikasi menggunakan data yang valid dan aman dari Portal Akademik Maha-siswa & Terpenuhi\\ \hline
+17. & SC-P1 & Aplikasi hanya boleh mengekspor komponen aplikasi yang membagikan data dengan aplikasi lain, atau komponen yang harus dipanggil oleh aplikasi lain & Aplikasi tidak berbagi komponen dengan aplikasi lain & Terpenuhi\\ \hline
+18. & SC-P2 & Semua komponen aplikasi yang berbagi konten dengan aplikasi lain menetapkan(dan memberlakukan) izin yang sesuai, termasuk aktivitas, layanan, penerima siaran, dankhususnya penyedia konten & Aplikasi tidak berbagi konten dengan aplikasi lain & Terpenuhi\\ \hline
+19. & SC-N1 & Aplikasi harus menyatakan konfigurasi keamanan jaringan dan semua lalu lintas jaringan dilakukan melalui \textit{SSL} & Aplikasi membuka koneksi dengan Portal Akademik Mahasiswa yang sudah diamankan dengan \textit{SSL} & Terpenuhi\\ \hline
+20. & SC-N2 & Jika aplikasi menggunakan layanan \textit{Google Play}, inisialisasi keamanan dilakukan saat aplikasi dimulai & Aplikasi tidak menggunakan layanan \textit{Google Play} & Terpenuhi\\ \hline
+21. & SC-U1 & Aplikasi harus menggunakan dependensi, \textit{library} dan \textit{SDK} terbaru & Aplikasi dibangun dengan menggunakan dependensi, \textit{library} dan \textit{SDK} terbaru & Terpenuhi\\ \hline
+22. & SC-E1 & Aplikasi tidak boleh menjalankan kode dari luar secara dinamis & Aplikasi tidak menjalankan kode dari luar secara dinamis & Terpenuhi\\ \hline
+23. & SC-C1 & Aplikasi harus menggunakan algoritma kriptografi kuat yang disediakan oleh platform & Aplikasi tidak perlu mengenkripsi apapun & Tidak dapat diaplikasikan\\ \hline
+24. & GP-P1 & Aplikasi mematuhi Kebijakan Materi Pengembang \textit{Google Play} (tidak menawarkan materi tidak pantas, tidak menggunakan hak kekayaan intelektual atau merk orang lain, dll) & Aplikasi tidak mengandung materi yang tidak pantas dan tidak menggunakan hak kekayaan intelektual atau merk orang lain & Terpenuhi\\ \hline
+25. & GP-D1 & Aplikasi sudah memenuhi kriteria yang sudah diuraikan sebelum bagian ini & Aplikasi dibangun dengan mengikuti panduan yang sudah diuraikan. & Terpenuhi\\ \hline
+26. & GP-X1 & Pengembang aplikasi harus mengatasi \textit{bug} yang disampaikan di halaman ulasan layanan \textit{Google Play} jika \textit{bug} tersebut ditemukan di banyak perangkat dan berulang kali atau ditemukan di perangkat terbaru atau perangkat paling populer & Pengembang  memperbaiki \textit{bug} yang ditemukan & Terpenuhi\\ \hline
+\hline \hline
+
+\end{longtable}
+%\end{xltabular}
+			\end{center}
+Dari tabel pengujian fungsional \ref{table:hasilFungsional}, semua reaksi aplikasi sesuai dengan keluaran yang di harapkan. Dari tabel pemenuhan panduan \textit{Material Design} \ref{tab:material}, sebanyak 8 dari 9 panduan (88.9 persen) dapat dipenuhi, dan 1 panduan yaitu panduan IA-01 tentang izin akses tidak dapat diaplikasikan karena aplikasi \textit{Android} IFStudentPortal tidak mengakses hal-hal yang perlu izin akses. Dari tabel Pemenuhan Panduan Kualitas \ref{tab:kualitas}, sebanyak 17 dari 26 (66 persen) panduan dapat dipenuhi, sebanyak 1 panduan (3 persen) tidak terpenuhi yaitu FN-U1 karena aplikasi \textit{Android} IFStudentPortal hanya dibuat untuk orientasi \textit{portrait}, sebanyak 1 panduan (3 persen) yaitu UX-B1 tidak dapat disimpulkan karena tidak ada instrumen pengukuran untuk menghitung tingkat keambiguan ikon, sebanyak 1 panduan (3 persen) terpenuhi sebagian yaitu FN-S2 karena aplikasi \textit{Android} IFStudentPortal hanya bisa mempertahankan \textit{state login} selama aplikasi dibuka, setelah pengguna berganti aplikasi maka \textit{state login} hilang, sebanyak 6 dari 26 panduan (23 persen) tidak dapat diaplikasikan, penjelasannya sebagai berikut :
+\begin{enumerate}
+    \item UX-S2 : Aplikasi tidak mengeluarkan notifikasi apapun
+    \item FN-P1 : Aplikasi tidak mengakses hal yang perlu izin akses
+    \item FN-A1 : Aplikasi tidak memutar audio apapun
+    \item PS-M1 : Aplikasi tidak memutar video dan audio
+    \item PS-B1 : Aplikasi sederhana sehingga tidak perlu perhatian khusus untuk pengelolaan daya baterai
+    \item SC-C1 : Aplikasi tidak perlu mengenkripsi apapun
+\end{enumerate}
+Secara keseluruhan, aplikasi \textit{Android} IFStudentPortal memenuhi 33 dari 43 (77 persen) panduan, sebanyak 16 persen panduan belum terpenuhi karena tidak dapat diaplikasikan, sebanyak 3 persen panduan belum dapat disimpulkan, dan sebanyak 5 persen panduan tidak terpenuhi.
+\subsection{Pengujian Eksperimental}
+Pengujian eksperimental dilakukan terhadap mahasiswa angkatan 2017 sampai 2020. Metode pengujian dilakukan dengan menyebarkan aplikasi untuk diunduh melalui \textit{Google Drive}, lalu pengalaman menggunakan aplikasi direkam dengan mengisi \textit{Google form}. Setiap responden diminta untuk melakukan \textit{login} kemudian mencoba aplikasi dan membandingkan data yang ditampilkan dengan data yang ada di Portal Akademik Mahasiswa. Penyebaran aplikasi tidak dilakukan melalui layanan \textit{Google Play Store} karena ada masalah terkait \textit{digital signature key} yang dipakai untuk merilis aplikasi di \textit{Google Play Store}. Saat skripsi ini ditulis, peneliti sudah meminta bantuan teknis ke pihak \textit{Google Play Store} agar dikemudian hari aplikasi bisa dirilis di \textit{Google Play Store}\footnote{Bantuan teknis sudah diajukan pada tanggal 25 Juni 2021}. 
+
+Salah satu pengujian eksperimental yang dilakukan kepada mahasiswa angkatan 2017 Rio Aurelio Sumantri 2017730004 dapat dilihat di gambar \ref{fig:home_rio} yang menunjukan halaman utama berhasil melakukan \textit{login}. Foto profil hanya ada foto kosong karena saat skripsi ini ditulis di Portal Akademik Mahasiswa foto profil mahasiswa juga tidak tersedia seperti di gambar \ref{fig:foto_rio_portal}. Jadwal kuliah Rio di aplikasi IFStudentPortal dapat dilihat di gambar \ref{fig:jadwal_rio} dan jadwal kuliah di Portal Akademik Mahasiswa dapat dilihat di gambar \ref{fig:jadwal_rio_portal}. Jadwal akademik sudah benar, namun informasi yang ditampilkan kurang lengkap karena belum ada nama mata kuliah dan beberapa kode dosen tidak ada. Kode dosen ada yang \textit{null} karena kode dosen yang dibuat penulis baru ada kode dosen Informatika. Data akademik Rio di aplikasi IFStudentPortal dapat dilihat di gambar \ref{fig:perwalian_rio} dan data akademik di Portal Akademik Mahasiswa dapat dilihat di gambar \ref{fig:nilai_rio_portal}. Nilai TOEFL, IPK, dan IPS sampai semester terakhir sudah benar.
+		\begin{figure}[H]
+\centering
+   \begin{subfigure}{0.49\linewidth} \centering
+     \includegraphics[scale=0.2]{Gambar/home_rio.jpg}
+     \caption{Halaman home IFStudentPortal Rio}\label{fig:home_rio}
+   \end{subfigure}
+   \begin{subfigure}{0.49\linewidth} \centering
+     \includegraphics[scale=0.2]{Gambar/jadwal_apps_rio.jpg}
+     \caption{Halaman jadwal IFStudentPortal Rio}\label{fig:jadwal_rio}
+   \end{subfigure}
+\caption{Tangkapan layar IFStudentPortal Rio} \label{fig:twofigs}
+\end{figure}
+
+        \begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.2]{Gambar/perwalian_rio.jpg}
+            \caption{Halaman persiapan perwalian IFStudentPortal Rio.}\label{fig:perwalian_rio}
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.4]{Gambar/foto_rio.png}
+			\caption{Halaman profil Portal Akademik Mahasiswa Rio.}\label{fig:foto_rio_portal}
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.25]{Gambar/jadwal_rio.png}
+			\caption{Halaman jadwal Portal Akademik Mahasiswa Rio.}\label{fig:jadwal_rio_portal}
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.4]{Gambar/nilai_rio.png}
+			\caption{Halaman nilai Portal Akademik Mahasiswa Rio.}\label{fig:nilai_rio_portal}
+		\end{figure}
+
+Terdapat 17 orang responden yang merupakan mahasiswa Teknik Informatika Universitas Katolik Parahyangan yang terdiri dari mahasiswa angkatan 2017 sampai 2020. Berikut pertanyaan yang diajukan kepada responden dan rangkuman jawaban hasil pengujian eksperimental sebagai berikut :
+\begin{enumerate}
+    \item \textbf{Apakah saat aplikasi baru dibuka muncul animasi logo Informatika?}\\
+    Semua responden mengatakan bahwa animasi logo Teknik Informatika muncul.
+    \item \textbf{Apakah anda berhasil login ke IFStudentPortal?}\\
+    Semua responden mengatakan mereka berhasil login ke IFStudentPortal menggunakan akun Portal Akademik Mahasiswa.
+    \item \textbf{Apakah nama, NPM, dan foto profil yang ditampilkan di halaman utama benar?}\\
+    Semua responden nama dan NPM di halaman utama benar, namun hanya 2 dari 17 responden yang menyatakan foto benar. 
+    \item \textbf{Apakah informasi yang ditampilkan di bagian data akademik di halaman persiapan perwalian benar?}\\
+    Sebanyak 15 responden mengatakan informasi data akademik benar, namun ada responden yang mengalami perbedaan data IPK yang ada di Portal Akademik Mahasiswa dengan data IPK yang ada di IFStudentPortal. Pada aplikasi IFStudentPortal tertulis IPK 2.48, sedangkan di Portal Akademik Mahasiswa tertulis IPK 2.57. Perbedaan data IPK disebabkan method calculateIPK() dari SIA Models, dan peneliti sudah membuka \textit{issue} baru di github SIA Models\footnote{\textit{Issue} dapat dilihat di \url{https://github.com/pascalalfadian/SIAModels/issues/26}}. 
+    \item \textbf{Apakah jadwal yang ditampilkan di halaman jadwal benar?}\\
+    Sebanyak 16 responden mengatakan bahwa data jadwal sesuai dengan yang ada di Portal Akademik Mahasiswa. Ada 1 responden yang mengalami kode dosen \textit{null} di aplikasi IFStudentPortal karena hanya ada kode dosen Teknik Informatika. Kode dosen null disebabkan nama dosen tersebut tidak diketahui kode dosennya di aplikasi karena kode dosen diimplementasi secara \textit{hard code}. Untuk memperbaikinya, selanjutnya bisa dikembangkan agar aplikasi bisa membuat kode dosen berdasarkan inisial nama dosen. 
+    \item \textbf{Apakah informasi yang ditampilkan di halaman kelulusan benar?}\\
+   Sebanyak 15 responden mengatakan bahwa data di halaman kelulusan benar, namun di salah satu baris syarat kelulusan menyatakan bahwa responden belum lulus mata kuliah Skripsi 1 padahal sebenarnya dia sudah lulus mata kuliah Skripsi 1. Kesalahan daftar syarat kelulusan ini disebabkan method checkPrasyarat(Mahasiswa mahasiswa, List<String> reasonsContainer) dari SIA Models, dan peneliti sudah membuka \textit{issue} baru di github SIA Models\footnote{\textit{Issue} dapat dilihat di \url{https://github.com/pascalalfadian/SIAModels/issues/25}}. 
+    \item \textbf{Apakah tombol \textit{log out} berfungsi dengan benar dan mengembalikan aplikasi ke halaman \textit{login}?}\\
+    Semua responden mengatakan tombol \textit{log out} berfungsi dengan benar dan mengembalikan pengguna ke halaman \textit{login}.
+    \item \textbf{Berapa kali mengalami \textit{crash} atau kendala lain saat menggunakan aplikasi ini? Tolong ditulis kapan crash terjadi.}\\
+    Sebanyak 15 responden tidak mengalami \textit{crash} saat menggunakan aplikasi IFStudentPortal, namun ada responden yang mengalami \textit{crash} lebih dari 5 kali dan \textit{crash} terjadi saat proses pengambilan data akademik dari Portal Akademik Mahasiswa.    
+    \item \textbf{Apakah ada fitur yang tidak berfungsi? (saat di klik tombolnya aplikasi \textit{crash} dll)}\\
+    Ada 1 responden yang mengalami \textit{crash} saat mengakses semua fitur, namun responden lain tidak menjawab pertanyaan ini atau menjawab tidak ada fitur yang tidak berfungsi.
+    \item \textbf{Apakah ada cacat di bagian tampilan antarmuka?}\\
+    Ada 1 responden yang mengalami teks yang terpotong sebagian pada halaman jadwal, responden lain tidak menemukan cacat di tampilan antarmuka.
+    \item \textbf{Apakah ada keluhan, kritik, saran mengenai aplikasi IFStudentPortal?}\\
+    Beberapa kritik dan saran dari responden antara lain sebagai berikut :
+    \begin{enumerate}
+        \item \textit{User interface} dan \textit{user experience} dapat ditingkatkan dengan tampilan aplikasi yang lebih intuitif.
+        \item Tampilan halaman persiapan perwalian bisa dibuat lebih menarik.
+        \item Pada halaman kelulusan, mata kuliah yang ditampilkan lebih baik disertakan dengan nama mata kuliah tersebut sehingga lebih memudahkan untuk pengguna.
+        \item Bisa ditambahkan fitur \textit{navigation bar} agar saat ingin berpindah menu tidak harus ke menu utama. 
+        \item Bisa ditambahkan fitur \textit{remember me} agar mempercepat \textit{login}.
+        \item Bisa ditambahkan fitur untuk pengisian form rencana studi.
+        \item Bisa ditambahkan fitur untuk absensi mata kuliah.
+    \end{enumerate}
+      
+\end{enumerate}

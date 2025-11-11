@@ -1,0 +1,1018 @@
+\lstset{
+	language=php,
+	columns=fullflexible,
+	showspaces=false,	
+	showstringspaces=false,		
+	breaklines=true,
+	showlines=true, frame=single,frameround={tttt},
+	tabsize=4,  
+	basicstyle=\fontfamily{fvm}\selectfont\footnotesize, 
+	commentstyle=\itshape\color{gray}, keywordstyle=\bfseries\color{blue}, 
+	identifierstyle=\color{black}, stringstyle=\color{orange},
+	upquote=true,
+	rulecolor=\color{black}
+}
+
+\captionsetup[longtable]{skip=1em}
+
+\chapter{Implementasi dan Pengujian}
+Pada bab ini akan membahas implementasi yang dibagi berdasarkan \textit{issue} dan pengujian. Pengujian eksperimental tidak dapat dilakukan karena tidak ada perkuliahan tatap muka sehingga \textit{BlueTape} tidak dapat diuji secara riil dan digantikan dengan meminta pendapat terhadap beberapa pengguna terkait fitur yang telah diimplementasi.
+
+\section{Lingkungan Implementasi dan Pengujian}
+Spesifikasi perangkat keras dan perangkat lunak yang digunakan pada skripsi ini sebagai berikut:
+\begin{itemize}
+	\item Perangkat keras:
+	\begin{itemize}
+		\item \textit{Processor} \textit{Intel Core i}7-7500U 
+		\item \textit{Random Access Memory(RAM)} 8 GB DDR4 
+		\item \textit{Storage(memory)} 120 GB \textit{SSD} dan 1TB \textit{Harddisk}
+	\end{itemize}
+	\item Perangkat lunak:
+	\begin{itemize}
+		\item \textit{Windows 10 64 bit }
+		\item \textit{Visual Studio Code version} 1.56.0 
+		\item \textit{composer version} 1.10.5
+		\item \textit{XAMPP Control Panel} v3.2.4  
+		\item \textit{PHP} 7.4.10
+	\end{itemize}
+\end{itemize}
+
+
+\section{Implementasi}
+Seluruh perbedaan kode akan dicantumkan pada lampiran \ref{lamp:A}. Listing pada bab ini akan menggunakan bahasa diff dengan warna merah berarti pengurangan baris kode dan warna hijau adalah penambahan baris kode.
+
+\subsection{Fitur ``Ekspor ke XLS'' pada Halaman Entri Jadwal Dosen Menghasilkan File \textit{Corrupt}}
+
+\textit{Method} \texttt{export()} pada kelas \textit{EntriJadwalDosen} yang telah dimiliki \textit{BlueTape} menggunakan data \textit{session data\-JadwalPerUser} untuk mengubah jadwal pengguna menjadi \textit{xls}. \textit{Session dataJadwalPerUser} menyimpan seluruh jadwal pengguna yang dibagi berdasarkan nama pengguna.
+
+Implementasi perbaikan dilakukan dengan menambahkan \texttt{\$this->session->set\_userdata\-(`dataJadwalPerUser','dataJadwalPerUser')} yang dapat dilihat pada \textit{listing} \ref{lst:issue1entrijadwaldosen}. Eror terjadi karena \textit{session dataJadwalPerUser} belum dipasang saat \textit{method export} dipanggil, sedangkan \textit{session dataJadwalPerUser} dipasang hanya pada \textit{controller LihatJadwalDosen}. Sehingga dengan memasang \textit{session dataJadwalPerUser} pada \textit{EntriJadwalDosen}, eror akan teratasi.   
+
+\begin{lstlisting}[language=diff,caption=Perubahan kode program pada \textit{EntriJadwalDosen.php}, keepspaces=true,label=lst:issue1entrijadwaldosen]
+diff --git a/www/application/controllers/EntriJadwalDosen.php b/www/application/controllers/EntriJadwalDosen.php
+index 4dda5808..f2665054 100644
+--- a/www/application/controllers/EntriJadwalDosen.php
++++ b/www/application/controllers/EntriJadwalDosen.php
+@@ -26,6 +26,15 @@ class EntriJadwalDosen extends CI_Controller {
+	$dataJadwal = $this->JadwalDosen_model->getJadwalByUsername($userInfo['email']);
+	$namaHari = $this->JadwalDosen_model->getNamaHari();
+	$namaBulan = $this->JadwalDosen_model->getNamaBulan();
++  if(!$this->session->userdata('dataJadwalPerUser')){
++ 	   $semuaDataJadwal = $this->JadwalDosen_model->getAllJadwal();
++ 	   $dataJadwalPerUser = array();
++      foreach ($semuaDataJadwal as $indexValue) {
++ 		   $dataJadwalPerUser[$indexValue->user][] = $indexValue;  // dimensi pertama indexnya adalah user
++      }
++      ksort($dataJadwalPerUser);
++      $this->session->set_userdata( 'dataJadwalPerUser', $dataJadwalPerUser );     
++  }   
+	$this->load->view('EntriJadwalDosen/main', array(
+		'currentModule' => get_class(),
+		'request_add_jadwal' => $this->session->userdata('request_add_jadwal'),
+@@ -190,15 +199,15 @@ class EntriJadwalDosen extends CI_Controller {
+ 	//Menentukan style dari border
+ 	$borderStyleArray = array(
+ 		'borders' => array(
+-       	'allborders' => array(
+-           	'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
++          	'allBorders' => array(
++           	'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+		 	)
+ 		)
+ 	);
+\end{lstlisting}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{5/excelentrijadwaldosen}
+	\caption{File \textit{xls} yang berhasil diunduh}
+	\label{fig:xlsentrijadwaldosen}
+\end{figure}
+
+Hasil perbaikan dapat dilihat pada gambar \ref{fig:xlsentrijadwaldosen}. Data yang digunakan berasal dari \textit{issue} \textit{github} pada \url{https://github.com/stephenhadi/BlueTape/issues/1}.
+
+\subsection{\textit{Update google api/ phpspreadsheet}}
+\begin{lstlisting}[language=diff,caption=Perubahan kode program pada \textit{composer.json}, keepspaces=true,label=lst:issue2composerupdate]
+diff --git a/composer.json b/composer.json
+index 8bcb1fde..7567042c 100644
+--- a/composer.json
++++ b/composer.json
+@@ -1,6 +1,8 @@
+{
+"require": {
+-      	"google/apiclient": "^1.0",
+-      	"phpoffice/phpexcel": "^1.8"
++      	"google/apiclient": "^2.4.0",
++ 		"phpoffice/phpspreadsheet": "^v1.11.0"
++  	},
++  	"require-dev": {
+  	}
+}
+\end{lstlisting}
+
+Implementasi bagian ini dilakukan dengan mengubah versi \textit{google/apiclient} dan \textit{phpexcel} menjadi \textit{phpspreadsheet} karena \textit{phpexcel} sudah \textit{deprecated}. Hasil perubahan \textit{composer.json} dapat dilihat pada listing \ref{lst:issue2composerupdate}.  Untuk melakukan \textit{update} pada \textit{dependency} dilakukan perintah \texttt{composer update} pada \textit{command line}. Jumlah perubahan yang dihasilkan dapat dilihat pada listing \ref{lst:issue2composerlinechange}. 
+\begin{lstlisting}[language=diff,caption=Jumlah perubahan setelah melakukan \textit{composer update}, keepspaces=true,label=lst:issue2composerlinechange]
+13819 files changed, 1131299 insertions(+), 400805 deletions(-)
+\end{lstlisting}
+
+Sedangkan migrasi dari \textit{phpexcel} menjadi \textit{phpspreadsheet} mengubah beberapa inisialisasi dan pemanggilan variabel yang dapat dilihat pada listing \ref{lst:issue2phpexceltophpspreadsheet}. Perubahan tersebut berupa pemanggilan \texttt{PHPEXCEL} menjadi \textbackslash\texttt{PhpOffice} \textbackslash\texttt{PhpSpreadsheet}. Listing \ref{lst:issue2phpexceltophpspreadsheet} merupakan salah satu dari perubahan tersebut. Pada lampiran \ref{lamp:A} kelas \textit{LihatJadwalDosen} juga mengalami migrasi dan perubahannya sama seperti pada kelas \textit{EntriJadwalDosen}.
+
+
+\begin{lstlisting}[language=diff,caption= Migrasi dari \textit{phpexcel} menjadi \textit{phpspreadsheet} pada \textit{EntriJadwalDosen.php}, keepspaces=true,label=lst:issue2phpexceltophpspreadsheet]
+diff --git a/www/application/controllers/EntriJadwalDosen.php b/www/application/controllers/EntriJadwalDosen.php
+index 576f272d..4dda5808 100644
+--- a/www/application/controllers/EntriJadwalDosen.php
++++ b/www/application/controllers/EntriJadwalDosen.php
+@@ -12,7 +12,7 @@ class EntriJadwalDosen extends CI_Controller {
+ 			$this->session->set_flashdata('error', $ex->getMessage());
+ 			header('Location: /');
+ 		}
+- 	   	$this->excel = new PHPExcel();
++ 	   	$this->excel = new \PhpOffice\PhpSpreadsheet\Spreadsheet(); 	
+@@ -191,14 +191,14 @@ class EntriJadwalDosen extends CI_Controller {
+ 			$borderStyleArray = array(
+ 				'borders' => array(
+ 					'allborders' => array(
+- 						'style' => PHPExcel_Style_Border::BORDER_THIN
++ 						'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+ 					)
+ 		 		)
+ 		 	);
+\end{lstlisting}
+
+\subsection{Fitur \textit{chart} pada Manajemen Cetak Transkrip}
+\label{subsec:chart manajemencetaktranskrip}
+
+\begin{lstlisting}[language=diff,caption=\textit{View} pada \textit{TranskripManage/main.php}, keepspaces=true,label=lst:issue3view]
+diff --git a/www/application/views/TranskripManage/main.php b/www/application/views/TranskripManage/main.php
+index e6611bf0..bed0a54d 100644
+--- a/www/application/views/TranskripManage/main.php
++++ b/www/application/views/TranskripManage/main.php
+@@ -8,6 +8,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
+ 		<?php $this->load->view('templates/flashmessage'); ?>
+ 		<br>
+ 		<div class="container">
++            <div class="card">
++                <div class="card-header" data-toggle="collapse" data-target="#statistikTranskrip">   
++                    <div class="row">
++                        <div class = "col">                 
++                            Statistik Transkrip 
++                        </div>
++                        <div class= "col">
++                            <a class ="float-right" >
++                                <i class="fas fa-angle-double-down" id ="collapseAccordion" style="color:black;"></i>
++                            </a>
++                        </div>
++                    </div>
++                </div>
++                <div class="collapse" id = "statistikTranskrip">
++                    <div class="card-body">
++                        <ul class="nav nav-tabs">
++                            <li class="nav-item">
++                                <a class="nav-link active" data-toggle="tab" href="#" id="byYear">Statistik Berdasarkan Tahun</a>
++                            </li>
++                            <li class="nav-item">
++                                <a class="nav-link" data-toggle="tab" href="#" id="byDay">Statistik Berdasarkan Hari</a>
++                            </li>
++                            <li class="nav-item">
++                                <a class="nav-link" data-toggle="tab" href="byHour">Statistik Berdasarkan Jam</a>
++                            </li>
++                        </ul>
++                        <div class="tab-content">
++                            <div class="tab-pane show active text-center">                            
++                                <canvas id="chartStatistic" style="width:100%"></canvas>
++                            </div>
++                        </div>
++                    </div>
++                </div>
++            </div>
++            <br>
+\end{lstlisting}
+
+Pada bagian \textit{view} ditambahkan sebuah \textit{card} yang menggunakan \textit{bootstrap collapse} dan navigasi untuk statistik berdasarkan tahun, hari, dan jam yang dapat dilihat pada gambar \ref{fig:implementasi manajemen cetak transkrip} dan \ref{fig:implementasi statistik berdasarkan tahun}. Sedangkan tempat untuk menaruh grafik menggunakan \texttt{<canvas>} yang dapat dilihat pada listing \ref{lst:issue3view} baris 37, untuk menentukan nilai grafik dilakukan pada \textit{javascript} dengan menggunakan \textit{library chartjs}.
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.4]{5/manajemencetaktranskrip1}
+		\caption{Implementasi grafik statistik transkrip}
+		\label{fig:implementasi manajemen cetak transkrip}
+\end{figure}
+\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.4]{5/statistikmct}
+		\caption{Implementasi grafik statistik transkrip berdasarkan tahun}
+		\label{fig:implementasi statistik berdasarkan tahun}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{5/statistikmct2}
+	\caption{Implementasi grafik statistik transkrip berdasarkan hari}
+	\label{fig:implementasi statistik berdasarkan hari}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.465]{5/statistikmct3}
+	\caption{Implementasi grafik statistik transkrip berdasarkan jam}
+	\label{fig:implementasi statistik berdasarkan jam}
+\end{figure}
+Implementasi diatas diuji menggunakan data asli yang berasal dari \textit{BlueTape} yang telah di\-ano\-nimkan. Pada gambar \ref{fig:implementasi manajemen cetak transkrip} statistik transkrip tidak ditampilkan kepada tata usaha namun baru ditampilkan saat tata usaha melakukan klik pada \textit{card} tersebut. Tampilan yang pertama kali dilihat adalah gambar \ref{fig:implementasi statistik berdasarkan tahun} saat \textit{card} diklik. Saat navigasi diklik maka grafik yang ditampilkan juga akan berubah seperti gambar \ref{fig:implementasi statistik berdasarkan hari} jika statistik berdasarkan hari dipilih dan gambar \ref{fig:implementasi statistik berdasarkan jam} jika statistik berdasarkan jam yang dipilih. 
+
+Pihak tata usaha dapat menekan bagian atas \textit{card} untuk menutup grafik tersebut. Saat grafik ditutup dan dibuka kembali navigasi akan menampilkan posisi sebelumnya. Sebagai contoh jika saat grafik ditutup sedang menampilkan statistik berdasarkan hari maka saat dibuka kembali grafik tetap menampilkan statistik berdasarkan hari dan tidak kembali ke posisi awal.
+
+Implementasi pada gambar \ref{fig:implementasi statistik berdasarkan jam} menggunakan grafik garis untuk mempermudah pembacaan grafik dan melakukan perbandingan. Pada ketiga grafik diatas jika dilakukan \textit{hover} maka akan ditampilkan pembagian tercetak dan ditolak pada suatu sumbu x.
+
+\subsection{Fitur \textit{chart} pada Manajemen Perubahan Kuliah}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{5/manajemenperubahankuliah}
+	\caption{Implementasi grafik statistik perubahan kuliah}
+	\label{fig:implementasi grafik perubahan kuliah}
+\end{figure}
+Implementasi ini hampir sama dengan implementasi pada subbagian \ref{subsec:chart manajemencetaktranskrip}. Perbedaan dari implementasi kedua subbagian ini terletak pada bagian \textit{model} dan \textit{javascript}. Karena tipe dari perubahan kuliah berupa ``tambahan'', ``diganti'', dan ``ditiadakan''. Sedangkan untuk cetak transkrip hanya ``tercetak'' dan ``ditolak''. Pada gambar \ref{fig:implementasi grafik perubahan kuliah} merupakan tampilan saat manajemen perubahan kuliah dibuka. 
+
+Fitur dasar dari grafik sama dengan pada grafik bagian \ref{subsec:chart manajemencetaktranskrip}. Namun pada data dibagi menjadi tiga bagian yaitu diganti, ditiadakan, dan tambahan seperti pada gambar \ref{fig:implementasi statistik mpk berdasarkan tahun} yang juga menyajikan data berdasarkan tahun. Gambar \ref{fig:implementasi statistik mpk berdasarkan hari} merupakan data berdasarkan hari dan gambar \ref{fig:implementasi statistik mpk berdasarkan jam} merupakan grafik garis yang dibagi berdasarkan jam.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{5/statistikmpk}
+	\caption{Implementasi grafik statistik perubahan kuliah berdasarkan tahun}
+	\label{fig:implementasi statistik mpk berdasarkan tahun}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.42]{5/statistikmpk2}
+	\caption{Implementasi grafik statistik perubahan kuliah berdasarkan hari}
+	\label{fig:implementasi statistik mpk berdasarkan hari}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.42]{5/statistikmpk3}
+	\caption{Implementasi grafik statistik perubahan kuliah berdasarkan jam}
+	\label{fig:implementasi statistik mpk berdasarkan jam}
+\end{figure}
+
+\subsection{Mahasiswa dengan NPM Baru Tidak Dapat Lihat Jadwal Dosen}
+
+\begin{lstlisting}[language=diff,caption=Perubahan pada \textit{config/modules.php}, keepspaces=true,label=lst:issue5diff]
+diff --git a/www/application/config/modules.php b/www/application/config/modules.php
+index cec4ef0c..aeac2f66 100644
+--- a/www/application/config/modules.php
++++ b/www/application/config/modules.php
+ $config['modules'] = array(
+@@ -17,15 +16,15 @@ $config['modules'] = array(
+	'TranskripManage' => array('root', 'tu.ftis'),
+	'PerubahanKuliahRequest' => array('root', 'staf.unpar'),
+	'PerubahanKuliahManage' => array('root', 'tu.ftis'),
+	'EntriJadwalDosen' => array('root', 'dosen.informatika' ),
+	'LihatJadwalDosen' => array('root', 'mahasiswa.informatika', 'dosen.informatika')
+);
+
+$config['roles'] = array(
+ 	'root' => array('pascal@unpar.ac.id', 'shao.wei@unpar.ac.id'),
+ 	'tu.ftis' => array('shao.wei@unpar.ac.id', 'purnomo@unpar.ac.id', 'walip@unpar.ac.id'),
+ 	'mahasiswa.ftis' => '(7[123]\\d{5})|(20[1-9][0-9]7[123][0-9]{4})|(61[678][0-9]{7})@student\\.unpar\\.ac\\.id',
+ 	'staf.unpar' => '.+@unpar\\.ac\\.id',
+- 		'mahasiswa.informatika' => '73\\d{5}@student\\.unpar\\.ac\\.id'
++  	'mahasiswa.informatika' => '(73\\d{5}|(20[1-9][0-9]73[0-9]{4})|618\\d{7})@student\\.unpar\\.ac\\.id'
+);
+\end{lstlisting}
+
+Pengaturan dari hak akses diatur pada \textit{config/modules.php}. Pada \textit{BlueTape} mahasiswa dengan NPM 2017730016 dikategorikan sebagai \texttt{mahasiswa.ftis} saja sedangkan hak akses untuk membuka halaman ``lihat jadwal dosen'' hanya diberikan kepada \texttt{mahasiswa.informatika} dan \texttt{dosen.informatika}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{5/perbaikanhakakses}
+	\caption{Perbaikan hak akses untuk halaman lihat jadwal dosen}
+	\label{fig:hakakseslihatjadwaldosen}
+\end{figure}
+
+Perubahan yang dilakukan adalah dengan menambahkan aturan \textit{regex} pada \texttt{\$config['roles']} dengan \textit{key} \texttt{mahasiswa.informatika}. Kode pada \texttt{mahasiswa.ftis} menggunakan kode 7[123] yang berarti dapat bernilai 71,72, dan 73. Sedangkan pada \texttt{mahasiswa.informatika} diubah hanya 73 saja. Sedangkan untuk angkatan 2018 keatas syaratnya adalah \textit{email} dengan awalan 618 dan diikuti dengan 7 angka seperti pada listing \ref{lst:issue5diff}. Hasil perbaikan dapat dilihat pada gambar \ref{fig:hakakseslihatjadwaldosen}.
+
+
+
+\subsection{Kolom pada Entri Jadwal Dosen dan Lihat Jadwal Dosen Tidak Seragam}
+
+Pada listing \ref{lst:issue6diff} ditambahkan sebuah \texttt{width:18\%}. Kolom pertama menggunakan \texttt{width:10\%}. Agar seluruh kolom senin sampai jumat memiliki \textit{width} yang sama maka digunakan \texttt{width:18\%}. Selanjutnya \texttt{min-width:8em} digunakan untuk perangkat dengan lebar layar yang kecil. Karena untuk beberapa layar \texttt{width:18\%} tepat digunakan sedangkan perangkat dengan layar kecil tidak pas menggunakan \texttt{width:18\%}. Pada view ``lihat jadwal dosen'' perubahan yang dilakukan sama persis dengan listing \ref{lst:issue6diff}.
+
+\begin{lstlisting}[language=diff,caption=Perubahan \textit{view} pada \texttt{EntriJadwalDosen/main.php}, keepspaces=true,label=lst:issue6diff]
+diff --git a/www/application/views/EntriJadwalDosen/main.php b/www/application/views/EntriJadwalDosen/main.php
+index 95015ffc..03275f5a 100644
+--- a/www/application/views/EntriJadwalDosen/main.php
++++ b/www/application/views/EntriJadwalDosen/main.php
+@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
+ 							<th></th>
+ 							<?php
+ 							for ($i = 0; $i < 5; $i++) {
+-                              echo "<th> $namaHari[$i] </th>"; //Membuat Header Tabel yang berisi daftar hari
++                              echo "<th style='width:18%;min-width:8em'> $namaHari[$i] </th>"; //Membuat Header Tabel yang berisi daftar hari
+ 							}
+ 							?>
+@@ -83,7 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
+ 							echo "<tr><th>" . $i . "-" . ($i + 1);
+ 							$cellColID = 1;
+ 							for ($j = 0; $j < 5; $j++) {
+-                              echo"<td align='center' id='cell" . $cellRowID . "-" . $cellColID . "'>" . "</td>";
++                              echo"<td align='center' id='cell" . $cellRowID . "-" . $cellColID . "' style='word-wrap:break-word;max-width: 8em'>" . "</td>";
+ 								$cellColID++;
+ 							}
+ 							$cellRowID++;
+\end{lstlisting}
+
+Pada gambar \ref{fig:kolomentrijadwaldosen} merupakan hasil perbaikan kolom halaman entri jadwal dosen. Nilai tiap kolom juga diuji dengan mengosongkan suatu kolom. Pada halaman ``entri jadwal dosen'', dimana sebelumnya lebar kolom tidak seragam jika ada kolom yang kosong.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.55]{5/kolomentrijadwaldosen}
+	\caption{Perbaikan kolom jadwal pada halaman entri jadwal dosen}
+	\label{fig:kolomentrijadwaldosen}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{5/kolomlihatjadwaldosen}
+	\caption{Perbaikan kolom jadwal pada halaman lihat jadwal dosen}
+	\label{fig:kolomlihatjadwaldosen}
+\end{figure}
+
+Gambar \ref{fig:kolomlihatjadwaldosen} merupakan hasil perbaikan kolom lihat jadwal dosen. Tampilan \textit{responsive} juga diuji pada ponsel, gambar \ref{subfig:entrijadwaldosenphone} adalah halaman entri jadwal dosen pada ponsel dan gambar \ref{subfig:lihatjadwaldosenphone} adalah halaman lihat jadwal dosen pada ponsel. Karena menggunakan \textit{Bootstrap table-responsive} Jadwal pada kedua halaman tersebut diubah menjadi \textit{scroll} jika layar tidak mencukupi.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.375\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{5/entrijadwaldosenphone}
+		\caption{Halaman Entri jadwal dosen}
+		\label{subfig:entrijadwaldosenphone}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.38\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{5/lihatjadwaldosenphone}
+		\caption{Halaman lihat jadwal dosen}
+		\label{subfig:lihatjadwaldosenphone}
+	\end{subfigure} 
+	\caption{Tampilan entri jadwal dosen dan lihat jadwal dosen pada ponsel}
+\end{figure}
+
+
+
+\subsection{Fungsi Tab pada Lihat Jadwal Dosen Tidak Berfungsi}
+
+Pada listing \ref{lst:issue7diff} perubahan yang dilakukan adalah dengan mengubah urutan dari \textit{class} yang digunakan. Pada awalnya urutan yang digunakan adalah seperti listing dibawah ini:
+\begin{lstlisting}
+<div class="tabs-content" data-tabs-content="tab_jadwal">
+	<div id="jadwal_table<?php echo $idx;?>">
+		<div class="tabs-panel is-active" id="hal">
+\end{lstlisting}
+
+Perbaikin \textit{tabs} ini dilakukan dengan mengubah \texttt{class:tabs-panel} menjadi \texttt{class:"tab-pane"} dan \texttt{class:"tabs-content"} menjadi \texttt{class:"tab-content"}. Urutan dari \textit{div} juga diubah. Pada dokumentasi \textit{Bootstrap tabs} sehabis \texttt{class:"tab-content"} diikuti dengan \texttt{class:"tab-pane"}. Sehingga nantinya \texttt{<div id="jadwal\_table<?php echo \$idx;?>">} akan berada didalam \texttt{<div class="tabs-panel">}. Perubahan yang dimaksud dapat dilihat pada listing \ref{lst:issue7diff}.
+
+\begin{lstlisting}[language=diff,caption=Perubahan \textit{view} pada \texttt{LihatJadwalDosen/main.php}, keepspaces=true,label=lst:issue7diff]
+-                      	<div class="tabs-content" data-tabs-content="tab_jadwal">
++                  	<div class="tab-content" data-tabs-content="tab_jadwal">
++                   	<?php
++                      	$idx = 0;
++                      	foreach ($dataJadwalPerUser as $currRow) {
++                      	?>
+ 							<?php
+-                          	$idx = 0;
+-                          	foreach ($dataJadwalPerUser as $currRow) {
++                          	if ($idx == 0) {
++                              	echo '<div class="tab-pane fade show active" id="hal' . $idx . '" role="tabpanel" >';
++                        	?>
++                           <?php
++                           } else {
++                           ?>
++                               <div class="tab-pane fade" id="hal<?php echo $idx; ?>" role="tabpanel">
++                           <?php
++                           }
+ 							?>
+-
+ 							<div id="jadwal_table<?php echo $idx; ?>">
+-                               <?php
+-                               if ($idx == 0) {
+-                                 	echo '<div class="tabs-panel is-active" id="hal' . $idx . '">';
+-                            	 	?>
+-                              	 	<?php
+-                              	} else {
+-                              	?>
+-                              	<div class="tabs-panel" id="hal<?php echo $idx; ?>">
+-                              		<?php
+-                                  	}
+-                                  	?>
+\end{lstlisting}
+
+Gambar \ref{subfig:navtabs} merupakan tampilan lihat jadwal dosen setelah \textit{Bootstrap tabs} diperbaiki. Gambar tersebut didapatkan dari \url{https://bluetape.azurewebsites.net/LihatJadwalDosen}. Gambar \ref{subfig:navtabs2} adalah contoh jika menekan \textit{tabs} nama dosen tertentu.
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{5/navtablihatjadwaldosen}
+		\caption{Navigasi \textit{tabs} saat halaman lihat jadwal dosen dibuka}
+		\label{subfig:navtabs}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{5/navtablihatjadwaldosen2}
+		\caption{Perubahan isi jadwal saat memilih nama dosen tertentu}
+		\label{subfig:navtabs2}
+	\end{figure} 
+
+\subsection{Menambahkan Jam Kuliah Selesai di Perubahan Kelas}
+\label{subsec:jamkuliahselesai}
+Pada listing \ref{lst:issue12diff} diperiksa apakah \texttt{\$to->toTimeFinish} memiliki suatu nilai. Jika tidak memiliki nilai maka akan dikosongkan, sedangkan jika memiliki nilai maka akan ditampilkan dalam bentuk \textit{datetime}. Pada listing ini \texttt{\$request->to} menyimpan sekumpulan nilai yang berisi ``Menjadi Hari \& Jam'', ``Menjadi Ruang'', dan ``Jam selesai''.
+
+\begin{lstlisting}[language=diff,caption=Perubahan \textit{view} pada \texttt{PerubahanKuliahManage/main.php}, keepspaces=true,label=lst:issue12diff]
+diff --git a/www/application/views/PerubahanKuliahManage/main.php b/www/application/views/PerubahanKuliahManage/main.php
+index a103997e..dac09287 100644
+--- a/www/application/views/PerubahanKuliahManage/main.php
++++ b/www/application/views/PerubahanKuliahManage/main.php
+@@ -105,10 +105,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
+ 		<th>Dari Ruang</th>
+ 		<td><?= $request->fromRoom ?></td>
+	</tr>
+-  	<?php foreach (json_decode($request->to) as $to): ?>
++  	<?php foreach (json_decode($request->to) as $to ): ?>
+ 		<tr>
+			<th>Menjadi Hari/Jam</th>
+- 		   	<td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
++      		<td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
++     		<?= empty($to->toTimeFinish)? '': '- <time datetime="'.$to->toTimeFinish.'">'.$to->toTimeFinish.'</time>'?></td>
+ 		</tr>
+ 		<tr>
+ 			<th>Menjadi Ruang</th>
+\end{lstlisting}
+
+Sedangkan pada \textit{view} \texttt{PerubahanKuliahRequest/main.php} perubahan tersebut dapat dilihat pada listing \ref{lst:issue12diff2}. Pada tampilan tersebut ditambahkan sebuah kolom input yang baru dan pada \textit{javascript} dipilih dengan input dengan format \textit{H:i} dan tidak mengikutsertakan pemilihan tanggal. Sehingga nilai yang dapat dimasukkan dan dipilih oleh pengguna hanyalah jam dan menit.
+
+\begin{lstlisting}[language=diff,caption=Perubahan \textit{view} pada \texttt{PerubahanKuliahRequest/main.php}, keepspaces=true,label=lst:issue12diff2]
+diff --git a/www/application/views/PerubahanKuliahRequest/main.php b/www/application/views/PerubahanKuliahRequest/main.php
+index 1974430e..3e05a2f0 100644
+--- a/www/application/views/PerubahanKuliahRequest/main.php
++++ b/www/application/views/PerubahanKuliahRequest/main.php
+@@ -73,10 +73,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
+ 								<label class="col-form-label">Menjadi Ruang:</label>
+ 								<input class="form-control disableable toRoom" type="text" name="toRoom[]"/>
+ 							</div>
++                          	<div class="col-lg-2">
++                              	<label class = "col-form-label">Jam Selesai: </label>
++                              	<input class="form-control disableable toTimeFinish" type = "text" id="toTimeFinish" name="toTimeFinish[]" />                          
++                          	</div>
+ 							<div class="col-lg-3">
+ 								<br><br>
+
+@@ -219,13 +226,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
+ 			$(document).ready(function () {
+ 				var datepickeroptions = {
+	 				format: 'Y-m-d H:i'
+                };               
++              	var timefinishpicker = {
++                  	datepicker:false,
++                  	format: 'H:i'
++              	};   
+ 				function removeRow() {
+ 					$(this).closest('.row').remove();
+ 				}
+-              jQuery('#datetimepicker').datetimepicker();
+-              $('#fromDateTime').datetimepicker(datepickeroptions);
+-              $('.toDateTime').datetimepicker(datepickeroptions);
++              jQuery('#datetimepicker').datetimepicker();                                        
++              jQuery('#toTimeFinish').datetimepicker(timefinishpicker);   
++              $('#fromDateTime').datetimepicker(datepickeroptions);            
++              $('.toDateTime').datetimepicker(datepickeroptions);         
+\end{lstlisting}
+
+Pada \textit{controller} \texttt{PerubahanKuliahRequest.php} perubahan yang dilakukan dapat dilihat pada listing \ref{lst:issue12diff3} ditambahkan variabel untuk mendapatkan input \textit{post} dari jam selesai. Selanjutnya jam selesai akan dibandingkan dengan ``menjadi hari \& jam'' yang disimpan dalam variabel \texttt{\$dateTimes} untuk memastikan jam selesai lebih besar dari ``menjadi hari \& jam''.
+
+\begin{lstlisting}[language=diff,caption=Perubahan \textit{controller} pada \texttt{PerubahanKuliahRequest.php}, keepspaces=true,label=lst:issue12diff3]
+diff --git a/www/application/controllers/PerubahanKuliahRequest.php b/www/application/controllers/PerubahanKuliahRequest.php
+index b463ac6b..bbe8ce74 100644
+--- a/www/application/controllers/PerubahanKuliahRequest.php
++++ b/www/application/controllers/PerubahanKuliahRequest.php
+@@ -55,14 +55,24 @@ class PerubahanKuliahRequest extends CI_Controller {
+ 				$tos = [];
+ 				$rooms = $this->input->post('toRoom');
+ 				$dateTimes = $this->input->post('toDateTime');
++              	$toTimeFinish = $this->input->post('toTimeFinish');
++ 
+ 				if ($rooms !== NULL && $dateTimes !== NULL) {
+ 					foreach ($rooms as $i => $room) {
++                      	$time = date("H:i",strtotime($dateTimes[$i]));
++                      	if(!empty($toTimeFinish[$i]) && $toTimeFinish[$i] < $time){
++                          $this->session->set_flashdata('info','Harap masukkan jam selesai sesudah jam mulai');     
++                          	header('Location:/PerubahanKuliahRequest');
++                          	exit();
++                      	}                        
+ 				 		$tos[] = [
+ 					 		'dateTime' => $dateTimes[$i] . ':00',
+-                          	'room' => $room 
++                          	'room' => $room ,
++                          	'toTimeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00' 
+ 						];
+ 					}
+ 				}
+\end{lstlisting}
+
+Pada implementasi ini pengecekan dilakukan pada \textit{controller} dan disarankan untuk melakukan pengecekan juga pada \textit{view} karena akan memberatkan pengguna jika harus mengisi permohonan kembali. Sehingga pada \texttt{PerubahanKuliahRequest/main.php} ditambahkan sebuah \textit{alert} dan pengguna tidak dapat mengirim permohonan jika ``jam selesai'' lebih kecil dari ``menjadi hari \& jam''.
+
+\begin{lstlisting}
+<div class="collapse fade" id="topAlertWrapper">
+	<div class="alert alert-warning fixed-top" id ="topAlert">
+    	Mohon masukkan jam selesai lebih besar dari jam pada menjadi hari & jam
+      	<button type="button" class="close" data-toggle="collapse" data-target="#topAlertWrapper">
+           	<span>&times;</span>
+        </button>
+    </div>
+</div>
+\end{lstlisting}
+
+Alasan penggunaan \textit{alert} untuk menyampaikan pesan ke pengguna dikarenakan pesan yang ingin disampaikan cukup panjang dan pesan tersebut memakan tempat yang cukup besar. Hasil implementasi dapat dilihat pada gambar \ref{fig:jamselesai} dan gambar \ref{fig:jamselesai2}. Gambar \ref{fig:jamselesai} merupakan contoh jika ``jam selesai'' lebih kecil dari ``menjadi hari \& jam''. Gambar \ref{subfig:jamselesai2} merupakan permohonan yang diterima oleh tata usaha dan gambar \ref{subfig:jamselesai3} merupakan tampilan \textit{printview} pada halaman manajemen perubahan kuliah.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{5/jam selesai}
+	\caption{\textit{Alert} jika ``jam selesai'' lebih kecil dari ``menjadi hari \& jam''}
+	\label{fig:jamselesai}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.35\textwidth}	
+		\includegraphics[width=\textwidth]{5/jamselesai2}
+		\caption{\centering Detail permohonan pada manajemen perubahan kuliah}
+		\label{subfig:jamselesai2}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{5/jamselesai3}
+		\caption{\centering Tampilan \textit{printview} pada manajemen perubahan kuliah}
+		\label{subfig:jamselesai3}
+	\end{subfigure} 
+	\caption{Detail dan \textit{printview} pada halaman manajemen perubahan kuliah}
+	\label{fig:jamselesai2}
+\end{figure}
+
+\subsection{Notifikasi \textit{Email} untuk Mahasiswa jika Permintaan Sudah Diselesaikan}
+
+Saat melihat fungsi pengiriman \textit{email} pada \textit{BlueTape} fitur pengiriman \textit{email} terhadap mahasiswa sudah ada pada sistem \textit{BlueTape}. Pengujian dilakukan dengan menjawab permohonan transkrip dan melihat apakah \textit{email} berhasil terkirim. Pada listing \ref{lst:email} diisi dengan id dan password dari \textit{gmail} yang digunakan untuk melihat apakah fitur ini berjalan dengan baik. 
+
+\begin{lstlisting}[caption=Pengaturan \textit{email} pada \texttt{config/auth.php},label=lst:email]
+$config['email-config'] = Array(
+	'protocol' => 'smtp',
+	'smtp_host' => 'ssl://smtp.googlemail.com',
+	'smtp_port' => 465,
+	'smtp_user' => 'skripsimailbtp@gmail.com',
+	'smtp_pass' => 'xxxxx',
+	'mailtype' => 'html',
+	'charset' => 'iso-8859-1'
+);
+\end{lstlisting}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{5/emailmahasiswa}
+	\caption{Pengaturan agar dapat melakukan pengiriman email}
+	\label{fig:emailmahasiswa}
+\end{figure}
+
+Pada pengaturan \textit{gmail} yang digunakan untuk mengirim \textit{email} harus memperbolehkan aplikasi yang kurang aman seperti pada gambar \ref{fig:emailmahasiswa}. Karena metode pengiriman \textit{email} menggunakan \textit{smtp} dan \textit{google} menganggap \textit{smtp} tidak terlalu aman. Gambar \ref{fig:emailmahasiswa2} merupakan contoh pengiriman \textit{email} otomatis yang berhasil dilakukan.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{5/emailmahasiswa2}
+	\caption{Hasil pengujian dari pengiriman \textit{email}}
+	\label{fig:emailmahasiswa2}
+\end{figure}
+
+\subsection{Pagination Tidak ter-\textit{style} dengan Baik}
+
+Pada listing \ref{lst:pagination1} merupakan perubahan yang dilakukan untuk memperbaiki paginasi pada halaman manajemen perubahan kuliah. Perubahan yang dilakukan pada manajemen cetak transkrip kurang lebih sama seperti listing \ref{lst:pagination1}. 
+
+Perubahan yang dilakukan adalah kelas \texttt{text-center} diubah menjadi \texttt{justify-content-center} pada \textit{tag ul}. Sedangkan pada \textit{tag li} ditambahkan kelas \texttt{page-item} dan \texttt{active} untuk halaman yang saat ini dibuka.
+
+\begin{lstlisting}[language=diff,caption=Perubahan \textit{view} pada \texttt{PerubahanKuliahManage/main.php}, keepspaces=true,label=lst:pagination1]
+iff --git a/www/application/views/PerubahanKuliahManage/main.php b/www/application/views/PerubahanKuliahManage/main.php
+index a103997e..20d5b671 100644
+--- a/www/application/views/PerubahanKuliahManage/main.php
++++ b/www/application/views/PerubahanKuliahManage/main.php
+@@ -46,12 +81,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
+					</table>
+				</div>
+<?php if ($numOfPages > 1): ?>
+-                   <ul class="pagination text-center" role="navigation" aria-label="Pagination">
++                   <ul class="pagination justify-content-center" role="navigation" aria-label="Pagination">
+						<?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+							<?php if ($i === $page): ?>
+-                               <li class="current"><span class="show-for-sr">Anda di halaman</span> <?= $i ?></li>
++                               <li class="current page-item active"><span class="page-link"><?= $i ?></span></li>
+							<?php else: ?>
+-                               <li><a href="?page=<?= $i ?>" aria-label="Halaman <?= $i ?>"><?= $i ?></a></li>
++                               <li class = "page-item"><a href="?page=<?= $i ?>"  aria-label="Halaman <?= $i ?>" class="page-link"><?= $i ?></a></li>
+							<?php endif; ?>
+						<?php endfor; ?>
+					</ul>
+
+\end{lstlisting}
+
+Gambar \ref{fig:paginationmpk} merupakan hasil perbaikan paginasi pada manajemen perubahan kuliah dan gambar \ref{fig:paginationmct} merupakan hasil perbaikan paginasi pada manajemen cetak transkrip.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{5/pagination mpk}
+	\caption{Perbaikan paginasi pada halaman manajemen perubahan kuliah}
+	\label{fig:paginationmpk}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{5/pagination mct}
+	\caption{Perbaikan paginasi pada halaman manajemen cetak transkrip}
+	\label{fig:paginationmct}
+\end{figure}
+
+\subsection{Format \textit{Datetimepicker} Tidak Konsisten}
+
+Format \textit{datetimepicker} ini tidak konsisten. Pada gambar \ref{fig:formatdatetimepickerbab5} kolom input ``dari hari \& jam'' memiliki pemisah tahun,bulan dan tanggal berupa garis miring sedangkan pada kolom input ``menjadi hari \& jam'' memiliki pemisah berupa setrip. Gambar \ref{fig:datetimepickerfix} merupakan hasil perbaikan format ``dari hari \& jam'' menjadi setrip
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[scale=0.63]{5/datetimepicker tidak konsisten} 
+		\caption{Contoh datetimepicker yang tidak konsisten}
+		\label{fig:formatdatetimepickerbab5}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[scale=0.6]{5/datetimepicker sudah konsisten}
+		\caption{Contoh \textit{datetimepicker} yang sudah diperbaiki}
+		\label{fig:datetimepickerfix}
+	\end{subfigure} 
+	\caption{Format \textit{datetimepicker} sebelum dan sesudah diperbaiki}
+\end{figure}
+
+\subsection{Mengubah atau Membatalkan Permohonan}
+\label{subsec:mengubah atau membatalkan}
+Pada listing \ref{lst:controllerperubahankuliahrequest} ditambah dua fungsi baru berupa \texttt{edit()} dan \texttt{remove()}. Pada fungsi \texttt{edit()} hanya menerima tipe \textit{request POST}. Perubahan yang dilakukan memiliki syarat berupa id permohonan, \textit{email} dari pengguna, dan permohonan belum dijawab tata usaha. Dimana id permohonan didapatkan dari form dan \textit{email} didapatkan dari \textit{session}. Fungsi \texttt{remove()} memiliki syarat sama dengan fungsi \texttt{edit()}.
+
+Pada bagian \texttt{controllers/TranskripRequest.php} syarat untuk mengubah permohonan pada basis data sama seperti pada bagian \texttt{controllers/PerubahanKuliahRequest.php}. Nama \textit{method} yang digunakan juga sama yaitu \texttt{edit()} dan \texttt{remove()}. Kode \texttt{TranskripRequest.php} dapat dilihat pada lampiran \ref{lamp:transkriprequest}.
+
+\textit{View} dari  implementasi ini akan dicantumkan pada lampiran \ref{lamp:A} dikarenakan banyak baris dari \textit{view} tersebut dan baris \textit{javascript} yang digunakan juga sangat banyak. Karena kolom input dapat berubah tergantung dari kolom input ``jenis perubahan''.
+
+\begin{lstlisting}[language=diff,caption=Penambahan pada \textit{method} pada \texttt{controllers/PerubahanKuliahRequest.php}, keepspaces=true,label=lst:controllerperubahankuliahrequest]
+diff --git a/www/application/controllers/PerubahanKuliahRequest.php b/www/application/controllers/PerubahanKuliahRequest.php
+index b463ac6b..7ec72e14 100644
+--- a/www/application/controllers/PerubahanKuliahRequest.php
++++ b/www/application/controllers/PerubahanKuliahRequest.php
+
++    public function edit(){
++        try{
++            if ($this->input->server('REQUEST_METHOD') == 'POST'){
++                date_default_timezone_set("Asia/Jakarta");
++                $userInfo = $this->Auth_model->getUserInfo();
++                $tos=[];
++                $rooms = $this->input->post('editToRoom');
++                $dateTimes = $this->input->post('editToDateTime');
++                $toTimeFinish = $this->input->post('editToTimeFinish');
++                if ($rooms !== NULL && $dateTimes !== NULL) {
++                    foreach ($rooms as $i => $room) {
++                        $time = date("H:i",strtotime($dateTimes[$i]));
++                        if(!empty($toTimeFinish[$i]) && $toTimeFinish[$i] < $time){
++                            $this->session->set_flashdata('info','Harap masukkan jam selesai sesudah jam mulai');     
++                            header('Location:/PerubahanKuliahRequest');
++                            exit();
++                        }        
++                        if(!empty($dateTimes[$i])){                 
++                            $tos[] = [
++                                'dateTime' => $dateTimes[$i] . ':00',
++                                'room' => $room ,
++                                'toTimeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
++                            ];
++                        }
++                    }
++                }
++                $this->db->where('id',htmlspecialchars($this->input->post('id')));
++                $this->db->where('requestByEmail',$userInfo['email']);
++                $this->db->where('answer',null);
++                $this->db->update('PerubahanKuliah', array(
++                    'requestByEmail' => $userInfo['email'],
++                    'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
++                    'mataKuliahName' => htmlspecialchars($this->input->post('editMataKuliahName')),
++                    'mataKuliahCode' => htmlspecialchars($this->input->post('editMataKuliahCode')),
++                    'class' => $this->input->post('editClass'),
++                    'changeType' => $this->input->post('editChangeType'),
++                    'fromDateTime' => $this->input->post('editFromDateTime'),
++                    'fromRoom' => htmlspecialchars($this->input->post('editFromRoom')),
++                    'to' => json_encode($tos),
++                    'remarks' => htmlspecialchars($this->input->post('editRemarks')),
++                ));
++                $this->session->set_flashdata('info', 'Permohonan perubahan kuliah sudah diubah. Silahkan cek statusnya secara berkala di situs ini.');
++            } else {
++                throw new Exception("Can't call method from GET request!");
++            }  
++
++
++        }catch(Exception $e){
++            $this->session->set_flashdata('error', $e->getMessage());
++        }
++        header('Location: /PerubahanKuliahRequest');
++    }
++    
++    public function remove(){
++        try {
++            if ($this->input->server('REQUEST_METHOD') == 'POST'){
++                $userInfo = $this->Auth_model->getUserInfo();
++                $this->db->where('id',htmlspecialchars($this->input->post('id')));
++                $this->db->where('requestByEmail',$userInfo['email']);
++                $this->db->where('answer',null);
++                $this->db->delete('perubahankuliah');
++                $this->session->set_flashdata('info', 'Permintaan perubahan kuliah sudah dihapus.');
+} else {
+throw new Exception("Can't call method from GET request!");
+\end{lstlisting}
+Gambar \ref{fig:tampilan edit dan delete cetak transkrip} adalah tampilan histori transkrip pada halaman cetak transkrip dan gambar \ref{fig:tampilan edit dan delete perubahan kuliah} merupakan tampilan histori permohonan pada halaman perubahan kuliah. Jika permohonan telah dijawab oleh tata usaha maka pengguna tidak dapat menghapus atau mengubah permohonan.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{5/editdelete3}
+	\caption{Implementasi ubah dan hapus permohonan pada halaman cetak transkrip}
+	\label{fig:tampilan edit dan delete cetak transkrip}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{5/editdelete1}
+	\caption{Implementasi ubah dan hapus permohonan pada halaman perubahan kuliah}
+	\label{fig:tampilan edit dan delete perubahan kuliah}
+\end{figure}
+
+Pada gambar \ref{fig:modaledit} merupakan \textit{modal} yang dibuat menggunakan \textit{bootstrap modal}. \textit{Modal} ini juga memiliki kolom ``jam selesai'' sebagai bagian dari implementasi subbagian \ref{subsec:jamkuliahselesai}.  Gambar \ref{subfig:editdiganti} merupakan \textit{modal} yang pertama kali ditampilkan saat ikon ubah ditekan. Dalam contoh tersebut karena permohonan \#3501 memiliki jenis perubahan ``diganti'' maka \textit{modal} yang ditampilan memiliki jenis perubahan ``diganti''. Pada \textit{modal} tersebut juga ditampilkan data yang telah diajukan sebelumnya. Dosen dapat mengubah jenis perubahan menjadi ``tambahan'' yang nantinya \textit{modal} akan berubah menjadi gambar \ref{subfig:edittambahan}. Sedangkan gambar \ref{subfig:editditiadakan} adalah contoh jika dosen mengubah jenis perubahan menjadi ``ditiadakan''. Pada jenis perubahan ``ditiadakan'', tombol ``Tambah Pertemuan Ekstra'' dinonaktifkan karena jenis perubahan ``ditiadakan'' tidak memiliki kolom menjadi hari \& jam, menjadi ruang, dan jam selesai.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.305\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{5/perubahankuliahedit} 
+		\caption{\centering Tampilan \textit{modal} saat kolom jenis perubahan ``diganti''}
+		\label{subfig:editdiganti}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{5/perubahankuliahedittambahan}
+		\caption{\centering Tampilan \textit{modal} saat kolom jenis perubahan ``tambahan''}
+		\label{subfig:edittambahan}
+	\end{subfigure} 
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{5/perubahankuliaheditditiadakan}
+		\caption{\centering Tampilan \textit{modal} saat kolom jenis perubahan ``ditiadakan''}
+		\label{subfig:editditiadakan}
+	\end{subfigure} 
+	\caption{Implementasi ubah permohonan pada halaman perubahan kuliah}
+	\label{fig:modaledit}
+\end{figure}
+
+Seperti pada subbagian \ref{subsec:jamkuliahselesai}, pada implementasi ini input jam selesai harus lebih besar dari input menjadi hari \& jam. Karena tempat yang terbatas maka pemberitahuan juga menggunakan \textit{alert} seperti pada gambar \ref{fig:editjamselesailebihbesar}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{5/editdelete2}
+	\caption{Implementasi input jam selesai harus lebih besar input kolom ``menjadi hari \& jam''}
+	\label{fig:editjamselesailebihbesar}
+\end{figure}
+
+Pada perubahan kuliah terdapat tombol ``tambah pertemuan ekstra''. Pada \textit{modal} ini ditambahkan juga tombol tersebut untuk menambah kolom menjadi hari \& jam, menjadi ruang, dan jam selesai. Implementasi fitur ini dapat dilihat pada gambar \ref{fig:edittambah pertemuan ekstra}. Tombol ini akan dinonaktifkan jika jenis perubahan adalah ``ditiadakan''.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{5/edittambahpertemuan ekstra}
+	\caption{Implementasi tambah pertemuan ekstra pada \textit{modal}}
+	\label{fig:edittambah pertemuan ekstra}
+\end{figure}
+
+Gambar \ref{fig:editcetaktranskrip} merupakan tampilan \textit{modal} pada halaman cetak transkrip. Pada \textit{modal} tersebut hanya kolom input ``keperluan'' saja yang dapat diubah, pada implementasi ini tipe transkrip yang tersedia hanya DPS saja. Sedangkan kolom input ``yang memohon'', ``NPM'', dan ``Nama'' diambil dari \textit{email} yang digunakan untuk login.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{5/editcetaktranskrip}
+	\caption{Implementasi ubah permohonan pada halaman cetak transkrip}
+	\label{fig:editcetaktranskrip}
+\end{figure}
+
+Gambar \ref{fig:membatalkan permohonan} merupakan \textit{modal} yang ditampilkan jika pengguna menekan ikon hapus. Gambar tersebut adalah contoh implementasi pada halaman perubahan kuliah. Implementasi \textit{modal} pada halaman cetak transkrip sama seperti gambar tersebut.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{5/delete}
+	\caption{Implementasi membatalkan permohonan pada halaman perubahan kuliah}
+	\label{fig:membatalkan permohonan}
+\end{figure}
+
+\subsection{Halaman Histori dan Cetak Transkrip Terpisah}
+Permintaan dari pengguna adalah memisahkan bagian histori transkrip dan bagian cetak transkrip menjadi halaman berbeda. Namun jika halaman dipisah akan membingungkan mahasiswa yang ingin melihat histori transkrip dan permohonan transkrip. Sehingga untuk implementasi ini permohonan cetak transkrip ditaruh pada \textit{Bootstrap modal} sama seperti ubah permohonan pada subbagian \ref{subsec:mengubah atau membatalkan}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.35]{5/cetaktranskrip terpisah}
+	\caption{Halaman cetak transkrip saat pertama kali dibuka}
+	\label{fig:halamanctterpisah}
+\end{figure}
+Pada halaman cetak transkrip ditambah sebuah tombol ``Ajukan Permohonan'' yang dapat dilihat pada gambar \ref{fig:halamanctterpisah}. Jika tombol tersebut ditekan akan menampilkan \textit{modal} untuk membuat permohonan yang dapat dilihat pada gambar \ref{fig:halamanctterpisah2}. Pada permohonan tersebut input ``yang memohon'', ``NPM'', dan ``nama'' tidak dapat diubah. Mahasiswa hanya dapat mengubah input ``tipe transkrip'' dan mengisi ``keperluan''.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{5/cetaktranskrip terpisah 2}
+	\caption{Implementasi \textit{modal} untuk membuat permohonan}
+	\label{fig:halamanctterpisah2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{5/cetaktranskrip terpisah 3}
+	\caption{Tampilan jika mahasiswa sudah mengajukan permohonan}
+	\label{fig:halamanctterpisah3}
+\end{figure}
+
+Sama seperti implementasi yang sudah ada, permohonan cetak transkrip tidak dapat dibuat jika ada permohonan yang belum terjawab dan tombol ``ajukan permohonan'' akan dihilangkan seperti pada gambar \ref{fig:halamanctterpisah3}.
+
+\section{Pengujian Fungsional}
+Pada bagian ini akan diuraikan pengujian fungsional yang telah dilakukan bertujuan untuk memastikan fitur yang telah diimplementasi berjalan dengan baik.
+
+
+	\begin{longtable}{|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|}	
+			\caption{Pengujian pada halaman cetak transkrip}%
+			\label{tab:pengujian cetak transkrip}\\%						
+			\hline%						
+			\endfirsthead
+			Aksi & Hasil yang diharapkan & Hasil perangkat lunak \\
+			\hline
+			
+			Mengirim permohonan cetak transkrip & Permohonan tersimpan pada basis data & Hasil dari perangkat lunak sesuai yang diharapkan. Permohonan muncul pada histori permohonan dan dapat dilihat dari halaman manajemen cetak transkrip \\
+			\hline
+			
+			Menekan tombol ajukan permohonan & Keluar \textit{modal} untuk mengisi permohonan & Hasil dari perangkat lunak sesuai yang diharapkan. Muncul \textit{modal} untuk mengisi permohonan \\
+			\hline
+			
+			Mengubah isi kolom keperluan pada permohonan cetak transkrip & Keperluan dari permohonan cetak transkrip berubah pada basis data & Hasil dari perangkat lunak sesuai yang diharapkan. Isi dari permohonan berubah sesuai yang dimasukkan\\
+			\hline
+			
+			Menghapus permohonan cetak transkrip & Permohonan terhapus dari basis data & Hasil dari perangkat lunak sesuai yang diharapkan. Permohonan terhapus dari basis data \\ \hline
+			
+			Mengubah atau menghapus permohonan yang sudah terjawab & Permohonan tidak dapat diubah & Hasil dari perangkat lunak sesuai yang diharapkan. Tombol untuk ubah dan hapus tidak ditampilkan. \\  
+			\hline
+								
+		\end{longtable}	
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{5/bug1}
+	\caption{Kesalahan implementasi pada kolom nama}
+	\label{fig:bug1}
+\end{figure}
+
+Pada halaman cetak transkrip dilakukan pengujian yang dapat dilihat pada tabel \ref{tab:pengujian cetak transkrip}. Pada halaman ini juga ditemukan sebuah kesalahan implementasi dibagian \textit{modal} untuk mengubah permohonan yang dapat dilihat pada gambar \ref{fig:bug1}. Pada gambar tersebut kolom input nama harusnya memiliki nilai berupa nama mahasiswa. Kesalahan ini hanyalah pada bagian tampilan saja, karena saat melakukan perubahan pada basis data hanya kolom ``tipe transkrip'' dan kolom ``keperluan'' saja yang diubah. Kesalahan tersebut telah diperbaiki pada \textit{commit} 5e4bef6f.
+
+Tabel \ref{tab:pengujian manajemen cetak transkrip} merupakan pengujian fungsional yang dilakukan pada halaman manajemen cetak transkrip.
+
+\begin{table}[H]
+	\centering	
+	\caption{Pengujian pada halaman manajemen cetak transkrip}
+	\label{tab:pengujian manajemen cetak transkrip}
+	\begin{tabular}{|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|}
+		\hline
+		Aksi & Hasil yang diharapkan & Hasil perangkat lunak \\
+		\hline
+		
+		Menekan tampilan paginasi yang diperbaiki & Halaman berubah sesuai dengan nomor yang ditekan & Hasil dari perangkat lunak sesuai yang diharapkan \\
+		\hline
+		
+		Menekan \textit{header} statistik transkrip & Statistik cetak transkrip ditampilkan & Hasil dari perangkat lunak sesuai yang diharapkan. Statistik cetak transkrip ditampilkan \\ \hline
+		
+		Menekan statistik berdasarkan tahun, statistik berdasarkan hari, dan statistik berdasarkan jam & Isi statistik berubah sesuai dengan yang dipilih dengan pembagian tahun dan hari berupa diagram batang dan pembagian jam menggunakan diagram garis & Hasil perangkat lunak sesuai yang diharapkan. Statistik menampilkan sesuai yang dipilih dengan diagram yang sesuai\\ \hline
+		
+		Menekan \textit{header} statistik transkrip saat statistik ditampilkan & Statistik cetak transkrip tertutup dan jika dibuka kembali akan menampilkan pembagian sebelumnya yaitu tahun, hari, atau jam & Hasil perangkat lunak sesuai yang diharapkan. Statistik menyimpan pembagian sebelum ditutup \\ \hline
+		
+	\end{tabular}	
+\end{table}
+
+Pada halaman manajemen cetak transkrip pengujian yang dilakukan adalah perbaikan paginasi dan fitur statistik cetak transkrip.
+
+	\begin{longtable}{|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|}				
+		\caption{Pengujian pada halaman perubahan kuliah}%
+		\label{tab:pengujian perubahan kuliah}\\%						
+		\hline%						
+		\endfirsthead
+		Aksi & Hasil yang diharapkan & Hasil perangkat lunak \\
+		\hline
+		Menekan tombol tambah pertemuan ekstra pada bagian permohonan baru dan bagian ubah permohonan & Muncul kolom input ``menjadi hari \& jam'', ``menjadi ruang'', ``jam selesai'', dan tombol ``hapus'' & Hasil perangkat lunak sesuai yang diharapkan. Jika tombol tersebut ditekan akan menambah kolom input baru \\ 
+		\hline
+		
+		Menakan tombol ``hapus'' yang dihasilkan oleh tombol tambah pertemuan ekstra pada bagian buat permohonan dan bagian ubah permohonan & Baris input yang dibuat oleh tombol tambah pertemuan ekstra akan dihapus & Hasil perangkat lunak sesuai yang diharapkan. Jika tombol tersebut ditekan akan menghapus kolom input tersebut \\ 
+		\hline 
+		
+		Mengirim permohonan baru dengan mengosongkan kolom input ``jam selesai'' pada bagian buat permohonan dan bagian ubah permohonan & Permohonan dapat terkirim dan detail dari permohonan tidak memiliki jam selesai & Hasil perangkat lunak sesuai yang diharapkan dan detail permohonan sama seperti yang dikirim \\ 
+		
+		\hline
+		
+		Mengirim permohonan dengan kolom input ``jam selesai'' lebih kecil dari kolom ``menjadi hari \& jam'' pada bagian buat permohonan dan ubah permohonan & Permohonan tidak dapat dikirim dan muncul pesan eror. \textit{Border} pada kolom input ``jam selesai'' akan berubah menjadi warna merah & Hasil perangkat lunak sesuai yang diharapkan. Pengujian juga dilakukan dengan mengikutsertakan kolom input tambahan yang dibuat dengan tombol tambah pertemuan ekstra \\
+		\hline
+		
+		Mengubah input jenis perubahan menjadi ``ditiadakan'' pada bagian buat permohonan & Kolom input ``jam selesai'' tidak dapat diklik dan diisi & Hasil perangkat lunak sesuai yang diharapkan \\
+		\hline
+		
+		Menekan tombol ubah pada histori permohonan & Muncul \textit{modal} untuk merubah permohonan dan telah diisi oleh permohonan yang tersimpan pada basis data & Hasil perangkat lunak sesuai yang diharapkan pengujian juga dilakukan untuk masing masing ``jenis perubahan'' \\ \hline
+		
+		Mengubah jenis perubahan menjadi ``diganti'' pada ubah permohonan & Menghapus seluruh kolom input dibawah ``kelas'' dan digantikan dengan kolom input ``dari hari \& jam'', ``dari ruang'', ``menjadi hari \& jam'',``menjadi ruang'', dan ``jam selesai'' & Hasil perangkat lunak sesuai yang diharapkan \\ \hline
+		
+		Mengubah jenis perubahan menjadi ``ditiadakan'' pada ubah permohonan & Menghapus seluruh kolom input dibawah ``kelas'' dan digantikan dengan kolom input ``dari hari \& jam'' dan ``dari ruang'' & Hasil perangkat lunak sesuai yang diharapkan \\ \hline
+		
+		Mengubah jenis perubahan menjadi ``tambahan'' pada ubah permohonan & Menghapus seluruh kolom input dibawah ``kelas'' dan digantikan dengan kolom input ``menjadi hari \& jam'',``menjadi ruang'', dan ``jam selesai'' & Hasil perangkat lunak sesuai yang diharapkan\\ \hline
+		
+		Mengubah permohonan perubahan kuliah & Permohonan berubah pada basis data dan tidak dapat diubah jika permohonan sudah dijawab tata usaha & Hasil dari perangkat lunak sesuai yang diharapkan\\ \hline
+		
+		Menghapus permohonan perubahan kuliah & Permohonan perubahan kuliah dihapus pada basis data dan tidak dapat dihapus jika permohonan sudah dijawab tata usaha & Hasil dari perangkat lunak sesuai yang diharapkan \\ \hline				
+	\end{longtable}	
+
+
+Pada halaman perubahan kuliah pengujian yang dilakukan adalah fitur-fitur dasar buat permohonan yang telah ditambah dengan jam selesai. Selain itu juga diuji fitur ubah dan hapus permohonan mulai dari perubahan data dan perubahan layout \textit{modal} yang ditampilkan. Pengujian lengkap dapat dilihat pada tabel \ref{tab:pengujian perubahan kuliah}.
+
+\begin{longtable}{|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|}				
+	\caption{Pengujian pada halaman manajemen perubahan kuliah}%
+	\label{tab:pengujian manajemen perubahan kuliah}\\%						
+	\hline%						
+	\endfirsthead
+	Aksi & Hasil yang diharapkan & Hasil perangkat lunak \\
+	\hline
+	
+	Menekan tampilan paginasi yang diperbaiki & Halaman berubah sesuai dengan nomor yang ditekan & Hasil dari perangkat lunak sesuai yang diharapkan \\
+	\hline
+	
+	Menekan \textit{header} statistik perubahan kuliah & Statistik perubahan kuliah ditampilkan & Hasil dari perangkat lunak sesuai yang diharapkan. Statistik perubahan kuliah ditampilkan \\ \hline
+	
+	Menekan statistik berdasarkan tahun, statistik berdasarkan hari, dan statistik berdasarkan jam & Isi statistik berubah sesuai dengan yang dipilih dengan pembagian tahun dan hari berupa diagram batang dan pembagian jam menggunakan diagram garis & Hasil perangkat lunak sesuai yang diharapkan. Statistik menampilkan sesuai yang dipilih dengan diagram yang sesuai\\ \hline
+	
+	Menekan \textit{header} statistik perubahan kuliah saat statistik ditampilkan & Statistik perubahan kuliah tertutup dan jika dibuka kembali akan menampilkan pembagian sebelumnya yaitu tahun, hari, atau jam & Hasil perangkat lunak sesuai yang diharapkan. Statistik menyimpan pembagian sebelum ditutup \\ \hline	
+	
+	Membuka detail permohonan dan \textit{printview} dari permohonan yang sebelumnya dikirim pada pengujian tabel \ref{tab:pengujian perubahan kuliah} & Detail permohonan dan \textit{printview} memiliki nilai yang sama dengan basis data & Hasil perangkat lunak sesuai yang diharapkan. \\ \hline
+		
+\end{longtable}
+
+Pada tabel \ref{tab:pengujian manajemen perubahan kuliah} merupakan pengujian yang dilakukan pada halaman manajemen perubahan kuliah. Pengujian yang dilakukan sama seperti tabel \ref{tab:pengujian manajemen cetak transkrip} dan ditambahkan melihat detail permohonan dan \textit{printview} yang dibuat saat pengujian pada halaman perubahan kuliah.
+
+\begin{longtable}{|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|}				
+	\caption{Pengujian pada halaman entri jadwal dosen }%
+	\label{tab:pengujian entri jadwal dosen}\\%						
+	\hline%						
+	\endfirsthead
+	Aksi & Hasil yang diharapkan & Hasil perangkat lunak \\
+	\hline
+	
+	Melakukan tambah jadwal dengan mengonsongkan kolom hari kamis & Jadwal terekam pada basis data dan lebar kolom pada bagian daftar jadwal memiliki lebar yang seragam & Hasil perangkat lunak sesuai yang diharapkan \\ \hline
+	
+	Menekan tombol ekspor ke xls & File \textit{excel} pengguna terunduh dan dapat dibuka & Hasil perangkat lunak sesuai yang diharapkan \\ \hline
+
+\end{longtable}
+
+Pada halaman entri jadwal dosen pengujian yang dilakukan adalah membuat lebar kolom pada bagian daftar jadwal memiliki lebar yang seragam dan menguji fitur ekspor ke xls yang dilaporkan menghasilkan file \textit{corrupt}. Pengujian dapat dilihat pada tabel \ref{tab:pengujian entri jadwal dosen}. 
+
+\begin{longtable}{|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|}				
+	\caption{Pengujian pada halaman lihat jadwal dosen }%
+	\label{tab:pengujian lihat jadwal dosen}\\%						
+	\hline%						
+	\endfirsthead
+	Aksi & Hasil yang diharapkan & Hasil perangkat lunak \\
+	\hline
+	
+	Menekan nama salah satu dosen & Menampilkan jadwal dosen tersebut dan jadwal tersebut memiliki lebar kolom yang seragam & Hasil perangkat lunak sesuai yang diharapkan \\ \hline
+	
+	Menekan tombol ekspor ke xls & File \textit{excel} seluruh dosen terunduh dan dapat dibuka & Hasil perangkat lunak sesuai yang diharapkan \\ \hline
+	
+	Melakukan \textit{login} menggunakan email dengan awalan 2017730016 & Dapat masuk ke halaman lihat jadwal dosen & Hasil perangkat lunak sesuai yang diharapkan \\ \hline
+\end{longtable}
+
+Pada halaman lihat jadwal dosen pengujian yang dilakukan adalah menguji perbaikan \textit{Bootstrap nav tabs} dan mahasiswa dengan NPM format baru tidak dapat membuka halaman lihat jadwal dosen. Pengujian dapat dilihat pada tabel \ref{tab:pengujian lihat jadwal dosen}.
+
+\section{Pengujian Eksperimental}
+
+Karena pada masa pandemi \textit{BlueTape} tidak digunakan dan tidak dapat diuji secara eksperimental. Sehingga pengujian eksperimental akan digantikan dengan mendemokan fitur yang telah diimplementasi ke 5 pengguna yang dipilih secara acak dan fitur yang didemokan adalah fitur yang dapat diakses pengguna. Sebagai contoh mahasiswa hanya didemokan bagian cetak transkrip dan lihat jadwal dosen. Pendapat pengguna dapat dilihat pada tabel \ref{tab:demofitur}.
+
+\begin{longtable}{|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|}		
+	\caption{Hasil demo fitur kepada pengguna}%
+	\label{tab:demofitur}\\%					
+	\hline%						
+	\endfirsthead
+	Email(anonim) & Peran pengguna & Jawaban \\ \hline
+	
+	a@unpar.ac.id & Tata usaha & Tidak menjawab \\ \hline
+	
+	b@unpar.ac.id & Dosen & Tidak menjawab \\ \hline 
+	
+	c@unpar.ac.id & Dosen & Terima kasih. Tampaknya sudah jelas untuk saya. \\ \hline
+	
+	d@student.unpar.ac.id & Mahasiswa & Fitur tambahan yang diimplementasikan sudah baik. Fitur tersebut dapat membantu mahasiswa menemukan jadwal dari dosen-dosen FTIS sehingga ketika ingin berkonsultasi dapat langsung melihat jadwal tersebut. Terima kasih \\ \hline
+	
+	e@student.unpac.ac.id & Mahasiswa & menurut saya sudah baik. tidak perlu ada tambahan lagi. Terima Kasih. \\ \hline
+	
+\end{longtable}
+
+Pengujian \textit{BlueTape} pada lokal berjalan sesuai yang diharapkan. Pengujian dilakukan dengan menguji fitur tambahan yang diimplementasi dan fitur lain yang terpengaruh karena adanya fitur tambahan tersebut. Pengujian eksperimental dilakukan dengan mendemokan fitur yang telah diimplementasi kepada 5 pengguna dan meminta pendapat terhadap fitur tersebut. 
