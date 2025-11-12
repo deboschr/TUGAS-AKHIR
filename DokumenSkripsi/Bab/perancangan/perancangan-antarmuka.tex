@@ -1,0 +1,86 @@
+Perancangan antarmuka pengguna dibuat dalam bentuk desain fidelitas tinggi dengan tujuan untuk memberikan gambaran visual yang mendekati tampilan akhir aplikasi berbasis JavaFX. Perancangan ini mempertimbangkan aspek keterbacaan, konsistensi elemen antarmuka, serta kemudahan interaksi bagi pengguna dalam menjalankan proses pemeriksaan tautan rusak.
+
+\begin{enumerate}
+    \item \textbf{Jendela Utama} \\
+    Jendela utama merupakan tampilan awal yang muncul ketika aplikasi dijalankan dan memfasilitasi pengguna untuk melakukan pengecekan tautan rusak pada situs web. Rancangan jendela ini terdapat pada Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}. 
+    \vspace{2mm}
+    \begin{enumerate}
+        \item \textbf{Kolom Masukan URL}: Digunakan untuk memasukkan URL situs web yang akan diperiksa.
+        
+        \item \textbf{Tombol \textit{Start}}: Digunakan untuk memulai proses \textit{web crawling}.
+        
+        \item \textbf{Tombol \textit{Stop}}: Digunakan untuk menghentikan proses \textit{web crawling}.
+        
+        \item \textbf{Status}: Menunjukkan status proses \textit{web crawling}.
+        
+        \item \textbf{\textit{All Links}}: Menunjukkan jumlah seluruh tautan yang ditemukan.
+        
+        \item \textbf{\textit{Webpage Links}}: Menunjukkan jumlah tautan halaman situs web.
+        
+        \item \textbf{\textit{Broken Links}}: Menunjukkan jumlah tautan rusak.
+        
+        \item \textbf{Opsi \textit{Filter} URL}: Digunakan untuk menentukan jenis pencarian berdasarkan URL. Opsi yang tersedia adalah:
+        \begin{itemize}
+            \item \textbf{\textit{Equals}}: Menampilkan tautan rusak dengan URL yang sama persis.
+            \item \textbf{\textit{Contains}}: Menampilkan tautan rusak yang mengandung teks tertentu pada URL.
+            \item \textbf{\textit{Starts With}}: Menampilkan tautan rusak dengan URL yang diawali teks tertentu.
+            \item \textbf{\textit{Ends With}}: Menampilkan tautan rusak dengan URL yang diakhiri teks tertentu.
+        \end{itemize}
+        
+        \item \textbf{Kolom Masukan \textit{Filter} URL}: Digunakan untuk memasukkan kata kunci pencarian URL sesuai dengan opsi \textit{filter} yang dipilih sebelumnya.
+        
+        \item \textbf{Opsi \textit{Filter} Status Code}: Digunakan untuk menentukan jenis pencarian berdasarkan kode status HTTP. Opsi yang tersedia adalah:
+        \begin{itemize}
+            \item \textbf{\textit{Equals}}: Menampilkan tautan rusak dengan kode status sama persis.
+            \item \textbf{\textit{Greater Than}}: Menampilkan tautan rusak dengan kode status lebih besar dari nilai tertentu.
+            \item \textbf{\textit{Less Than}}: Menampilkan tautan rusak dengan kode status lebih kecil dari nilai tertentu.
+        \end{itemize}
+        
+        \item \textbf{Kolom Masukan \textit{Filter} Status Code}: Digunakan untuk memasukkan kata kunci pencarian kode status HTTP sesuai dengan opsi \textit{filter} yang dipilih sebelumnya.
+        
+        \item \textbf{Tombol \textit{Export}}: Digunakan untuk mengekspor isi tabel.
+        
+        \item \textbf{Tabel \textit{Broken Links}}: Menampilkan daftar tautan rusak, tabel ini memiliki dua kolom sebagai berikut:
+        \begin{enumerate}
+            \item \textbf{\textit{Error}}: Menunjukan pesan \textit{error} tautan.
+            \item \textbf{Kolom URL}: Menunjukan URL tautan rusak.
+        \end{enumerate}
+        
+        \item \textbf{\textit{Pagination}}: Digunakan untuk menavigasi tabel jika jumlah tautan yang ditemukan cukup banyak.
+    
+    \end{enumerate}
+
+
+    \item \textbf{Jendela Detail Tautan} \\
+    Jendela detail tautan terbuka ketika pengguna menekan salah satu baris pada tabel \textit{broken links} dan akan menampilkan informasi detail dari sebuah tautan yang dipilih. Rancangan jendela ini terdapat pada Gambar~\ref{fig:rancangan-antarmuka-jendela-detail-tautan}.
+    \begin{enumerate}
+        \item \textbf{Kolom URL}: Menunjukan URL asli dari tautan.
+        
+        \item \textbf{Kolom \textit{Final} URL}: Menunjukan URL terakhir setelah proses \textit{redirect}.
+        
+        \item \textbf{Kolom \textit{Content Type}}: Menunjukan jenis konten dari tautan.
+        
+        \item \textbf{Kolom \textit{Error}}: Menunjukan pesan \textit{error} jika tautan gagal diperiksa.
+        
+        \item \textbf{Tabel \textit{Webpage Link}}: Menampilkan daftar halaman yang menjadi sumber dimana tautan rusak ditemukan, tabel ini memiliki dua kolom sebagai berikut:
+        \begin{enumerate}
+            \item \textbf{\textit{Anchor Text}}: Menunjukan teks tautan yang muncul pada halaman sumber.
+            \item \textbf{\textit{Webpage URL}}: Menunjukan URL halaman tempat tautan rusak ditemukan.
+        \end{enumerate}
+    \end{enumerate}
+
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Gambar/040301-rancangan-jendela-utama.png}
+    \caption{Rancangan Antarmuka Jendela Utama}
+    \label{fig:rancangan-antarmuka-jendela-utama}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Gambar/040302-rancangan-jendela-detail-tautan.png}
+    \caption{Rancangan Antarmuka Jendela Detail Tautan}
+    \label{fig:rancangan-antarmuka-jendela-detail-tautan}
+\end{figure}

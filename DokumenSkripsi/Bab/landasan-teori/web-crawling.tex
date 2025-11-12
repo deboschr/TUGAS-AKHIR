@@ -1,0 +1,93 @@
+\textit{Web crawling} adalah proses otomatis untuk mengambil dokumen dari web dan mengekstraksi tautan yang terkandung di dalamnya untuk penjelajahan lebih lanjut. Proses ini dijalankan oleh perangkat lunak yang disebut \textit{crawler} atau \textit{spider}, yang bekerja secara iteratif dengan memulai dari satu atau lebih URL awal (\textit{seed} URL) dan mengikuti \textit{hyperlink} yang ditemukan dalam halaman web.
+
+\subsection{Algoritma \textit{Crawling}}
+\label{subsec:0204-algoritme-crawling}
+
+\textit{Web crawling} dapat dipandang sebagai proses eksplorasi graf, di mana simpul merepresentasikan halaman web dan sisi merepresentasikan tautan antar halaman. Untuk mengatur proses eksplorasi, \textit{crawler} mempertahankan sebuah struktur antrean yang disebut \textit{frontier}. Frontier adalah kumpulan URL yang telah ditemukan tetapi belum dikunjungi. URL baru yang diekstraksi dari suatu halaman ditambahkan ke frontier jika belum pernah dimasukkan sebelumnya, sedangkan URL yang sudah dikunjungi disimpan dalam sebuah himpunan terpisah untuk mencegah duplikasi.
+
+Secara umum, proses \textit{crawling} dilakukan sebagai berikut:
+\begin{enumerate}
+  \item Ambil sebuah URL dari frontier sesuai strategi antrean yang digunakan.
+  \item Lakukan permintaan HTTP untuk mengambil dokumen dari URL tersebut.
+  \item Ekstrak tautan dari dokumen HTML yang diperoleh.
+  \item Tambahkan tautan baru ke frontier jika belum pernah dikunjungi.
+\end{enumerate}
+
+Terdapat beberapa strategi yang dapat digunakan untuk menentukan urutan eksplorasi halaman web. Dua strategi yang umum adalah sebagai berikut:
+
+\begin{itemize}
+  \item \textbf{Breadth-First Crawling} \\
+  Pada strategi ini, frontier diimplementasikan sebagai antrean FIFO (\textit{First-In First-Out}). URL yang pertama kali ditemukan akan dikunjungi terlebih dahulu. Pendekatan ini menghasilkan cakupan eksplorasi yang merata dan cenderung mengunjungi halaman-halaman populer lebih awal karena sifat distribusi \textit{power-law} pada web.
+
+  \item \textbf{Na\"{i}ve Best-First Crawling} \\
+  Pada strategi ini, frontier diimplementasikan sebagai \textit{priority queue}, di mana setiap URL diberi skor prioritas. Skor tersebut dapat ditentukan berdasarkan faktor topologis seperti jumlah tautan masuk, atau berdasarkan kesesuaian konten dengan suatu topik tertentu. URL dengan skor prioritas tertinggi akan dikunjungi lebih dahulu, sehingga strategi ini banyak digunakan dalam \textit{focused crawling}.
+\end{itemize}
+
+
+\subsection{Jenis-Jenis \textit{Crawler}}
+\label{subsec:0204-jenis-crawler}
+
+Berdasarkan tujuan dan ruang lingkup \textit{crawling}, terdapat beberapa tipe \textit{crawler} yang umum dibahas dalam literatur:
+
+\begin{itemize}
+  \item \textbf{\textit{Universal Crawler}} \\
+  \textit{Universal crawler} dirancang untuk menjelajahi bagian besar dari web tanpa pembatasan topik. Jenis ini umumnya digunakan oleh mesin pencari berskala besar, sehingga membutuhkan infrastruktur terdistribusi dan mekanisme skalabilitas tinggi untuk menangani miliaran halaman web.  
+
+  \item \textbf{\textit{Focused Crawler}} \\
+  \textit{Focused crawler} ditujukan untuk mengambil hanya halaman-halaman yang relevan terhadap suatu topik tertentu. Seleksi dilakukan dengan mengevaluasi konten atau atribut halaman sebelum mengikuti tautan. Dengan pendekatan ini, efisiensi meningkat karena \textit{crawler} tidak mengunjungi halaman yang dianggap tidak relevan.  
+
+  \item \textbf{\textit{Topical Crawler}} \\
+  \textit{Topical crawler} merupakan variasi dari focused \textit{crawler} yang menekankan pada keterkaitan topik antar halaman yang saling terhubung. Prinsip \textit{topical locality} digunakan untuk memperkirakan bahwa halaman yang berdekatan dengan halaman relevan cenderung juga relevan terhadap topik yang sama. Strategi ini membantu \textit{crawler} memilih jalur penelusuran yang lebih sesuai dengan domain yang ditargetkan.  
+\end{itemize}
+
+\subsection{Tantangan Implementasi}
+\label{subsec:0204-tantangan-crawling}
+
+Pengembangan sistem \textit{web crawling} menghadapi sejumlah tantangan teknis yang telah banyak dibahas dalam literatur. Beberapa tantangan utama tersebut adalah sebagai berikut:
+
+\begin{itemize}
+  \item \textbf{\textit{Fetching}}\\
+  Proses pengambilan konten dari halaman web harus dilakukan secara efisien. \textit{Crawler} perlu menetapkan batas waktu (\textit{timeout}) agar tidak menunggu terlalu lama pada halaman yang tidak responsif. Selain itu, diperlukan mekanisme pengendalian kecepatan permintaan (\textit{rate limiting}) dengan cara menyisipkan jeda (\textit{delay}) antar permintaan atau membatasi jumlah permintaan dalam satuan waktu. Hal ini mencegah beban berlebihan pada server tujuan serta mengurangi risiko pemblokiran alamat IP.
+
+  \item \textbf{\textit{Parsing}}\\
+  Konten HTML yang diperoleh dari web harus diurai (\textit{parse}) menjadi representasi struktur DOM untuk memungkinkan ekstraksi elemen seperti \texttt{<a href>}. Tantangan muncul karena halaman web sering kali tidak mematuhi standar HTML, misalnya memiliki tag yang tidak lengkap atau sintaks yang salah. Oleh karena itu, diperlukan parser yang toleran terhadap kesalahan dan mampu menangani berbagai \textit{encoding} karakter. Selain itu, konten dinamis berbasis JavaScript biasanya tidak tersedia langsung dalam HTML statis sehingga dapat terlewat oleh \textit{crawler} tradisional.
+
+  \item \textbf{\textit{Link Extraction} dan \textit{Canonicalization}}\\
+  Semua tautan yang ditemukan harus dinormalisasi agar tidak terjadi duplikasi akibat variasi penulisan URL. Normalisasi mencakup langkah-langkah seperti konversi nama host menjadi huruf kecil, penghapusan fragmen (\texttt{\#}), parameter sesi, serta penyeragaman penggunaan \textit{trailing slash}. Dengan demikian, \textit{crawler} dapat memastikan setiap sumber daya diidentifikasi secara unik dan tidak mengambil halaman yang sama berulang kali.
+
+  \item \textbf{\textit{Spider Trap} dan \textit{Infinite Loops}}\\
+  Beberapa situs web berisi pola tautan yang dapat membuat \textit{crawler} terjebak dalam perulangan tak terbatas, misalnya kalender dinamis yang menghasilkan jumlah halaman tanpa akhir atau URL dengan parameter yang terus berubah. Untuk mengatasi masalah ini, \textit{crawler} perlu membatasi kedalaman penelusuran (\textit{crawl depth}), menetapkan jumlah maksimum URL per domain, dan menerapkan deteksi pola berulang yang berpotensi menjadi jebakan.
+
+  \item \textbf{\textit{Page Repository}}\\
+  Sistem \textit{crawler} perlu menyimpan metadata setiap halaman yang sudah dikunjungi, termasuk URL, waktu kunjungan terakhir, status pengambilan, dan sidik jari konten (\textit{content hash}). Penyimpanan informasi ini mencegah kunjungan ulang yang tidak diperlukan dan mendukung penerapan \textit{scheduled recrawling} untuk memperbarui konten secara periodik.
+
+  \item \textbf{\textit{Concurrency}}\\
+  Untuk meningkatkan kecepatan \textit{crawling}, \textit{crawler} modern menjalankan beberapa permintaan secara paralel menggunakan banyak utas (\textit{threads}) atau proses. Akan tetapi, peningkatan jumlah permintaan simultan dapat menimbulkan risiko pembatasan atau pemblokiran oleh server target. Oleh karena itu, \textit{crawler} memerlukan strategi sinkronisasi, antrian tugas (\textit{task queue}), serta mekanisme pengendalian beban untuk menjaga efisiensi sekaligus menghindari gangguan pada server.
+\end{itemize}
+
+
+\subsection{Etika dan Kepatuhan}
+\label{subsec:0204-etika-crawling}
+
+Aktivitas \textit{web crawling} tidak hanya menghadapi tantangan teknis, tetapi juga harus memperhatikan aspek etika dan kepatuhan terhadap norma yang berlaku di lingkungan web. Beberapa prinsip yang umum diterapkan adalah sebagai berikut:
+
+\begin{itemize}
+  \item \textbf{\texttt{robots.txt}} \\
+  File \texttt{robots.txt} digunakan dalam protokol \textit{Robots Exclusion Protocol} untuk menentukan bagian situs yang boleh atau tidak boleh diakses oleh \textit{crawler} File ini ditempatkan di direktori akar (\texttt{/}) dari sebuah situs web. Sebagai contoh:
+\begin{verbatim}
+User-agent: *
+Disallow: /admin/
+Allow: /public/
+\end{verbatim}
+  Instruksi tersebut menyatakan bahwa semua agen otomatis (ditandai dengan \texttt{*}) tidak diperbolehkan mengakses direktori \texttt{/admin/}, tetapi diperbolehkan mengakses \texttt{/public/}. Walaupun kepatuhan terhadap \texttt{robots.txt} bersifat sukarela, pengabaian aturan ini dapat dianggap sebagai pelanggaran etika.
+
+  \item \textbf{\textit{User-Agent Identification}} \\
+  Setiap permintaan HTTP memiliki \textit{header} \texttt{User-Agent} yang berfungsi mengidentifikasi \textit{crawler} Informasi ini memungkinkan administrator situs mengetahui identitas perangkat lunak yang melakukan \textit{crawling}. Sebagai praktik yang baik, \textit{crawler} mencantumkan nama, versi, serta alamat URL untuk dokumentasi atau kontak. Contoh:
+\begin{verbatim}
+User-Agent: MyCrawler/1.0 (+http://example.com/crawler-info)
+\end{verbatim}
+  Dengan adanya identitas ini, pemilik situs dapat memahami tujuan \textit{crawling} dan memiliki kesempatan untuk berkomunikasi dengan pengembang \textit{crawler} bila diperlukan.
+
+  \item \textbf{Kepatuhan terhadap Kebijakan Situs} \\
+  \textit{crawler} harus menghormati kebijakan akses dan tidak mengambil konten yang bersifat pribadi, rahasia, atau dilindungi hak cipta. Praktik seperti bypass autentikasi, pengambilan data berbayar, atau eksploitasi celah keamanan termasuk kategori penyalahgunaan yang melanggar hukum maupun etika.
+\end{itemize}

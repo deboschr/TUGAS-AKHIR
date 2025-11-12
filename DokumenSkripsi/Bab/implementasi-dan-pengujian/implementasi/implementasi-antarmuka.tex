@@ -1,0 +1,33 @@
+Subbab ini menjelaskan hasil implementasi antarmuka pengguna dari aplikasi BrokenLink Checker yang merupakan realisasi dari rancangan pada Subbab Perancangan Antarmuka (Subbab~\ref{chap:040000-perancangan}). 
+Antarmuka pengguna dikembangkan menggunakan JavaFX dengan file berformat \texttt{FXML} serta gaya visual yang diatur melalui berkas \texttt{CSS}. 
+Berikut merupakan hasil implementasi dari setiap jendela pada aplikasi.
+
+\begin{enumerate}
+    \item \textbf{Jendela Utama}\\
+    Jendela utama merupakan pusat interaksi pengguna untuk memulai pemeriksaan tautan. 
+    Pada jendela ini, pengguna dapat memasukkan URL situs web yang akan diperiksa, kemudian menekan tombol \texttt{Start} untuk memulai proses pemeriksaan atau tombol \texttt{Stop} untuk menghentikan proses yang sedang berjalan. 
+    Bagian \textit{Summary} menampilkan informasi status pemeriksaan, jumlah total tautan yang ditemukan, jumlah halaman yang termasuk dalam domain yang sama, serta jumlah tautan rusak. 
+    Bagian \textit{Filters} memungkinkan pengguna untuk menyaring hasil berdasarkan URL atau kode status HTTP, sementara tombol \texttt{Export} digunakan untuk mengekspor hasil pemeriksaan ke dalam file eksternal. 
+    Bagian \textit{Result} menampilkan daftar tautan rusak beserta keterangan \textit{error}-nya. 
+    Implementasi dari jendela utama ditunjukan pada Gambar~\ref{fig:implementasi-jendela-utama}, implementasi ini didasarkan pada perancangan yang telah dibuat berdasarkan Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.85\textwidth]{Gambar/050104-implementasi-jendela-utama.png}
+        \caption{Hasil Implementasi Jendela Utama}
+        \label{fig:implementasi-jendela-utama}
+    \end{figure}
+
+    \item \textbf{Jendela Detail Tautan}\\
+    Jendela detail tautan digunakan untuk menampilkan informasi lengkap mengenai satu tautan rusak tertentu yang dipilih dari tabel hasil pemeriksaan pada jendela utama. 
+    Jendela ini menampilkan atribut \texttt{URL}, \texttt{Final URL}, \texttt{Content Type}, dan \texttt{Error} untuk menunjukkan hasil pemeriksaan tautan yang bersangkutan. 
+    Selain itu, tabel pada bagian bawah jendela menampilkan daftar halaman asal (\textit{webpage URL}) tempat tautan tersebut ditemukan beserta dengan teks yang menjadi penanda tautan tersebut pada sumber halaman (\textit{anchor text}). 
+    Implementasi dari jendela detail tautan ditunjukan pada Gambar~\ref{fig:implementasi-jendela-detail-tautan}, implementasi ini didasarkan pada perancangan yang telah dibuat berdasarkan Gambar~\ref{fig:rancangan-antarmuka-jendela-detail-tautan}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.85\textwidth]{Gambar/050104-implementasi-jendela-detail-tautan.png}
+        \caption{Hasil Implementasi Jendela Detail Tautan}
+        \label{fig:implementasi-jendela-detail-tautan}
+    \end{figure}
+\end{enumerate}

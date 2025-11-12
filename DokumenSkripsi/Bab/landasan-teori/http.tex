@@ -1,0 +1,195 @@
+\textit{Hypertext Transfer Protocol} (HTTP) adalah protokol tingkat aplikasi yang menjadi dasar komunikasi pada arsitektur \textit{World Wide Web}. HTTP bekerja dengan pola komunikasi berbasis pesan, di mana sebuah \textit{client} mengirimkan \textit{request} dan \textit{server} menanggapinya dengan \textit{response}. Protokol ini bersifat \textit{stateless}, artinya setiap \textit{request} dapat dipahami secara terpisah tanpa ketergantungan pada interaksi sebelumnya, sehingga \textit{server} tidak diwajibkan menyimpan konteks antar \textit{request}. 
+
+Tujuan dari sebuah \textit{request} adalah \textit{resource}, yang umumnya diidentifikasi melalui URI (lihat Subbab~\ref{sec:020200-uri}). HTTP tidak membatasi apa yang dimaksud dengan \textit{resource}, melainkan hanya menyediakan antarmuka untuk berinteraksi dengannya. Informasi mengenai \textit{resource} tersebut disampaikan dalam bentuk \textit{representation}, yaitu data beserta metadata yang mencerminkan keadaan \textit{resource} pada waktu tertentu dan dapat ditransmisikan melalui protokol.
+
+Untuk meningkatkan kinerja, HTTP juga memanfaatkan \textit{caches}. Sebuah \textit{cache} menyimpan \textit{response} sebelumnya yang bersifat \textit{cacheable}, sehingga \textit{request} yang sama di kemudian hari dapat dijawab lebih cepat tanpa perlu menghubungi kembali \textit{origin server}. \textit{Origin server} adalah program yang dapat menghasilkan \textit{response} otoritatif untuk sebuah \textit{resource}. Mekanisme ini membantu mengurangi waktu \textit{response} sekaligus menekan konsumsi \textit{bandwidth}.
+
+Secara umum, HTTP dijalankan di atas protokol TCP dengan port standar 80. Untuk komunikasi yang membutuhkan perlindungan, digunakan skema \texttt{https}, yaitu HTTP yang berjalan di atas \textit{Transport Layer Security} (TLS) pada port standar 443. Melalui HTTPS, komunikasi memperoleh jaminan kerahasiaan, autentikasi, dan integritas data.
+
+
+\subsection{Metode HTTP}
+\label{subsec:0201-metode-http}
+
+Metode HTTP berfungsi untuk menunjukkan tujuan dari \textit{request} yang dibuat oleh \textit{client} dan hasil sukses apa yang diharapkan dari \textit{request} tersebut. Metode HTTP memiliki beberapa sifat umum, diantaranya adalah \textit{safe} dan \textit{idempotent}. Sebuah metode dikatakan \textit{safe} apabila semantik yang didefinisikan bersifat \textit{read-only}, yaitu \textit{client} tidak meminta dan tidak mengharapkan adanya perubahan keadaan pada \textit{origin server} akibat penerapan metode tersebut. Metode yang termasuk \textit{safe} adalah \texttt{GET}, \texttt{HEAD}, \texttt{OPTIONS}, dan \texttt{TRACE}. Sebuah metode disebut \textit{idempotent} apabila dampak yang dimaksudkan pada \textit{server} dari beberapa \textit{request} identik, sama dengan dampak dari satu \textit{request}. Metode \texttt{PUT}, \texttt{DELETE}, serta seluruh metode aman adalah \textit{idempotent}. Berikut ini adalah daftar beberapa metode HTTP:
+
+\begin{itemize}
+    \item \textbf{GET}: Metode ini digunakan untuk meminta transfer representasi terkini dari sumber daya target.
+  
+    \item \textbf{HEAD}: Metode ini identik dengan \texttt{GET}, tetapi \textit{server} tidak boleh mengirimkan konten dalam \textit{response}. \texttt{HEAD} digunakan untuk memperoleh metadata dari representasi yang dipilih tanpa harus mentransfer data representasi itu sendiri.
+  
+    \item \textbf{POST}: Metode ini digunakan untuk meminta sumber daya target memproses representasi yang disertakan dalam \textit{request} sesuai dengan semantik khusus yang dimiliki oleh sumber daya tersebut.
+  
+    \item \textbf{PUT}: Metode ini digunakan untuk meminta agar keadaan dari sumber daya target dibuat atau diganti dengan keadaan yang ditentukan oleh representasi yang disertakan dalam isi pesan \textit{request}.
+  
+    \item \textbf{DELETE}: Metode ini digunakan untuk meminta agar \textit{origin server} menghapus asosiasi antara sumber daya target dengan fungsionalitasnya saat ini.
+  
+    \item \textbf{OPTIONS}: Metode ini digunakan untuk meminta informasi mengenai opsi komunikasi yang tersedia bagi sumber daya target, baik pada \textit{origin server} maupun perantara. Metode ini memungkinkan \textit{client} mengetahui opsi dan/atau persyaratan yang terkait dengan sebuah sumber daya, atau kemampuan dari sebuah \textit{server}, tanpa menyiratkan adanya tindakan terhadap sumber daya tersebut.
+  
+\end{itemize}
+
+
+
+\subsection{Kode Status HTTP}
+\label{subsec:0201-kode-status-http}
+
+Kode status HTTP adalah bagian dari baris awal pada \textit{response} \textit{server} yang menunjukkan hasil pemrosesan terhadap suatu \textit{request}. Kode ini terdiri dari tiga digit numerik dan dikelompokkan ke dalam lima kelas utama berdasarkan digit pertamanya: informasi (1xx), keberhasilan (2xx), pengalihan (3xx), kesalahan dari \textit{client} (4xx), dan kesalahan dari \textit{server} (5xx).
+
+\subsubsection{\textit{Informational} 1xx}
+\label{subsubsec:020104-infotmational-1xx}
+
+Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima dan sedang diproses, tetapi belum ada \textit{response} final.
+
+\begin{itemize}
+    \item \textbf{100 (\textit{Continue})}: Menunjukkan bahwa bagian awal dari \textit{request} telah diterima dan belum ditolak oleh \textit{server}. \textit{Server} bermaksud untuk mengirimkan \textit{response} akhir setelah seluruh \textit{request} diterima dan diproses.
+  
+    \item \textbf{101 (\textit{Switching Protocols})}: Menunjukkan bahwa \textit{server} memahami dan bersedia memenuhi \textit{request} \textit{client} untuk beralih protokol aplikasi pada koneksi yang sama.
+  
+    \item \textbf{102 (\textit{Processing})}: Menunjukan bahwa \textit{server} telah menerima \textit{request} sepenuhnya, namun pemrosesan terhadap \textit{request} tersebut belum selesai.~\cite{RFC2518}
+  
+    \item \textbf{103 (\textit{Early Hints})}: Digunakan oleh \textit{server} untuk memberikan \textit{response} awal melalui \textit{header} kepada \textit{client} sebelum \textit{response} akhir tersedia.~\cite{RFC8297}
+  
+\end{itemize}
+
+\subsubsection{\textit{Successful} 2xx}
+\label{subsubsec:201004-successful-2xx}
+
+Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima, dipahami, dan diproses dengan sukses.
+
+\begin{itemize}
+    \item \textbf{200 (\textit{OK})}: Menunjukkan bahwa \textit{request} berhasil diproses.
+  
+    \item \textbf{201 (\textit{Created})}: Menunjukkan bahwa \textit{request} berhasil dan menghasilkan satu atau lebih sumber daya baru.
+  
+    \item \textbf{202 (\textit{Accepted})}: Menunjukkan bahwa \textit{request} telah diterima untuk diproses, tetapi pemrosesan belum selesai.
+  
+    \item \textbf{203 (\textit{Non-Authoritative Information})}: Menunjukkan bahwa \textit{request} berhasil, tetapi konten yang dikirim telah dimodifikasi dari \textit{response} 200 (\textit{OK}) oleh \textit{transforming proxy}. \textit{Transforming proxy} adalah \textit{proxy} yang melakukan modifikasi terhadap representasi pesan, baik dengan cara mengubah format, menambahkan informasi, maupun menghapus sebagian konten, sehingga representasi yang dikirimkan kepada \textit{client} tidak identik dengan yang dikirimkan oleh \textit{origin server}.
+  
+    \item \textbf{204 (\textit{No Content})}: Menunjukkan bahwa \textit{request} berhasil, tetapi tidak ada konten tambahan untuk dikirim dalam \textit{response}.
+  
+    \item \textbf{205 (\textit{Reset Content})}: Menunjukkan bahwa \textit{server} telah berhasil memenuhi \textit{request} dan menginginkan agar \textit{user agent} mereset tampilan dokumen yang menyebabkan \textit{request} dikirim, ke keadaan awal sebagaimana diterima dari \textit{origin server}.
+  
+    \item \textbf{206 (\textit{Partial Content})}: Menunjukkan bahwa \textit{server} berhasil memenuhi \textit{range request} dengan mengirimkan sebagian dari representasi sumber daya. Klien harus memeriksa \texttt{Content-Type} dan \texttt{Content-Range} untuk mengetahui bagian mana yang dikirim dan apakah diperlukan \textit{request} tambahan. \textit{Range request} didefinisikan sebagai \textit{request} HTTP yang menggunakan \textit{header} \texttt{Range} untuk meminta sebagian dari representasi data.
+  
+    \item \textbf{207 (\textit{Multi-Status})}: Digunakan untuk memberikan status terhadap beberapa operasi independen dalam satu \textit{request}.~\cite{RFC4918}
+  
+  
+    \item \textbf{226 (IM \textit{Used})}: Menunjukkan bahwa \textit{server} telah berhasil memenuhi \textit{request} \texttt{GET} terhadap suatu sumber daya, dan representasi yang dikembalikan merupakan hasil dari satu atau lebih \textit{instance manipulations} yang diterapkan pada \textit{instance} saat ini. \textit{Instance manipulation} adalah operasi terhadap satu atau lebih \textit{instance} yang dapat menghasilkan representasi \textit{instance} dikirimkan dari \textit{server} ke klien dalam bentuk bagian-bagian terpisah atau melalui lebih dari satu pesan \textit{response}.~\cite{RFC3229}
+  
+\end{itemize}
+
+\subsubsection{\textit{Redirection} 3xx}
+\label{subsubsec:020104-redirection-3xx}
+
+Kode-kode pada kelas ini menunjukkan bahwa \textit{client} harus melakukan langkah tambahan untuk menyelesaikan \textit{request}, seperti mengikuti \textit{redirect}.
+
+\begin{itemize}
+
+    \item \textbf{300 (\textit{Multiple Choices})}: Menunjukkan bahwa sumber daya target memiliki lebih dari satu representasi, masing-masing dengan \textit{identifier} yang lebih spesifik. Informasi mengenai alternatif tersebut diberikan agar pengguna atau \textit{user agent} dapat memilih representasi yang diinginkan dengan mengarahkan permintaannya ke salah satu dari \textit{identifier} tersebut.
+  
+    \item \textbf{301 (\textit{Moved Permanently})}: Menunjukkan bahwa sumber daya target telah diberikan URI baru yang bersifat permanen, dan semua referensi di masa depan sebaiknya menggunakan URI baru tersebut.
+  
+    \item \textbf{302 (\textit{Found})}: Menunjukkan bahwa sumber daya target sementara berada di bawah URI yang berbeda. Karena lokasi tersebut dapat berubah, \textit{client} tetap sebaiknya menggunakan URI asli untuk \textit{request} di masa depan.
+  
+    \item \textbf{303 (\textit{See Other})}: Menunjukkan bahwa \textit{server} mengarahkan \textit{user agent} ke sumber daya lain, sebagaimana ditentukan dalam \textit{header} \texttt{Location}, yang dimaksudkan untuk memberikan \textit{response} tidak langsung terhadap \textit{request} asli.
+  
+    \item \textbf{304 (\textit{Not Modified})}: Menunjukan bahwa \textit{server} telah menerima \textit{conditional request} untuk metode \texttt{GET} atau \texttt{HEAD} yang seharusnya menghasilkan \textit{response} 200 (\textit{OK}), tetapi kondisi yang diberikan bernilai salah. Artinya, \textit{client} sudah memiliki representasi yang valid, sehingga \textit{server} tidak perlu mengirim ulang. Klien dapat menggunakan salinan yang sudah dimiliki seolah-olah \textit{server} memberikan \textit{response} 200 (\textit{OK}).
+ 
+    \item \textbf{307 (\textit{Temporary Redirect})}: Menunjukkan bahwa sumber daya target sementara berada di bawah URI yang berbeda.
+  
+    \item \textbf{308 (\textit{Permanent Redirect})}: Menunjukkan bahwa sumber daya target telah dipindahkan secara permanen ke URI baru, dan semua referensi berikutnya sebaiknya menggunakan URI baru tersebut.
+  
+\end{itemize}
+
+\subsubsection{\textit{Client Error} 4xx}
+\label{subsubsec:020104-client-error-4xx}
+
+Kode-kode pada kelas ini menunjukkan bahwa telah terjadi kesalahan di sisi \textit{client}. Berikut adalah daftar kode pada kelas ini:
+
+\begin{itemize}
+    \item \textbf{400 (\textit{Bad Request})}: Menunjukkan bahwa \textit{server} tidak dapat atau tidak mau memproses \textit{request} karena dianggap sebagai kesalahan dari \textit{client}, seperti sintaks \textit{request} salah, format pesan tidak valid, atau rute \textit{request} yang menyesatkan.
+  
+    \item \textbf{401 (\textit{Unauthorized})}: Menunjukkan bahwa \textit{request} tidak dapat dijalankan karena tidak memiliki kredensial autentikasi yang sah untuk sumber daya yang diminta.
+  
+    \item \textbf{402 (\textit{Payment Required})}: Kode ini disediakan untuk penggunaan di masa depan.
+  
+    \item \textbf{403 (\textit{Forbidden})}: Menunjukkan bahwa \textit{server} memahami \textit{request} tetapi menolak untuk memenuhinya.
+  
+    \item \textbf{404 (\textit{Not Found})}: Menunjukkan bahwa sumber daya yang diminta tidak ditemukan.
+  
+    \item \textbf{405 (\textit{Method Not Allowed})}: Menunjukkan bahwa metode HTTP pada \textit{request} dikenali oleh \textit{server}, tetapi tidak diizinkan untuk digunakan pada sumber daya tersebut.
+  
+    \item \textbf{406 (\textit{Not Acceptable})}: Menunjukkan bahwa sumber daya target tidak memiliki representasi yang sesuai dengan preferensi \textit{client} berdasarkan \textit{header} negosiasi konten.
+  
+    \item \textbf{407 (\textit{Proxy Authentication Required})}: Mirip dengan kode status 401, tetapi digunakan ketika \textit{client} harus melakukan autentikasi terlebih dahulu kepada \textit{proxy}.
+  
+    \item \textbf{408 (\textit{Request Timeout})}: Menunjukkan bahwa \textit{server} tidak menerima pesan \textit{request} yang lengkap dalam jangka waktu yang sudah disiapkannya untuk menunggu.
+  
+    \item \textbf{409 (\textit{Conflict})}: Menunjukkan bahwa \textit{request} tidak dapat diselesaikan karena terjadi konflik dengan keadaan sumber daya target saat ini.
+  
+    \item \textbf{410 (\textit{Gone})}: Menunjukkan bahwa akses ke sumber daya target sudah tidak tersedia lagi di \textit{origin server}, dan kondisi ini kemungkinan bersifat permanen.
+  
+    \item \textbf{411 (\textit{Length Required})}: Menunjukkan bahwa \textit{server} menolak menerima \textit{request} yang tidak memiliki \textit{header} \texttt{Content-Length}.
+  
+    \item \textbf{412 (\textit{Precondition Failed})}: Menunjukkan bahwa satu atau lebih kondisi yang dikirim dalam \textit{header request} bernilai salah ketika diperiksa oleh \textit{server}.
+  
+    \item \textbf{413 (\textit{Content Too Large})}: Menunjukkan bahwa \textit{server} menolak memproses \textit{request} karena ukuran konten lebih besar daripada yang bersedia atau mampu diproses \textit{server}.
+  
+    \item \textbf{414 (URI \textit{Too Long})}: Menunjukkan bahwa \textit{server} menolak memproses \textit{request} karena URI target terlalu panjang untuk ditafsirkan.
+  
+    \item \textbf{415 (\textit{Unsupported Media Type})}: Menunjukkan bahwa \textit{server} menolak memproses \textit{request} karena isi \textit{request} berada dalam format yang tidak didukung oleh metode pada sumber daya target.
+  
+    \item \textbf{416 (\textit{Range Not Satisfiable})}: 
+  
+    \item \textbf{417 (\textit{Expectation Failed})}: Menunjukkan bahwa ekspektasi yang ditentukan dalam \textit{header} \texttt{Expect} pada \textit{request}, tidak dapat dipenuhi oleh setidaknya salah satu \textit{server} yang menerima \textit{request}.
+  
+    \item \textbf{421 (\textit{Misdirected Request})}: Menunjukkan bahwa \textit{request} diarahkan ke \textit{server} yang tidak mampu atau tidak mau memberikan \textit{response} otoritatif untuk URI target.
+  
+    \item \textbf{422 (\textit{Unprocessable Content})}: Menunjukkan bahwa \textit{server} memahami jenis konten \textit{request} dan sintaks \textit{request} benar, tetapi \textit{server} tidak dapat memproses instruksi di dalamnya.
+  
+    \item \textbf{423 (\textit{Locked})}: Menunjukkan bahwa sumber atau tujuan dari suatu metode sedang terkunci.~\cite{RFC4918}
+  
+    \item \textbf{424 (\textit{Failed Dependency})}: Menunjukkan bahwa metode tidak dapat dijalankan pada sumber daya karena tindakan yang menjadi prasyarat telah gagal.~\cite{RFC4918}
+  
+    \item \textbf{425 (\textit{Too Early})}: Menunjukkan bahwa \textit{server} menolak memproses \textit{request} karena khawatir \textit{request} tersebut dapat diulang (\textit{replayed}).~\cite{RFC8470}
+  
+    \item \textbf{426 (\textit{Upgrade Required})}: Menunjukkan bahwa \textit{server} menolak menjalankan \textit{request} menggunakan protokol saat ini, tetapi bersedia melakukannya setelah \textit{client} beralih ke protokol lain.
+  
+    \item \textbf{428 (\textit{Precondition Required})}: Menunjukkan bahwa \textit{server} mewajibkan \textit{request} disertai kondisi tertentu.~\cite{RFC6585}
+  
+    \item \textbf{429 (\textit{Too Many Requests})}: Menunjukkan bahwa \textit{client} telah mengirim terlalu banyak \textit{request} dalam jangka waktu tertentu.~\cite{RFC6585}
+  
+    \item \textbf{431 (\textit{Request Header Fields Too Large})}: Menunjukkan bahwa \textit{server} menolak \textit{request} karena ukuran \textit{header} terlalu besar.~\cite{RFC6585}
+  
+    \item \textbf{451 (\textit{Unavailable For Legal Reasons})}: Sumber daya dibatasi karena alasan hukum.~\cite{RFC7725}
+  
+\end{itemize}
+
+\subsubsection{\textit{Server Error} 5xx}
+\label{subsubsec:020104-server-error-5xx}
+
+Kode-kode pada kelas ini menunjukkan bahwa \textit{server} menyadari bahwa terjadi kesalahan di sisi \textit{server}. Berikut adalah daftar kode pada kelas ini:
+
+\begin{itemize}
+
+    \item \textbf{500 (\textit{Internal Server Error})}: Menunjukkan bahwa \textit{server} mengalami kondisi tak terduga yang menghalangi \textit{server} untuk dapat memenuhi.
+  
+    \item \textbf{501 (\textit{Not Implemented})}: Menunjukkan bahwa \textit{server} tidak mendukung fungsionalitas yang diperlukan untuk memenuhi \textit{request} dari \textit{client}. Kode ini digunakan ketika \textit{server} tidak mengenali metode HTTP yang digunakan, dan tidak memiliki kemampuan untuk mendukung metode tersebut pada sumber daya mana pun.
+  
+    \item \textbf{502 (\textit{Bad Gateway})}: Menunjukkan bahwa \textit{server} ketika bertindak sebagai \textit{gateway} atau \textit{proxy}, menerima \textit{response} tidak yang valid dari \textit{server} lain yang diaksesnya saat mencoba memenuhi \textit{request}.
+  
+    \item \textbf{503 (\textit{Service Unavailable})}: Menunjukkan bahwa \textit{server} untuk sementara tidak dapat menangani \textit{request}. Kode ini digunakan ketika \textit{server} sedang kelebihan beban atau sedang dilakukan pemeliharaan. \textit{Server} dapat menyertakan \textit{header} \texttt{Retry-After} untuk memberi tahu \textit{client} berapa lama sebaiknya menunggu sebelum mencoba lagi \textit{request}.
+  
+    \item \textbf{504 (\textit{Gateway Timeout})}: Menunjukkan bahwa \textit{server} ketika bertindak sebagai \textit{gateway} atau \textit{proxy}, tidak menerima \textit{response} tepat waktu dari \textit{server} lain yang perlu diakses untuk menyelesaikan \textit{request}.
+  
+    \item \textbf{505 (\textit{HTTP Version Not Supported})}: Menunjukkan bahwa \textit{server} tidak mendukung atau menolak mendukung versi HTTP yang digunakan dalam \textit{request}.
+  
+    \item \textbf{506 (\textit{Variant Also Negotiates})}: Menunjukkan bahwa \textit{server} memiliki kesalahan konfigurasi internal. Hal ini terjadi ketika sumber daya yang dipilih sebagai varian ternyata juga dikonfigurasi untuk melakukan \textit{transparent content negotiation}, yaitu mekanisme untuk secara otomatis memilih versi terbaik dari sebuah sumber daya yang memiliki banyak varian di bawah satu URL. Akibatnya, sumber daya tersebut tidak bisa menjadi titik akhir yang valid dalam proses negosiasi konten.~\cite{RFC2295}
+  
+    \item \textbf{507 (\textit{Insufficient Storage})}: Menunjukkan bahwa metode tidak dapat dijalankan pada sumber daya karena \textit{server} tidak mampu menyimpan representasi yang dibutuhkan untuk menyelesaikan \textit{request} dengan sukses.~\cite{RFC4918}
+  
+    \item \textbf{508 (\textit{Loop Detected})}: Menunjukkan bahwa \textit{server} menghentikan suatu operasi karena mendeteksi adanya \textit{infinite loop} ketika memproses \textit{request} dengan \textit{header} \texttt{Depth:infinity}.~\cite{RFC5842}
+  
+    \item \textbf{511 (\textit{Network Authentication Required})}: Menunjukkan bahwa \textit{client} harus melakukan autentikasi terlebih dahulu untuk mendapatkan akses jaringan.~\cite{RFC6585}
+  
+\end{itemize}
+

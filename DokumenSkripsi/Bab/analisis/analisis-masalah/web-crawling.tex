@@ -1,0 +1,69 @@
+
+Analisis pada bagian ini merujuk pada teori mengenai \textit{web crawling} yang dibahas pada Subbab~\ref{sec:020400-web-crawling} serta teori HTML pada Subbab~\ref{sec:020300-html}. Tujuan utamanya adalah mengidentifikasi permasalahan yang muncul dalam proses \textit{crawling} halaman web sebagai dasar pemeriksaan tautan rusak. Permasalahan tersebut mencakup strategi \textit{crawling}, jenis \textit{crawler} yang digunakan, tantangan teknis yang dihadapi, serta keterkaitannya dengan struktur HTML sebagai sumber tautan.
+
+\subsubsection*{Strategi \textit{crawling}}
+Pada Subbab~\ref{sec:020400-web-crawling} dijelaskan bahwa strategi \textit{crawling} dapat dilakukan dengan \textit{breadth-first crawling} maupun \textit{na\"{i}ve best-first crawling}. Keduanya memiliki karakteristik yang berbeda.  
+
+\begin{itemize}
+  \item \textbf{\textit{Breadth-first crawling}} menyapu halaman secara merata dari titik awal. Strategi ini cocok digunakan untuk aplikasi pemeriksa tautan, karena setiap halaman pada host yang sama dianggap memiliki tingkat kepentingan yang setara. Dengan cara ini, cakupan situs dapat diperoleh lebih menyeluruh tanpa harus memikirkan bobot prioritas antar tautan.
+  \item \textbf{\textit{Na\"{i}ve best-first crawling}} menggunakan \textit{priority queue} berbasis skor untuk menentukan halaman yang akan diambil lebih dahulu. Strategi ini bermanfaat bila ada kriteria relevansi yang jelas, misalnya hanya ingin menekankan halaman dengan potensi informasi lebih tinggi. Namun, dalam konteks aplikasi pemeriksa tautan rusak, pendekatan ini tidak relevan. Semua halaman pada satu host dianggap sama penting, sehingga tidak ada dasar untuk memberikan skor prioritas.
+\end{itemize}
+
+Dengan demikian, strategi yang logis untuk aplikasi ini adalah \textit{breadth-first crawling}.
+
+\subsubsection*{Jenis Crawler}
+Subbab~\ref{sec:020400-web-crawling} juga membahas jenis-jenis \textit{crawler}, seperti \textit{universal crawler}, \textit{focused crawler}, dan \textit{topical crawler}.  
+
+\begin{itemize}
+  \item \textbf{\textit{Universal crawler}} mencoba merayapi seluruh bagian web dalam skala luas. Jenis ini tidak sesuai untuk aplikasi pemeriksa tautan karena lingkupnya terlalu besar dan tidak efisien.
+  \item \textbf{\textit{Focused crawler}} membatasi diri pada kriteria tertentu. Pendekatan ini relevan karena aplikasi ini hanya perlu merayapi halaman dengan host yang sama. Dengan cara ini, proses \textit{crawling} lebih terarah dan sumber daya tidak terbuang pada tautan eksternal.
+  \item \textbf{\textit{Topical crawler}} memfokuskan \textit{crawling} pada topik tertentu. Jenis ini biasanya digunakan untuk pengumpulan konten tematik. Untuk pemeriksa tautan, pendekatan ini tidak diperlukan karena tujuan utamanya adalah validitas tautan, bukan isi konten.
+\end{itemize}
+
+Dengan pertimbangan tersebut, aplikasi pemeriksa tautan lebih sesuai menggunakan pendekatan \textit{focused crawling} dengan batasan pada domain yang sama.
+
+\subsubsection*{Tantangan Teknis}
+Subbab~\ref{subsec:0204-tantangan-crawling} menjelaskan sejumlah tantangan yang umum dihadapi dalam \textit{crawling}. Dalam sistem yang dikembangkan, setiap tantangan tersebut ditinjau kembali dan ditetapkan keputusan penerapannya sebagai berikut:
+
+\begin{itemize}
+  \item \textbf{\textit{Fetching}}: dalam sistem ini akan diterapkan pengaturan \textit{timeout} agar proses tidak berhenti terlalu lama pada tautan yang tidak merespons. Selain itu, akan ada jeda antar permintaan sebagai bentuk pengendalian agar server tidak terbebani dan tidak memblokir pemeriksaan.
+  
+  \item \textbf{\textit{Parsing}}: dalam sistem ini akan digunakan Jsoup untuk mengurai HTML. Parser ini dipilih karena mampu menangani dokumen dengan struktur yang tidak sempurna, sehingga tautan tetap dapat diekstrak. Namun, tautan yang dihasilkan secara dinamis melalui JavaScript tidak akan diperiksa karena sistem hanya memproses HTML statis.
+  
+  \item \textbf{\textit{Link Extraction} dan \textit{Canonicalization}}: dalam sistem ini semua URL yang ditemukan akan dinormalisasi. Langkah ini dilakukan agar tidak ada duplikasi, misalnya akibat perbedaan huruf besar, tanda garis miring di akhir, atau adanya fragmen. Dengan begitu, satu sumber daya tidak akan dianggap berbeda hanya karena variasi penulisan.
+  
+  \item \textbf{\textit{Repository}}: dalam sistem ini semua URL yang sudah ditemukan, baik halaman maupun sumber daya lain seperti gambar, skrip, dan stylesheet, akan disimpan di dalam repository. Dengan cara ini, tidak ada tautan yang sama diperiksa ulang dan proses pemeriksaan menjadi lebih efisien.
+  
+  \item \textbf{\textit{Spider Trap} dan \textit{Infinite Loops}}: dalam sistem ini tidak akan diterapkan mekanisme khusus untuk mendeteksi pola tautan tak terbatas. Namun, repository sudah cukup untuk mencegah kunjungan berulang pada URL yang sama. Pengecualian hanya berlaku untuk kasus \textit{redirect loop}, yang tetap akan diperiksa agar sistem tidak terjebak mengikuti \textit{redirect} tanpa akhir.
+  
+  \item \textbf{\textit{Concurrency}}: dalam sistem ini \textit{concurrency} akan diterapkan, tetapi hanya pada tahap pemeriksaan tautan (HEAD atau GET) agar proses lebih cepat. Untuk proses \textit{crawling} halaman dan parsing HTML tetap dilakukan secara berurutan agar hasil ekstraksi lebih terkontrol. Jumlah permintaan paralel akan dibatasi supaya tidak menimbulkan pemblokiran atau respons “too many requests” dari server.
+\end{itemize}
+
+
+
+\subsubsection*{Etika \textit{crawling}}
+Subbab~\ref{subsec:0204-etika-crawling} menjelaskan bahwa aktivitas \textit{crawling} tidak hanya berkaitan dengan tantangan teknis, tetapi juga harus memperhatikan etika agar tidak menimbulkan masalah bagi pemilik situs. Salah satu pedoman yang tersedia adalah file \texttt{robots.txt}, yang dapat digunakan untuk menentukan bagian situs mana yang boleh dan tidak boleh diakses oleh \textit{crawler}. Pada sistem pemeriksa tautan rusak, aturan ini tidak dijadikan batasan mutlak karena tujuan utama adalah memastikan semua tautan dapat diperiksa. Namun, untuk menjaga sikap yang baik terhadap pemilik situs, keberadaan \texttt{robots.txt} tetap dapat dipertimbangkan sebagai acuan tambahan.  
+
+Aspek lain yang penting adalah identitas \texttt{User-Agent}. Setiap permintaan HTTP yang dikirimkan sistem akan dilengkapi dengan informasi ini agar server mengetahui perangkat lunak apa yang sedang melakukan \textit{crawling}. Identitas tersebut sebaiknya mencantumkan nama aplikasi dan informasi kontak, sehingga administrator situs dapat mengenali sumber permintaan dengan jelas.  
+
+Selain itu, sistem tidak dirancang untuk mengakses area privat, melewati autentikasi, atau mengambil konten yang bersifat berbayar. Aktivitas \textit{crawling} difokuskan pada tautan yang memang dapat diakses secara publik, sehingga tidak melanggar aturan kepemilikan maupun hak akses. Untuk mencegah server terbebani, pengaturan batas waktu dan laju permintaan juga digunakan. Dengan cara ini, sistem tetap menjalankan prinsip etika dasar dalam \textit{crawling} sekaligus mencapai tujuannya dalam memeriksa ketersediaan tautan.
+
+
+\subsubsection*{Ekstraksi Tautan}
+Subbab~\ref{subsec:0224-atribut-global-dan-spesifik} mencatat berbagai elemen HTML yang memiliki atribut berisi URL. Dalam konteks aplikasi pemeriksa tautan rusak, tidak semua elemen tersebut relevan. Analisis ini menentukan elemen mana yang diekstrak, atribut apa yang digunakan, serta alasan pemilihannya. Elemen-elemen yang dipilih adalah sebagai berikut:
+
+\begin{itemize}
+  \item \texttt{<a>}: menggunakan atribut \texttt{href} sebagai tautan utama antarhalaman. Elemen ini menjadi sumber navigasi paling penting sehingga wajib diperiksa.
+  \item \texttt{<area>}: menggunakan atribut \texttt{href} pada \textit{image map}. Meskipun jarang dipakai, elemen ini tetap berfungsi sebagai tautan dan perlu diperiksa.
+  \item \texttt{<link>}: menggunakan atribut \texttt{href} untuk menghubungkan dokumen dengan stylesheet, ikon, atau sumber daya eksternal lain. Jika rusak, tampilan halaman dapat terganggu.
+  \item \texttt{<script>}: atribut \texttt{src} menunjuk ke berkas JavaScript eksternal. Tautan ini diperiksa karena jika rusak, fungsi interaktif halaman tidak berjalan.
+  \item \texttt{<img>}: atribut \texttt{src} memuat lokasi gambar. Tautan rusak membuat gambar gagal ditampilkan sehingga perlu dicek.
+  \item \texttt{<iframe>}: atribut \texttt{src} digunakan untuk menyematkan halaman lain di dalam halaman utama. Jika rusak, konten yang diembed tidak muncul.
+  \item \texttt{<embed>}: menggunakan atribut \texttt{src} untuk konten eksternal seperti multimedia. Rusak berarti konten tidak dapat dimuat.
+  \item \texttt{<object>}: atribut \texttt{data} menunjuk ke objek eksternal seperti PDF. Karena sering dipakai pada situs institusi, tautan ini harus diperiksa.
+  \item \texttt{<source>}: atribut \texttt{src} digunakan dalam elemen \texttt{<audio>} atau \texttt{<video>} sebagai alternatif sumber media. Jika rusak, pemutaran media gagal.
+  \item \texttt{<track>}: atribut \texttt{src} menyediakan berkas teks untuk subtitle atau caption. Rusak berarti fitur aksesibilitas tidak berfungsi.
+  \item \texttt{<audio>}: atribut \texttt{src} menunjuk ke berkas audio. Jika rusak, konten audio tidak dapat diputar.
+  \item \texttt{<video>}: atribut \texttt{src} menunjuk ke berkas video. Jika rusak, konten video gagal ditampilkan.
+  \item \texttt{<input type="image">}: atribut \texttt{src} menunjuk ke gambar tombol kirim. Jika rusak, tombol tidak muncul di antarmuka.
+\end{itemize}
