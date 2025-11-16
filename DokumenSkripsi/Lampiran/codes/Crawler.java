@@ -85,7 +85,7 @@ public class Crawler {
       frontier.clear();
       rateLimiters.clear();
 
-      // Ambil host dari seed URL buat identifikasi “same-host”
+      // Ambil host dari seed URL buat identifikasi same-host
       rootHost = UrlHandler.getHost(seedUrl);
 
       // Masukkan seed ke frontier sebagai titik awal BFS
@@ -110,7 +110,7 @@ public class Crawler {
          // Cek apakah URL ini sudah pernah dicatat di repositories
          Link existing = repositories.putIfAbsent(currLink.getUrl(), currLink);
          if (existing != null) {
-            // Kalau sudah ada, berarti URL ini pernah (atau sedang) dicek → skip
+            // Kalau sudah ada, berarti URL ini pernah (atau sedang) dicek maka skip
             continue;
          }
 
@@ -181,7 +181,7 @@ public class Crawler {
                   /*
                    * Untuk webpage same-host:
                    * - Tidak langsung dimasukkan ke repositories di sini.
-                   * - Link baru akan dianggap “dicek” dan dihitung ketika
+                   * - Link baru akan dianggap dicek dan dihitung ketika
                    * nanti diambil dari frontier dan di-fetch di loop BFS utama.
                    */
                   frontier.offer(link);
@@ -256,9 +256,6 @@ public class Crawler {
          // variabel buat nyimpen hasil response dari server
          HttpResponse<?> res;
 
-         // ============================================================
-         // 1. Kalau butuh parse HTML → SELALU GET (dengan BodyHandlers.ofString)
-         // ============================================================
          /*
           * Kalau kita memang butuh parse HTML maka SELALU pakai GET. GET wajib dipakai
           * karena kita butuh isi body-nya (HTML)
@@ -307,9 +304,6 @@ public class Crawler {
              * ke GET, tapi tetap discard body biar cepat
              */
             catch (Exception headError) {
-               // ============================================================
-               // 3. Server tidak mendukung HEAD → fallback GET
-               // ============================================================
                HttpRequest getReq = HttpRequest.newBuilder()
                      .uri(URI.create(link.getUrl()))
                      .header("User-Agent",
@@ -374,20 +368,20 @@ public class Crawler {
    }
 
    /**
-    * Method ini bertugas buat ngambil semua <a href="..."> yang ada di dalam
+    * Method ini bertugas buat ngambil semua tag "a" dengan atribut href.
     * dokumen HTML, terus kita convert ke URL absolut, normalisasi, dan simpan
     * sebagai objek Link.
     *
     * @param doc dokumen HTML
-    * @return Map<Link, String>:
+    * @return Map dengan key dan value:
     *         - key = objek Link (URL unik yang sudah dinormalisasi)
     *         - value = anchor text dari link tersebut di HTML ini
     */
    private Map<Link, String> extractLink(Document doc) {
-      // Map hasil ekstraksi. Key: Link, Value: teks yang ada di dalam <a>...</a>
+      // Map hasil ekstraksi. Key: Link, Value: teks yang ada di dalam tag a
       Map<Link, String> result = new HashMap<>();
 
-      // Loop semua elemen <a> yang punya atribut href
+      // Loop semua elemen tag a yang punya atribut href
       for (Element a : doc.select("a[href]")) {
 
          // Ambil URL absolut dari atribut href (Jsoup akan gabungin dengan baseUri)
