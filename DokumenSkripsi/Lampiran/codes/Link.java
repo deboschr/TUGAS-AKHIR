@@ -2,37 +2,45 @@ package com.unpar.brokenlinkchecker.models;
 
 import com.unpar.brokenlinkchecker.utils.HttpStatus;
 import javafx.beans.property.*;
-import java.util.HashMap;
+
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Link {
 
    private final StringProperty url; // URL utama
-   private final StringProperty finalUrl; // URL hasil redirect
+   private final StringProperty finalUrl; // URL hasil redirect (kalau ada)
    private final IntegerProperty statusCode; // Kode status HTTP
-   private final StringProperty contentType; // Tipe konten
-   private final StringProperty error; // Pesan error
-   private final BooleanProperty isWebpage; // Buat nentuin apakah halaman atau bukan
-   private final Map<Link, String> connections; // Hubungan antar link + anchor text
+   private final StringProperty contentType; // Tipe konten (Content-Type)
+   private final StringProperty error; // Pesan error / reason phrase
+   private final BooleanProperty isWebpage; // Menandai apakah link ini adalah webpage same-host
+
+   /**
+    * Menyimpan relasi antar Link:
+    * - key = Link lain yang terhubung dengan link ini
+    * - value = anchor text (teks di dalam <a>...</a>) yang menghubungkan keduanya
+    */
+   private final Map<Link, String> connections;
 
    public Link(String url) {
-
       if (url == null || url.isBlank()) {
          throw new IllegalArgumentException("URL tidak boleh null atau kosong");
       }
 
       this.url = new SimpleStringProperty(url);
-      this.connections = new HashMap<>();
-
+      this.finalUrl = new SimpleStringProperty("");
       this.statusCode = new SimpleIntegerProperty(0);
       this.contentType = new SimpleStringProperty("");
-      this.finalUrl = new SimpleStringProperty("");
       this.error = new SimpleStringProperty("");
       this.isWebpage = new SimpleBooleanProperty(false);
+
+      // Pake ConcurrentHashMap biar aman untuk operasi multithread
+      this.connections = new ConcurrentHashMap<>();
    }
 
    // ===============================================================================
    // URL
+
    public String getUrl() {
       return url.get();
    }
@@ -41,7 +49,6 @@ public class Link {
       if (value == null || value.isBlank()) {
          throw new IllegalArgumentException("URL tidak boleh null atau kosong");
       }
-
       url.set(value);
    }
 
@@ -51,6 +58,7 @@ public class Link {
 
    // ===============================================================================
    // Final URL
+
    public String getFinalUrl() {
       return finalUrl.get();
    }
@@ -65,16 +73,17 @@ public class Link {
 
    // ===============================================================================
    // Status Code
+
    public Integer getStatusCode() {
       return statusCode.get();
    }
 
    public void setStatusCode(int value) {
+      // Kalau status kode termasuk error, set juga pesan error-nya
       String status = HttpStatus.getErrorStatus(value);
       if (status != null) {
          error.set(status);
       }
-
       statusCode.set(value);
    }
 
@@ -84,6 +93,7 @@ public class Link {
 
    // ===============================================================================
    // Content Type
+
    public String getContentType() {
       return contentType.get();
    }
@@ -98,6 +108,7 @@ public class Link {
 
    // ===============================================================================
    // Error
+
    public String getError() {
       return error.get();
    }
@@ -110,8 +121,9 @@ public class Link {
       return error;
    }
 
-   // =======================================================================
+   // ===============================================================================
    // isWebpage
+
    public boolean isWebpage() {
       return isWebpage.get();
    }
@@ -125,8 +137,17 @@ public class Link {
    }
 
    // ===============================================================================
-   // Relasi antar link
+   // Relasi antar link (graph koneksi)
 
+   /**
+    * Menambahkan relasi (koneksi) antar dua Link.
+    * Koneksi dibuat dua arah:
+    * - this ke other
+    * - other ke this
+    *
+    * @param other      link lain yang terhubung
+    * @param anchorText teks anchor yang menghubungkan (boleh null, akan diset "")
+    */
    public void addConnection(Link other, String anchorText) {
       if (other == null || other == this) {
          return;

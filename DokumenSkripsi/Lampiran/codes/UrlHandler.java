@@ -11,11 +11,11 @@ public class UrlHandler {
     * Validasi dan normalisasi URL (misalnya untuk seed URL).
     *
     * Aturan:
-    * 1. Wajib punya scheme (http / https)
-    * 2. Wajib punya host
-    * 3. Hapus port default (80 / 443)
-    * 4. Bersihkan path dari dot-segment
-    * 5. Hapus fragment (#...)
+    * - Wajib punya scheme (http / https)
+    * - Wajib punya host
+    * - Hapus port default (80 / 443)
+    * - Bersihkan path dari dot-segment dan duplikasi garis miring
+    * - Hapus fragment (#...)
     *
     * @param rawUrl input mentah
     * @return URL hasil normalisasi atau null jika tidak memenuhi aturan atau URL
@@ -38,11 +38,12 @@ public class UrlHandler {
          String path = uri.getRawPath();
          String query = uri.getRawQuery();
 
-         // Scheme tidak wajib ada dan wajib HTTP/HTTPS
+         // Scheme wajib ada
          if (scheme == null || scheme.isEmpty()) {
-            return rawUrl;
+            return null;
          }
 
+         // Scheme wajib HTTP/HTTPS
          if (!scheme.equalsIgnoreCase("http") && !scheme.equalsIgnoreCase("https")) {
             return null;
          }
@@ -60,22 +61,48 @@ public class UrlHandler {
          // Bersihkan path dari dot-segment
          path = normalizePath(path);
 
-         // ===== rakit ulang tanpa fragment =====
-         URI cleaned = new URI(scheme.toLowerCase(), null, host.toLowerCase(), port, path, query, null // fragment
-                                                                                                       // dihapus
+         // Rakit ulang tanpa fragment dan userinfo
+         URI cleaned = new URI(
+               scheme.toLowerCase(), // SCHEME
+               null, // USERINFO
+               host.toLowerCase(), // HOST
+               port, // PORT
+               path, // PATH
+               query, // QUERY
+               null // FRAGMENT
          );
 
          return cleaned.toASCIIString();
 
       } catch (Exception e) {
+         /*
+          * Kalau gagal bikin objek URI, kita kembaliin URL awal biar nanti error pas
+          * pengecekan, karena akan dianggap invalid URL
+          */
          return rawUrl;
       }
    }
 
    /**
-    * Bersihkan dot-segment (., ..) dari path sesuai RFC 3986 Section 5.2.4.
+    * Mathod buat menormalisasi path
+    * 
+    * Yang di handle di method ini adalah:
+    * - "." : artinya di direktory saat ini
+    * - ".." : artinya satu level ke direktory atas
+    * - duplikasi atau kelebihan garis miring ("/")
+    * 
+    * Contoh hasil:
+    * normalizePath("/a/b/../c") ==> "/a/c"
+    * normalizePath("/./x//y/") ==> "/x/y"
+    * normalizePath("") ==> "/"
+    * normalizePath(null) ==> "/"
+    * 
+    * @param path path mentah dari URL
+    * @return path yang sudah dinormalisasi
     */
    public static String normalizePath(String path) {
+
+      // Jika path kosong atau null, langsung kembalikan root "/"
       if (path == null || path.isEmpty()) {
          return "/";
       }
@@ -83,17 +110,25 @@ public class UrlHandler {
       Deque<String> segments = new ArrayDeque<>();
 
       for (String part : path.split("/")) {
+
+         // Kalau part kosong atau ".", skip karna ga ngaruh ke struktur path
          if (part.equals("") || part.equals(".")) {
             continue;
-         } else if (part.equals("..")) {
+
+         }
+         // Kalau part "..", hapus satu segmen terakhir (naik satu level)
+         else if (part.equals("..")) {
             if (!segments.isEmpty()) {
                segments.removeLast();
             }
-         } else {
+         }
+         // Tambahkan part normal ke daftar segmen
+         else {
             segments.add(part);
          }
       }
 
+      // Bangun ulang path baru berdasarkan segmen yang udah bersih.
       StringBuilder sb = new StringBuilder();
 
       for (String seg : segments) {

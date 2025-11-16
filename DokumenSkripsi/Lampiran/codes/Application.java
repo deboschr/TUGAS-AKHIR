@@ -17,7 +17,7 @@ import javafx.stage.StageStyle;
  * - Nyimpen referensi ke window utama (mainStage)
  * - Nyediain method buat buka window lain (link detail dan notifikasi)
  * 
- * Intinya kelas ini menjadi pusat kontrol buat membuka semua window di aplikasi
+ * Intinya kelas ini menjadi pusat kontrol buat ngebuka semua window di aplikasi
  */
 public class Application extends javafx.application.Application {
 
@@ -33,7 +33,9 @@ public class Application extends javafx.application.Application {
    }
 
    /**
-    * Method ini dipanggil otomatis oleh javafx saat aplikasi baru mulai
+    * Method ini dipanggil otomatis sama javafx saat aplikasi baru mulai
+    *
+    * @param stage stage utama dari aplikasi
     */
    @Override
    public void start(Stage stage) {
@@ -43,10 +45,6 @@ public class Application extends javafx.application.Application {
       // Buka window utama
       openMainWindow();
    }
-
-   // ==============================================================
-   // ======================== MAIN WINDOW =========================
-   // ==============================================================
 
    /**
     * Method buat ngebuka window utama aplikasi
@@ -66,19 +64,19 @@ public class Application extends javafx.application.Application {
          mainStage.initStyle(StageStyle.UNDECORATED);
          // Biar window di tengah layar
          mainStage.centerOnScreen();
+         // Biar window lansung fullscreen
+         mainStage.setMaximized(true);
+
          // Set ukuran minimum window
          mainStage.setMinWidth(1024);
          mainStage.setMinHeight(600);
+
          // Tampilin window
          mainStage.show();
       } catch (Exception e) {
          e.printStackTrace();
       }
    }
-
-   // ==============================================================
-   // ======================== LINK WINDOW =========================
-   // ==============================================================
 
    /**
     * Method buat ngebuka window link detail
@@ -117,10 +115,6 @@ public class Application extends javafx.application.Application {
          e.printStackTrace();
       }
    }
-
-   // ==============================================================
-   // ==================== NOTIFICATION WINDOW =====================
-   // ==============================================================
 
    /**
     * Method buat ngebuka window notifikasi
