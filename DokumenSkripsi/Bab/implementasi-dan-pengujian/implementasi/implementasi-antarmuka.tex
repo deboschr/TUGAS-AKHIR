@@ -1,20 +1,19 @@
-Subbab ini menjelaskan hasil implementasi antarmuka pengguna dari aplikasi BrokenLink Checker yang merupakan realisasi dari rancangan pada Subbab Perancangan Antarmuka (Subbab~\ref{chap:040000-perancangan}). 
-Antarmuka pengguna dikembangkan menggunakan JavaFX dengan file berformat \texttt{FXML} serta gaya visual yang diatur melalui berkas \texttt{CSS}. 
-Berikut merupakan hasil implementasi dari setiap jendela pada aplikasi.
+Bagian ini memaparkan hasil implementasi antamuka pengguna berdasarkan perancangan yang telah dibuat pada perancangan antarmuka (lihat Subbab~\ref{sec:040300-perancangan-antarmuka}). Antarmuka pengguna dikembangkan menggunakan JavaFX dengan struktur tampilan yang diatur melalui berkas \texttt{FXML} dan gaya visual yang diatur melalui berkas \texttt{CSS}. Berikut merupakan hasil implementasi antarmuka pengguna yang terbagi menjadi tiga jendela aplikasi.
 
 \begin{enumerate}
     \item \textbf{Jendela Utama}\\
-    Jendela utama merupakan pusat interaksi pengguna untuk memulai pemeriksaan tautan. 
-    Pada jendela ini, pengguna dapat memasukkan URL situs web yang akan diperiksa, kemudian menekan tombol \texttt{Start} untuk memulai proses pemeriksaan atau tombol \texttt{Stop} untuk menghentikan proses yang sedang berjalan. 
-    Bagian \textit{Summary} menampilkan informasi status pemeriksaan, jumlah total tautan yang ditemukan, jumlah halaman yang termasuk dalam domain yang sama, serta jumlah tautan rusak. 
-    Bagian \textit{Filters} memungkinkan pengguna untuk menyaring hasil berdasarkan URL atau kode status HTTP, sementara tombol \texttt{Export} digunakan untuk mengekspor hasil pemeriksaan ke dalam file eksternal. 
-    Bagian \textit{Result} menampilkan daftar tautan rusak beserta keterangan \textit{error}-nya. 
-    Implementasi dari jendela utama ditunjukan pada Gambar~\ref{fig:implementasi-jendela-utama}, implementasi ini didasarkan pada perancangan yang telah dibuat berdasarkan Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}.
+    Hasil impelemtasi jendela utama aplikasi dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-utama}, implementasi ini didasarkan pada perancangan jendela utama yang telah dilakukan sebelumnya (lihat Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}).
+    Struktur tampilan dari jendela ini diatur melalui berkas \texttt{main-window.fxml} (lihat Lampiran~\ref{code:main-fxml}) dan gaya visualnya diatur melalui berkas \texttt{main-window.css} (lihat Lampiran~\ref{code:main-css}). 
+    
+    Seluruh komponen antamuka jendela utama yang telah dirancang sebelumnya telah berhasil diimplementasi, pengguna dapat memasukan URL situs web yang ingin diperiksa, memulai dan menghentikan proses pemerik
+
+    
+    Jendela ini merupakan pusat interaksi pengguna dalam melakukan pemeriksaan tautan rusak pada situs web. Melalui jendela ini, pengguna dapat memasukan URL situs web yang ingin diperiksa, memulai serta menghentikan proses pemeriksaan. Hasil pemeriksaa ditampilkan dalam bentuk tabel pada bagian \textit{Result} dengan ringkasannya yang ditampilkan pada bagian \textit{Summary}. Pada bagian \textit{Filters} disediakan fitur untuk melakukan penyaringan hasil pemerisaan berdasarkan URL dan kode status HTTP, serta disediakan pula fitur untuk menyimpan hasil pemeriksaan ke berkas lokal dengan cara menekan tombol \textit{Export}.
 
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.85\textwidth]{Gambar/050104-implementasi-jendela-utama.png}
-        \caption{Hasil Implementasi Jendela Utama}
+        \caption{Implementasi Antarmuka Jendela Utama}
         \label{fig:implementasi-jendela-utama}
     \end{figure}
 
@@ -27,7 +26,9 @@ Berikut merupakan hasil implementasi dari setiap jendela pada aplikasi.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.85\textwidth]{Gambar/050104-implementasi-jendela-detail-tautan.png}
-        \caption{Hasil Implementasi Jendela Detail Tautan}
+        \caption{Implementasi Antarmuka Jendela Detail Tautan}
         \label{fig:implementasi-jendela-detail-tautan}
     \end{figure}
+
+    \item \textbf{Jendela Notifikasi}\\
 \end{enumerate}
