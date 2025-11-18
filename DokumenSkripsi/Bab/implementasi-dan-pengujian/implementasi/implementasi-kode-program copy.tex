@@ -1,0 +1,51 @@
+Subbab ini menjelaskan implementasi kode program dari aplikasi pemeriksa tautan rusak pada situs web berdasarkan yang telah dirancang pada Bab~\ref{chap:040000-perancangan}.
+Berikut merupakan hasil implementasi kode program yang digunakan dalam aplikasi:
+
+\begin{enumerate}
+   \item \textbf{Application.java}\\
+   Kelas ini berfungsi sebagai titik masuk program sekaligus bertugas untuk membuka seluruh jendela aplikasi. 
+   Kelas ini memiliki satu atribut \texttt{mainStage} yang menyimpan referensi ke jendela utama agar dapat dijadikan induk bagi jendela lain yang dibuka dari aplikasi.
+   Implementasi kode program dari kelas ini dapat dilihat pada Lampiran~\ref{code:application-java}.
+
+   \item \textbf{MainController.java}\\
+
+   \item \textbf{LinkController.java}\\
+
+   \item \textbf{NotificationController.java}\\
+
+   \item \textbf{Crawler.java}\\
+
+   \item \textbf{Link.java}\\
+
+   \item \textbf{Summary.java}\\
+
+   \item \textbf{Status.java}\\
+
+   \item \textbf{Exporter.java}\\
+
+   \item \textbf{UrlHandler.java}\\
+
+   \item \textbf{HttpStatus.java}\\
+
+   \item \textbf{RateLimiter.java}\\
+
+   \item \textbf{main.fxml dan main.css}\\
+   Kode program \texttt{main.fxml} dan \texttt{main.css} digunakan untuk membangun antarmuka jendela utama aplikasi. 
+   Kode program \texttt{main.fxml} digunakan untuk menyusun struktur tampilan jendela, sedangkan kode program \texttt{main.css} digunakan untuk memberikan gaya visual pada komponen yang ada di dalamnya. 
+   Kode program \texttt{main.fxml} terhubung dengan kelas \texttt{MainController} melalui atribut \texttt{fx:controller} agar setiap elemen tampilan dapat berinteraksi dengan logika program. 
+   Tiga tombol utama pada jendela ini memiliki atribut \texttt{onAction}, yaitu \texttt{onStartClick}, \texttt{onStopClick}, dan \texttt{onExportClick}, yang masing-masing digunakan untuk memanggil metode \textit{even handler} di dalam \texttt{MainController}. 
+   Implementasi kode FXML terdapat pada Lampiran~\ref{code:main-fxml} dan CSS-nya pada Lampiran~\ref{code:main-css}, sedangkan hasil kompilasi dari kedua program ini akan menghasilkan jendela seperti pada Gambar~\ref{fig:implementasi-jendela-utama}.
+
+   \item \textbf{link.fxml dan link.css}\\
+   Kode program \texttt{link.fxml} dan \texttt{link.css} digunakan untuk membangun antarmuka jendela detail tautan. 
+   Kode program \texttt{link.fxml} menyusun elemen tampilan yang menampilkan informasi dari satu tautan tertentu, sedangkan kode program \texttt{link.css} digunakan untuk mengatur gaya visual jendela agar konsisten dengan tema aplikasi. 
+   Kode program \texttt{link.fxml} terhubung dengan kelas \texttt{LinkController} agar data tautan dapat ditampilkan secara dinamis. 
+   Implementasi kode FXML terdapat pada Lampiran~\ref{code:link-fxml} dan CSS-nya pada Lampiran~\ref{code:link-css}, sedangkan hasil kompilasi dari kedua program ini akan menghasilkan jendela seperti pada Gambar~\ref{fig:implementasi-jendela-detail-tautan}.
+
+   \item \textbf{notification.fxml dan notification.css}\\
+   Kode program \texttt{notification.fxml} dan \texttt{notification.css} digunakan untuk membangun antarmuka jendela notifikasi. 
+   Kode program \texttt{notification.fxml} digunakan untuk menyusun struktur tampilan notifikasi dan terhubung dengan kelas \texttt{NotificationController} yang mengatur jenis serta isi pesan yang ditampilkan. 
+   Kode program \texttt{notification.css} digunakan untuk memberikan gaya visual agar tampilan jendela notifikasi sesuai dengan tema keseluruhan aplikasi. 
+   Implementasi kode FXML terdapat pada Lampiran~\ref{code:notification-fxml} dan CSS-nya pada Lampiran~\ref{code:notification-css}.
+
+\end{enumerate}

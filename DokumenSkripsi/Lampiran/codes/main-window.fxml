@@ -8,15 +8,12 @@
 <BorderPane
    xmlns:fx="http://javafx.com/fxml"
    fx:controller="com.unpar.brokenlinkchecker.controllers.MainController"
-   stylesheets="@../styles/main.css">
+   stylesheets="@../styles/main-style.css">
 
    <top>
       <HBox fx:id="titleBar" styleClass="title-bar">
          <Label text="Broken Link Checker" styleClass="title-text" HBox.hgrow="ALWAYS" />
-
-         <!-- ini yang mendorong tombol ke kanan -->
          <Region HBox.hgrow="ALWAYS" />
-
          <Button text="&#x2014;" fx:id="minimizeBtn" styleClass="title-btn" />
          <Button text="&#x2610;" fx:id="maximizeBtn" styleClass="title-btn" />
          <Button text="&#x2715;" fx:id="closeBtn">
@@ -30,8 +27,6 @@
 
 
    <center>
-      <!-- <ScrollPane fx:id="scrollRoot" fitToWidth="true" fitToHeight="false" hbarPolicy="NEVER"
-        vbarPolicy="AS_NEEDED" style="-fx-background: transparent;"></ScrollPane> -->
       <VBox styleClass="content-root">
 
          <!-- ===================== INPUT & CONTROLL BUTTON ===================== -->
@@ -165,7 +160,6 @@
                </GridPane>
             </VBox>
 
-
          </GridPane>
 
          <!-- ===================== RESULT SECTION ===================== -->
@@ -174,11 +168,14 @@
             <!-- ====== Card Header ====== -->
             <HBox spacing="10">
                <Label text="Result" styleClass="section-title" />
-
                <Region HBox.hgrow="ALWAYS" />
-
-               <!-- ====== Pagination ====== -->
                <HBox fx:id="paginationBar" alignment="CENTER" styleClass="pagination-bar"></HBox>
+               <Button fx:id="exportBtn" text="Export" onAction="#onExportClick">
+                  <styleClass>
+                     <String fx:value="control-btn" />
+                     <String fx:value="control-btn-export" />
+                  </styleClass>
+               </Button>
             </HBox>
 
             <!-- ====== Table Result ====== -->
@@ -188,11 +185,7 @@
                   <TableColumn fx:id="urlColumn" text="URL" prefWidth="800" />
                </columns>
             </TableView>
-
          </VBox>
-
       </VBox>
-
    </center>
-
 </BorderPane>
