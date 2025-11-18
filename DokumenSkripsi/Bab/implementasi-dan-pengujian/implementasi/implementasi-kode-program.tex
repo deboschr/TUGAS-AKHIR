@@ -1,32 +1,110 @@
-Subbab ini menjelaskan implementasi kode program dari aplikasi pemeriksa tautan rusak pada situs web berdasarkan yang telah dirancang pada Bab~\ref{chap:040000-perancangan}.
-Berikut merupakan hasil implementasi kode program yang digunakan dalam aplikasi:
+Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan perancangan yang telah dibuat pada perancangan kelas (lihat Subbab~\ref{sec:040100-perancangan-kelas}) dan perancangan alur (lihat Subbab~\ref{sec:040200-perancangan-alur}). Berikut adalah penjelasan dari setiap hasil implementasi kode program aplikasi:
 
 \begin{enumerate}
    \item \textbf{Application.java}\\
-   Kelas ini berfungsi sebagai titik masuk program sekaligus bertugas untuk membuka seluruh jendela aplikasi. 
-   Kelas ini memiliki satu atribut \texttt{mainStage} yang menyimpan referensi ke jendela utama agar dapat dijadikan induk bagi jendela lain yang dibuka dari aplikasi.
-   Implementasi kode program dari kelas ini dapat dilihat pada Lampiran~\ref{code:application-java}.
+   Kelas ini bertugas sebagai...
+
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{Application} metode \texttt{openMainWindow},
+      label={code:application-open-main-window-java}
+   ]{Lampiran/implementasi-kode-program/Application_openMainWindow.java}
 
    \item \textbf{MainController.java, main-window.fxml dan main-style.css}\\
+   Kelas ini bertugas sebagai...
+
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{MainController} metode \texttt{setTableView},
+      label={code:main-controller-set-table-view-java}
+   ]{Lampiran/implementasi-kode-program/MainController_setTableView.java}
 
    \item \textbf{LinkController.java, link-window.fxml dan link-style.css}\\
+   Kelas ini bertugas sebagai...
 
-   \item \textbf{NotificationController.java, notification-window.fxml dan notification-style.css}\\
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{LinkController} metode \texttt{setLink},
+      label={code:link-controller-set-link-java}
+   ]{Lampiran/implementasi-kode-program/LinkController_setLink.java}
+
+   \item \textbf{NotificationController.java, notification-window.fxml dan    
+   notification-style.css}\\
+   Kelas ini bertugas sebagai...
+
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{NotificationController} metode \texttt{setNotification},
+      label={code:notification-controller-set-notification-java}
+   ]{Lampiran/implementasi-kode-program/NotificationController_setNotification.java}
 
    \item \textbf{Crawler.java}\\
+   Kelas ini bertugas sebagai...
 
-   \item \textbf{Link.java}\\
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{Crawler} metode \texttt{start},
+      label={code:crawler-start-java}
+   ]{Lampiran/implementasi-kode-program/Crawler_start.java}
 
-   \item \textbf{Summary.java}\\
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{Crawler} metode \texttt{fetchLink},
+      label={code:crawler-fetch-link-java}
+   ]{Lampiran/implementasi-kode-program/Crawler_fetchLink.java}
 
-   \item \textbf{Status.java}\\
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{Crawler} metode \texttt{extractLink},
+      label={code:crawler-extract-link-java}
+   ]{Lampiran/implementasi-kode-program/Crawler_extractLink.java}
 
    \item \textbf{Exporter.java}\\
+   Kelas ini bertugas sebagai...
+
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{Exporter} metode \texttt{exportToExcel},
+      label={code:exporter-export-to-excel-java}
+   ]{Lampiran/implementasi-kode-program/Exporter_exportToExcel.java}
 
    \item \textbf{UrlHandler.java}\\
+   Kelas ini bertugas sebagai...
 
-   \item \textbf{HttpStatus.java}\\
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{UrlHandler} metode \texttt{normalizeUrl},
+      label={code:url-handler-normalize-url-java}
+   ]{Lampiran/implementasi-kode-program/UrlHandler_normalizeUrl.java}
 
    \item \textbf{RateLimiter.java}\\
+   Kelas ini bertugas sebagai...
+
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{RateLimiter} metode \texttt{delay},
+      label={code:rate-limiter-delay-java}
+   ]{Lampiran/implementasi-kode-program/RateLimiter_delay.java}
+
+   
+   \item \textbf{HttpStatus.java}\\
+   Kelas ini bertugas sebagai...
+
+   \lstinputlisting[
+      language=Java, 
+      caption=Kelas \texttt{HttpStatus} metode \texttt{getStatusError},
+      label={code:http-status-get-status-error-java}
+   ]{Lampiran/implementasi-kode-program/HttpStatus_getStatusError.java}
+
+
+
+   \item \textbf{Link.java}\\
+   Kelas ini bertugas sebagai...
+
+   \item \textbf{Summary.java}\\
+   Kelas ini bertugas sebagai...
+
+   \item \textbf{Status.java}\\
+   Kelas ini bertugas sebagai...
 
 \end{enumerate}
