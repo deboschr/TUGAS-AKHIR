@@ -26,9 +26,17 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
    Ketiga kode program ini bertanggung jawab untuk mengelola antarmuka jendela utama (lihat Gambar~\ref{fig:implementasi-jendela-utama}). Kelas \texttt{MainController} bertugas sebagai pengendali interaksi pada jendela utama (lihat Lampiran~\ref{code:main-controller-java}). Berkas \texttt{main-scene.fxml} digunakan untuk mendeskripsikan struktur, hierarki, dan komponen antarmuka pada jendela utama (lihat Lampiran~\ref{code:main-scene-fxml}). Sedangkan, berkas \texttt{main-style.css} digunakan untuk mengatur gaya visual pada jendela utama (lihat Lampiran~\ref{code:main-scene-fxml}). Pada kelas \texttt{MainController} terdapat metode \texttt{setTableView} yang digunakan untuk menetapkan nilai dari tabel tautan rusak, berikut adalah penjelasan lebih rinci untuk metode ini (lihat Kode~\ref{code:main-controller-set-table-view-java}):
 
    \begin{enumerate}
-      \item (Baris ...)
-      \item (Baris ...)
-      \item (Baris ...)
+      \item (Baris 2) Menetapkan kebijakan ukuran kolom agar kolom terakhir secara otomatis mengisi ruang yang tersisa pada tabel.
+   
+   \item (Baris 3) Mengatur sumber data pada tabel \texttt{brokenLinkTable} menggunakan data dari \texttt{brokenLinks} yaitu daftar tautan rusak.
+   
+   \item (Baris 5--6) Menentukan cara pengambilan nilai untuk kolom \texttt{errorColumn} dan \texttt{urlColumn} dengan menggunakan \textit{property} yang dimiliki objek \texttt{Link}.
+   
+   \item (Baris 8--16) Menetapkan \textit{row factory} untuk memberikan perilaku ketika sebuah baris diklik. Jika baris tidak kosong dan diklik satu kali, maka jendela detail tautan akan dibuka melalui pemanggilan metode \texttt{openLinkWindow}.
+   
+   \item (Baris 19--39) Membuat \textit{cell factory} untuk kolom error sehingga setiap nilai error ditampilkan dengan warna teks tertentu. Jika kode status HTTP bernilai 400--599 maka warna teks dibuat abu gelap, dan jika bukan maka warna teks menjadi merah. Bagian ini juga memastikan bahwa sel dikosongkan jika nilai yang diterima tidak valid.
+   
+   \item (Baris 40--67) Membuat \textit{cell factory} untuk kolom URL. Pada bagian inisialisasi sel, sebuah objek \texttt{Hyperlink} dibuat dan diberi handler sehingga ketika diklik akan membuka URL tersebut di browser bawaan sistem. Pada metode \texttt{updateItem}, isi sel ditentukan menjadi jika kosong maka komponen dihapus, dan jika berisi maka teks hyperlink diperbarui dan ditampilkan pada sel.
    \end{enumerate}
 
    \lstinputlisting[
