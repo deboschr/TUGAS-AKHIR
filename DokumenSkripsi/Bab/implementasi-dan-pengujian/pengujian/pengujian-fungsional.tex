@@ -50,7 +50,60 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi Broke
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-notifikasi.tex}
 
+   \item \textbf{Perbandingan dengan Perangkat Lunak Sejenis}\\
+   
 
    \item \textbf{Perbandingan dengan Perangkat Lunak Sejenis}\\
+   Pada bagian ini akan dilakukan perbandingan hasil pemeriksaan antara perangkat lunak yang dikembangkan pada tugas akhir ini dengan dua perangkat lunak serupa yang tersedia secara daring, yaitu Broken Link Checker\footnote{\url{https://brokenlinkcheck.com}} dan Dead Link Checker\footnote{\url{https://deadlinkchecker.com}}. Seluruh percobaan akan dilakukan pada situs Informasika Unpar (\url{https://informatika.unpar.ac.id}) dengan jumlah percobaan sebanyak lima kali. Parameter yang akan digunakan dalam perbandingan adalah durasi pemeriksaan, jumlah seluruh tautan yang ditemukan, jumlah tautan halaman yang ditemukan dan jumlah tautan rusak yang ditemukan. Perbandingan ini bertujuan menilai kelengkapan pendeteksian tautan rusak, performa proses pemeriksaan, serta kualitas informasi yang dihasilkan.
+   
+   Berikut adalah hasil pemeriksaan dari setiap perangkat lunak:
+   \begin{itemize}
+      \item Perangkat lunak yang dikembangkan
+      \begin{itemize}
+         \item Durasi pemeriksaan: \textbf{15,48 menit}
+         \item Jumlah seluruh tautan: \textbf{602}
+         \item Jumlah tautan halaman: \textbf{302}
+         \item Jumlah tautan rusak: \textbf{92}
+      \end{itemize}
+
+      \item Perangkat lunak Broken Link Checker:
+      \begin{itemize}
+         \item Durasi pemeriksaan: \textbf{--}
+         \item Jumlah seluruh tautan: \textbf{--}
+         \item Jumlah tautan halaman: \textbf{--}
+         \item Jumlah tautan rusak: \textbf{--}
+      \end{itemize}
+
+      \item Perangkat lunak Dead Link Checker:
+      \begin{itemize}
+         \item Durasi pemeriksaan: \textbf{--}
+         \item Jumlah seluruh tautan: \textbf{--}
+         \item Jumlah tautan halaman: \textbf{--}
+         \item Jumlah tautan rusak: \textbf{--}
+      \end{itemize}
+      
+   \end{itemize}
+
+
+   \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\textwidth]{Gambar/050202-hasil-pengujian-aplikasi.png}
+      \caption{Hasil Pemeriksaan Menggunakan Aplikasi yang Dikembangkan}
+      \label{fig:hasil-blc-penulis}
+   \end{figure}
+
+   \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\textwidth]{Gambar/050202-hasil-pengujian-aplikasi.png}
+      \caption{Hasil Pemeriksaan Menggunakan Broken Link Checker}
+      \label{fig:hasil-blc-web}
+   \end{figure}
+
+   \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\textwidth]{Gambar/050202-hasil-pengujian-aplikasi.png}
+      \caption{Hasil Pemeriksaan Menggunakan Dead Link Checker}
+      \label{fig:hasil-dlc-web}
+   \end{figure}
    
 \end{enumerate}
