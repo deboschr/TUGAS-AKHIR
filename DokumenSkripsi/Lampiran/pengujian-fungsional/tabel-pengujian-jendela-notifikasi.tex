@@ -2,45 +2,26 @@
 \begin{table}[H]
 \centering
 \caption{Pengujian pada Jendela Notifikasi}
-\label{tab:uji-notifikasi}
+\label{tab:pengujian-jendela-notifikasi}
 \begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
 \hline
 \textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
 
 1 &
-Menampilkan notifikasi warning ketika pengguna menekan tombol Start tanpa memasukkan URL. &
-Jendela notifikasi warning muncul dengan pesan yang sesuai. &
+Menampilkan notifikasi \textit{warning} ketika pengguna menekan tombol Start tanpa memasukkan URL. &
+Jendela notifikasi \textit{warning} muncul dengan pesan yang sesuai. &
 Sesuai \\ \hline
 
 2 &
-Menampilkan notifikasi error ketika proses pemeriksaan mengalami exception. &
-Jendela notifikasi error muncul dan menampilkan pesan kesalahan. &
+Menampilkan notifikasi \textit{error} ketika proses pemeriksaan mengalami \textit{exception}. &
+Jendela notifikasi \textit{error} muncul dan menampilkan pesan kesalahan. &
 Sesuai \\ \hline
 
 3 &
-Menampilkan notifikasi success setelah proses ekspor berhasil. &
-Jendela notifikasi success muncul dan mengonfirmasi bahwa ekspor berhasil. &
+Menampilkan notifikasi \textit{success} setelah proses ekspor berhasil. &
+Jendela notifikasi \textit{success} muncul dan mengonfirmasi bahwa ekspor berhasil. &
 Sesuai \\ \hline
 
-4 &
-Menampilkan notifikasi information ketika fitur tertentu memerlukan informasi tambahan. &
-Jendela notifikasi information muncul dan menampilkan pesan informasi yang relevan. &
-Sesuai \\ \hline
-
-5 &
-Menutup jendela notifikasi menggunakan tombol Close. &
-Jendela menutup dengan benar dan tidak memengaruhi tampilan utama aplikasi. &
-Sesuai \\ \hline
-
-6 &
-Membuka dua notifikasi secara berurutan (misalnya warning lalu success). &
-Setiap notifikasi muncul dengan benar sesuai urutan pemicu dan tidak saling menumpuk. &
-Sesuai \\ \hline
-
-7 &
-Munculnya notifikasi warning ketika pengguna mencoba melakukan ekspor tanpa data. &
-Jendela notifikasi warning muncul dan menjelaskan bahwa tidak ada data untuk diekspor. &
-Sesuai \\ \hline
 
 \end{tabular}
 \end{table}

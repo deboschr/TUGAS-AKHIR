@@ -7,44 +7,100 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi Broke
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-input.tex}
 
    \item \textbf{Pengujian pada Tombol}\\
-   Pengujian dilakukan untuk memastikan bahwa ketiga tombol utama, yaitu \textit{Start}, \textit{Stop}, dan \textit{Export}, merespons sesuai dengan kondisi aplikasi pada saat tombol ditekan. Pengujian mencakup perilaku tombol \textit{Start} ketika memulai proses pemeriksaan, tombol \textit{Stop} ketika menghentikan proses yang sedang berjalan maupun ketika tidak ada proses yang aktif, serta tombol \textit{Export} ketika data hasil pemeriksaan tersedia maupun belum tersedia. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-tombol}.
+   Pengujian dilakukan untuk memastikan bahwa ketiga tombol utama, yaitu \textit{Start}, \textit{Stop}, dan \textit{Export}, merespons sesuai dengan kondisi aplikasi pada saat tombol ditekan. Pengujian mencakup perilaku tombol \textit{Start} ketika memulai proses pemeriksaan, tombol \textit{Stop} ketika menghentikan proses yang sedang berjalan maupun ketika tidak ada proses yang aktif, serta tombol \textit{Export} ketika data hasil pemeriksaan tersedia maupun belum tersedia. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-tombol}.
 
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-tombol.tex}
 
    \item \textbf{Pengujian pada Summary}\\
-   Pengujian ini dilakukan untuk memastikan bahwa komponen ringkasan menampilkan informasi proses secara akurat, meliputi status pemeriksaan, jumlah seluruh tautan yang ditemukan, jumlah tautan halaman, serta jumlah tautan rusak. Pengujian juga memverifikasi bahwa nilai pada Summary selalu mencerminkan hasil crawling sebenarnya dan tidak berubah ketika pengguna menerapkan filter pada tabel hasil. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-summary}.
+   Pengujian ini dilakukan untuk memastikan bahwa komponen ringkasan menampilkan informasi proses secara akurat, meliputi status pemeriksaan, jumlah seluruh tautan yang ditemukan, jumlah tautan halaman, serta jumlah tautan rusak. Pengujian juga memverifikasi bahwa nilai pada Summary selalu mencerminkan hasil crawling sebenarnya dan tidak berubah ketika pengguna menerapkan filter pada tabel hasil. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-summary}.
 
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-summary.tex}
    
    \item \textbf{Pengujian pada Pagination}\\
-   Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menavigasi halaman hasil secara benar menggunakan kontrol pagination, baik ketika seluruh data ditampilkan maupun ketika filter sedang aktif. Pengujian mencakup perpindahan halaman maju dan mundur, kondisi ketika berada pada halaman pertama atau terakhir, serta perubahan jumlah data yang ditampilkan akibat filter. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-pagination}.
+   Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menavigasi halaman hasil secara benar menggunakan kontrol pagination, baik ketika seluruh data ditampilkan maupun ketika filter sedang aktif. Pengujian mencakup perpindahan halaman maju dan mundur, kondisi ketika berada pada halaman pertama atau terakhir, serta perubahan jumlah data yang ditampilkan akibat filter. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-pagination}.
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-pagination.tex}
    
+
    \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
-   Pengujian ini mencakup seluruh proses pemeriksaan tautan, mulai dari \textit{crawling} halaman dengan host yang sama, ekstraksi tautan, hingga pemeriksaan status tautan menggunakan metode HEAD/GET. Pengujian memastikan bahwa hasil pemeriksaan muncul secara real-time, tidak duplikatif, serta mencerminkan kondisi tautan yang sebenarnya. Hasil pengujian ditampilkan pada Tabel~\ref{tab:uji-pemeriksaan}.
+   Pengujian ini mencakup verifikasi terhadap seluruh mekanisme pemeriksaan tautan yang dijalankan oleh sistem, mulai dari proses \textit{crawling} hingga pengecekan status setiap tautan. Hasil pengujian ditampilkan pada Tabel~\ref{tab:pengujian-fitur-pemeriksaan}.
+
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
    
    \item \textbf{Pengujian pada Fitur Filter}\\
-   Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring daftar tautan berdasarkan kondisi URL maupun status HTTP. Pengujian mencakup penggunaan filter tunggal, kombinasi filter, dan kondisi ketika filter tidak menghasilkan data apa pun. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-filter}.
+   Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring daftar tautan berdasarkan kondisi URL maupun kode status HTTP. Pengujian mencakup penggunaan filter tunggal, kombinasi filter, dan kondisi ketika filter tidak menghasilkan data apa pun. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-filter}.
 
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-filter.tex}
    
    \item \textbf{Pengujian pada Fitur Ekspor}\\
-   Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat mengekspor data hasil pemeriksaan ke berkas Excel maupun JSON dengan benar. Pengujian juga memverifikasi bahwa hasil ekspor mengikuti data yang sedang ditampilkan pada tabel, termasuk ketika filter aktif sehingga hanya data hasil penyaringan yang diekspor. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-export}.
+   Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat mengekspor data hasil pemeriksaan ke berkas Excel dengan benar. Pengujian juga memverifikasi bahwa hasil ekspor mengikuti data yang sedang ditampilkan pada tabel, termasuk ketika filter aktif sehingga hanya data hasil penyaringan yang diekspor. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-export}.
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-export.tex}
    
    \item \textbf{Pengujian pada Jendela Detail Tautan}\\
-   Pengujian ini dilakukan dengan membuka jendela detail untuk setiap tautan yang dipilih pada tabel hasil. Pengujian memastikan bahwa URL, final URL, jenis konten, pesan error, serta daftar halaman sumber ditampilkan dengan benar dan sesuai data pemeriksaan. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-detail-tautan}.
+   Pengujian ini dilakukan untuk memastikan bahwa URL, \textit{final} URL, jenis konten, pesan error, serta daftar halaman sumber ditampilkan dengan benar dan sesuai data pemeriksaan. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-jendela-detail-tautan}.
 
 
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-detail-tautan.tex}
    
    \item \textbf{Pengujian pada Jendela Notifikasi}\\
-   Pengujian ini dilakukan untuk memastikan bahwa jendela notifikasi untuk pesan \textit{success}, \textit{warning}, \textit{information}, dan \textit{error} muncul pada kondisi yang tepat, menampilkan pesan yang sesuai, serta dapat ditutup tanpa menyebabkan gangguan pada aplikasi. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-notifikasi}.
+   Pengujian ini dilakukan untuk memastikan bahwa jendela notifikasi untuk pesan \textit{success}, \textit{warning}, dan \textit{error} muncul pada kondisi yang tepat serta menampilkan pesan yang sesuai. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-jendela-notifikasi}.
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-notifikasi.tex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   \item \textbf{Perbandingan dengan Perangkat Lunak Sejenis}\\
+   Pengujian ini dilakukan untuk membandingkan hasil pemeriksaan tautan yang dihasilkan aplikasi BrokenLink Checker dengan dua perangkat lunak sejenis yang tersedia secara daring, yaitu \textit{Broken Link Checker} dan \textit{Dead Link Checker}. Pengujian dilakukan pada situs \url{https://informatika.unpar.ac.id} dengan mencatat waktu proses pemeriksaan, jumlah tautan yang ditemukan, serta jumlah tautan rusak yang terdeteksi oleh masing-masing perangkat lunak.
+
+   Hasil pengujian ditampilkan dalam bentuk cuplikan layar (screenshot) dari ketiga perangkat lunak, disertai deskripsi singkat yang menjelaskan waktu eksekusi dan jumlah tautan rusak yang ditemukan.
+   
+   % \begin{figure}[H]
+   %    \centering
+   %    \includegraphics[width=0.85\textwidth]{Gambar/hasil-brokenlinkchecker-penulis.png}
+   %    \caption{Hasil Pemeriksaan Menggunakan Aplikasi BrokenLink Checker}
+   %    \label{fig:hasil-blc-penulis}
+   % \end{figure}
+
+   \noindent
+   Berdasarkan hasil pada Gambar~\ref{fig:hasil-blc-penulis}, aplikasi BrokenLink Checker menyelesaikan proses pemeriksaan dalam waktu \textbf{... detik}, menemukan \textbf{... tautan}, dan mendeteksi \textbf{... tautan rusak}. 
+
+   % \begin{figure}[H]
+   %    \centering
+   %    \includegraphics[width=0.85\textwidth]{Gambar/hasil-brokenlinkchecker-web.png}
+   %    \caption{Hasil Pemeriksaan Menggunakan Broken Link Checker (Online)}
+   %    \label{fig:hasil-blc-web}
+   % \end{figure}
+
+   \noindent
+   Pada Gambar~\ref{fig:hasil-blc-web}, layanan Broken Link Checker versi web menemukan \textbf{... tautan} dan mendeteksi \textbf{... tautan rusak}.
+
+   % \begin{figure}[H]
+   %    \centering
+   %    \includegraphics[width=0.85\textwidth]{Gambar/hasil-deadlinkchecker-web.png}
+   %    \caption{Hasil Pemeriksaan Menggunakan Dead Link Checker}
+   %    \label{fig:hasil-dlc-web}
+   % \end{figure}
+
+   \noindent
+   Berdasarkan Gambar~\ref{fig:hasil-dlc-web}, aplikasi Dead Link Checker mendeteksi \textbf{... tautan rusak} dari proses pemeriksaan yang dilakukan.
+
+   \noindent
+   Secara keseluruhan, ketiga perangkat lunak menghasilkan jumlah tautan rusak yang relatif konsisten, dengan variasi kecil yang dapat disebabkan perbedaan metode pemeriksaan (HEAD vs GET), kebijakan \textit{timeout}, atau perbedaan \textit{User-Agent}. Hal ini menunjukkan bahwa aplikasi BrokenLink Checker mampu memberikan hasil yang akurat dan sebanding dengan perangkat lunak sejenis.
+
+   
 \end{enumerate}

@@ -2,7 +2,7 @@
 \begin{table}[H]
 \centering
 \caption{Pengujian pada Fitur Ekspor}
-\label{tab:uji-export}
+\label{tab:pengujian-fitur-export}
 \begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
 \hline
 \textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
@@ -23,21 +23,11 @@ Berkas hasil ekspor hanya berisi data yang sesuai dengan filter aktif. &
 Sesuai \\ \hline
 
 4 &
-Mengekspor dalam format Excel. &
-Berkas Excel berhasil dibuat dan kolom-kolom terisi sesuai struktur yang ditentukan aplikasi. &
-Sesuai \\ \hline
-
-5 &
-Mengekspor dalam format JSON. &
-Berkas JSON berhasil dibuat dan memuat data tautan dalam format objek yang valid. &
-Sesuai \\ \hline
-
-6 &
 Mengganti filter dan melakukan ekspor ulang. &
 Berkas yang dihasilkan sesuai dengan tampilan tabel setelah filter baru diterapkan. &
 Sesuai \\ \hline
 
-7 &
+5 &
 Menjalankan proses pemeriksaan baru, lalu mengekspor hasilnya. &
 Berkas ekspor berisi data hasil pemeriksaan terbaru, bukan data sebelumnya. &
 Sesuai \\ \hline

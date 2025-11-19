@@ -2,50 +2,66 @@
 \begin{table}[H]
 \centering
 \caption{Pengujian pada Fitur Filter}
-\label{tab:uji-filter}
+\label{tab:pengujian-fitur-filter}
 \begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
 \hline
 \textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
 
 1 &
-Menerapkan filter URL dengan kondisi “contains” dan kata kunci tertentu. &
-Tabel hanya menampilkan tautan yang URL-nya mengandung kata kunci tersebut. &
+Menerapkan filter URL dengan kondisi ``equals'' dan nilai tertentu. &
+Tabel hanya menampilkan tautan yang URL-nya persis sama dengan nilai filter. &
 Sesuai \\ \hline
 
 2 &
-Menerapkan filter URL dengan kondisi “starts with”. &
-Tabel menampilkan tautan yang dimulai dengan teks sesuai input filter. &
+Menerapkan filter URL dengan kondisi ``contains'' dan kata kunci tertentu. &
+Tabel hanya menampilkan tautan yang URL-nya mengandung kata kunci tersebut. &
 Sesuai \\ \hline
 
 3 &
-Menerapkan filter berdasarkan status HTTP, misalnya hanya menampilkan tautan 404. &
-Tabel hanya menampilkan tautan dengan status error sesuai pilihan. &
+Menerapkan filter URL dengan kondisi ``starts with'' dengan kata kunci tertentu. &
+Tabel menampilkan tautan yang URL-nya diawali dengan teks sesuai filter. &
 Sesuai \\ \hline
 
 4 &
-Menggabungkan filter URL dan filter status HTTP secara bersamaan. &
-Tabel menampilkan hanya tautan yang memenuhi kedua kondisi filter. &
+Menerapkan filter URL dengan kondisi ``ends with'' dengan kata kunci tertentu. &
+Tabel menampilkan tautan yang URL-nya diakhiri dengan teks sesuai filter. &
 Sesuai \\ \hline
 
 5 &
-Menerapkan filter yang tidak sesuai dengan data sehingga hasil menjadi nol. &
-Tabel menampilkan keadaan kosong; pagination menyesuaikan menjadi satu halaman. &
+Menerapkan filter Status Code dengan kondisi ``equals'' dengan kata kunci tertentu. &
+Tabel hanya menampilkan tautan dengan status HTTP yang persis sama. &
 Sesuai \\ \hline
 
 6 &
-Menghapus filter yang sedang aktif. &
-Seluruh tautan kembali ditampilkan sesuai hasil pemeriksaan lengkap. &
+Menerapkan filter Status Code dengan kondisi ``greater than'' dengan kata kunci tertentu. &
+Tabel menampilkan tautan dengan status HTTP lebih besar dari nilai filter. &
 Sesuai \\ \hline
 
 7 &
-Mengganti kondisi filter dengan cepat (misal “contains” → “equals”). &
-Tabel langsung memperbarui hasil sesuai kondisi filter baru tanpa delay atau error. &
+Menerapkan filter Status Code dengan kondisi ``less than'' dengan kata kunci tertentu. &
+Tabel menampilkan tautan yang status HTTP-nya lebih kecil dari nilai filter. &
 Sesuai \\ \hline
 
 8 &
-Menerapkan filter URL saat proses pemeriksaan sudah selesai. &
-Filter berjalan normal; nilai Summary tidak terpengaruh. &
+Menggabungkan filter URL (contains) dan Status Code (equals). &
+Tabel hanya menampilkan tautan yang memenuhi kedua filter. &
 Sesuai \\ \hline
+
+9 &
+Menggabungkan filter URL (starts with) dan Status Code (greater than). &
+Tabel menampilkan tautan yang URL-nya sesuai kondisi dan statusnya lebih besar dari nilai filter. &
+Sesuai \\ \hline
+
+10 &
+Menerapkan filter sehingga tidak ada data yang sesuai. &
+Tabel berubah menjadi kosong; pagination menyesuaikan menjadi satu halaman. &
+Sesuai \\ \hline
+
+11 &
+Menghapus semua filter yang sedang aktif. &
+Tabel kembali menampilkan seluruh data hasil pemeriksaan. &
+Sesuai \\ \hline
+
 
 \end{tabular}
 \end{table}

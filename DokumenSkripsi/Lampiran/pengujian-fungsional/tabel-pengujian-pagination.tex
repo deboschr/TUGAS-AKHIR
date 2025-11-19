@@ -2,7 +2,7 @@
 \begin{table}[H]
 \centering
 \caption{Pengujian pada Pagination}
-\label{tab:uji-pagination}
+\label{tab:pengujian-pagination}
 \begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
 \hline
 \textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
@@ -19,27 +19,22 @@ Sesuai \\ \hline
 
 3 &
 Menekan tombol Prev ketika berada di halaman pertama. &
-Tidak terjadi perpindahan halaman; tampilan tetap berada pada halaman pertama. &
+Tidak terjadi perpindahan halaman, tampilan tetap berada pada halaman pertama. &
 Sesuai \\ \hline
 
 4 &
 Menekan tombol Next ketika berada di halaman terakhir. &
-Tidak terjadi perpindahan halaman; tampilan tetap berada pada halaman terakhir. &
+Tidak terjadi perpindahan halaman, tampilan tetap berada pada halaman terakhir. &
 Sesuai \\ \hline
 
 5 &
 Menerapkan filter sehingga jumlah data menjadi kurang dari satu halaman. &
-Kontrol pagination menyesuaikan; hanya satu halaman yang ditampilkan; tombol Next dan Prev nonaktif. &
+Kontrol pagination menyesuaikan, hanya satu halaman yang ditampilkan, tombol Next dan Prev nonaktif. &
 Sesuai \\ \hline
 
 6 &
 Menghapus filter sehingga jumlah data kembali lebih dari satu halaman. &
-Pagination aktif kembali; kontrol Next dan Prev berfungsi normal sesuai jumlah halaman. &
-Sesuai \\ \hline
-
-7 &
-Berpindah halaman setelah filter diterapkan. &
-Data yang ditampilkan konsisten dengan hasil filter; tidak menampilkan data di luar kondisi filter. &
+Pagination aktif kembali, kontrol Next dan Prev berfungsi normal sesuai jumlah halaman. &
 Sesuai \\ \hline
 
 \end{tabular}

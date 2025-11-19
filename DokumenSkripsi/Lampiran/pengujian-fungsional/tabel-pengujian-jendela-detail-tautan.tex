@@ -2,45 +2,37 @@
 \begin{table}[H]
 \centering
 \caption{Pengujian pada Jendela Detail Tautan}
-\label{tab:uji-detail-tautan}
+\label{tab:pengujian-jendela-detail-tautan}
 \begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
 \hline
 \textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
 
+
 1 &
-Membuka jendela detail untuk tautan yang valid. &
-URL, final URL, dan jenis konten tampil lengkap; tidak ada pesan error. &
+Menekan salah satu baris tidak kosong pada tabel tautan rusak. &
+Jendela detail tautan terbuka dan menampilkan informasi tautan yang sesuai. &
 Sesuai \\ \hline
 
 2 &
-Membuka jendela detail untuk tautan yang mengalami error (misalnya timeout atau 404). &
-Pesan error tampil pada kolom error; URL dan final URL tetap ditampilkan sesuai hasil pemeriksaan. &
+Menekan salah satu baris kosong pada tabel tautan rusak. &
+Jendela detail tautan tidak. &
 Sesuai \\ \hline
 
 3 &
-Membuka jendela detail untuk tautan yang ditemukan di banyak halaman. &
-Daftar halaman sumber menampilkan seluruh source lengkap dengan anchor text dan URL halaman. &
+Menekan kolom URL pada jendela detail tautan &
+\textit{Browser} bawaan OS membuka URL yang ditekan &
 Sesuai \\ \hline
 
 4 &
-Membuka jendela detail untuk tautan yang hanya memiliki satu halaman sumber. &
-Daftar halaman sumber menampilkan satu baris yang sesuai. &
+Menekan kolom \textit{final} URL yang tidak kosong pada jendela detail tautan &
+\textit{Browser} bawaan OS membuka URL yang ditekan &
 Sesuai \\ \hline
 
 5 &
-Memilih tautan yang memiliki final URL berbeda akibat redirect. &
-Final URL tampil sesuai hasil redirect, sementara URL utama tetap ditampilkan sebagai URL awal. &
+Menekan kolom \textit{final} URL yang kosong pada jendela detail tautan &
+\textit{Browser} bawaan OS tidak terbuka &
 Sesuai \\ \hline
 
-6 &
-Membuka jendela detail saat tidak ada pemeriksaan yang sedang berlangsung (data statis). &
-Data tetap ditampilkan normal karena jendela detail hanya membaca data hasil pemeriksaan. &
-Sesuai \\ \hline
-
-7 &
-Menutup dan membuka kembali jendela detail untuk tautan yang sama. &
-Data yang ditampilkan konsisten dan tidak berubah. &
-Sesuai \\ \hline
 
 \end{tabular}
 \end{table}
