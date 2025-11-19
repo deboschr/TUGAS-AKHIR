@@ -1,0 +1,46 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Pengujian pada Input URL}
+\label{tab:uji-input}
+\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+\hline
+\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+
+1 &
+Memasukkan URL dengan struktur lengkap: https://example.com/page?id=1 &
+Input diterima dan proses pemeriksaan dimulai. &
+Sesuai \\ \hline
+
+2 &
+Memasukkan URL tanpa skema: example.com/page &
+Window notifikasi \textit{warning} terbuka. &
+Sesuai \\ \hline
+
+3 &
+Memasukkan URL tanpa host: https:///page &
+Window notifikasi \textit{warning} terbuka. &
+Sesuai \\ \hline
+
+4 &
+Memasukkan URL dengan skema tidak valid: ftp://unpar.com &
+Window notifikasi \textit{warning} terbuka. &
+Sesuai \\ \hline
+
+5 &
+Memasukkan URL dengan sintaks tidak valid: http://exa mple..com &
+Window notifikasi \textit{warning} terbuka. &
+Sesuai \\ \hline
+
+6 &
+Tidak memasukkan URL atau hanya spasi &
+Window notifikasi \textit{warning} terbuka. &
+Sesuai \\ \hline
+
+7 &
+Memasukkan URL dengan dot-segment: https://unpar.com/.././index.html &
+URL dinormalisasi dan proses pemeriksaan dimulai. &
+Sesuai \\ \hline
+
+\end{tabular}
+\end{table}

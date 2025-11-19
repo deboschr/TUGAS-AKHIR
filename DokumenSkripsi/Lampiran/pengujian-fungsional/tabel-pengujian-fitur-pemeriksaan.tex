@@ -1,0 +1,51 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Pengujian pada Fitur Pemeriksaan}
+\label{tab:uji-pemeriksaan}
+\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+\hline
+\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+
+1 &
+Memulai pemeriksaan dengan URL valid pada domain yang memiliki beberapa halaman internal. &
+Crawler mengekstraksi semua tautan internal, menambahkannya ke antrian pemeriksaan, dan menampilkan hasil secara real-time. &
+Sesuai \\ \hline
+
+2 &
+Memeriksa halaman yang hanya memiliki sedikit tautan. &
+Proses selesai cepat; semua tautan tampil sesuai jumlah sebenarnya. &
+Sesuai \\ \hline
+
+3 &
+Memeriksa halaman dengan banyak tautan eksternal. &
+Tautan eksternal diperiksa menggunakan HEAD/GET; status tampil sesuai kondisi asli tautan. &
+Sesuai \\ \hline
+
+4 &
+Memeriksa tautan internal yang rusak (misalnya 404). &
+Tautan ditandai sebagai rusak; kolom error terisi kode atau pesan error yang benar. &
+Sesuai \\ \hline
+
+5 &
+Memeriksa tautan eksternal yang timeout atau gagal diakses. &
+Tautan diberi status error (misalnya timeout); hasil tampil real-time di tabel. &
+Sesuai \\ \hline
+
+6 &
+Crawler menemukan tautan duplikat pada beberapa halaman. &
+Tautan tidak diperiksa dua kali; hanya satu entri yang muncul pada daftar hasil. &
+Sesuai \\ \hline
+
+7 &
+Menghentikan pemeriksaan ketika proses crawling masih berjalan. &
+Pemeriksaan berhenti; tidak ada tautan baru yang ditambahkan; status berubah menjadi STOPPED. &
+Sesuai \\ \hline
+
+8 &
+Menjalankan pemeriksaan baru setelah proses sebelumnya selesai. &
+Semua hasil lama dibersihkan; hasil baru tampil real-time sesuai proses pemeriksaan berikutnya. &
+Sesuai \\ \hline
+
+\end{tabular}
+\end{table}

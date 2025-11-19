@@ -1,0 +1,51 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Pengujian pada Fitur Filter}
+\label{tab:uji-filter}
+\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+\hline
+\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+
+1 &
+Menerapkan filter URL dengan kondisi “contains” dan kata kunci tertentu. &
+Tabel hanya menampilkan tautan yang URL-nya mengandung kata kunci tersebut. &
+Sesuai \\ \hline
+
+2 &
+Menerapkan filter URL dengan kondisi “starts with”. &
+Tabel menampilkan tautan yang dimulai dengan teks sesuai input filter. &
+Sesuai \\ \hline
+
+3 &
+Menerapkan filter berdasarkan status HTTP, misalnya hanya menampilkan tautan 404. &
+Tabel hanya menampilkan tautan dengan status error sesuai pilihan. &
+Sesuai \\ \hline
+
+4 &
+Menggabungkan filter URL dan filter status HTTP secara bersamaan. &
+Tabel menampilkan hanya tautan yang memenuhi kedua kondisi filter. &
+Sesuai \\ \hline
+
+5 &
+Menerapkan filter yang tidak sesuai dengan data sehingga hasil menjadi nol. &
+Tabel menampilkan keadaan kosong; pagination menyesuaikan menjadi satu halaman. &
+Sesuai \\ \hline
+
+6 &
+Menghapus filter yang sedang aktif. &
+Seluruh tautan kembali ditampilkan sesuai hasil pemeriksaan lengkap. &
+Sesuai \\ \hline
+
+7 &
+Mengganti kondisi filter dengan cepat (misal “contains” → “equals”). &
+Tabel langsung memperbarui hasil sesuai kondisi filter baru tanpa delay atau error. &
+Sesuai \\ \hline
+
+8 &
+Menerapkan filter URL saat proses pemeriksaan sudah selesai. &
+Filter berjalan normal; nilai Summary tidak terpengaruh. &
+Sesuai \\ \hline
+
+\end{tabular}
+\end{table}
