@@ -52,55 +52,57 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi Broke
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
    \item \textbf{Perbandingan dengan Perangkat Lunak Sejenis}\\
-   Pengujian ini dilakukan untuk membandingkan hasil pemeriksaan tautan yang dihasilkan aplikasi BrokenLink Checker dengan dua perangkat lunak sejenis yang tersedia secara daring, yaitu \textit{Broken Link Checker} dan \textit{Dead Link Checker}. Pengujian dilakukan pada situs \url{https://informatika.unpar.ac.id} dengan mencatat waktu proses pemeriksaan, jumlah tautan yang ditemukan, serta jumlah tautan rusak yang terdeteksi oleh masing-masing perangkat lunak.
-
-   Hasil pengujian ditampilkan dalam bentuk cuplikan layar (screenshot) dari ketiga perangkat lunak, disertai deskripsi singkat yang menjelaskan waktu eksekusi dan jumlah tautan rusak yang ditemukan.
+   Pada bagian ini akan dilakukan perbandingan hasil pemeriksaan antara perangkat lunak yang dikembangkan pada tugas akhir ini dengan dua perangkat lunak serupa yang tersedia secara daring, yaitu Broken Link Checker\footnote{\url{https://brokenlinkcheck.com}} dan Dead Link Checker\footnote{\url{https://deadlinkchecker.com}}. Seluruh percobaan akan dilakukan pada situs Informasika Unpar (\url{https://informatika.unpar.ac.id}) dengan jumlah percobaan sebanyak lima kali. Parameter yang akan digunakan dalam perbandingan adalah durasi pemeriksaan, jumlah seluruh tautan yang ditemukan, jumlah tautan halaman yang ditemukan dan jumlah tautan rusak yang ditemukan. Perbandingan ini bertujuan menilai kelengkapan pendeteksian tautan rusak, performa proses pemeriksaan, serta kualitas informasi yang dihasilkan.
    
-   % \begin{figure}[H]
-   %    \centering
-   %    \includegraphics[width=0.85\textwidth]{Gambar/hasil-brokenlinkchecker-penulis.png}
-   %    \caption{Hasil Pemeriksaan Menggunakan Aplikasi BrokenLink Checker}
-   %    \label{fig:hasil-blc-penulis}
-   % \end{figure}
+   Berikut adalah hasil pemeriksaan dari setiap perangkat lunak:
+   \begin{itemize}
+      \item Perangkat lunak yang dikembangkan
+      \begin{itemize}
+         \item Durasi pemeriksaan: \textbf{15,48 menit}
+         \item Jumlah seluruh tautan: \textbf{602}
+         \item Jumlah tautan halaman: \textbf{302}
+         \item Jumlah tautan rusak: \textbf{92}
+      \end{itemize}
 
-   \noindent
-   Berdasarkan hasil pada Gambar~\ref{fig:hasil-blc-penulis}, aplikasi BrokenLink Checker menyelesaikan proses pemeriksaan dalam waktu \textbf{... detik}, menemukan \textbf{... tautan}, dan mendeteksi \textbf{... tautan rusak}. 
+      \item Perangkat lunak Broken Link Checker:
+      \begin{itemize}
+         \item Durasi pemeriksaan: \textbf{--}
+         \item Jumlah seluruh tautan: \textbf{--}
+         \item Jumlah tautan halaman: \textbf{--}
+         \item Jumlah tautan rusak: \textbf{--}
+      \end{itemize}
 
-   % \begin{figure}[H]
-   %    \centering
-   %    \includegraphics[width=0.85\textwidth]{Gambar/hasil-brokenlinkchecker-web.png}
-   %    \caption{Hasil Pemeriksaan Menggunakan Broken Link Checker (Online)}
-   %    \label{fig:hasil-blc-web}
-   % \end{figure}
+      \item Perangkat lunak Dead Link Checker:
+      \begin{itemize}
+         \item Durasi pemeriksaan: \textbf{--}
+         \item Jumlah seluruh tautan: \textbf{--}
+         \item Jumlah tautan halaman: \textbf{--}
+         \item Jumlah tautan rusak: \textbf{--}
+      \end{itemize}
+      
+   \end{itemize}
 
-   \noindent
-   Pada Gambar~\ref{fig:hasil-blc-web}, layanan Broken Link Checker versi web menemukan \textbf{... tautan} dan mendeteksi \textbf{... tautan rusak}.
 
-   % \begin{figure}[H]
-   %    \centering
-   %    \includegraphics[width=0.85\textwidth]{Gambar/hasil-deadlinkchecker-web.png}
-   %    \caption{Hasil Pemeriksaan Menggunakan Dead Link Checker}
-   %    \label{fig:hasil-dlc-web}
-   % \end{figure}
+   \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\textwidth]{Gambar/050202-hasil-pengujian-aplikasi.png}
+      \caption{Hasil Pemeriksaan Menggunakan Aplikasi yang Dikembangkan}
+      \label{fig:hasil-blc-penulis}
+   \end{figure}
 
-   \noindent
-   Berdasarkan Gambar~\ref{fig:hasil-dlc-web}, aplikasi Dead Link Checker mendeteksi \textbf{... tautan rusak} dari proses pemeriksaan yang dilakukan.
+   \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\textwidth]{Gambar/050202-hasil-pengujian-aplikasi.png}
+      \caption{Hasil Pemeriksaan Menggunakan Broken Link Checker}
+      \label{fig:hasil-blc-web}
+   \end{figure}
 
-   \noindent
-   Secara keseluruhan, ketiga perangkat lunak menghasilkan jumlah tautan rusak yang relatif konsisten, dengan variasi kecil yang dapat disebabkan perbedaan metode pemeriksaan (HEAD vs GET), kebijakan \textit{timeout}, atau perbedaan \textit{User-Agent}. Hal ini menunjukkan bahwa aplikasi BrokenLink Checker mampu memberikan hasil yang akurat dan sebanding dengan perangkat lunak sejenis.
-
+   \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\textwidth]{Gambar/050202-hasil-pengujian-aplikasi.png}
+      \caption{Hasil Pemeriksaan Menggunakan Dead Link Checker}
+      \label{fig:hasil-dlc-web}
+   \end{figure}
    
 \end{enumerate}
