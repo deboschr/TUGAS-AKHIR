@@ -1,0 +1,42 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Pengujian pada Fitur Pemeriksaan}
+\label{tab:pengujian-fitur-pemeriksaan}
+\begin{tabular}{|c|p{6cm}|p{6cm}|c|}
+\hline
+\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+
+1 &
+Menjalankan proses pemeriksaan. &
+Halaman dikunjungi sesuai urutan FIFO. &
+Sesuai \\ \hline
+
+2 &
+Memeriksa tautan dengan host yang sama. &
+Setiap tautan dengan host sama diambil menggunakan metode GET dan berhasil diparse sebagai HTML. &
+Sesuai \\ \hline
+
+3 &
+Memeriksa tautan dengan host berbeda. &
+Setiap tautan dengan host berbeda diperiksa pertama kali memakai HEAD, lalu GET apabila HEAD gagal. &
+Sesuai \\ \hline
+
+4 &
+Menjalankan pemeriksaan pada halaman yang memiliki banyak tautan. &
+Jumlah tautan yang diperiksa tidak melebihi batas yang sudah ditentukan. &
+Sesuai \\ \hline
+
+5 &
+Menjalankan pemeriksaan pada situs dengan tautan yang sama muncul berulang kali. &
+Setiap URL hanya diperiksa satu kali; tidak ada hasil duplikat di tabel. &
+Sesuai \\ \hline
+
+6 &
+Memeriksa banyak tautan dari host yang sama dalam waktu singkat. &
+\textit{Rate limiting} per host aktif dan jeda permintaan antar tautan konsisten. &
+Sesuai \\ \hline
+
+
+\end{tabular}
+\end{table}

@@ -1,0 +1,41 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Pengujian pada Summary}
+\label{tab:pengujian-summary}
+\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+\hline
+\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+
+1 &
+Memulai proses pemeriksaan dengan URL valid. &
+Status berubah menjadi \texttt{CHECKING} dan seluruh nilai Summary mulai dihitung. &
+Sesuai \\ \hline
+
+2 &
+Proses pemeriksaan selesai tanpa dihentikan. &
+Status berubah menjadi \texttt{COMPLETED}, seluruh nilai Summary menampilkan hasil akhir crawling. &
+Sesuai \\ \hline
+
+3 &
+Menghentikan proses pemeriksaan dengan menekan tombol Stop. &
+Status berubah menjadi \texttt{STOPPED}, nilai Summary tidak lagi bertambah. &
+Sesuai \\ \hline
+
+4 &
+Menerapkan filter URL pada tabel hasil. &
+Nilai Summary tidak berubah dan tetap menampilkan total data crawling sebenarnya. &
+Sesuai \\ \hline
+
+5 &
+Menerapkan filter Status Code pada tabel hasil. &
+Nilai Summary tetap, tidak dipengaruhi filter apa pun. &
+Sesuai \\ \hline
+
+6 &
+Melakukan pemeriksaan ulang setelah proses sebelumnya dihentikan. &
+Summary di-reset ke kondisi awal dan menampilkan nilai baru sesuai proses crawling berikutnya. &
+Sesuai \\ \hline
+
+\end{tabular}
+\end{table}

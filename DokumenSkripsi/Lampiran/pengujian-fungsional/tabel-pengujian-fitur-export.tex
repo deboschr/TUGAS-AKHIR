@@ -1,0 +1,36 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Pengujian pada Fitur Ekspor}
+\label{tab:pengujian-fitur-export}
+\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+\hline
+\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+
+1 &
+Menekan tombol Export ketika tidak ada data hasil pemeriksaan. &
+Window notifikasi warning terbuka dan tidak ada berkas yang diekspor. &
+Sesuai \\ \hline
+
+2 &
+Menekan tombol Export setelah proses pemeriksaan selesai dengan data lengkap. &
+Dialog penyimpanan muncul dan berkas Excel/JSON berhasil dibuat sesuai isi tabel. &
+Sesuai \\ \hline
+
+3 &
+Menerapkan filter sehingga hanya sebagian data tampil di tabel, lalu menekan tombol Export. &
+Berkas hasil ekspor hanya berisi data yang sesuai dengan filter aktif. &
+Sesuai \\ \hline
+
+4 &
+Mengganti filter dan melakukan ekspor ulang. &
+Berkas yang dihasilkan sesuai dengan tampilan tabel setelah filter baru diterapkan. &
+Sesuai \\ \hline
+
+5 &
+Menjalankan proses pemeriksaan baru, lalu mengekspor hasilnya. &
+Berkas ekspor berisi data hasil pemeriksaan terbaru, bukan data sebelumnya. &
+Sesuai \\ \hline
+
+\end{tabular}
+\end{table}

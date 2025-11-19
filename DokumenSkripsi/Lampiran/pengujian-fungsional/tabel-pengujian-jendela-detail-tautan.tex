@@ -1,0 +1,38 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Pengujian pada Jendela Detail Tautan}
+\label{tab:pengujian-jendela-detail-tautan}
+\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+\hline
+\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+
+
+1 &
+Menekan salah satu baris tidak kosong pada tabel tautan rusak. &
+Jendela detail tautan terbuka dan menampilkan informasi tautan yang sesuai. &
+Sesuai \\ \hline
+
+2 &
+Menekan salah satu baris kosong pada tabel tautan rusak. &
+Jendela detail tautan tidak. &
+Sesuai \\ \hline
+
+3 &
+Menekan kolom URL pada jendela detail tautan &
+\textit{Browser} bawaan OS membuka URL yang ditekan &
+Sesuai \\ \hline
+
+4 &
+Menekan kolom \textit{final} URL yang tidak kosong pada jendela detail tautan &
+\textit{Browser} bawaan OS membuka URL yang ditekan &
+Sesuai \\ \hline
+
+5 &
+Menekan kolom \textit{final} URL yang kosong pada jendela detail tautan &
+\textit{Browser} bawaan OS tidak terbuka &
+Sesuai \\ \hline
+
+
+\end{tabular}
+\end{table}

@@ -1,0 +1,27 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Pengujian pada Jendela Notifikasi}
+\label{tab:pengujian-jendela-notifikasi}
+\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+\hline
+\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+
+1 &
+Menampilkan notifikasi \textit{warning} ketika pengguna menekan tombol Start tanpa memasukkan URL. &
+Jendela notifikasi \textit{warning} muncul dengan pesan yang sesuai. &
+Sesuai \\ \hline
+
+2 &
+Menampilkan notifikasi \textit{error} ketika proses pemeriksaan mengalami \textit{exception}. &
+Jendela notifikasi \textit{error} muncul dan menampilkan pesan kesalahan. &
+Sesuai \\ \hline
+
+3 &
+Menampilkan notifikasi \textit{success} setelah proses ekspor berhasil. &
+Jendela notifikasi \textit{success} muncul dan mengonfirmasi bahwa ekspor berhasil. &
+Sesuai \\ \hline
+
+
+\end{tabular}
+\end{table}

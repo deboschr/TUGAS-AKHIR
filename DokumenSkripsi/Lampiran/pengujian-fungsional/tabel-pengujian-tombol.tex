@@ -1,0 +1,46 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Pengujian pada Tombol}
+\label{tab:pengujian-tombol}
+\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+\hline
+\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+
+1 &
+Menekan tombol Start ketika field URL berisi URL valid. &
+Proses pemeriksaan dimulai, status berubah menjadi CHECKING, tombol Stop aktif, tombol Export nonaktif. &
+Sesuai \\ \hline
+
+2 &
+Menekan tombol Start ketika field URL kosong atau tidak valid. &
+Window notifikasi warning terbuka, proses tidak dimulai, tombol Stop dan Export tetap nonaktif. &
+Sesuai \\ \hline
+
+3 &
+Menekan tombol Stop ketika proses pemeriksaan belum berjalan (status IDLE). &
+Tidak terjadi apa-apa, tidak ada status atau UI yang berubah. &
+Sesuai \\ \hline
+
+4 &
+Menekan tombol Stop saat proses pemeriksaan sedang berjalan. &
+Proses dihentikan, status berubah menjadi STOPPED, tombol Start aktif kembali, tombol Export tetap nonaktif. &
+Sesuai \\ \hline
+
+5 &
+Menekan tombol Export ketika tidak ada data hasil pemeriksaan. &
+Window notifikasi warning terbuka, tidak ada berkas yang diekspor. &
+Sesuai \\ \hline
+
+6 &
+Menekan tombol Export setelah proses pemeriksaan selesai dan data telah tersedia. &
+Jendela penyimpanan muncul, berkas hasil pemeriksaan berhasil diekspor sesuai format yang dipilih. &
+Sesuai \\ \hline
+
+7 &
+Menekan tombol Start setelah proses sebelumnya dihentikan dengan tombol Stop. &
+Proses pemeriksaan baru dimulai, status kembali menjadi CHECKING, UI reset dan tombol Export nonaktif. &
+Sesuai \\ \hline
+
+\end{tabular}
+\end{table}
