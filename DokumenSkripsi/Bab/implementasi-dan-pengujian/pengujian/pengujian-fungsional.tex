@@ -2,7 +2,7 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi Broke
 
 \begin{enumerate}
    \item \textbf{Pengujian pada Input URL}\\
-   Pengujian ini bertujuan memastikan bahwa aplikasi dapat memvalidasi URL yang dimasukkan pengguna, termasuk menangani kondisi URL valid, URL tidak valid, maupun kolom input yang dibiarkan kosong. Hasil pengujian dapat dilihat pada Tabel. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-input}.
+   Pengujian ini bertujuan memastikan bahwa aplikasi dapat memvalidasi URL yang dimasukkan pengguna, termasuk menangani kondisi URL valid, URL tidak valid, maupun kolom input yang dibiarkan kosong. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-input}.
 
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-input.tex}
 
@@ -23,11 +23,46 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi Broke
    
 
    \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
-   Pengujian ini mencakup verifikasi terhadap seluruh mekanisme pemeriksaan tautan yang dijalankan oleh sistem, mulai dari proses \textit{crawling} hingga pengecekan status setiap tautan. Hasil pengujian ditampilkan pada Tabel~\ref{tab:pengujian-fitur-pemeriksaan}.
+   Pengujian ini dilakukan untuk memastikan bahwa proses pemeriksaan sesuai dengan ketentuan berikut:
+   \begin{itemize}
+      \item Memastikan tautan rusak teridentifikasi dengan benar.
+      \item Memastikan setiap URL hanya diperiksa satu kali.
+      \item Memastikan \textit{rate limiting} dikelompokan berdasarkan \textit{host} URL.
+      \item Memastikan \textit{crawling} hanya dilakukan pada halaman situs web yang sedang diperiksa.
+   \end{itemize}
 
-   
+   Subjek pada pengujian ini adalah situs web Informatika UNPAR (\url{https://informatika.unpar.ac.id}) dengan hasil pengujian yang dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-pemeriksaan}. Ringkasan hasil pemeriksaan pada pengujian ini ditampilkan dalam daftar berikut:
+   \begin{itemize}
+      \item Durasi pemeriksaan: \textbf{13,34 menit}
+      \item Jumlah seluruh tautan: \textbf{602}
+      \item Jumlah tautan halaman: \textbf{302}
+      \item Jumlah tautan rusak: \textbf{83} (25 \textit{connection error}, 55 \textit{client error}, dan 3 \textit{server error})
+   \end{itemize}
+
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
-   
+
+   \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
+Pengujian ini dilakukan untuk memastikan bahwa proses pemeriksaan tautan berjalan sesuai dengan ketentuan yang telah ditetapkan. Ketentuan tersebut meliputi:
+\begin{itemize}
+   \item memastikan tautan rusak teridentifikasi dengan benar,
+   \item memastikan setiap URL hanya diperiksa satu kali,
+   \item memastikan \textit{rate limiting} diterapkan berdasarkan \textit{host} URL, dan
+   \item memastikan proses \textit{crawling} hanya dilakukan pada halaman situs web yang memiliki host yang sama dengan seed URL.
+\end{itemize}
+
+Subjek pengujian ini adalah situs web Informatika UNPAR (\url{https://informatika.unpar.ac.id}). Hasil pemeriksaan keseluruhan ditampilkan dalam daftar berikut:
+\begin{itemize}
+   \item Durasi pemeriksaan: \textbf{13,34 menit}
+   \item Jumlah seluruh tautan: \textbf{602}
+   \item Jumlah tautan halaman: \textbf{302}
+   \item Jumlah tautan rusak: \textbf{83} (25 \textit{connection error}, 55 \textit{client error}, dan 3 \textit{server error})
+\end{itemize}
+
+Hasil pengujian berdasarkan skenario pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-pemeriksaan}.
+
+\input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
+
+
    \item \textbf{Pengujian pada Fitur Filter}\\
    Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring daftar tautan berdasarkan kondisi URL maupun kode status HTTP. Pengujian mencakup penggunaan filter tunggal, kombinasi filter, dan kondisi ketika filter tidak menghasilkan data apa pun. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-filter}.
 
@@ -50,60 +85,4 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi Broke
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-notifikasi.tex}
 
-   \item \textbf{Perbandingan dengan Perangkat Lunak Sejenis}\\
-   
-
-   \item \textbf{Perbandingan dengan Perangkat Lunak Sejenis}\\
-   Pada bagian ini akan dilakukan perbandingan hasil pemeriksaan antara perangkat lunak yang dikembangkan pada tugas akhir ini dengan dua perangkat lunak serupa yang tersedia secara daring, yaitu Broken Link Checker\footnote{\url{https://brokenlinkcheck.com}} dan Dead Link Checker\footnote{\url{https://deadlinkchecker.com}}. Seluruh percobaan akan dilakukan pada situs Informasika Unpar (\url{https://informatika.unpar.ac.id}) dengan jumlah percobaan sebanyak lima kali. Parameter yang akan digunakan dalam perbandingan adalah durasi pemeriksaan, jumlah seluruh tautan yang ditemukan, jumlah tautan halaman yang ditemukan dan jumlah tautan rusak yang ditemukan. Perbandingan ini bertujuan menilai kelengkapan pendeteksian tautan rusak, performa proses pemeriksaan, serta kualitas informasi yang dihasilkan.
-   
-   Berikut adalah hasil pemeriksaan dari setiap perangkat lunak:
-   \begin{itemize}
-      \item Perangkat lunak yang dikembangkan
-      \begin{itemize}
-         \item Durasi pemeriksaan: \textbf{15,48 menit}
-         \item Jumlah seluruh tautan: \textbf{602}
-         \item Jumlah tautan halaman: \textbf{301}
-         \item Jumlah tautan rusak: \textbf{103}
-      \end{itemize}
-
-      \item Perangkat lunak Broken Link Checker:
-      \begin{itemize}
-         \item Durasi pemeriksaan: \textbf{--}
-         \item Jumlah seluruh tautan: \textbf{--}
-         \item Jumlah tautan halaman: \textbf{--}
-         \item Jumlah tautan rusak: \textbf{--}
-      \end{itemize}
-
-      \item Perangkat lunak Dead Link Checker:
-      \begin{itemize}
-         \item Durasi pemeriksaan: \textbf{--}
-         \item Jumlah seluruh tautan: \textbf{--}
-         \item Jumlah tautan halaman: \textbf{--}
-         \item Jumlah tautan rusak: \textbf{--}
-      \end{itemize}
-      
-   \end{itemize}
-
-
-   \begin{figure}[H]
-      \centering
-      \includegraphics[width=0.85\textwidth]{Gambar/050202-hasil-pengujian-aplikasi.png}
-      \caption{Hasil Pemeriksaan Menggunakan Aplikasi yang Dikembangkan}
-      \label{fig:hasil-blc-penulis}
-   \end{figure}
-
-   \begin{figure}[H]
-      \centering
-      \includegraphics[width=0.85\textwidth]{Gambar/050202-hasil-pengujian-aplikasi.png}
-      \caption{Hasil Pemeriksaan Menggunakan Broken Link Checker}
-      \label{fig:hasil-blc-web}
-   \end{figure}
-
-   \begin{figure}[H]
-      \centering
-      \includegraphics[width=0.85\textwidth]{Gambar/050202-hasil-pengujian-aplikasi.png}
-      \caption{Hasil Pemeriksaan Menggunakan Dead Link Checker}
-      \label{fig:hasil-dlc-web}
-   \end{figure}
-   
 \end{enumerate}
