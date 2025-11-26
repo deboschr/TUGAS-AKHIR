@@ -1,17 +1,16 @@
 public static void openMainWindow() {
    try {
-      FXMLLoader loader = new FXMLLoader(
-            Application.class.getResource("/com/unpar/brokenlinkchecker/windows/main-window.fxml"));
+      FXMLLoader loader = new FXMLLoader(MAIN_FXML);
 
       Scene scene = new Scene(loader.load());
 
-      mainStage.setScene(scene);
-      mainStage.initStyle(StageStyle.UNDECORATED);
-      mainStage.centerOnScreen();
-      mainStage.setMaximized(true);
-      mainStage.setMinWidth(1024);
-      mainStage.setMinHeight(600);
-      mainStage.show();
+      MAIN_STAGE.setScene(scene);
+      MAIN_STAGE.initStyle(StageStyle.UNDECORATED);
+      MAIN_STAGE.centerOnScreen();
+      MAIN_STAGE.setMaximized(true);
+      MAIN_STAGE.setMinWidth(1024);
+      MAIN_STAGE.setMinHeight(600);
+      MAIN_STAGE.show();
    } catch (Exception e) {
       e.printStackTrace();
    }

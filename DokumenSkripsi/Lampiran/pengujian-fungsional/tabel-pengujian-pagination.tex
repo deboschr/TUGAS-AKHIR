@@ -1,41 +1,80 @@
 \renewcommand{\arraystretch}{1.4}
-\begin{table}[H]
-\centering
-\caption{Pengujian pada Pagination}
-\label{tab:pengujian-pagination}
-\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+
+\begin{longtable}{
+|>{\centering\arraybackslash}p{1cm}
+|>{\raggedright\arraybackslash}p{4.5cm} 
+|>{\raggedright\arraybackslash}p{4.5cm}
+|>{\raggedright\arraybackslash}p{4.5cm}|}
+\caption{Hasil Pengujian Funsional Pagination}
+\vspace{-3mm}
+\label{tab:pengujian-funsional-pagination} \\
+
 \hline
-\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}{Tabel~\ref{tab:pengujian-funsional-pagination} dilanjutkan dari halaman sebelumnya}\\[4pt]
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{r}{Bersambung ke halaman berikutnya} \\
+\endfoot
+
+\hline
+\endlastfoot
+
 
 1 &
-Menekan tombol Next ketika data lebih dari satu halaman. &
-Halaman berpindah ke halaman berikutnya dan data sesuai halaman baru ditampilkan. &
-Sesuai \\ \hline
+Menekan tombol Start ketika status aplikasi berada pada status IDLE. &
+Proses crawling dimulai, data lama dibersihkan, dan status berubah menjadi CHECKING. &
+Aplikasi merubah status menjadi CHECKING dan memulai proses pemeriksaan. \\ \hline
 
 2 &
-Menekan tombol Prev ketika berada di halaman selain halaman pertama. &
-Halaman berpindah ke halaman sebelumnya dan data sesuai halaman tersebut ditampilkan. &
-Sesuai \\ \hline
+Menekan tombol Start ketika status aplikasi berada pada status CHECKING, STOPPED atau COMPLETED. &
+Proses pemeriksaan dimulai ulang dan status berubah menjadi CHECKING. &
+Aplikasi membersihkan data lama, merubah status menjadi CHECKING dan memulai ulang proses pemeriksaan. \\ \hline
 
 3 &
-Menekan tombol Prev ketika berada di halaman pertama. &
-Tidak terjadi perpindahan halaman, tampilan tetap berada pada halaman pertama. &
-Sesuai \\ \hline
+Menekan tombol Stop ketika status aplikasi berada pada status CHECKING. &
+Proses crawling dihentikan dan status berubah menjadi STOPPED. &
+Aplikasi menghentikan proses pemeriksaan yang sedang berjalandan dan merubah status menjadi STOPPED. \\ \hline
 
 4 &
-Menekan tombol Next ketika berada di halaman terakhir. &
-Tidak terjadi perpindahan halaman, tampilan tetap berada pada halaman terakhir. &
-Sesuai \\ \hline
+Menekan tombol Stop ketika status aplikasi berada pada status IDLE, STOPPED atau COMPLETED. &
+Tombol Stop tidak bisa ditekan. &
+Tombol Stop tidak merespons karena dalam status disabled. \\ \hline
 
 5 &
-Menerapkan filter sehingga jumlah data menjadi kurang dari satu halaman. &
-Kontrol pagination menyesuaikan, hanya satu halaman yang ditampilkan, tombol Next dan Prev nonaktif. &
-Sesuai \\ \hline
+Menekan tombol Export ketika status aplikasi berada pada status IDLE atau CHECKING. &
+Tombol Export tidak bisa ditekan. &
+Tombol Export tidak merespons karena dalam status disabled. \\ \hline
 
 6 &
-Menghapus filter sehingga jumlah data kembali lebih dari satu halaman. &
-Pagination aktif kembali, kontrol Next dan Prev berfungsi normal sesuai jumlah halaman. &
-Sesuai \\ \hline
+Menekan tombol Export ketika status STOPPED atau COMPLETED dan data di tabel tersedia. &
+Dialog penyimpanan file muncul dan proses ekspor dapat dilakukan. &
+Aplikasi menampilkan dialog penyimpanan file, lalu menampilkan notifikasi SUCCESS saat selesai. \\ \hline
 
-\end{tabular}
-\end{table}
+7 &
+Menekan tombol Export ketika status STOPPED atau COMPLETED namun data di tabel tidak tersedia. &
+Muncul notifikasi WARNING bahwa tidak ada data yang dapat diekspor. &
+Aplikasi menampilkan notifikasi WARNING \textit{“There are no broken links to export.”}. \\ \hline
+
+8 &
+Menekan tombol Export lalu membatalkan dialog penyimpanan file &
+Proses ekspor dibatalkan tanpa ada perubahan status aplikasi. &
+Aplikasi tidak memproses ekspor \\ \hline
+
+
+
+\end{longtable}

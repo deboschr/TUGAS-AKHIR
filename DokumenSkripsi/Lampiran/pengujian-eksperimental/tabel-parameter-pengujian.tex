@@ -1,0 +1,30 @@
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[H]
+\centering
+\caption{Parameter Pengujian Eksperimantal}
+\label{tab:parameter-pengujian-eksperimantal}
+
+\begin{tabular}{|
+    >{\raggedright\arraybackslash}p{6cm}|
+    >{\raggedright\arraybackslash}p{6cm}|
+    >{\raggedright\arraybackslash}p{3cm}|}
+\hline
+
+\multicolumn{1}{|c|}{\textbf{Parameter}} &
+\multicolumn{1}{c|}{\textbf{Deskripsi}} &
+\multicolumn{1}{c|}{\textbf{Rentang Nilai}} \\ \hline
+
+Interval pada \texttt{RateLimiter} & 
+Jarak antar permintaan HTTP per \textit{host} & 
+0--1000~ms \\ \hline
+
+\textit{Connection Timeout} pada \texttt{HttpClient} & 
+Batas waktu pembentukan koneksi dalam permintaan HTTP & 
+1--15 detik \\ \hline
+
+\textit{Request Timeout} pada \texttt{HttpRequest} & 
+Batas waktu menunggu respons \textit{server} dalam permintaan HTTP & 
+2--30~\textit{detik} \\ \hline
+
+\end{tabular}
+\end{table}

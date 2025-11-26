@@ -1,34 +1,39 @@
 public void start(String seedUrl) {
    isStopped = false;
    repositories.clear();
-   frontier.clear();
    rateLimiters.clear();
-   rootHost = UrlHandler.getHost(seedUrl);
+   frontier.clear();
+
+   rootHost = URLHandler.getHost(seedUrl);
    frontier.offer(new Link(seedUrl));
-   while (!isStopped && !frontier.isEmpty()) {
-      if (repositories.size() >= MAX_LINKS) {
-         frontier.clear();
-         break;
-      }
+
+   while (!isStopped && !frontier.isEmpty() && repositories.size() < MAX_LINKS) {
 
       Link currLink = frontier.poll();
-      if (currLink == null) continue;
+
+      if (currLink == null) {
+         continue;
+      }
 
       Link existing = repositories.putIfAbsent(currLink.getUrl(), currLink);
-      if (existing != null) continue;
+      if (existing != null) {
+         continue;
+      }
 
       Document doc = fetchLink(currLink, true);
 
       send(currLink);
 
-      if (!currLink.getError().isEmpty()) continue;
-
-      String finalUrlHost = UrlHandler.getHost(currLink.getFinalUrl());
-      if (doc == null || !finalUrlHost.equalsIgnoreCase(rootHost)) continue;
+      if (!URLHandler.getHost(currLink.getFinalUrl()).equals(rootHost) ||
+         !currLink.getError().isEmpty() || 
+         doc == null) {
+         continue;
+      }
 
       currLink.setIsWebpage(true);
 
       Map<Link, String> linksOnWebpage = extractLink(doc);
+
       try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
          for (var entry : linksOnWebpage.entrySet()) {
             if (repositories.size() >= MAX_LINKS || isStopped) {
@@ -47,15 +52,11 @@ public void start(String seedUrl) {
 
             link.addConnection(currLink, anchorText);
 
-            String host = UrlHandler.getHost(link.getUrl());
-            if (host.equalsIgnoreCase(rootHost)) {
+            if (URLHandler.getHost(link.getUrl()).equals(rootHost)) {
                frontier.offer(link);
             } else {
                repositories.putIfAbsent(link.getUrl(), link);
                executor.submit(() -> {
-                  RateLimiter limiter = rateLimiters.computeIfAbsent(host, h -> new RateLimiter());
-                  limiter.delay();
-
                   fetchLink(link, false);
                   send(link);
                });

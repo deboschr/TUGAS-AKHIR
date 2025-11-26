@@ -1,88 +1,84 @@
-Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi BrokenLink Checker berjalan sesuai dengan kebutuhan yang telah ditetapkan pada Bab~\ref{chap:040000-perancangan}. Pengujian dilakukan secara manual menggunakan berbagai skenario input dan interaksi antarmuka untuk memverifikasi bahwa proses pemeriksaan tautan, pengelolaan tampilan, serta fitur pendukung seperti ekspor dan filter berjalan dengan benar.
+Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi desktop pemeriksa tautan rusak berjalan sesuai dengan kebutuhan yang telah ditetapkan (lihat Subbab~\ref{sec:030300-analisis-kebutuhan}). Pengujian dilakukan secara manual menggunakan berbagai skenario input dan interaksi antarmuka, berikut adalah daftar hasil pengujian fungsional:
 
 \begin{enumerate}
-   \item \textbf{Pengujian pada Input URL}\\
-   Pengujian ini bertujuan memastikan bahwa aplikasi dapat memvalidasi URL yang dimasukkan pengguna, termasuk menangani kondisi URL valid, URL tidak valid, maupun kolom input yang dibiarkan kosong. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:uji-input}.
+   % \item \textbf{Pengujian pada Input URL}\\
+   % Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat memvalidasi URL yang dimasukkan pengguna sebelum memulai proses pemeriksaan. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-funsional-input-url}.
 
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-input.tex}
+   % \input{Lampiran/pengujian-fungsional/tabel-pengujian-input.tex}
 
-   \item \textbf{Pengujian pada Tombol}\\
-   Pengujian dilakukan untuk memastikan bahwa ketiga tombol utama, yaitu \textit{Start}, \textit{Stop}, dan \textit{Export}, merespons sesuai dengan kondisi aplikasi pada saat tombol ditekan. Pengujian mencakup perilaku tombol \textit{Start} ketika memulai proses pemeriksaan, tombol \textit{Stop} ketika menghentikan proses yang sedang berjalan maupun ketika tidak ada proses yang aktif, serta tombol \textit{Export} ketika data hasil pemeriksaan tersedia maupun belum tersedia. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-tombol}.
+   % \item \textbf{Pengujian pada Tombol}\\
+   % Pengujian dilakukan untuk memastikan bahwa tombol \textit{Start}, \textit{Stop}, dan \textit{Export}, merespons sesuai dengan kondisi status pemeriksaan dan tindakan lain dari pengguna. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-funsional-tombol}.
 
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-tombol.tex}
+   % \input{Lampiran/pengujian-fungsional/tabel-pengujian-tombol.tex}
 
-   \item \textbf{Pengujian pada Summary}\\
-   Pengujian ini dilakukan untuk memastikan bahwa komponen ringkasan menampilkan informasi proses secara akurat, meliputi status pemeriksaan, jumlah seluruh tautan yang ditemukan, jumlah tautan halaman, serta jumlah tautan rusak. Pengujian juga memverifikasi bahwa nilai pada Summary selalu mencerminkan hasil crawling sebenarnya dan tidak berubah ketika pengguna menerapkan filter pada tabel hasil. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-summary}.
-
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-summary.tex}
    
-   \item \textbf{Pengujian pada Pagination}\\
-   Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menavigasi halaman hasil secara benar menggunakan kontrol pagination, baik ketika seluruh data ditampilkan maupun ketika filter sedang aktif. Pengujian mencakup perpindahan halaman maju dan mundur, kondisi ketika berada pada halaman pertama atau terakhir, serta perubahan jumlah data yang ditampilkan akibat filter. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-pagination}.
+   \item \textbf{Pengujian pada \textit{Pagination}}\\
+   Pengujian ini dilakukan untuk memastikan bahwa pagination terbentuk dan berperilaku sesuai dengan keadaan data, serta untuk memastikan pengguna dapat melakukan navigasi pada halaman \textit{pagination}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-funsional-pagination}.
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-pagination.tex}
    
 
-   \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
-   Pengujian ini dilakukan untuk memastikan bahwa proses pemeriksaan sesuai dengan ketentuan berikut:
-   \begin{itemize}
-      \item Memastikan tautan rusak teridentifikasi dengan benar.
-      \item Memastikan setiap URL hanya diperiksa satu kali.
-      \item Memastikan \textit{rate limiting} dikelompokan berdasarkan \textit{host} URL.
-      \item Memastikan \textit{crawling} hanya dilakukan pada halaman situs web yang sedang diperiksa.
-   \end{itemize}
+   % \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
+   % Pengujian ini dilakukan untuk memastikan bahwa proses pemeriksaan sesuai dengan ketentuan berikut:
+   % \begin{itemize}
+   %    \item Memastikan tautan rusak teridentifikasi dengan benar.
+   %    \item Memastikan setiap URL hanya diperiksa satu kali.
+   %    \item Memastikan \textit{rate limiting} dikelompokan berdasarkan \textit{host} URL.
+   %    \item Memastikan \textit{crawling} hanya dilakukan pada halaman situs web yang sedang diperiksa.
+   % \end{itemize}
 
-   Subjek pada pengujian ini adalah situs web Informatika UNPAR (\url{https://informatika.unpar.ac.id}) dengan hasil pengujian yang dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-pemeriksaan}. Ringkasan hasil pemeriksaan pada pengujian ini ditampilkan dalam daftar berikut:
-   \begin{itemize}
-      \item Durasi pemeriksaan: \textbf{13,34 menit}
-      \item Jumlah seluruh tautan: \textbf{602}
-      \item Jumlah tautan halaman: \textbf{302}
-      \item Jumlah tautan rusak: \textbf{83} (25 \textit{connection error}, 55 \textit{client error}, dan 3 \textit{server error})
-   \end{itemize}
+   % Subjek pada pengujian ini adalah situs web Informatika UNPAR (\url{https://informatika.unpar.ac.id}) dengan hasil pengujian yang dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-pemeriksaan}. Ringkasan hasil pemeriksaan pada pengujian ini ditampilkan dalam daftar berikut:
+   % \begin{itemize}
+   %    \item Durasi pemeriksaan: \textbf{13,34 menit}
+   %    \item Jumlah seluruh tautan: \textbf{602}
+   %    \item Jumlah tautan halaman: \textbf{302}
+   %    \item Jumlah tautan rusak: \textbf{83} (25 \textit{connection error}, 55 \textit{client error}, dan 3 \textit{server error})
+   % \end{itemize}
 
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
+   % \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
 
-   \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
-Pengujian ini dilakukan untuk memastikan bahwa proses pemeriksaan tautan berjalan sesuai dengan ketentuan yang telah ditetapkan. Ketentuan tersebut meliputi:
-\begin{itemize}
-   \item memastikan tautan rusak teridentifikasi dengan benar,
-   \item memastikan setiap URL hanya diperiksa satu kali,
-   \item memastikan \textit{rate limiting} diterapkan berdasarkan \textit{host} URL, dan
-   \item memastikan proses \textit{crawling} hanya dilakukan pada halaman situs web yang memiliki host yang sama dengan seed URL.
-\end{itemize}
+   % \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
+   % Pengujian ini dilakukan untuk memastikan bahwa proses pemeriksaan tautan berjalan sesuai dengan ketentuan yang telah ditetapkan. Ketentuan tersebut meliputi:
+   % \begin{itemize}
+   %    \item memastikan tautan rusak teridentifikasi dengan benar,
+   %    \item memastikan setiap URL hanya diperiksa satu kali,
+   %    \item memastikan \textit{rate limiting} diterapkan berdasarkan \textit{host} URL, dan
+   %    \item memastikan proses \textit{crawling} hanya dilakukan pada halaman situs web yang memiliki host yang sama dengan seed URL.
+   % \end{itemize}
 
-Subjek pengujian ini adalah situs web Informatika UNPAR (\url{https://informatika.unpar.ac.id}). Hasil pemeriksaan keseluruhan ditampilkan dalam daftar berikut:
-\begin{itemize}
-   \item Durasi pemeriksaan: \textbf{13,34 menit}
-   \item Jumlah seluruh tautan: \textbf{602}
-   \item Jumlah tautan halaman: \textbf{302}
-   \item Jumlah tautan rusak: \textbf{83} (25 \textit{connection error}, 55 \textit{client error}, dan 3 \textit{server error})
-\end{itemize}
+   % Subjek pengujian ini adalah situs web Informatika UNPAR (\url{https://informatika.unpar.ac.id}). Hasil pemeriksaan keseluruhan ditampilkan dalam daftar berikut:
+   % \begin{itemize}
+   %    \item Durasi pemeriksaan: \textbf{13,34 menit}
+   %    \item Jumlah seluruh tautan: \textbf{602}
+   %    \item Jumlah tautan halaman: \textbf{302}
+   %    \item Jumlah tautan rusak: \textbf{83} (25 \textit{connection error}, 55 \textit{client error}, dan 3 \textit{server error})
+   % \end{itemize}
 
-Hasil pengujian berdasarkan skenario pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-pemeriksaan}.
+   % Hasil pengujian berdasarkan skenario pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-pemeriksaan}.
 
-\input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
+   % \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
 
 
-   \item \textbf{Pengujian pada Fitur Filter}\\
-   Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring daftar tautan berdasarkan kondisi URL maupun kode status HTTP. Pengujian mencakup penggunaan filter tunggal, kombinasi filter, dan kondisi ketika filter tidak menghasilkan data apa pun. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-filter}.
+   % \item \textbf{Pengujian pada Fitur Filter}\\
+   % Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring daftar tautan berdasarkan kondisi URL maupun kode status HTTP. Pengujian mencakup penggunaan filter tunggal, kombinasi filter, dan kondisi ketika filter tidak menghasilkan data apa pun. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-filter}.
 
    
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-filter.tex}
+   % \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-filter.tex}
    
-   \item \textbf{Pengujian pada Fitur Ekspor}\\
-   Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat mengekspor data hasil pemeriksaan ke berkas Excel dengan benar. Pengujian juga memverifikasi bahwa hasil ekspor mengikuti data yang sedang ditampilkan pada tabel, termasuk ketika filter aktif sehingga hanya data hasil penyaringan yang diekspor. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-export}.
+   % \item \textbf{Pengujian pada Fitur Ekspor}\\
+   % Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat mengekspor data hasil pemeriksaan ke berkas Excel dengan benar. Pengujian juga memverifikasi bahwa hasil ekspor mengikuti data yang sedang ditampilkan pada tabel, termasuk ketika filter aktif sehingga hanya data hasil penyaringan yang diekspor. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-fitur-export}.
    
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-export.tex}
+   % \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-export.tex}
    
-   \item \textbf{Pengujian pada Jendela Detail Tautan}\\
-   Pengujian ini dilakukan untuk memastikan bahwa URL, \textit{final} URL, jenis konten, pesan error, serta daftar halaman sumber ditampilkan dengan benar dan sesuai data pemeriksaan. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-jendela-detail-tautan}.
+   % \item \textbf{Pengujian pada Jendela Detail Tautan}\\
+   % Pengujian ini dilakukan untuk memastikan bahwa URL, \textit{final} URL, jenis konten, pesan error, serta daftar halaman sumber ditampilkan dengan benar dan sesuai data pemeriksaan. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-jendela-detail-tautan}.
 
 
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-detail-tautan.tex}
+   % \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-detail-tautan.tex}
    
-   \item \textbf{Pengujian pada Jendela Notifikasi}\\
-   Pengujian ini dilakukan untuk memastikan bahwa jendela notifikasi untuk pesan \textit{success}, \textit{warning}, dan \textit{error} muncul pada kondisi yang tepat serta menampilkan pesan yang sesuai. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-jendela-notifikasi}.
+   % \item \textbf{Pengujian pada Jendela Notifikasi}\\
+   % Pengujian ini dilakukan untuk memastikan bahwa jendela notifikasi untuk pesan \textit{success}, \textit{warning}, dan \textit{error} muncul pada kondisi yang tepat serta menampilkan pesan yang sesuai. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:pengujian-jendela-notifikasi}.
    
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-notifikasi.tex}
+   % \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-notifikasi.tex}
 
 \end{enumerate}

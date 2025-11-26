@@ -1,46 +1,89 @@
 \renewcommand{\arraystretch}{1.4}
-\begin{table}[H]
-\centering
-\caption{Pengujian pada Input URL}
-\label{tab:uji-input}
-\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+
+\begin{longtable}{
+|>{\centering\arraybackslash}p{1cm}
+|>{\raggedright\arraybackslash}p{4.5cm} 
+|>{\raggedright\arraybackslash}p{4.5cm}
+|>{\raggedright\arraybackslash}p{4.5cm}|}
+\caption{Hasil Pengujian Funsional Input URL}
+\vspace{-3mm}
+\label{tab:pengujian-funsional-input-url} \\
+
 \hline
-\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}{Tabel~\ref{tab:pengujian-funsional-input-url} dilanjutkan dari halaman sebelumnya}\\[4pt]
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{r}{Bersambung ke halaman berikutnya} \\
+\endfoot
+
+\hline
+\endlastfoot
 
 1 &
-Memasukkan URL dengan struktur lengkap: https://example.com/page?id=1 &
-Input diterima dan proses pemeriksaan dimulai. &
-Sesuai \\ \hline
+Memasukkan URL dengan struktur lengkap dan valid: 
+\url{https://user:pass@unpar.ac.id:443/fakultas?search=test#section1} &
+URL dinormalisasi dan proses pemeriksaan dimulai. &
+Aplikasi menormalisasi URL menjadi \url{https://unpar.ac.id/fakultas?search=test} dan memulai pemeriksaan. \\ \hline
 
 2 &
-Memasukkan URL tanpa skema: example.com/page &
-Window notifikasi \textit{warning} terbuka. &
-Sesuai \\ \hline
+Memasukkan URL tanpa skema: \url{unpar.ac.id} &
+Jendela notifikasi \textit{warning} terbuka. &
+Aplikasi menampilkan notifikasi \textit{warning} karena skema tidak terdeteksi. \\ \hline
 
 3 &
-Memasukkan URL tanpa host: https:///page &
-Window notifikasi \textit{warning} terbuka. &
-Sesuai \\ \hline
+Memasukkan URL tanpa host: \url{https:///fakultas} &
+Jendela notifikasi \textit{warning} terbuka. &
+Aplikasi menampilkan notifikasi \textit{warning} karena host tidak terdeteksi. \\ \hline
 
 4 &
-Memasukkan URL dengan skema tidak valid: ftp://unpar.com &
-Window notifikasi \textit{warning} terbuka. &
-Sesuai \\ \hline
+Memasukkan URL dengan skema selain http/https: \url{ftp://unpar.ac.id} &
+Jendela notifikasi \textit{warning} terbuka. &
+Aplikasi menampilkan notifikasi \textit{warning} karena skema bukan http/https. \\ \hline
 
 5 &
-Memasukkan URL dengan sintaks tidak valid: http://exa mple..com &
+Memasukkan URL dengan port non-default: \url{https://unpar.ac.id:8080} &
 Input diterima dan proses pemeriksaan dimulai. &
-Sesuai \\ \hline
+Aplikasi mempertahankan port 8080 dan memulai pemeriksaan. \\ \hline
 
 6 &
-Tidak memasukkan URL atau hanya spasi &
-Window notifikasi \textit{warning} terbuka. &
-Sesuai \\ \hline
+Memasukkan URL dengan dot-segment: \url{https://unpar.ac.id/a/./../b} &
+URL dinormalisasi dan proses pemeriksaan dimulai. &
+Aplikasi menormalisasi URL menjadi \url{https://unpar.ac.id/b} dan memulai pemeriksaan. \\ \hline
 
 7 &
-Memasukkan URL dengan dot-segment: https://unpar.com/.././index.html &
+Memasukkan URL dengan duplikasi garis miring: \url{https://unpar.ac.id//a///b} &
 URL dinormalisasi dan proses pemeriksaan dimulai. &
-Sesuai \\ \hline
+Aplikasi menormalisasi URL menjadi \url{https://unpar.ac.id/a/b} dan memulai pemeriksaan. \\ \hline
 
-\end{tabular}
-\end{table}
+8 &
+Memasukkan URL dengan huruf kapital: \url{HTTPS://UNPAR.AC.ID/ABOUT} &
+URL dinormalisasi dan proses pemeriksaan dimulai. &
+Aplikasi menormalisasi menjadi \url{https://unpar.ac.id/ABOUT} dan memulai pemeriksaan. \\ \hline
+
+9 &
+Memasukkan URL dengan sintaks tidak valid: \url{https//unpar.ac.id} &
+Input diterima dan proses pemeriksaan dimulai. &
+Aplikasi gagal mem-parse sebagai URI, mengembalikan URL awal, dan memulai proses pemeriksaan. \\ \hline
+
+10 &
+Tidak memasukkan URL atau hanya spasi &
+Jendela notifikasi \textit{warning} terbuka. &
+Aplikasi menampilkan notifikasi \textit{warning} karena input kosong. \\ \hline
+
+
+\end{longtable}
