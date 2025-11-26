@@ -1,67 +1,86 @@
 \renewcommand{\arraystretch}{1.4}
-\begin{table}[H]
-\centering
-\caption{Pengujian pada Fitur Filter}
-\label{tab:pengujian-fitur-filter}
-\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
-\hline
-\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
 
+\begin{longtable}{
+|>{\centering\arraybackslash}p{1cm}
+|>{\raggedright\arraybackslash}p{4.5cm} 
+|>{\raggedright\arraybackslash}p{4.5cm}
+|>{\raggedright\arraybackslash}p{4.5cm}|}
+\caption{Hasil Pengujian Funsional Fitur \textit{Filter}}
+\vspace{-3mm}
+\label{tab:pengujian-funsional-fitur-filter} \\
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}{Tabel~\ref{tab:pengujian-funsional-fitur-filter} dilanjutkan dari halaman sebelumnya}\\[4pt]
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{r}{Bersambung ke halaman berikutnya} \\
+\endfoot
+
+\hline
+\endlastfoot
 1 &
-Menerapkan filter URL dengan kondisi ``equals'' dan nilai tertentu. &
-Tabel hanya menampilkan tautan yang URL-nya persis sama dengan nilai filter. &
-Sesuai \\ \hline
+Menerapkan \textit{filter} URL dengan kondisi \texttt{Equals} menggunakan sebuah URL tertentu (``https://godev.co/''). &
+Tabel hanya menampilkan satu baris yang URL-nya sama persis dengan kata kunci \textit{filter}. &
+Tabel hanya menampilkan baris yang URL-nya ``https://godev.co/''. \\ \hline
 
 2 &
-Menerapkan filter URL dengan kondisi ``contains'' dan kata kunci tertentu. &
-Tabel hanya menampilkan tautan yang URL-nya mengandung kata kunci tersebut. &
-Sesuai \\ \hline
+Menerapkan \textit{filter} URL dengan kondisi \texttt{Contains} menggunakan kata kunci tertentu (``informatika'') &
+Tabel hanya menampilkan baris yang URL-nya mengandung kata kunci \textit{filter}. &
+Tabel hanya menampilkan baris yang URL-nya mengandung teks ``informatika''. \\ \hline
 
 3 &
-Menerapkan filter URL dengan kondisi ``starts with'' dengan kata kunci tertentu. &
-Tabel menampilkan tautan yang URL-nya diawali dengan teks sesuai filter. &
-Sesuai \\ \hline
+Menerapkan \textit{filter} URL dengan kondisi \texttt{Starts With} menggunakan awal URL tertentu (``https://informatika''). &
+Tabel hanya menampilkan baris yang URL-nya diawali dengan kunci \textit{filter}. &
+Tabel hanya menampilkan baris yang URL-nya dimulai dengan ``https://informatika''. \\ \hline
 
 4 &
-Menerapkan filter URL dengan kondisi ``ends with'' dengan kata kunci tertentu. &
-Tabel menampilkan tautan yang URL-nya diakhiri dengan teks sesuai filter. &
-Sesuai \\ \hline
+Menerapkan \textit{filter} URL dengan kondisi \texttt{Ends With} menggunakan akhir URL tertentu (``.pdf''). &
+Tabel hanya menampilkan baris yang URL-nya diakhiri dengan kunci \textit{filter}. &
+Tabel hanya menampilkan baris yang URL-nya diakhiri dengan ``.pdf''. \\ \hline
 
 5 &
-Menerapkan filter Status Code dengan kondisi ``equals'' dengan kata kunci tertentu. &
-Tabel hanya menampilkan tautan dengan status HTTP yang persis sama. &
-Sesuai \\ \hline
+Menerapkan \textit{filter} Kode Status dengan kondisi \texttt{Equals} menggunakan sebuah nilai tertentu (0). &
+Tabel hanya menampilkan baris yang kode statusnya sama dengan kunci \textit{filter}. &
+Tabel hanya menampilkan baris dengan error koneksi. \\ \hline
 
 6 &
-Menerapkan filter Status Code dengan kondisi ``greater than'' dengan kata kunci tertentu. &
-Tabel menampilkan tautan dengan status HTTP lebih besar dari nilai filter. &
-Sesuai \\ \hline
+Menerapkan \textit{filter} Kode Status dengan kondisi \texttt{Greater Than} menggunakan sebuah nilai tertentu (404). &
+Tabel hanya menampilkan baris yang kode statusnya lebih besar dari kunci \textit{filter}. &
+Tabel hanya menampilkan baris dengan kode status yang lebih besar dari 404. \\ \hline
 
 7 &
-Menerapkan filter Status Code dengan kondisi ``less than'' dengan kata kunci tertentu. &
-Tabel menampilkan tautan yang status HTTP-nya lebih kecil dari nilai filter. &
-Sesuai \\ \hline
+Menerapkan \textit{filter} Kode Status dengan kondisi \texttt{Less Than} menggunakan sebuah nilai tertentu (404). &
+Tabel hanya menampilkan baris yang kode statusnya lebih kecil dari kunci \textit{filter}. &
+Tabel hanya menampilkan baris dengan kode status yang lebih kecil dari 404. \\ \hline
 
 8 &
-Menggabungkan filter URL (contains) dan Status Code (equals). &
-Tabel hanya menampilkan tautan yang memenuhi kedua filter. &
-Sesuai \\ \hline
+Menerapkan \textit{filter} gabungan URL \texttt{Contains} (``informatika'') dan Kode Status \texttt{Equals} (404). &
+Tabel menampilkan hanya baris yang memenuhi kedua kondisi sekaligus. &
+Tabel hanya menampilkan baris yang URL-nya mengandung teks ``informatika'' dan \textit{error}-nya \textit{404 Not Found} \\ \hline
 
 9 &
-Menggabungkan filter URL (starts with) dan Status Code (greater than). &
-Tabel menampilkan tautan yang URL-nya sesuai kondisi dan statusnya lebih besar dari nilai filter. &
-Sesuai \\ \hline
+Menerapkan \textit{filter} ketika proses pemeriksaan masih berlangsung. &
+Tabel hanya menampilkan baris sesuai \textit{filter} &
+\textit{Filter} tetap bekerja secara \textit{real time } dan hasil tabel menyesuaikan setiap kali ada tautan baru masuk. \\ \hline
 
 10 &
-Menerapkan filter sehingga tidak ada data yang sesuai. &
-Tabel berubah menjadi kosong; pagination menyesuaikan menjadi satu halaman. &
-Sesuai \\ \hline
+Menghapus penerapan \textit{filter}. &
+Tabel kembali menampilkan seluruh tautan rusak. &
+Tabel langsung menampilkan semua baris tautan rusak seperti sebelum \textit{filter} diterapkan. \\ \hline
 
-11 &
-Menghapus semua filter yang sedang aktif. &
-Tabel kembali menampilkan seluruh data hasil pemeriksaan. &
-Sesuai \\ \hline
-
-
-\end{tabular}
-\end{table}
+\end{longtable}

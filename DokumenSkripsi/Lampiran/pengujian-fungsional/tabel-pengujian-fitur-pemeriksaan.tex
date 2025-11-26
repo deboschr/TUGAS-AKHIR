@@ -1,42 +1,166 @@
 \renewcommand{\arraystretch}{1.4}
-\begin{table}[H]
-\centering
-\caption{Pengujian pada Fitur Pemeriksaan}
-\label{tab:pengujian-fitur-pemeriksaan}
-\begin{tabular}{|c|p{6cm}|p{6cm}|c|}
+
+\begin{longtable}{
+|>{\centering\arraybackslash}p{1cm}
+|>{\raggedright\arraybackslash}p{4.5cm} 
+|>{\raggedright\arraybackslash}p{4.5cm}
+|>{\raggedright\arraybackslash}p{4.5cm}|}
+\caption{Hasil Pengujian Funsional Fitur Pemeriksaan}
+\vspace{-3mm}
+\label{tab:pengujian-fungsional-fitur-pemeriksaan} \\
+
 \hline
-\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}{Tabel~\ref{tab:pengujian-fungsional-fitur-pemeriksaan} dilanjutkan dari halaman sebelumnya}\\[4pt]
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{r}{Bersambung ke halaman berikutnya} \\
+\endfoot
+
+\hline
+\endlastfoot
 
 1 &
-Menjalankan proses pemeriksaan. &
-Halaman dikunjungi sesuai urutan FIFO. &
-Sesuai \\ \hline
+Menjalankan pemeriksaan penuh pada \url{https://informatika.unpar.ac.id}, kemudian membandingkan jumlah tautan rusak pada kartu ringkasan dengan jumlah baris pada tabel tautan rusak. &
+Jumlah tautan rusak pada kartu ringkasan sama dengan jumlah baris yang ditampilkan pada tabel tautan rusak / hasil ekspor Excel. &
+Kartu ringkasan menampilkan 80 tautan rusak dan jumlah tersebut sama dengan jumlah baris yang muncul pada tabel tautan rusak serta file Excel hasil ekspor. \\ \hline
 
 2 &
-Memeriksa tautan dengan host yang sama. &
-Setiap tautan dengan host sama diambil menggunakan metode GET dan berhasil diparse sebagai HTML. &
-Sesuai \\ \hline
+Memilih beberapa contoh tautan rusak dari tabel (misalnya 10 tautan internal dan 10 tautan eksternal) lalu membuka URL tersebut secara manual melalui peramban. &
+Setiap tautan yang ditandai sebagai rusak oleh aplikasi tidak dapat diakses dengan normal (misalnya menampilkan halaman 4XX/5XX atau gagal terhubung). &
+Seluruh sampel tautan yang diuji secara manual tidak dapat diakses dengan normal; peramban menampilkan pesan error atau halaman 4XX/5XX sesuai dengan kategori yang ditampilkan aplikasi. \\ \hline
 
 3 &
-Memeriksa tautan dengan host berbeda. &
-Setiap tautan dengan host berbeda diperiksa pertama kali memakai HEAD, lalu GET apabila HEAD gagal. &
-Sesuai \\ \hline
+Memilih satu URL yang muncul di banyak halaman (misalnya tautan menu atau berkas yang sama), kemudian menjalankan pemeriksaan dan mengamati hasil ekspor serta log aplikasi. &
+URL yang sama hanya diperiksa satu kali, tetapi dapat muncul beberapa kali sebagai sumber tautan rusak jika dirujuk dari banyak halaman. &
+Pada log pemeriksaan setiap URL unik hanya tercatat satu kali sebagai target pemeriksaan, sedangkan pada hasil ekspor URL yang sama dapat muncul beberapa kali dengan sumber halaman yang berbeda. \\ \hline
 
 4 &
-Menjalankan pemeriksaan pada halaman yang memiliki banyak tautan. &
-Jumlah tautan yang diperiksa tidak melebihi batas yang sudah ditentukan. &
-Sesuai \\ \hline
+Menjalankan pemeriksaan pada situs dan kemudian mengamati waktu antar permintaan pada host yang sama dan host yang berbeda berdasarkan log aplikasi. &
+Permintaan ke host yang sama diberi jeda yang relatif konstan, sedangkan permintaan ke host yang berbeda dapat berjalan saling bergantian. &
+Log menunjukkan bahwa permintaan ke host yang sama tidak dikirim secara beruntun tanpa jeda, sedangkan permintaan ke host yang berbeda dapat muncul bergantian, sehingga perilaku pemeriksaan terlihat mengikuti pembatasan berdasarkan host. \\ \hline
 
 5 &
-Menjalankan pemeriksaan pada situs dengan tautan yang sama muncul berulang kali. &
-Setiap URL hanya diperiksa satu kali; tidak ada hasil duplikat di tabel. &
-Sesuai \\ \hline
+Menjalankan pemeriksaan, lalu mengamati daftar halaman yang berhasil diperiksa pada tabel halaman (webpage links) atau ringkasan hasil. &
+Seluruh halaman yang tercatat sebagai hasil \textit{crawling} berasal dari domain \url{informatika.unpar.ac.id} dan tidak ada halaman dari domain lain. &
+Daftar halaman yang muncul pada hasil pemeriksaan seluruhnya menggunakan host \url{informatika.unpar.ac.id}, sedangkan tautan dengan host berbeda hanya muncul sebagai tautan (link) biasa, bukan sebagai halaman yang ikut di-\textit{crawl}. \\ \hline
 
 6 &
-Memeriksa banyak tautan dari host yang sama dalam waktu singkat. &
-\textit{Rate limiting} per host aktif dan jeda permintaan antar tautan konsisten. &
-Sesuai \\ \hline
+Memeriksa beberapa tautan eksternal (misalnya ke YouTube, Instagram, atau situs lain) yang ditemukan pada halaman \url{https://informatika.unpar.ac.id}, lalu mengamati apakah aplikasi mencoba melakukan \textit{crawling} ke domain tersebut. &
+Tautan eksternal hanya diperiksa statusnya saja dan tidak memicu proses \textit{crawling} tambahan ke halaman-halaman di domain eksternal tersebut. &
+Tautan eksternal muncul pada hasil pemeriksaan sebagai tautan yang diperiksa statusnya, tetapi tidak ada halaman baru dari domain eksternal yang ditambahkan pada daftar halaman hasil \textit{crawling}. \\ \hline
 
 
-\end{tabular}
+\end{longtable}
+
+
+% ###################################################################################
+% ###################################################################################
+% ###################################################################################
+
+\renewcommand{\arraystretch}{1.3}
+\begin{table}[H]
+   \centering
+   \caption{Ringkasan Proses Pemeriksaan}
+   \vspace{3mm}
+   \label{tab:ringkasan-proses-pemeriksaan-pengujian-fungsional}
+   
+   \begin{tabular}{|p{4.5cm}|p{7cm}|}
+      \hline      
+      \textbf{\textit{Status}} & COMPLETED \\ \hline
+      \textbf{\textit{All Links}} & 602 \\ \hline
+      \textbf{\textit{Webpage Links}} & 302 \\ \hline
+      \textbf{\textit{Broken Links}} & 80 \\ \hline
+      \textbf{\textit{Start Time}} & 26--11--2025 06:41:36 \\ \hline
+      \textbf{\textit{End Time}} & 26--11--2025 06:54:43 \\ \hline
+      \textbf{\textit{Duration}} & 13m 6s \\ \hline
+      
+   \end{tabular}
 \end{table}
+
+% ###################################################################################
+% ###################################################################################
+% ###################################################################################
+
+\renewcommand{\arraystretch}{1.3}
+\begin{longtable}{|p{4cm}|p{6cm}|p{2cm}|}
+\caption{Ringkasan Hasil Pemeriksaan}
+\vspace{-3mm}
+\label{tab:ringkasan-pada-pemeriksaan-pengujian-fungsional} \\
+
+\hline
+\textbf{Kategori} & \textbf{Error} & \textbf{Jumlah} \\ \hline
+\endfirsthead
+
+\hline
+\textbf{Kategori} & \textbf{Error} & \textbf{Jumlah} \\ \hline
+\endhead
+
+\hline
+\multicolumn{3}{r}{Bersambung ke halaman berikutnya} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+% #######################################
+% #######################################
+
+\multirow{5}{*}{\textbf{Connection Error}} 
+ & ConnectException & 13 \\ \cline{2-3}
+ & HttpConnectTimeoutException & 5 \\ \cline{2-3}
+ & IOException & 1 \\ \cline{2-3}
+ & IllegalArgumentException & 1 \\ \cline{2-3}
+ & SSLHandshakeException & 5 \\ \hline
+
+\multicolumn{2}{|r|}{\textbf{Total Connection Error}} &
+\textbf{25} \\ \hline
+
+
+% #######################################
+% #######################################
+
+\multirow{5}{*}{\textbf{4XX Client Error}}
+ & 400 Bad Request & 2 \\ \cline{2-3}
+ & 403 Forbidden & 12 \\ \cline{2-3}
+ & 404 Not Found & 31 \\ \cline{2-3}
+ & 410 Gone & 1 \\ \cline{2-3}
+ & 429 Too Many Requests & 4 \\ \hline
+
+\multicolumn{2}{|r|}{\textbf{Total 4XX Client Error}} &
+\textbf{50} \\ \hline
+
+% #######################################
+% #######################################
+
+\multirow{1}{*}{\textbf{5XX Server Error}}
+ & 503 Service Unavailable & 1 \\ \hline
+
+\multicolumn{2}{|r|}{\textbf{Total 5XX Server Error}} &
+\textbf{1} \\ \hline
+
+% #######################################
+% #######################################
+
+\multirow{2}{*}{\textbf{Non-Standard Error}}
+ & 520 & 2 \\ \cline{2-3}
+ & 999 & 2 \\ \hline
+
+\multicolumn{2}{|r|}{\textbf{Total Non-Standard Error}} &
+\textbf{4} \\ \hline
+
+\end{longtable}

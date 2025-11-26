@@ -36,44 +36,34 @@
 
 
 1 &
-Menekan tombol Start ketika status aplikasi berada pada status IDLE. &
-Proses crawling dimulai, data lama dibersihkan, dan status berubah menjadi CHECKING. &
-Aplikasi merubah status menjadi CHECKING dan memulai proses pemeriksaan. \\ \hline
+Menekan tombol Next ketika jumlah halaman lebih dari satu dan halaman aktif adalah halaman pertama. &
+Halaman berpindah ke halaman berikutnya dan data tabel menampilkan baris sesuai indeks halaman tersebut. &
+Halaman berpindah ke halaman (2), ringkasan tabel berubah, dan data ditabel berubah. \\ \hline
 
 2 &
-Menekan tombol Start ketika status aplikasi berada pada status CHECKING, STOPPED atau COMPLETED. &
-Proses pemeriksaan dimulai ulang dan status berubah menjadi CHECKING. &
-Aplikasi membersihkan data lama, merubah status menjadi CHECKING dan memulai ulang proses pemeriksaan. \\ \hline
+Menekan tombol Prev ketika jumlah halaman lebih dari satu dan halaman aktif adalah halaman terakhir. &
+Halaman berpindah ke halaman sebelumnya dan data tabel menampilkan baris sesuai indeks halaman tersebut. &
+Halaman berpindah ke halaman sebelumnya, ringkasan tabel berubah, dan data ditabel berubah. \\ \hline
 
 3 &
-Menekan tombol Stop ketika status aplikasi berada pada status CHECKING. &
-Proses crawling dihentikan dan status berubah menjadi STOPPED. &
-Aplikasi menghentikan proses pemeriksaan yang sedang berjalandan dan merubah status menjadi STOPPED. \\ \hline
+Jumlah data tautan rusak lebih dari 75 baris. &
+Pagination membentuk bombol halaman maksimal berjumlah 5 dan tombol Next aktif. &
+Tombol halaman yang ditampilkan berjumlah 5 dan tombol Next bisa ditekan. \\ \hline
 
 4 &
-Menekan tombol Stop ketika status aplikasi berada pada status IDLE, STOPPED atau COMPLETED. &
-Tombol Stop tidak bisa ditekan. &
-Tombol Stop tidak merespons karena dalam status disabled. \\ \hline
+Jumlah data tautan rusak lebih dari 75, halaman aktif berada pada halaman pertama, lalu tombol Next ditekan hingga mencapai halaman terakhir. &
+Jumlah tombol halaman tetap 5 dan halaman berpindah satu per satu sampai mencapai halaman terakhir. &
+Jumlah tombol halaman yang ditampilkan tetap 5, ringkasan tabel berubah, dan tombol sampai ke halaman terakhir sampai tombol Next tidak bisa ditekan. \\ \hline
 
 5 &
-Menekan tombol Export ketika status aplikasi berada pada status IDLE atau CHECKING. &
-Tombol Export tidak bisa ditekan. &
-Tombol Export tidak merespons karena dalam status disabled. \\ \hline
+Jumlah data tautan rusak lebih dari 75, halaman aktif berada pada halaman terakhir, lalu tombol Prev ditekan hingga kembali ke halaman pertama. &
+Jumlah tombol halaman tetap 5 dan halaman berpindah satu per satu hingga kembali ke halaman pertama. &
+Jumlah tombol halaman yang ditampilkan tetap 5, ringkasan tabel berubah, dan tombol sampai ke halaman pertama sampai tombol Prev tidak bisa ditekan. \\ \hline
 
 6 &
-Menekan tombol Export ketika status STOPPED atau COMPLETED dan data di tabel tersedia. &
-Dialog penyimpanan file muncul dan proses ekspor dapat dilakukan. &
-Aplikasi menampilkan dialog penyimpanan file, lalu menampilkan notifikasi SUCCESS saat selesai. \\ \hline
-
-7 &
-Menekan tombol Export ketika status STOPPED atau COMPLETED namun data di tabel tidak tersedia. &
-Muncul notifikasi WARNING bahwa tidak ada data yang dapat diekspor. &
-Aplikasi menampilkan notifikasi WARNING \textit{“There are no broken links to export.”}. \\ \hline
-
-8 &
-Menekan tombol Export lalu membatalkan dialog penyimpanan file &
-Proses ekspor dibatalkan tanpa ada perubahan status aplikasi. &
-Aplikasi tidak memproses ekspor \\ \hline
+Jumlah halaman lebih dari satu dan filter diterapkan sehingga jumlah data tautan rusak berkurang. &
+Jumlah halaman dihitung ulang dan pagination menyesuaikan, termasuk memindahkan halaman aktif jika melebihi total halaman baru. &
+Jumlah halaman langsung berkurang, pagination menampilkan tombol halaman yang lebih sedikit, dan tampilan tabel menyesuaikan dengan hasil filter. \\ \hline
 
 
 
