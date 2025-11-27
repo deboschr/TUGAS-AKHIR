@@ -1,7 +1,7 @@
 Berbeda dengan pengujian fungsional yang berfokus pada verifikasi implementasi fitur berdasarkan hasil perancangan, pengujian eksperimental menekankan eksplorasi terhadap parameter-parameter operasional yang memengaruhi performa dan hasil pemeriksaan. Pada pengujian ini, kualitas hasil pemeriksaan dievaluasi berdasarkan tiga aspek utama, yaitu efisiensi, akurasi, dan konsistensi. Pemeriksaan dikatakan efisien apabila proses diselesaikan dalam waktu yang relatif singkat namun identifikasi tautan rusak tetap akurat. Pemeriksaan dikatakan akurat apabila hasil pemeriksaan mencerminkan kondisi tautan yang sebenarnya tanpa menghasilkan \textit{false positive}, yaitu tautan yang tidak rusak namun diidentifikasi sebagai tautan rusak. Sementara itu, pemeriksaan dikatakan konsisten apabila hasil pemeriksaan yang diperoleh tetap sama atau sangat mendekati pada percobaan yang berbeda dalam kondisi pengujian tidak berubah.
 
 
-
+% ####################### TUJUAN PENGUJIAN #######################
 \subsubsection{Tujuan Pengujian}
 \label{subsubsec:05020301-tujuan-pengujian}
 Pengujian eksperimental ini memiliki beberapa tujuan sebagai berikut:
@@ -17,8 +17,7 @@ Pengujian eksperimental ini memiliki beberapa tujuan sebagai berikut:
 
 \end{itemize}
 
-
-
+% ####################### DESAIN PERCOBAAN #######################
 \subsubsection{Desain Percobaan}
 \label{subsubsec:05020302-desain-percobaan}
 Seluruh percobaan pada setiap pengujian menggunakan subjek yang sama, yaitu situs web Program Studi Informatika Universitas Katolik Parahyangan yang beralamat pada \url{https://informatika.unpar.ac.id}. Penggunaan subjek yang sama memastikan bahwa setiap variasi hasil benar-benar disebabkan oleh perubahan pada nilai parameter yang sedang diuji, bukan disebabkan oleh perbedaan struktur atau jumlah tautan pada subjek pengujian.
@@ -35,6 +34,7 @@ Pada setiap percobaan dilakukan evaluasi terhadap indikator berikut:
 
 \input{Lampiran/pengujian-eksperimental/tabel-parameter-pengujian.tex}
 
+% ####################### PENGUJIAN 1 #######################
 \subsubsection{Pengujian 1: Interval pada \texttt{RateLimiter}}
 \label{subsubsec:05020303-pengujian-1-interval-rate-limiter}
 
@@ -42,7 +42,7 @@ Tabel~\ref{tab:hasil-pengujian-interval}
 
 \input{Lampiran/pengujian-eksperimental/tabel-pengujian-interval-ratelimiter.tex}
 
-
+% ####################### PENGUJIAN 2 #######################
 \subsubsection{Pengujian 2: \textit{Connection Timeout} pada \texttt{HttpClient}}
 \label{subsubsec:05020304-pengujian-2-connection-timeout-httpclient}
 
@@ -50,7 +50,7 @@ Tabel~\ref{tab:hasil-pengujian-connection-timeout}
 
 \input{Lampiran/pengujian-eksperimental/tabel-pengujian-connection-timeout-httpclient.tex}
 
-
+% ####################### PENGUJIAN 3 #######################
 \subsubsection{Pengujian 3: \textit{Request Timeout} pada \texttt{HttpRequest}}
 \label{subsubsec:05020305-pengujian-3-request-timeout-httprequest}
 
@@ -58,10 +58,14 @@ Tabel~\ref{tab:hasil-pengujian-request-timeout}
 
 \input{Lampiran/pengujian-eksperimental/tabel-pengujian-request-timeout-httprequest.tex}
 
+% ####################### KESIMPULAN HASIL PENGUJIAN #######################
+\subsubsection{Kesimpulan Hasil Pengujian}
+\label{subsubsec:05020306-kesimpulan-hasil-pengujian}
 
-\subsubsection{Penentuan Konfigurasi Terbaik}
-\label{subsubsec:05020306-penentuan-konfigurasi-terbaik}
-
-
+% ####################### PERBANDINGAN #######################
 \subsubsection{Perbandingan dengan Perangkat Lunak Serupa}
 \label{subsubsec:05020307-perbandingan-dengan-perangkat-lunak-serupa}
+
+% ####################### KESIMPULAN HASIL PERBANDINGAN #######################
+\subsubsection{Kesimpulan Hasil Perbandingan}
+\label{subsubsec:05020306-kesimpulan-hasil-perbandingan}
