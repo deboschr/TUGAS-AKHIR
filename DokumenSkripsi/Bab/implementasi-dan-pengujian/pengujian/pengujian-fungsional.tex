@@ -1,10 +1,11 @@
 Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi desktop pemeriksa tautan rusak berjalan sesuai dengan kebutuhan yang telah ditetapkan (lihat Subbab~\ref{sec:030300-analisis-kebutuhan}). Pengujian dilakukan secara manual menggunakan berbagai skenario input dan interaksi antarmuka, berikut adalah daftar hasil pengujian fungsional:
 
+\vspace{2mm}
 \begin{enumerate}
-   \item \textbf{Pengujian pada Input URL}\\
-   Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat melakukan validasi terhadap URL yang dimasukkan pengguna sebelum memulai proses pemeriksaan. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-input-url}.
+   \item \textbf{Pengujian pada \textit{Input Seed} URL}\\
+   Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat melakukan validasi terhadap URL yang dimasukkan pengguna sebelum memulai proses pemeriksaan. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-input-seed-url}.
 
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-input-url.tex}
+   \input{Lampiran/pengujian-fungsional/tabel-pengujian-input-seed-url.tex}
 
 
 
@@ -34,18 +35,24 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
       \item Memastikan \textit{crawling} hanya dilakukan pada halaman situs web yang sedang diperiksa.
    \end{itemize}
    
+
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
 
 
 
-
+   \vspace{5mm}
    \item \textbf{Pengujian pada Fitur \textit{Filter}}\\
+   Fitur \textit{filter} terdiri dari dua kelompok kondisi, yaitu \textit{filter} berdasarkan URL dan \textit{filter} berdasarkan kode status HTTP. Kedua jenis \textit{filter} ini dapat digunakan secara terpisah maupun bersamaan sehingga pengguna dapat menyempitkan hasil pencarian sesuai kebutuhan. \textit{Filter} untuk URL mencakup empat kondisi yaitu, \texttt{Equals}, \texttt{Contains}, \texttt{Starts With}, dan \texttt{Ends With}. Sementara itu, \textit{filter} untuk kode status HTTP mencakup tiga kondisi: \texttt{Equals}, \texttt{Greater Than}, dan \texttt{Less Than}.
+
    Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring isi tabel berdasarkan kondisi URL maupun kode status HTTP. Kondisi awal pada pengujian ini adalah proses pemeriksaan sedang atau sudah selesai menggunakan situs web Program Studi Informatika Universitas Katolik Parahyangan yang beralamat pada \url{https://informatika.unpar.ac.id}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-filter}.
+
+   
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-filter.tex}
 
 
 
+   \vspace{5mm}
 
    \item \textbf{Pengujian pada Fitur Ekspor}\\
    Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat mengekspor data hasil pemeriksaan ke berkas Excel dengan benar. Kondisi awal pada pengujian ini adalah proses pemeriksaan sudah selesai dengan status \texttt{COMPLETED} atau \texttt{STOPPED}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-export}.
@@ -53,14 +60,17 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-export.tex}
 
 
-
+   \vspace{5mm}
 
    \item \textbf{Pengujian pada Jendela Detail Tautan}\\
    Pengujian ini dilakukan untuk memastikan jendela detail tautan dapat menampilkan informasi sebuah tautan rusak dengan benar. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-jendela-detail-tautan}.
 
+   \vspace{5mm}
+
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-detail-tautan.tex}
 
 
+   \vspace{8mm}
 
 
    \item \textbf{Pengujian pada Jendela Notifikasi}\\

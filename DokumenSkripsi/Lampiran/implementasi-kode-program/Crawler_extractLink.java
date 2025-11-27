@@ -4,8 +4,6 @@ private Map<Link, String> extractLink(Document doc) {
    for (Element a : doc.select("a[href]")) {
       String absoluteUrl = a.absUrl("href");
 
-      if (absoluteUrl.isEmpty()) continue;
-
       String normalizedUrl = UrlHandler.normalizeUrl(absoluteUrl);
 
       if (normalizedUrl == null) continue;

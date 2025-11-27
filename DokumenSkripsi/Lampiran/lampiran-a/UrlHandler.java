@@ -1,12 +1,11 @@
-package com.unpar.brokenlinkchecker.utils;
+package com.unpar.brokenlinkscanner.utils;
 
 import java.net.IDN;
 import java.net.URI;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class UrlHandler {
-
+public class URLHandler {
    /**
     * Validasi dan normalisasi URL (misalnya untuk seed URL).
     *
@@ -16,12 +15,13 @@ public class UrlHandler {
     * - Hapus port default (80 / 443)
     * - Bersihkan path dari dot-segment dan duplikasi garis miring
     * - Hapus fragment (#...)
+    * - Hapus user info
     *
     * @param rawUrl input mentah
     * @return URL hasil normalisasi atau null jika tidak memenuhi aturan atau URL
     *         asli kalau sintaks tidak valid
     */
-   public static String normalizeUrl(String rawUrl) {
+   public static String normalizeUrl(String rawUrl, boolean isStrict) {
       // URL tidak boleh null atau string kosong
       if (rawUrl == null || rawUrl.trim().isEmpty()) {
          return null;
@@ -38,9 +38,11 @@ public class UrlHandler {
          String path = uri.getRawPath();
          String query = uri.getRawQuery();
 
-         // Scheme wajib ada
-         if (scheme == null || scheme.isEmpty()) {
-            return null;
+         if (isStrict) {
+            if (scheme == null || scheme.isEmpty())
+               return null;
+            if (host == null || host.isEmpty())
+               return null;
          }
 
          // Scheme wajib HTTP/HTTPS
@@ -48,17 +50,12 @@ public class UrlHandler {
             return null;
          }
 
-         // Host wajib ada
-         if (host == null || host.isEmpty()) {
-            return null;
-         }
-
          // Hapus port default
-         if ((scheme.equals("http") && port == 80) || (scheme.equals("https") && port == 443)) {
+         if ((scheme.equalsIgnoreCase("http") && port == 80) || (scheme.equalsIgnoreCase("https") && port == 443)) {
             port = -1;
          }
 
-         // Bersihkan path dari dot-segment
+         // Bersihkan path dari dot-segment dan duplikasi garis miring
          path = normalizePath(path);
 
          // Rakit ulang tanpa fragment dan userinfo
@@ -76,8 +73,8 @@ public class UrlHandler {
 
       } catch (Exception e) {
          /*
-          * Kalau gagal bikin objek URI, kita kembaliin URL awal biar nanti error pas
-          * pengecekan, karena akan dianggap invalid URL
+          * Kalau gagal bikin objek URI berarti URL nya invalid sintaks, kita kembaliin
+          * URL awal biar nanti error pas pengecekan, karena akan dianggap invalid URL
           */
          return rawUrl;
       }
@@ -85,18 +82,18 @@ public class UrlHandler {
 
    /**
     * Mathod buat menormalisasi path
-    * 
+    *
     * Yang di handle di method ini adalah:
     * - "." : artinya di direktory saat ini
     * - ".." : artinya satu level ke direktory atas
     * - duplikasi atau kelebihan garis miring ("/")
-    * 
+    *
     * Contoh hasil:
     * normalizePath("/a/b/../c") ==> "/a/c"
     * normalizePath("/./x//y/") ==> "/x/y"
     * normalizePath("") ==> "/"
     * normalizePath(null) ==> "/"
-    * 
+    *
     * @param path path mentah dari URL
     * @return path yang sudah dinormalisasi
     */
@@ -112,9 +109,8 @@ public class UrlHandler {
       for (String part : path.split("/")) {
 
          // Kalau part kosong atau ".", skip karna ga ngaruh ke struktur path
-         if (part.equals("") || part.equals(".")) {
+         if (part.isEmpty() || part.equals(".")) {
             continue;
-
          }
          // Kalau part "..", hapus satu segmen terakhir (naik satu level)
          else if (part.equals("..")) {

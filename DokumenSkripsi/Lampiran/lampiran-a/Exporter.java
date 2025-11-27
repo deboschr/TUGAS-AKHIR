@@ -1,196 +1,362 @@
-package com.unpar.brokenlinkchecker.cores;
+package com.unpar.brokenlinkscanner.services;
 
-import com.unpar.brokenlinkchecker.models.Link;
+import com.unpar.brokenlinkscanner.models.Link;
+import com.unpar.brokenlinkscanner.models.Summary;
+import com.unpar.brokenlinkscanner.utils.HTTPHandler;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
-/**
- * Kelas ini tugasnya buat nyimpen hasil broken link ke file Excel (.xlsx).
- * Jadi setelah crawling selesai, user bisa langsung simpan hasilnya
- * biar ga harus crawling ulang tiap butuh datanya.
- */
 public class Exporter {
+   private CellStyle headerStyle;
+   private CellStyle oddRowStyle;
+   private CellStyle evenRowStyle;
+   private CellStyle otherStyle;
+   private CellStyle emptyStyle;
 
-   /**
-    * Method utama yang nge-handle proses export ke Excel.
-    *
-    * @param brokenLinks daftar link yang ketemu error waktu crawling
-    * @param file        file tujuan (.xlsx) tempat data mau disimpan
-    * @throws IOException kalau ada masalah waktu nulis file
-    */
-   public void save(List<Link> brokenLinks, File file) throws IOException {
+   public void save(List<Link> data, Summary summary, File file) throws IOException {
 
-      // Bikin workbook baru. Pake try-with-resources biar otomatis ke-close.
+      List<Link> brokenLinkData = new ArrayList<>(data);
+
+      brokenLinkData.sort(Comparator.comparingInt(a -> a.getConnection().size()));
+
       try (Workbook workbook = new XSSFWorkbook()) {
 
-         // Bikin satu sheet dengan nama "Broken Links"
-         Sheet sheet = workbook.createSheet("Broken Links");
+         this.headerStyle = createRowStyle(workbook, Color.decode("#2f5d50"), true, true, Color.decode("#f1f0eb"), 16);
+         this.oddRowStyle = createRowStyle(workbook, Color.decode("#f4ebdb"), false, false, Color.decode("#222222"),
+               12);
+         this.evenRowStyle = createRowStyle(workbook, Color.decode("#b6c5bf"), false, false, Color.decode("#222222"),
+               12);
+         this.otherStyle = createRowStyle(workbook, Color.decode("#efefef"), true, true, Color.decode("#222222"), 12);
+         this.emptyStyle = workbook.createCellStyle();
 
-         // ======================== STYLING ========================
-         // Style untuk header tabel (bold + background)
-         CellStyle headerStyle = createHeaderStyle(workbook);
+         Sheet summarySheet = workbook.createSheet("Summary");
+         writeProcessSummaryTable(summarySheet, summary);
+         writeBrokenLinkSummaryTable(summarySheet, brokenLinkData);
 
-         // Style buat baris ganjil (warna abu2 muda)
-         CellStyle oddRowStyle = createRowStyle(workbook, new Color(245, 245, 245));
+         Sheet brokenLinkSheet = workbook.createSheet("Broken Links");
+         writeBrokenLinkTable(brokenLinkSheet, brokenLinkData);
 
-         // Style buat baris genap (warna putih)
-         CellStyle evenRowStyle = createRowStyle(workbook, Color.WHITE);
-
-         // Style khusus untuk kolom anchor text, biar text bisa wrap
-         CellStyle wrapStyle = workbook.createCellStyle();
-         wrapStyle.setWrapText(true);
-
-         // ======================== HEADER ========================
-         // Daftar judul kolom buat di baris pertama
-         String[] headers = {
-               "URL",
-               "Final URL",
-               "Content Type",
-               "Error",
-               "Source Webpage",
-               "Anchor Text"
-         };
-
-         // Buat baris header di row index 0
-         Row headerRow = sheet.createRow(0);
-
-         // Loop semua nama kolom
-         for (int i = 0; i < headers.length; i++) {
-            // Bikin cell di kolom i
-            Cell cell = headerRow.createCell(i);
-            // Isi text header
-            cell.setCellValue(headers[i]);
-            // Kasih style header
-            cell.setCellStyle(headerStyle);
-         }
-
-         // ======================== ISI DATA ========================
-         // Mulai tulis data dari baris index 1 karena 0 dipakai header
-         int rowIndex = 1;
-
-         // Loop semua broken link
-         for (Link link : brokenLinks) {
-
-            // Setiap link bisa muncul dari banyak halaman,
-            // jadi kita looping juga setiap koneksi/source-nya
-            for (Map.Entry<Link, String> entry : link.getConnection().entrySet()) {
-
-               // Buat baris baru
-               Row row = sheet.createRow(rowIndex);
-
-               // Tentukan warna baris (zebra striping)
-               CellStyle rowStyle = (rowIndex % 2 == 0) ? evenRowStyle : oddRowStyle;
-
-               // Isi data kolom satu per satu
-               createStyledCell(row, 0, link.getUrl(), rowStyle);
-               createStyledCell(row, 1, link.getFinalUrl(), rowStyle);
-               createStyledCell(row, 2, link.getContentType(), rowStyle);
-               createStyledCell(row, 3, link.getError(), rowStyle);
-               createStyledCell(row, 4, entry.getKey().getUrl(), rowStyle);
-
-               // Kolom terakhir khusus anchor text
-               Cell anchorCell = row.createCell(5);
-               anchorCell.setCellValue(entry.getValue());
-               anchorCell.setCellStyle(wrapStyle);
-
-               // Pindah ke baris berikutnya
-               rowIndex++;
-            }
-         }
-
-         // ======================== 4. AUTO-SIZE ========================
-         // Biar kolom otomatis lebar sesuai isinya
-         for (int i = 0; i < headers.length; i++) {
-            sheet.autoSizeColumn(i);
-         }
-
-         // ======================== 5. TULIS FILE ========================
-         // Tulis workbook ke file tujuan
          try (FileOutputStream fos = new FileOutputStream(file)) {
             workbook.write(fos);
          }
       }
    }
 
-   /**
-    * Method untuk kasi styling ke header.
-    *
-    * @param wb workbook yang lagi dipake
-    * @return style yang udah siap dipakai buat header
-    */
-   private CellStyle createHeaderStyle(Workbook wb) {
-      CellStyle style = wb.createCellStyle();
+   private void writeProcessSummaryTable(Sheet sheet, Summary summary) {
+      int rowIndex = 0;
 
-      // Font baru khusus header
-      Font font = wb.createFont();
+      // ================= HEADER TABLE =================
+      Row headerRow = sheet.createRow(rowIndex++);
+      headerRow.setHeightInPoints(25);
 
-      // header selalu bold
-      font.setBold(true);
+      Cell h1 = headerRow.createCell(0);
+      h1.setCellValue("Process Summary");
+      h1.setCellStyle(headerStyle);
 
-      style.setFont(font);
+      Cell h2 = headerRow.createCell(1);
+      h2.setCellValue("");
+      h2.setCellStyle(headerStyle);
 
-      // Warna background abu muda
-      style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+      sheet.addMergedRegion(new CellRangeAddress(headerRow.getRowNum(), headerRow.getRowNum(), 0, 1));
+
+      // ================= BODY TABLE =================
+      long startTimeMs = summary.getStartTime();
+      long endTimeMs = summary.getEndTime();
+
+      DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").withZone(ZoneId.systemDefault());
+
+      String startTimeStr = startTimeMs > 0 ? fmt.format(Instant.ofEpochMilli(startTimeMs)) : "-";
+      String endTimeStr = endTimeMs > 0 ? fmt.format(Instant.ofEpochMilli(endTimeMs)) : "-";
+
+      String durationStr = "-";
+      if (startTimeMs > 0 && endTimeMs > 0 && endTimeMs >= startTimeMs) {
+         Duration d = Duration.ofMillis(endTimeMs - startTimeMs);
+         long m = d.toMinutes();
+         long s = d.minusMinutes(m).toSeconds();
+         durationStr = m + "m " + s + "s";
+      }
+
+      Map<String, String> summaryMap = new LinkedHashMap<>(Map.of(
+            "Status", String.valueOf(summary.getStatus()),
+            "All Links", String.valueOf(summary.getTotalLinks()),
+            "Webpage Links", String.valueOf(summary.getWebpages()),
+            "Broken Links", String.valueOf(summary.getBrokenLinks()),
+            "Start Time", startTimeStr,
+            "End Time", endTimeStr,
+            "Duration", durationStr));
+
+      for (var entry : summaryMap.entrySet()) {
+         Row row = sheet.createRow(rowIndex++);
+
+         CellStyle style = (rowIndex % 2 == 0) ? evenRowStyle : oddRowStyle;
+
+         createTableCell(row, 0, entry.getKey(), style);
+         createTableCell(row, 1, entry.getValue(), style);
+      }
+
+      // ================= UKURAN KOLOM =================
+      sheet.setColumnWidth(0, 7000);
+      sheet.setColumnWidth(1, 7000);
+      sheet.setColumnWidth(1, 7000);
+   }
+
+   private void writeBrokenLinkSummaryTable(Sheet sheet, List<Link> data) {
+      int rowIndex = 10;
+
+      // ================= HEADER =================
+      Row headerRow = sheet.createRow(rowIndex++);
+      headerRow.setHeightInPoints(25);
+
+      Cell h1 = headerRow.createCell(0);
+      h1.setCellValue("Broken Link Summary");
+      h1.setCellStyle(headerStyle);
+
+      Cell h2 = headerRow.createCell(1);
+      h2.setCellValue("");
+      h2.setCellStyle(headerStyle);
+
+      Cell h3 = headerRow.createCell(2);
+      h3.setCellValue("");
+      h3.setCellStyle(headerStyle);
+
+      sheet.addMergedRegion(new CellRangeAddress(headerRow.getRowNum(), headerRow.getRowNum(), 0, 2));
+
+      // ================= SUBHEADER =================
+      Row subHeader = sheet.createRow(rowIndex++);
+      createTableCell(subHeader, 0, "Category", headerStyle);
+      createTableCell(subHeader, 1, "Error", headerStyle);
+      createTableCell(subHeader, 2, "Count", headerStyle);
+
+      // ================= PREPARE GROUPS =================
+      Map<String, Integer> connectionErrorMap = new HashMap<>();
+      Map<String, Integer> clientErrorMap = new HashMap<>();
+      Map<String, Integer> serverErrorMap = new HashMap<>();
+      Map<String, Integer> nonStandardErrorMap = new HashMap<>();
+
+      int connectionErrorTotal = 0;
+      int clientErrorTotal = 0;
+      int serverErrorTotal = 0;
+      int nonStandardErrorTotal = 0;
+
+      for (Link link : data) {
+         int code = link.getStatusCode();
+         String err = link.getError();
+         boolean isStandard = HTTPHandler.isStandardError(code);
+
+         if (code == 0) {
+            connectionErrorMap.merge(err, 1, Integer::sum);
+            connectionErrorTotal++;
+         } else if (isStandard && code >= 400 && code < 500) {
+            clientErrorMap.merge(err, 1, Integer::sum);
+            clientErrorTotal++;
+         } else if (isStandard && code >= 500 && code < 600) {
+            serverErrorMap.merge(err, 1, Integer::sum);
+            serverErrorTotal++;
+         } else {
+            nonStandardErrorMap.merge(err, 1, Integer::sum);
+            nonStandardErrorTotal++;
+         }
+      }
+
+      // ================= GROUP CATEGORY LIST =================
+      List<Map<String, ?>> groups = List.of(
+            Map.of("name", "Connection Error", "map", connectionErrorMap, "total", connectionErrorTotal),
+            Map.of("name", "4XX Client Error", "map", clientErrorMap, "total", clientErrorTotal),
+            Map.of("name", "5XX Server Error", "map", serverErrorMap, "total", serverErrorTotal),
+            Map.of("name", "Non-Standard Error", "map", nonStandardErrorMap, "total", nonStandardErrorTotal));
+
+      // ================= WRITE ALL WITH ONE LOOP =================
+      for (var group : groups) {
+
+         String categoryName = (String) group.get("name");
+         @SuppressWarnings("unchecked")
+         Map<String, Integer> map = (Map<String, Integer>) group.get("map");
+         int total = (int) group.get("total");
+
+         if (total == 0 || map.isEmpty())
+            continue;
+
+         // sorted errors
+         List<String> errors = new ArrayList<>(map.keySet());
+         errors.sort(String::compareTo);
+
+         int startRow = rowIndex;
+
+         for (String err : errors) {
+            Row row = sheet.createRow(rowIndex);
+
+            CellStyle style = (rowIndex % 2 == 0) ? evenRowStyle : oddRowStyle;
+
+            // category (only first row)
+            createTableCell(row, 0, (rowIndex == startRow ? categoryName : ""), style);
+            createTableCell(row, 1, err, style);
+
+            CellStyle center = sheet.getWorkbook().createCellStyle();
+            center.cloneStyleFrom(style);
+            center.setAlignment(HorizontalAlignment.CENTER);
+
+            createTableCell(row, 2, String.valueOf(map.get(err)), center);
+
+            rowIndex++;
+         }
+
+         int endRow = rowIndex - 1;
+
+         if (endRow > startRow) {
+            sheet.addMergedRegion(new CellRangeAddress(startRow, endRow, 0, 0));
+         }
+
+         Row totalRow = sheet.createRow(rowIndex);
+         createTableCell(totalRow, 0, "Total " + categoryName, otherStyle);
+         createTableCell(totalRow, 1, "", otherStyle);
+         createTableCell(totalRow, 2, String.valueOf(total), otherStyle);
+
+         sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 0, 1));
+         rowIndex++;
+      }
+   }
+
+   private void writeBrokenLinkTable(Sheet sheet, List<Link> data) {
+
+      List<String> columnList = List.of("URL", "Final URL", "Content Type", "Error", "Source Webpage", "Anchor Text");
+
+      // ================= HEADER TABLE =================
+
+      Row headerRow = sheet.createRow(0);
+
+      headerRow.setHeightInPoints(25);
+
+      for (int i = 0; i < columnList.size(); i++) {
+         createTableCell(headerRow, i, columnList.get(i), headerStyle);
+      }
+
+      Cell dummyCellHeader = headerRow.createCell(columnList.size());
+      dummyCellHeader.setCellValue("");
+      dummyCellHeader.setCellStyle(emptyStyle);
+
+      // ================= BODY TABLE =================
+
+      int rowIndex = 1;
+
+      int groupIndex = 1;
+
+      for (Link link : data) {
+
+         int startRow = rowIndex;
+
+         boolean isFirst = true;
+
+         CellStyle groupStyle = (groupIndex % 2 == 0) ? evenRowStyle : oddRowStyle;
+
+         for (Map.Entry<Link, String> entry : link.getConnection().entrySet()) {
+
+            Row row = sheet.createRow(rowIndex);
+
+            if (isFirst) {
+               createTableCell(row, columnList.indexOf("URL"), link.getUrl(), groupStyle);
+               createTableCell(row, columnList.indexOf("Final URL"), link.getFinalUrl(), groupStyle);
+               createTableCell(row, columnList.indexOf("Content Type"), link.getContentType(), groupStyle);
+               createTableCell(row, columnList.indexOf("Error"), link.getError(), groupStyle);
+
+               isFirst = false;
+            } else {
+               createTableCell(row, columnList.indexOf("URL"), "", groupStyle);
+               createTableCell(row, columnList.indexOf("Final URL"), "", groupStyle);
+               createTableCell(row, columnList.indexOf("Content Type"), "", groupStyle);
+               createTableCell(row, columnList.indexOf("Error"), "", groupStyle);
+            }
+
+            createTableCell(row, columnList.indexOf("Source Webpage"), entry.getKey().getUrl(), groupStyle);
+
+            createTableCell(row, columnList.indexOf("Anchor Text"), entry.getValue(), groupStyle);
+
+            Cell dummyCellBody = row.createCell(columnList.size());
+
+            dummyCellBody.setCellValue("");
+
+            dummyCellBody.setCellStyle(emptyStyle);
+
+            rowIndex++;
+         }
+
+         int endRow = rowIndex - 1;
+
+         if (endRow > startRow) {
+
+            for (int col = columnList.indexOf("URL"); col <= columnList.indexOf("Error"); col++) {
+
+               sheet.addMergedRegion(new CellRangeAddress(startRow, endRow, col, col));
+            }
+         }
+
+         groupIndex++;
+      }
+
+      // ================= UKURAN KOLOM =================
+      sheet.setColumnWidth(columnList.indexOf("URL"), 15000);
+      sheet.setColumnWidth(columnList.indexOf("Final URL"), 15000);
+      sheet.setColumnWidth(columnList.indexOf("Content Type"), 10000);
+      sheet.setColumnWidth(columnList.indexOf("Error"), 10000);
+      sheet.setColumnWidth(columnList.indexOf("Source Webpage"), 15000);
+      sheet.setColumnWidth(columnList.indexOf("Anchor Text"), 10000);
+      sheet.setColumnWidth(columnList.size(), 20000);
+   }
+
+   private CellStyle createRowStyle(Workbook workbook, Color bgColor, Boolean isCenter, Boolean isBold, Color fontColor,
+         int fontSize) {
+
+      CellStyle style = workbook.createCellStyle();
+
+      style.setFillForegroundColor(new XSSFColor(bgColor, null));
+
       style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-      // Tambah border ke semua sisi
+      style.setAlignment(isCenter ? HorizontalAlignment.CENTER : HorizontalAlignment.LEFT);
+
+      style.setVerticalAlignment(isCenter ? VerticalAlignment.CENTER : VerticalAlignment.TOP);
+
+      XSSFFont textFont = (XSSFFont) workbook.createFont();
+
+      textFont.setBold(isBold);
+
+      textFont.setColor(new XSSFColor(fontColor, null));
+
+      textFont.setFontHeightInPoints((short) fontSize);
+
+      style.setFont(textFont);
+
       createBorder(style);
 
       return style;
    }
 
-   /**
-    * Method untuk bikin style biar baris data di tabel (bagian isi) belang-belang.
-    *
-    * @param wb       workbook yang lagi dipake
-    * @param awtColor warna background yang mau dipake buat baris
-    * @return style yang udah siap dipake di baris tersebut
-    */
-   private CellStyle createRowStyle(Workbook wb, Color awtColor) {
-      CellStyle style = wb.createCellStyle();
+   private void createTableCell(Row row, int col, String value, CellStyle style) {
 
-      // Set warna background baris
-      style.setFillForegroundColor(new XSSFColor(awtColor, null));
-      style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+      Cell cell = row.createCell(col);
 
-      // Border biar lebih rapi
-      createBorder(style);
+      cell.setCellValue(value != null ? value : "");
 
-      return style;
+      cell.setCellStyle(style);
    }
 
-   /**
-    * Method untuk menambahkan styling pada cell
-    *
-    * @param row   baris tempat cell mau dibuat
-    * @param col   kolom ke berapa cell-nya
-    * @param value isi cell, kalau null nanti diganti jadi string kosong
-    * @param style style yang mau dipasang ke cell ini
-    */
-   private void createStyledCell(Row row, int col, String value, CellStyle style) {
-      Cell cell = row.createCell(col); // bikin cell
-      cell.setCellValue(value != null ? value : ""); // antisipasi null
-      cell.setCellStyle(style); // pasang style
-   }
-
-   /**
-    * Nambahin border tipis di semua sisi style.
-    *
-    * @param style style yang mau ditambahin border
-    */
    private void createBorder(CellStyle style) {
-      style.setBorderBottom(BorderStyle.THIN); // bawah
-      style.setBorderTop(BorderStyle.THIN); // atas
-      style.setBorderLeft(BorderStyle.THIN); // kiri
-      style.setBorderRight(BorderStyle.THIN); // kanan
+      style.setBorderBottom(BorderStyle.MEDIUM);
+      style.setBorderTop(BorderStyle.MEDIUM);
+      style.setBorderLeft(BorderStyle.MEDIUM);
+      style.setBorderRight(BorderStyle.MEDIUM);
    }
+
 }
