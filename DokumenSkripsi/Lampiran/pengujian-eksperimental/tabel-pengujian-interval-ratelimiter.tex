@@ -1,277 +1,47 @@
-\begin{table}[H]
-\centering
-\caption{Pengaruh Variasi Parameter Interval (\textit{RateLimiter}) pada Hasil Pemeriksaan}
-\label{tab:hasil-pengujian-interval}
-\vspace{6pt}
+\setlength{\LTcapwidth}{\textwidth}
+\renewcommand{\arraystretch}{1.4}
 
-\begin{tabular}{
-| >{\centering\arraybackslash}m{2cm}
-| >{\centering\arraybackslash}m{2.5cm}
-| >{\centering\arraybackslash}m{2cm}
-| >{\centering\arraybackslash}m{2cm}
-| >{\centering\arraybackslash}m{1cm}
-| >{\centering\arraybackslash}m{4cm}|}
+\begin{longtable}{
+|>{\centering\arraybackslash}m{2.5cm}
+|>{\centering\arraybackslash}m{2.5cm}
+|>{\centering\arraybackslash}m{2.5cm}
+|>{\centering\arraybackslash}m{2.5cm}
+|>{\centering\arraybackslash}m{5cm}|}
+\caption{Pengaruh Variasi \texttt{Interval} pada Hasil Pemeriksaan}
+\vspace{-3mm}
+\label{tab:hasil-pengujian-interval} \\
 \hline
+\textbf{Interval (ms)} &
+\textbf{Durasi  Pemeriksaan} &
+\textbf{Jumlah Total Tautan} &
+\textbf{Jumlah Tautan Halaman} &
+\textbf{Jumlah Tautan Rusak} \\
+\hline
+\endfirsthead
 
-% =========== HEADER TABLE ===========
+\multicolumn{5}{c}{Tabel~\ref{tab:hasil-pengujian-interval} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\hline
+\textbf{Interval (ms)} &
+\textbf{Durasi  Pemeriksaan} &
+\textbf{Jumlah Total Tautan} &
+\textbf{Jumlah Tautan Halaman} &
+\textbf{Jumlah Tautan Rusak} \\
+\hline
+\endhead
 
-\textbf{Interval} &
-\textbf{Waktu Pemeriksaan} &
-\textbf{Total Tautan} &
-\textbf{Jumlah Halaman} &
-\multicolumn{2}{c|}{\textbf{Jumlah Tautan Rusak}} \\ \hline
+\hline
+\multicolumn{5}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
+\endfoot
 
-% =========== BODY TABLE ===========
+\hline
+\endlastfoot
 
+% ====== ISI DATA DI SINI ======
+0   &  --  &  -- & -- & -- \\ \hline
+100 &  --  &  -- & -- & -- \\ \hline
+250 &  --  &  -- & -- & -- \\ \hline
+500 &  --  &  -- & -- & -- \\ \hline
+750 &  --  &  -- & -- & -- \\ \hline
+1000 & --  & --  & -- & -- \\ \hline
 
-\multirowcell{3}{0 ms} & 
-\multirowcell{3}{16m 54s} & 
-\multirowcell{3}{602} & 
-\multirowcell{3}{302} & 
-\multirowcell{3}{79} &
-47 Client Error \\ \cline{6-6}
-& & & & & 1 Server Error \\ \cline{6-6}
-& & & & & 27 Connection Error \\ \hline
-
-\multirowcell{3}{100 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-\multirowcell{3}{200 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-\multirowcell{3}{300 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-\multirowcell{3}{400 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-\multirowcell{3}{500 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-\multirowcell{3}{600 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-\multirowcell{3}{700 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-\multirowcell{3}{800 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-\multirowcell{3}{900 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-\multirowcell{3}{1000 ms} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} & 
-\multirowcell{3}{} &
-Client Error \\ \cline{6-6}
-& & & & & Server Error \\ \cline{6-6}
-& & & & & Connection Error \\ \hline
-
-
-\end{tabular}
-\end{table}
-
-
-
-
-% \renewcommand{\arraystretch}{1.3}
-
-% \captionsetup{singlelinecheck=off, justification=centering}
-% \begin{longtable}{
-% | >{\centering\arraybackslash}m{2cm}
-% | >{\centering\arraybackslash}m{2.5cm}
-% | >{\centering\arraybackslash}m{2cm}
-% | >{\centering\arraybackslash}m{2cm}
-% | >{\centering\arraybackslash}m{1cm}
-% | >{\centering\arraybackslash}m{4cm}|}
-% \caption{Pengaruh Variasi Parameter Interval pada Hasil Pemeriksaan}
-% \label{tab:hasil-pengujian-interval} \\
-
-% \hline
-% \textbf{Interval} &
-% \textbf{Waktu Pemeriksaan} &
-% \textbf{Total Tautan} &
-% \textbf{Jumlah Halaman} &
-% \multicolumn{2}{c|}{\textbf{Jumlah Tautan Rusak}} \\
-% \hline
-% \endfirsthead
-
-% % ---------- HEADER REPEAT DI HALAMAN SELANJUTNYA ----------
-% \hline
-% \textbf{Interval} &
-% \textbf{Waktu Pemeriksaan} &
-% \textbf{Total Tautan} &
-% \textbf{Jumlah Halaman} &
-% \multicolumn{2}{c|}{\textbf{Jumlah Tautan Rusak}} \\
-% \hline
-% \endhead
-
-% % ---------- FOOTER PER HALAMAN ----------
-% \hline
-% \multicolumn{6}{r}{\textit{bersambung ke halaman berikutnya}} \\
-% \endfoot
-
-% % ---------- FOOTER TERAKHIR ----------
-% \hline
-% \endlastfoot
-
-% % ==========================================================
-% % ==================== BODY TABLE ==========================
-% % ==========================================================
-
-% \multirowcell{3}{0 ms} &
-% \multirowcell{3}{16m 54s} &
-% \multirowcell{3}{602} &
-% \multirowcell{3}{302} &
-% \multirowcell{3}{79} &
-% 47 Client Error \\ \cline{6-6}
-% & & & & & 1 Server Error \\ \cline{6-6}
-% & & & & & 27 Connection Error \\ \hline
-
-% \multirowcell{3}{100 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \multirowcell{3}{200 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \multirowcell{3}{300 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \multirowcell{3}{400 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \multirowcell{3}{500 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \multirowcell{3}{600 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \multirowcell{3}{700 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \multirowcell{3}{800 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \multirowcell{3}{900 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \multirowcell{3}{1000 ms} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% \multirowcell{3}{} &
-% Client Error \\ \cline{6-6}
-% & & & & & Server Error \\ \cline{6-6}
-% & & & & & Connection Error \\ \hline
-
-% \end{longtable}
+\end{longtable}

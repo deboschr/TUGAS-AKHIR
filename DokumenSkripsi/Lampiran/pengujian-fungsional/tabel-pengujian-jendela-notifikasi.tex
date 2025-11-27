@@ -1,27 +1,63 @@
 \renewcommand{\arraystretch}{1.4}
-\begin{table}[H]
-\centering
-\caption{Pengujian pada Jendela Notifikasi}
-\label{tab:pengujian-jendela-notifikasi}
-\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+
+\begin{longtable}{
+|>{\centering\arraybackslash}p{1cm}
+|>{\raggedright\arraybackslash}p{4.5cm} 
+|>{\raggedright\arraybackslash}p{4.5cm}
+|>{\raggedright\arraybackslash}p{4.5cm}|}
+\caption{Hasil Pengujian Fungsional Jendela Notifikasi}
+\vspace{-3mm}
+\label{tab:hasil-pengujian-fungsional-jendela-notifikasi} \\
+
 \hline
-\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}{Tabel~\ref{tab:hasil-pengujian-fungsional-jendela-notifikasi} dilanjutkan dari halaman sebelumnya}\\[4pt]
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
+\endfoot
+
+\hline
+\endlastfoot
 
 1 &
-Menampilkan notifikasi \textit{warning} ketika pengguna menekan tombol Start tanpa memasukkan URL. &
-Jendela notifikasi \textit{warning} muncul dengan pesan yang sesuai. &
-Sesuai \\ \hline
+Berhasil melakukan ekspor data. &
+Jendela notifikasi bertipe \texttt{SUCCESS} ditampilkan dan berisi pesan keberhasilan. &
+Notifikasi \texttt{SUCCESS} ditampilkan dengan pesan \textit{``Data has been exported to: ...''}. \\ \hline
 
 2 &
-Menampilkan notifikasi \textit{error} ketika proses pemeriksaan mengalami \textit{exception}. &
-Jendela notifikasi \textit{error} muncul dan menampilkan pesan kesalahan. &
-Sesuai \\ \hline
+Memicu \textit{exception} pada proses pemeriksaan. &
+Jendela notifikasi bertipe \texttt{ERROR} ditampilkan dan berisi pesan kesalahan. &
+Notifikasi \texttt{ERROR} ditampilkan dengan pesan error yang sesuai. \\ \hline
 
 3 &
-Menampilkan notifikasi \textit{success} setelah proses ekspor berhasil. &
-Jendela notifikasi \textit{success} muncul dan mengonfirmasi bahwa ekspor berhasil. &
-Sesuai \\ \hline
+Memasukkan input URL tidak valid &
+Jendela notifikasi bertipe \texttt{WARNING} ditampilkan dan berisi pesan peringatan. &
+Notifikasi \texttt{WARNING} ditampilkan dengan pesan \textit{``Please enter a valid seed URL …''} \\ \hline
+
+4 &
+Menutup jendela notifikasi. &
+Jendela notifikasi tertutup sepenuhnya. &
+Jendela notifikasi langsung menutup. \\ \hline
+
+5 &
+Memicu dua jenis notifikasi berurutan (\texttt{ERROR} dan \texttt{WARNING}). &
+Hanya satu jendela notifikasi yang tampil, tidak ada duplikasi jendela meskipun dua notifikasi dipicu. &
+Aplikasi hanya menampilkan satu jendela notifikasi pada satu waktu. \\ \hline
 
 
-\end{tabular}
-\end{table}
+\end{longtable}

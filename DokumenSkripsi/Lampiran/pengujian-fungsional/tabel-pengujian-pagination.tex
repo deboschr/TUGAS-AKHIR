@@ -5,9 +5,9 @@
 |>{\raggedright\arraybackslash}p{4.5cm} 
 |>{\raggedright\arraybackslash}p{4.5cm}
 |>{\raggedright\arraybackslash}p{4.5cm}|}
-\caption{Hasil Pengujian Funsional Pagination}
+\caption{Hasil Pengujian Fungsional \textit{Pagination}}
 \vspace{-3mm}
-\label{tab:pengujian-funsional-pagination} \\
+\label{tab:hasil-pengujian-fungsional-pagination} \\
 
 \hline
 \multicolumn{1}{|c|}{\textbf{Kasus}} &
@@ -17,7 +17,7 @@
 \hline
 \endfirsthead
 
-\multicolumn{4}{c}{Tabel~\ref{tab:pengujian-funsional-pagination} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\multicolumn{4}{c}{Tabel~\ref{tab:hasil-pengujian-fungsional-pagination} dilanjutkan dari halaman sebelumnya}\\[4pt]
 
 \hline
 \multicolumn{1}{|c|}{\textbf{Kasus}} &
@@ -28,7 +28,7 @@
 \endhead
 
 \hline
-\multicolumn{4}{r}{Bersambung ke halaman berikutnya} \\
+\multicolumn{4}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
 \endfoot
 
 \hline
@@ -36,34 +36,34 @@
 
 
 1 &
-Menekan tombol Next ketika jumlah halaman lebih dari satu dan halaman aktif adalah halaman pertama. &
+Menekan tombol \texttt{Next} ketika jumlah halaman lebih dari satu dan halaman aktif adalah halaman pertama. &
 Halaman berpindah ke halaman berikutnya dan data tabel menampilkan baris sesuai indeks halaman tersebut. &
-Halaman berpindah ke halaman (2), ringkasan tabel berubah, dan data ditabel berubah. \\ \hline
+Halaman berpindah ke halaman (2), ringkasan tabel berubah, dan data pada tabel berubah. \\ \hline
 
 2 &
-Menekan tombol Prev ketika jumlah halaman lebih dari satu dan halaman aktif adalah halaman terakhir. &
+Menekan tombol \texttt{Prev} ketika jumlah halaman lebih dari satu dan halaman aktif adalah halaman terakhir. &
 Halaman berpindah ke halaman sebelumnya dan data tabel menampilkan baris sesuai indeks halaman tersebut. &
-Halaman berpindah ke halaman sebelumnya, ringkasan tabel berubah, dan data ditabel berubah. \\ \hline
+Halaman berpindah ke halaman sebelumnya, ringkasan tabel berubah, dan data pada tabel berubah. \\ \hline
 
 3 &
 Jumlah data tautan rusak lebih dari 75 baris. &
-Pagination membentuk bombol halaman maksimal berjumlah 5 dan tombol Next aktif. &
-Tombol halaman yang ditampilkan berjumlah 5 dan tombol Next bisa ditekan. \\ \hline
+\textit{Pagination} membentuk bombol halaman maksimal berjumlah 5 dan tombol \texttt{Next} aktif. &
+Tombol halaman yang ditampilkan berjumlah 5 dan tombol \texttt{Next} bisa ditekan. \\ \hline
 
 4 &
-Jumlah data tautan rusak lebih dari 75, halaman aktif berada pada halaman pertama, lalu tombol Next ditekan hingga mencapai halaman terakhir. &
+Jumlah data tautan rusak lebih dari 75, halaman aktif berada pada halaman pertama, lalu tombol \texttt{Next} ditekan hingga mencapai halaman terakhir. &
 Jumlah tombol halaman tetap 5 dan halaman berpindah satu per satu sampai mencapai halaman terakhir. &
-Jumlah tombol halaman yang ditampilkan tetap 5, ringkasan tabel berubah, dan tombol sampai ke halaman terakhir sampai tombol Next tidak bisa ditekan. \\ \hline
+Jumlah tombol halaman yang ditampilkan tetap 5, ringkasan tabel berubah, dan tombol sampai ke halaman terakhir sampai tombol \texttt{Next} tidak bisa ditekan. \\ \hline
 
 5 &
-Jumlah data tautan rusak lebih dari 75, halaman aktif berada pada halaman terakhir, lalu tombol Prev ditekan hingga kembali ke halaman pertama. &
+Jumlah data tautan rusak lebih dari 75, halaman aktif berada pada halaman terakhir, lalu tombol \texttt{Prev} ditekan hingga kembali ke halaman pertama. &
 Jumlah tombol halaman tetap 5 dan halaman berpindah satu per satu hingga kembali ke halaman pertama. &
-Jumlah tombol halaman yang ditampilkan tetap 5, ringkasan tabel berubah, dan tombol sampai ke halaman pertama sampai tombol Prev tidak bisa ditekan. \\ \hline
+Jumlah tombol halaman yang ditampilkan tetap 5, ringkasan tabel berubah, dan tombol sampai ke halaman pertama sampai tombol \texttt{Prev} tidak bisa ditekan. \\ \hline
 
 6 &
-Jumlah halaman lebih dari satu dan filter diterapkan sehingga jumlah data tautan rusak berkurang. &
-Jumlah halaman dihitung ulang dan pagination menyesuaikan, termasuk memindahkan halaman aktif jika melebihi total halaman baru. &
-Jumlah halaman langsung berkurang, pagination menampilkan tombol halaman yang lebih sedikit, dan tampilan tabel menyesuaikan dengan hasil filter. \\ \hline
+Jumlah halaman lebih dari satu dan \textit{filter} diterapkan sehingga jumlah data tautan rusak berkurang. &
+Jumlah halaman dihitung ulang dan \textit{pagination} menyesuaikan, termasuk memindahkan halaman aktif jika melebihi total halaman baru. &
+Jumlah halaman langsung berkurang, \textit{pagination} menampilkan tombol halaman yang lebih sedikit, dan tampilan tabel menyesuaikan dengan hasil \textit{filter}. \\ \hline
 
 
 

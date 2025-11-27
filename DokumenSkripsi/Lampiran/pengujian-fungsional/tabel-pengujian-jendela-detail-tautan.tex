@@ -1,38 +1,59 @@
 \renewcommand{\arraystretch}{1.4}
-\begin{table}[H]
-\centering
-\caption{Pengujian pada Jendela Detail Tautan}
-\label{tab:pengujian-jendela-detail-tautan}
-\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
-\hline
-\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
 
+\begin{longtable}{
+|>{\centering\arraybackslash}p{1cm}
+|>{\raggedright\arraybackslash}p{4.5cm} 
+|>{\raggedright\arraybackslash}p{4.5cm}
+|>{\raggedright\arraybackslash}p{4.5cm}|}
+\caption{Hasil Pengujian Fungsional Jendela Detail Tautan}
+\vspace{-3mm}
+\label{tab:hasil-pengujian-fungsional-jendela-detail-tautan} \\
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}{Tabel~\ref{tab:hasil-pengujian-fungsional-jendela-detail-tautan} dilanjutkan dari halaman sebelumnya}\\[4pt]
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
+\endfoot
+
+\hline
+\endlastfoot
 
 1 &
-Menekan salah satu baris tidak kosong pada tabel tautan rusak. &
-Jendela detail tautan terbuka dan menampilkan informasi tautan yang sesuai. &
-Sesuai \\ \hline
+Menekan salah satu baris pada tabel. &
+Jendela detail tautan terbuka dan menampilkan informasi lengkap sesuai baris yang di tekan. &
+Saat baris di tekan, jendela detail muncul dan seluruh informasi (URL, final URL, status code, error, dan source) sesuai dengan data baris tersebut. \\ \hline
 
 2 &
-Menekan salah satu baris kosong pada tabel tautan rusak. &
-Jendela detail tautan tidak. &
-Sesuai \\ \hline
+Mencoba membuka lebih dari satu jendela detail tautan. &
+Aplikasi hanya menampilkan satu jendela detail tautan. &
+Tidak bisa membuka jendela lain selain harus menutup jendela saat ini. \\ \hline
 
 3 &
-Menekan kolom URL pada jendela detail tautan &
-\textit{Browser} bawaan OS membuka URL yang ditekan &
-Sesuai \\ \hline
+Menutup jendela detail tautan. &
+Jendela detail tertutup sepenuhnya. &
+Jendela detail menghilang dan tidak lagi tampil di layar. \\ \hline
 
 4 &
-Menekan kolom \textit{final} URL yang tidak kosong pada jendela detail tautan &
-\textit{Browser} bawaan OS membuka URL yang ditekan &
-Sesuai \\ \hline
-
-5 &
-Menekan kolom \textit{final} URL yang kosong pada jendela detail tautan &
-\textit{Browser} bawaan OS tidak terbuka &
-Sesuai \\ \hline
+Setelah menutup jendela detail tautan, menekan baris yang lain. &
+Jendela detail terbuka kembali dengan informasi yang benar sesuai tautan yang baru di tekan. &
+Jendela muncul kembali dan menampilkan informasi yang tepat untuk tautan tersebut, tidak menampilkan data dari tautan sebelumnya. \\ \hline
 
 
-\end{tabular}
-\end{table}
+
+\end{longtable}

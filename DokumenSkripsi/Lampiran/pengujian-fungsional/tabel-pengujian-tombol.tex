@@ -5,9 +5,9 @@
 |>{\raggedright\arraybackslash}p{4.5cm} 
 |>{\raggedright\arraybackslash}p{4.5cm}
 |>{\raggedright\arraybackslash}p{4.5cm}|}
-\caption{Hasil Pengujian Funsional Tombol}
+\caption{Hasil Pengujian Fungsional Tombol}
 \vspace{-3mm}
-\label{tab:pengujian-funsional-tombol} \\
+\label{tab:hasil-pengujian-fungsional-tombol} \\
 
 \hline
 \multicolumn{1}{|c|}{\textbf{Kasus}} &
@@ -17,7 +17,7 @@
 \hline
 \endfirsthead
 
-\multicolumn{4}{c}{Tabel~\ref{tab:pengujian-funsional-tombol} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\multicolumn{4}{c}{Tabel~\ref{tab:hasil-pengujian-fungsional-tombol} dilanjutkan dari halaman sebelumnya}\\[4pt]
 
 \hline
 \multicolumn{1}{|c|}{\textbf{Kasus}} &
@@ -28,7 +28,7 @@
 \endhead
 
 \hline
-\multicolumn{4}{r}{Bersambung ke halaman berikutnya} \\
+\multicolumn{4}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
 \endfoot
 
 \hline
@@ -36,42 +36,42 @@
 
 
 1 &
-Menekan tombol Start ketika status aplikasi berada pada status IDLE. &
-Proses crawling dimulai, data lama dibersihkan, dan status berubah menjadi CHECKING. &
-Aplikasi merubah status menjadi CHECKING dan memulai proses pemeriksaan. \\ \hline
+Menekan tombol \texttt{Start} ketika status aplikasi berada pada status \texttt{IDLE}. &
+Proses crawling dimulai, data lama dibersihkan, dan status berubah menjadi \texttt{CHECKING}. &
+Aplikasi merubah status menjadi \texttt{CHECKING} dan memulai proses pemeriksaan. \\ \hline
 
 2 &
-Menekan tombol Start ketika status aplikasi berada pada status CHECKING, STOPPED atau COMPLETED. &
-Proses pemeriksaan dimulai ulang dan status berubah menjadi CHECKING. &
-Aplikasi membersihkan data lama, merubah status menjadi CHECKING dan memulai ulang proses pemeriksaan. \\ \hline
+Menekan tombol \texttt{Start} ketika status aplikasi berada pada status \texttt{CHECKING}, \texttt{STOPPED} atau \texttt{COMPLETED}. &
+Proses pemeriksaan dimulai ulang dan status berubah menjadi \texttt{CHECKING}. &
+Aplikasi membersihkan data lama, merubah status menjadi \texttt{CHECKING} dan memulai ulang proses pemeriksaan. \\ \hline
 
 3 &
-Menekan tombol Stop ketika status aplikasi berada pada status CHECKING. &
-Proses crawling dihentikan dan status berubah menjadi STOPPED. &
-Aplikasi menghentikan proses pemeriksaan yang sedang berjalandan dan merubah status menjadi STOPPED. \\ \hline
+Menekan tombol \texttt{Stop} ketika status aplikasi berada pada status \texttt{CHECKING}. &
+Proses crawling dihentikan dan status berubah menjadi \texttt{STOPPED}. &
+Aplikasi menghentikan proses pemeriksaan yang sedang berjalandan dan merubah status menjadi \texttt{STOPPED}. \\ \hline
 
 4 &
-Menekan tombol Stop ketika status aplikasi berada pada status IDLE, STOPPED atau COMPLETED. &
-Tombol Stop tidak bisa ditekan. &
-Tombol Stop tidak merespons karena dalam status disabled. \\ \hline
+Menekan tombol \texttt{Stop} ketika status aplikasi berada pada status \texttt{IDLE}, \texttt{STOPPED} atau \texttt{COMPLETED}. &
+Tombol \texttt{Stop} tidak bisa ditekan. &
+Tombol \texttt{Stop} tidak merespons karena dalam status \textit{disabled}. \\ \hline
 
 5 &
-Menekan tombol Export ketika status aplikasi berada pada status IDLE atau CHECKING. &
-Tombol Export tidak bisa ditekan. &
-Tombol Export tidak merespons karena dalam status disabled. \\ \hline
+Menekan tombol \texttt{Export} ketika status aplikasi berada pada status \texttt{IDLE} atau \texttt{CHECKING}. &
+Tombol \texttt{Export} tidak bisa ditekan. &
+Tombol \texttt{Export} tidak merespons karena dalam status \textit{disabled}. \\ \hline
 
 6 &
-Menekan tombol Export ketika status STOPPED atau COMPLETED dan data di tabel tersedia. &
-Dialog penyimpanan file muncul dan proses ekspor dapat dilakukan. &
-Aplikasi menampilkan dialog penyimpanan file, lalu menampilkan notifikasi SUCCESS saat selesai. \\ \hline
+Menekan tombol \texttt{Export} ketika status \texttt{STOPPED} atau \texttt{COMPLETED} dan data di tabel tersedia. &
+Dialog penyimpanan berkas muncul dan proses ekspor dapat dilakukan. &
+Aplikasi menampilkan dialog penyimpanan berkas, lalu menampilkan notifikasi SUCCESS saat selesai. \\ \hline
 
 7 &
-Menekan tombol Export ketika status STOPPED atau COMPLETED namun data di tabel tidak tersedia. &
-Muncul notifikasi WARNING bahwa tidak ada data yang dapat diekspor. &
-Aplikasi menampilkan notifikasi WARNING \textit{“There are no broken links to export.”}. \\ \hline
+Menekan tombol \texttt{Export} ketika status \texttt{STOPPED} atau \texttt{COMPLETED} namun data di tabel tidak tersedia. &
+Muncul notifikasi \texttt{WARNING} bahwa tidak ada data yang dapat diekspor. &
+Aplikasi menampilkan notifikasi \texttt{WARNING} \textit{“There are no broken links to export.”}. \\ \hline
 
 8 &
-Menekan tombol Export lalu membatalkan dialog penyimpanan file &
+Menekan tombol \texttt{Export} lalu membatalkan dialog penyimpanan berkas &
 Proses ekspor dibatalkan tanpa ada perubahan status aplikasi. &
 Aplikasi tidak memproses ekspor \\ \hline
 

@@ -5,9 +5,9 @@
 |>{\raggedright\arraybackslash}p{4.5cm} 
 |>{\raggedright\arraybackslash}p{4.5cm}
 |>{\raggedright\arraybackslash}p{4.5cm}|}
-\caption{Hasil Pengujian Funsional Input URL}
+\caption{Hasil Pengujian Fungsional \textit{Input} URL}
 \vspace{-3mm}
-\label{tab:pengujian-funsional-input-url} \\
+\label{tab:hasil-pengujian-fungsional-input-url} \\
 
 \hline
 \multicolumn{1}{|c|}{\textbf{Kasus}} &
@@ -17,7 +17,7 @@
 \hline
 \endfirsthead
 
-\multicolumn{4}{c}{Tabel~\ref{tab:pengujian-funsional-input-url} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\multicolumn{4}{c}{Tabel~\ref{tab:hasil-pengujian-fungsional-input-url} dilanjutkan dari halaman sebelumnya}\\[4pt]
 
 \hline
 \multicolumn{1}{|c|}{\textbf{Kasus}} &
@@ -28,7 +28,7 @@
 \endhead
 
 \hline
-\multicolumn{4}{r}{Bersambung ke halaman berikutnya} \\
+\multicolumn{4}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
 \endfoot
 
 \hline
@@ -42,23 +42,23 @@ Aplikasi menormalisasi URL menjadi \url{https://unpar.ac.id/fakultas?search=test
 
 2 &
 Memasukkan URL tanpa skema: \url{unpar.ac.id} &
-Jendela notifikasi \textit{warning} terbuka. &
-Aplikasi menampilkan notifikasi \textit{warning} karena skema tidak terdeteksi. \\ \hline
+Jendela notifikasi \texttt{WARNING} terbuka. &
+Aplikasi menampilkan notifikasi \texttt{WARNING} karena skema tidak terdeteksi. \\ \hline
 
 3 &
-Memasukkan URL tanpa host: \url{https:///fakultas} &
-Jendela notifikasi \textit{warning} terbuka. &
-Aplikasi menampilkan notifikasi \textit{warning} karena host tidak terdeteksi. \\ \hline
+Memasukkan URL tanpa \textit{host}: \url{https:///fakultas} &
+Jendela notifikasi \texttt{WARNING} terbuka. &
+Aplikasi menampilkan notifikasi \texttt{WARNING} karena \textit{host} tidak terdeteksi. \\ \hline
 
 4 &
 Memasukkan URL dengan skema selain http/https: \url{ftp://unpar.ac.id} &
-Jendela notifikasi \textit{warning} terbuka. &
-Aplikasi menampilkan notifikasi \textit{warning} karena skema bukan http/https. \\ \hline
+Jendela notifikasi \texttt{WARNING} terbuka. &
+Aplikasi menampilkan notifikasi \texttt{WARNING} karena skema bukan http/https. \\ \hline
 
 5 &
-Memasukkan URL dengan port non-default: \url{https://unpar.ac.id:8080} &
-Input diterima dan proses pemeriksaan dimulai. &
-Aplikasi mempertahankan port 8080 dan memulai pemeriksaan. \\ \hline
+Memasukkan URL dengan \textit{port} non-default: \url{https://unpar.ac.id:8080} &
+\textit{Input} diterima dan proses pemeriksaan dimulai. &
+Aplikasi mempertahankan \textit{port} 8080 dan memulai pemeriksaan. \\ \hline
 
 6 &
 Memasukkan URL dengan dot-segment: \url{https://unpar.ac.id/a/./../b} &
@@ -76,14 +76,14 @@ URL dinormalisasi dan proses pemeriksaan dimulai. &
 Aplikasi menormalisasi menjadi \url{https://unpar.ac.id/ABOUT} dan memulai pemeriksaan. \\ \hline
 
 9 &
-Memasukkan URL dengan sintaks tidak valid: \url{https//unpar.ac.id} &
-Input diterima dan proses pemeriksaan dimulai. &
+Memasukkan URL dengan sintaksis tidak valid: \url{https//unpar.ac.id} &
+\textit{Input} diterima dan proses pemeriksaan dimulai. &
 Aplikasi gagal mem-parse sebagai URI, mengembalikan URL awal, dan memulai proses pemeriksaan. \\ \hline
 
 10 &
 Tidak memasukkan URL atau hanya spasi &
-Jendela notifikasi \textit{warning} terbuka. &
-Aplikasi menampilkan notifikasi \textit{warning} karena input kosong. \\ \hline
+Jendela notifikasi \texttt{WARNING} terbuka. &
+Aplikasi menampilkan notifikasi \texttt{WARNING} karena input kosong. \\ \hline
 
 
 \end{longtable}

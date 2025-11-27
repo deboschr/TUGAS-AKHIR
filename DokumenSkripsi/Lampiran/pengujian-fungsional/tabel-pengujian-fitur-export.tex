@@ -1,36 +1,58 @@
 \renewcommand{\arraystretch}{1.4}
-\begin{table}[H]
-\centering
-\caption{Pengujian pada Fitur Ekspor}
-\label{tab:pengujian-fitur-export}
-\begin{tabular}{|c|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|c|}
+
+\begin{longtable}{
+|>{\centering\arraybackslash}p{1cm}
+|>{\raggedright\arraybackslash}p{4.5cm} 
+|>{\raggedright\arraybackslash}p{4.5cm}
+|>{\raggedright\arraybackslash}p{4.5cm}|}
+\caption{Hasil Pengujian Fungsional Fitur \textit{Filter}}
+\vspace{-3mm}
+\label{tab:hasil-pengujian-fungsional-fitur-export} \\
+
 \hline
-\textbf{Kasus} & \textbf{Skenario} & \textbf{Hasil Diharapkan} & \textbf{Hasil Uji} \\ \hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}{Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-export} dilanjutkan dari halaman sebelumnya}\\[4pt]
+
+\hline
+\multicolumn{1}{|c|}{\textbf{Kasus}} &
+\multicolumn{1}{c|}{\textbf{Skenario}} &
+\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
+\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
+\endfoot
+
+\hline
+\endlastfoot
 
 1 &
-Menekan tombol Export ketika tidak ada data hasil pemeriksaan. &
-Window notifikasi warning terbuka dan tidak ada berkas yang diekspor. &
-Sesuai \\ \hline
+Menekan tombol \texttt{Export} ketika tabel kosong. &
+Tidak ada berkas diekspor dan aplikasi menampilkan notifikasi bahwa tidak ada data yang dapat diekspor. &
+Aplikasi menampilkan peringatan \textit{``There are no broken links to export.''} dan dialog penyimpanan tidak muncul. \\ \hline
 
 2 &
-Menekan tombol Export setelah proses pemeriksaan selesai dengan data lengkap. &
-Dialog penyimpanan muncul dan berkas Excel/JSON berhasil dibuat sesuai isi tabel. &
-Sesuai \\ \hline
+Menekan tombol \texttt{Export} ketika tabel memiliki data. &
+Dialog penyimpanan file muncul dan pengguna dapat memilih lokasi penyimpanan. &
+Aplikasi menampilkan dialog penyimpanan file, dan proses ekspor berhasil menghasilkan file Excel. \\ \hline
 
 3 &
-Menerapkan filter sehingga hanya sebagian data tampil di tabel, lalu menekan tombol Export. &
-Berkas hasil ekspor hanya berisi data yang sesuai dengan filter aktif. &
-Sesuai \\ \hline
+Melakukan \textit{filter} pada tabel setelah ekspor pertama, lalu melakukan ekspor kembali. &
+Ekspor berhasil dan data hasil ekspor sesuai dengan data terkini. &
+File Excel kedua hanya berisi data hasil \textit{filter}. \\ \hline
 
 4 &
-Mengganti filter dan melakukan ekspor ulang. &
-Berkas yang dihasilkan sesuai dengan tampilan tabel setelah filter baru diterapkan. &
-Sesuai \\ \hline
+Membatalkan dialog penyimpanan file (menekan tombol \texttt{Cancel}). &
+Tidak ada berkas yang dibuat. &
+Dialog langsung tertutup dan tidak ada berkas baru dihasilkan. \\ \hline
 
-5 &
-Menjalankan proses pemeriksaan baru, lalu mengekspor hasilnya. &
-Berkas ekspor berisi data hasil pemeriksaan terbaru, bukan data sebelumnya. &
-Sesuai \\ \hline
 
-\end{tabular}
-\end{table}
+\end{longtable}

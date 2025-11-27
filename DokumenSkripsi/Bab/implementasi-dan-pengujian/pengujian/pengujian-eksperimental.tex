@@ -1,4 +1,4 @@
-Berbeda dengan pengujian fungsional yang berfokus pada verifikasi implementasi fitur berdasarkan hasil perancangan, pengujian eksperimental menekankan eksplorasi terhadap parameter-parameter operasional yang memengaruhi performa dalam proses pemeriksaan. Pada pengujian ini, kualitas hasil pemeriksaan dievaluasi berdasarkan tiga aspek utama, yaitu efisiensi, akurasi, dan konsistensi. Pemeriksaan dikatakan efisien apabila proses diselesaikan dalam waktu yang relatif singkat namun identifikasi tautan rusak tetap akurat. Pemeriksaan dikatakan akurat apabila hasil pemeriksaan mencerminkan kondisi tautan yang sebenarnya tanpa menghasilkan \textit{false positive}. Sementara itu, pemeriksaan dikatakan konsisten apabila hasil pemeriksaan yang diperoleh tetap sama atau sangat mendekati pada percobaan yang berbeda dalam kondisi pengujian tidak berubah.
+Berbeda dengan pengujian fungsional yang berfokus pada verifikasi implementasi fitur berdasarkan hasil perancangan, pengujian eksperimental menekankan eksplorasi terhadap parameter-parameter operasional yang memengaruhi performa dan hasil pemeriksaan. Pada pengujian ini, kualitas hasil pemeriksaan dievaluasi berdasarkan tiga aspek utama, yaitu efisiensi, akurasi, dan konsistensi. Pemeriksaan dikatakan efisien apabila proses diselesaikan dalam waktu yang relatif singkat namun identifikasi tautan rusak tetap akurat. Pemeriksaan dikatakan akurat apabila hasil pemeriksaan mencerminkan kondisi tautan yang sebenarnya tanpa menghasilkan \textit{false positive}, yaitu tautan yang tidak rusak namun diidentifikasi sebagai tautan rusak. Sementara itu, pemeriksaan dikatakan konsisten apabila hasil pemeriksaan yang diperoleh tetap sama atau sangat mendekati pada percobaan yang berbeda dalam kondisi pengujian tidak berubah.
 
 
 
@@ -9,9 +9,9 @@ Pengujian eksperimental ini memiliki beberapa tujuan sebagai berikut:
 
    \item Menentukan nilai interval pada \texttt{RateLimiter} untuk mendapatkan kecepatan \textit{crawling} terbaik tanpa menyebabkan lonjakan permintaan HTTP terhadap \textit{host} yang sama yang dapat memicu pemblokiran sementara atau menghasilkan kode status HTTP 429 (\textit{Too Many Requests}).
    
-   \item Menentukan nilai \textit{connection timeout} pada \texttt{HttpClient} untuk memperoleh batas waktu pembentukan koneksi yang optimal, sehingga tidak terjadi \textit{connection error} pada tautan yang responsif jika nilainya terlalu kecil ataupun menyebabkan waktu pemeriksan menjadi terlalu lama jika nilainya terlalu besar. 
+   \item Menentukan nilai \textit{connection timeout} pada \texttt{HttpClient} untuk memperoleh batas waktu pembentukan koneksi yang optimal, sehingga tidak terjadi \textit{connection error} pada tautan yang responsif jika nilainya terlalu kecil ataupun menyebabkan waktu pemeriksaan menjadi terlalu lama jika nilainya terlalu besar. 
    
-   \item Menentukan nilai \textit{request timeout} pada \texttt{HttpRequest} untuk memperoleh batas waktu permintaan HTTP yang optimal, sehingga tidak terjadi identifikasi \textit{false positive} pada tautan yang respons \textit{server}-nya lambat jika nilainya terlalu kecil ataupun menyebabkan waktu pemeriksan menjadi terlalu lama jika nilainya terlalu besar. 
+   \item Menentukan nilai \textit{request timeout} pada \texttt{HttpRequest} untuk memperoleh batas waktu permintaan HTTP yang optimal, sehingga tidak terjadi identifikasi \textit{false positive} pada tautan yang respons \textit{server}-nya lambat jika nilainya terlalu kecil ataupun menyebabkan waktu pemeriksaan menjadi terlalu lama jika nilainya terlalu besar. 
 
    \item Membandingkan hasil pemeriksaan dengan perangkat lunak serupa untuk melihat perbedaan pada hasil pemeriksaan.
 
@@ -27,7 +27,7 @@ Setiap pengujian difokuskan pada satu parameter tertentu, dan di dalamnya dilaku
 
 Pada setiap percobaan dilakukan evaluasi terhadap indikator berikut:
 \begin{itemize}
-   \item Waktu total pemeriksaan.
+   \item Durasi pemeriksaan.
    \item Jumlah total tautan.
    \item Jumlah tautan halaman.
    \item Jumlah tautan rusak.
@@ -35,8 +35,7 @@ Pada setiap percobaan dilakukan evaluasi terhadap indikator berikut:
 
 \input{Lampiran/pengujian-eksperimental/tabel-parameter-pengujian.tex}
 
-
-\subsubsection{Pengujian 1: Interval (\texttt{RateLimiter})}
+\subsubsection{Pengujian 1: Interval pada \texttt{RateLimiter}}
 \label{subsubsec:05020303-pengujian-1-interval-rate-limiter}
 
 Tabel~\ref{tab:hasil-pengujian-interval}
@@ -44,7 +43,7 @@ Tabel~\ref{tab:hasil-pengujian-interval}
 \input{Lampiran/pengujian-eksperimental/tabel-pengujian-interval-ratelimiter.tex}
 
 
-\subsubsection{Pengujian 2: \textit{Connection Timeout} (\texttt{HttpClient})}
+\subsubsection{Pengujian 2: \textit{Connection Timeout} pada \texttt{HttpClient}}
 \label{subsubsec:05020304-pengujian-2-connection-timeout-httpclient}
 
 Tabel~\ref{tab:hasil-pengujian-connection-timeout}
@@ -52,13 +51,12 @@ Tabel~\ref{tab:hasil-pengujian-connection-timeout}
 \input{Lampiran/pengujian-eksperimental/tabel-pengujian-connection-timeout-httpclient.tex}
 
 
-\subsubsection{Pengujian 3: \textit{Request Timeout} (\texttt{HttpRequest})}
+\subsubsection{Pengujian 3: \textit{Request Timeout} pada \texttt{HttpRequest}}
 \label{subsubsec:05020305-pengujian-3-request-timeout-httprequest}
 
 Tabel~\ref{tab:hasil-pengujian-request-timeout}
 
 \input{Lampiran/pengujian-eksperimental/tabel-pengujian-request-timeout-httprequest.tex}
-
 
 
 \subsubsection{Penentuan Konfigurasi Terbaik}

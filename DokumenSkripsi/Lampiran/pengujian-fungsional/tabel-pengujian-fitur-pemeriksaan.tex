@@ -5,9 +5,9 @@
 |>{\raggedright\arraybackslash}p{4.5cm} 
 |>{\raggedright\arraybackslash}p{4.5cm}
 |>{\raggedright\arraybackslash}p{4.5cm}|}
-\caption{Hasil Pengujian Funsional Fitur Pemeriksaan}
+\caption{Hasil Pengujian Fungsional Fitur Pemeriksaan}
 \vspace{-3mm}
-\label{tab:pengujian-fungsional-fitur-pemeriksaan} \\
+\label{tab:hasil-pengujian-fungsional-fitur-pemeriksaan} \\
 
 \hline
 \multicolumn{1}{|c|}{\textbf{Kasus}} &
@@ -17,7 +17,7 @@
 \hline
 \endfirsthead
 
-\multicolumn{4}{c}{Tabel~\ref{tab:pengujian-fungsional-fitur-pemeriksaan} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\multicolumn{4}{c}{Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-pemeriksaan} dilanjutkan dari halaman sebelumnya}\\[4pt]
 
 \hline
 \multicolumn{1}{|c|}{\textbf{Kasus}} &
@@ -28,41 +28,32 @@
 \endhead
 
 \hline
-\multicolumn{4}{r}{Bersambung ke halaman berikutnya} \\
+\multicolumn{4}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
 \endfoot
 
 \hline
 \endlastfoot
 
 1 &
-Menjalankan pemeriksaan penuh pada \url{https://informatika.unpar.ac.id}, kemudian membandingkan jumlah tautan rusak pada kartu ringkasan dengan jumlah baris pada tabel tautan rusak. &
-Jumlah tautan rusak pada kartu ringkasan sama dengan jumlah baris yang ditampilkan pada tabel tautan rusak / hasil ekspor Excel. &
-Kartu ringkasan menampilkan 80 tautan rusak dan jumlah tersebut sama dengan jumlah baris yang muncul pada tabel tautan rusak serta file Excel hasil ekspor. \\ \hline
+Memeriksa satu persatu tautan rusak yang ditemukan dengan menekan URL pada tabel &
+Aplikasi mengarahkan tautan untuk terbuka ke \textit{browser} dan menampilkan error yang sama. &
+Tautan terbuka di-\textit{browser} dan menunjukan \textit{error} yang sama dengan hasil pemeriksaan aplikasi. \\ \hline
 
 2 &
-Memilih beberapa contoh tautan rusak dari tabel (misalnya 10 tautan internal dan 10 tautan eksternal) lalu membuka URL tersebut secara manual melalui peramban. &
-Setiap tautan yang ditandai sebagai rusak oleh aplikasi tidak dapat diakses dengan normal (misalnya menampilkan halaman 4XX/5XX atau gagal terhubung). &
-Seluruh sampel tautan yang diuji secara manual tidak dapat diakses dengan normal; peramban menampilkan pesan error atau halaman 4XX/5XX sesuai dengan kategori yang ditampilkan aplikasi. \\ \hline
+Mengekspor hasil pemeriksaan lalu memeriksa satu persatu daftar halaman sumber. &
+Seluruh daftar URL halaman sumber memiliki \textit{host} yang sama dengan \textit{host} URL awal. &
+Seluruh daftar URL halaman menunjukan bahwa \textit{host}-nya ``informatika.unpar.ac.id'', sama dengan \textit{host} URL awal. \\ \hline
 
 3 &
-Memilih satu URL yang muncul di banyak halaman (misalnya tautan menu atau berkas yang sama), kemudian menjalankan pemeriksaan dan mengamati hasil ekspor serta log aplikasi. &
-URL yang sama hanya diperiksa satu kali, tetapi dapat muncul beberapa kali sebagai sumber tautan rusak jika dirujuk dari banyak halaman. &
-Pada log pemeriksaan setiap URL unik hanya tercatat satu kali sebagai target pemeriksaan, sedangkan pada hasil ekspor URL yang sama dapat muncul beberapa kali dengan sumber halaman yang berbeda. \\ \hline
+Membuat \textit{counter} untuk masing-masing URL yang ditemukan, lalu tampilkan jendela notifikasi jika \textit{counter} lebih dari satu &
+Aplikasi tidak membuka jendela notifikasi untuk menampilkan pesan tautan diperiksa lebih dari satu kali. &
+Pemeriksaan berjalan sampai proses selesai tanpa menampilkan jendela notifikasi apapun. \\ \hline
+
 
 4 &
-Menjalankan pemeriksaan pada situs dan kemudian mengamati waktu antar permintaan pada host yang sama dan host yang berbeda berdasarkan log aplikasi. &
-Permintaan ke host yang sama diberi jeda yang relatif konstan, sedangkan permintaan ke host yang berbeda dapat berjalan saling bergantian. &
-Log menunjukkan bahwa permintaan ke host yang sama tidak dikirim secara beruntun tanpa jeda, sedangkan permintaan ke host yang berbeda dapat muncul bergantian, sehingga perilaku pemeriksaan terlihat mengikuti pembatasan berdasarkan host. \\ \hline
-
-5 &
-Menjalankan pemeriksaan, lalu mengamati daftar halaman yang berhasil diperiksa pada tabel halaman (webpage links) atau ringkasan hasil. &
-Seluruh halaman yang tercatat sebagai hasil \textit{crawling} berasal dari domain \url{informatika.unpar.ac.id} dan tidak ada halaman dari domain lain. &
-Daftar halaman yang muncul pada hasil pemeriksaan seluruhnya menggunakan host \url{informatika.unpar.ac.id}, sedangkan tautan dengan host berbeda hanya muncul sebagai tautan (link) biasa, bukan sebagai halaman yang ikut di-\textit{crawl}. \\ \hline
-
-6 &
-Memeriksa beberapa tautan eksternal (misalnya ke YouTube, Instagram, atau situs lain) yang ditemukan pada halaman \url{https://informatika.unpar.ac.id}, lalu mengamati apakah aplikasi mencoba melakukan \textit{crawling} ke domain tersebut. &
-Tautan eksternal hanya diperiksa statusnya saja dan tidak memicu proses \textit{crawling} tambahan ke halaman-halaman di domain eksternal tersebut. &
-Tautan eksternal muncul pada hasil pemeriksaan sebagai tautan yang diperiksa statusnya, tetapi tidak ada halaman baru dari domain eksternal yang ditambahkan pada daftar halaman hasil \textit{crawling}. \\ \hline
+Menambahkan log waktu pemeriksaan pada setiap permintaan HTTP. &
+Tautan dengan \textit{host} yang sama menampilkan jeda waktu yang konsisten antar permintaan, sedangkan tautan dari \textit{host} yang berbeda tidak mengikuti jeda yang sama. &
+Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' muncul dengan selang waktu tetap, sementara permintaan ke \textit{host} lain dapat muncul di antara jeda tersebut. \\ \hline
 
 
 \end{longtable}
@@ -77,7 +68,7 @@ Tautan eksternal muncul pada hasil pemeriksaan sebagai tautan yang diperiksa sta
    \centering
    \caption{Ringkasan Proses Pemeriksaan}
    \vspace{3mm}
-   \label{tab:ringkasan-proses-pemeriksaan-pengujian-fungsional}
+   \label{tab:ringkasan-proses-pemeriksaan-fitur-pemeriksaan}
    
    \begin{tabular}{|p{4.5cm}|p{7cm}|}
       \hline      
@@ -100,7 +91,7 @@ Tautan eksternal muncul pada hasil pemeriksaan sebagai tautan yang diperiksa sta
 \begin{longtable}{|p{4cm}|p{6cm}|p{2cm}|}
 \caption{Ringkasan Hasil Pemeriksaan}
 \vspace{-3mm}
-\label{tab:ringkasan-pada-pemeriksaan-pengujian-fungsional} \\
+\label{tab:ringkasan-hasil-pemeriksaan-fitur-pemeriksaan} \\
 
 \hline
 \textbf{Kategori} & \textbf{Error} & \textbf{Jumlah} \\ \hline
@@ -118,7 +109,6 @@ Tautan eksternal muncul pada hasil pemeriksaan sebagai tautan yang diperiksa sta
 \endlastfoot
 
 % #######################################
-% #######################################
 
 \multirow{5}{*}{\textbf{Connection Error}} 
  & ConnectException & 13 \\ \cline{2-3}
@@ -132,7 +122,6 @@ Tautan eksternal muncul pada hasil pemeriksaan sebagai tautan yang diperiksa sta
 
 
 % #######################################
-% #######################################
 
 \multirow{5}{*}{\textbf{4XX Client Error}}
  & 400 Bad Request & 2 \\ \cline{2-3}
@@ -145,7 +134,6 @@ Tautan eksternal muncul pada hasil pemeriksaan sebagai tautan yang diperiksa sta
 \textbf{50} \\ \hline
 
 % #######################################
-% #######################################
 
 \multirow{1}{*}{\textbf{5XX Server Error}}
  & 503 Service Unavailable & 1 \\ \hline
@@ -153,7 +141,6 @@ Tautan eksternal muncul pada hasil pemeriksaan sebagai tautan yang diperiksa sta
 \multicolumn{2}{|r|}{\textbf{Total 5XX Server Error}} &
 \textbf{1} \\ \hline
 
-% #######################################
 % #######################################
 
 \multirow{2}{*}{\textbf{Non-Standard Error}}
