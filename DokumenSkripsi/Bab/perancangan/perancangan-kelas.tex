@@ -29,7 +29,6 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \end{itemize}
 
     \vspace{15mm}
-
     % ######################################################################
     \item \textbf{Kelas MainController}\\
     Kelas \texttt{MainController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna serta mengelola data yang ditampilkan pada jendela utama. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
@@ -77,14 +76,12 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \end{itemize}
 
     \vspace{4mm}
-
     % ######################################################################
     \item \textbf{Kelas LinkController}\\ 
     Kelas \texttt{LinkController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna serta mengelola data yang ditampilkan pada jendela detail tautan. Kelas ini memiliki satu atribut, yaitu \texttt{link}, yang digunakan untuk menyimpan objek dari kelas \texttt{Link} yang akan ditampilkan pada jendela detail tautan. Selain itu, kelas ini memiliki satu metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka. Dengan adanya atribut \texttt{link}, maka kelas \texttt{LinkController} memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Link}.
 
 
     \vspace{8mm}
-
     % ######################################################################
     \item \textbf{Kelas NotificationController}\\
     Kelas \texttt{NotificationController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna serta mengelola data yang ditampilkan pada jendela notifikasi. Kelas ini memiliki atribut \texttt{type} dan \texttt{message}, yang masing-masing merupakan nilai \texttt{String} dan digunakan untuk menyimpan jenis pesan serta isi pesan yang akan ditampilkan. Kelas ini juga memiliki metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka.
@@ -194,7 +191,6 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
 
     \vspace{10mm}
-
     % ######################################################################
     \item \textbf{Kelas HttpHandler}\\
     Kelas \texttt{HttpHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait HTTP. Berikut adalah penjelasan lebih rinci untuk atribut dan metode pada kelas ini:
@@ -222,7 +218,6 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \end{itemize}
 
     \vspace{3mm}
-
     % ######################################################################
     \item \textbf{Kelas Link}\\
     Kelas \texttt{Link} merupakan model yang digunakan untuk merepresentasikan tautan yang ditemukan selama proses pemeriksaan. Kelas ini memiliki metode \texttt{addRelation} yang digunakan untuk menambahkan relasi pada tautan saat ini. Masukan dari metode ini adalah tautan lain yang ingin ditambahkan sebagai relasi dan teks pada tautan (\textit{anchor text}). Berikut adalah penjelasan lebih rinci untuk atribut dan relasi pada kelas ini:
