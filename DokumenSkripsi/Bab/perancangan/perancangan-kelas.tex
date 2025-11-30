@@ -1,12 +1,13 @@
-Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi sebelum proses implementasi dilakukan. Perancangan ini menunjukkan hubungan antar kelas, serta atribut, dan metode yang dimiliki oleh setiap kelas. Hasil pada perancangan ini ditunjukan melalui diagram kelas pada Gambar~\ref{fig:class-diagram}, berikut adalah penjelasan dari diagram kelas tersebut:
+Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi sebelum proses implementasi dilakukan. Perancangan ini menunjukkan hubungan antar kelas, atribut  serta metode yang dimiliki oleh setiap kelas. Hasil pada perancangan ini ditunjukkan melalui diagram kelas pada Gambar~\ref{fig:class-diagram}. Berikut adalah penjelasan dari diagram kelas tersebut:
 
+\vspace{5mm}
 \begin{enumerate}
 
     % ######################################################################
-    % DONE!!!
     \item \textbf{Kelas Application}\\
     Kelas \texttt{Application} merupakan titik awal aplikasi JavaFX dan bertugas untuk membuka jendela aplikasi. Kelas ini memiliki atribut \texttt{mainStage} yang menyimpan referensi ke jendela utama dan digunakan untuk menjadikan jendela lain sebagai turunan dari jendela utama. Berikut adalah penjelasan lebih rinci untuk metode dan relasi pada kelas ini:
 
+    \vspace{2mm}
     \textbf{Metode:}
     \begin{itemize}
 
@@ -16,25 +17,28 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
         \item \texttt{openLinkWindow}: Metode ini digunakan untuk membuka jendela detail tautan. Masukan metode ini adalah sebuah objek \texttt{Link} yang ingin ditampilkan ke jendela detail tautan.
         
-        \item \texttt{openNotificationWindow}: Metode ini digunakan untuk membuka jendela notifikasi. Masukan metode ini adalah sebuah jenis pesan dan teks pesan yang ingin ditampilkan ke jendela notifikasi.
+        \item \texttt{openNotificationWindow}: Metode ini digunakan untuk membuka jendela notifikasi. Masukan metode ini adalah jenis pesan dan teks pesan yang ingin ditampilkan ke jendela notifikasi.
         
     \end{itemize}
 
+    \vspace{2mm}
     \textbf{Relasi:}
     \begin{itemize}
         \item Relasi \textit{dependency} dengan kelas \texttt{LinkController}.
         \item Relasi \textit{dependency} dengan kelas \texttt{NotificationController}.
     \end{itemize}
 
+    \vspace{15mm}
 
     % ######################################################################
     \item \textbf{Kelas MainController}\\
-    Kelas \texttt{MainController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela utama. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
+    Kelas \texttt{MainController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna serta mengelola data yang ditampilkan pada jendela utama. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
 
+    \vspace{2mm}
     \textbf{Atribut:}
     \begin{itemize}
 
-        \item \texttt{crawler}: Atribut ini menyimpan objek dari kelas \texttt{Crawler} yang digunakan untuk menjalakan proses pemeriksaan.
+        \item \texttt{crawler}: Atribut ini menyimpan objek dari kelas \texttt{Crawler} yang digunakan untuk menjalankan proses pemeriksaan.
         
         \item \texttt{summary}: Atribut ini menyimpan objek dari kelas \texttt{Summary} yang digunakan untuk mencatat ringkasan proses pemeriksaan.
         
@@ -46,10 +50,11 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
     \end{itemize}
 
+    \vspace{2mm}
     \textbf{Metode:}
     \begin{itemize}
 
-        \item \texttt{initialize}: Metode ini digunakan untuk menyiapkan komponen atarmuka pada jendela utama.
+        \item \texttt{initialize}: Metode ini digunakan untuk menyiapkan komponen antarmuka.
         
         \item \texttt{onStartClick}: Metode ini digunakan untuk menangani aksi pengguna ketika tombol \texttt{Start} ditekan dan akan memulai proses pemeriksaan.
         
@@ -59,6 +64,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
     \end{itemize}
 
+    \vspace{2mm}
     \textbf{Relasi:}
     \begin{itemize}
         \item Relasi \textit{dependency} dengan kelas \texttt{Application}.
@@ -70,50 +76,97 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         \item Relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Summary}.
     \end{itemize}
 
+    \vspace{4mm}
 
     % ######################################################################
     \item \textbf{Kelas LinkController}\\ 
-    Kelas \texttt{LinkController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela detail tautan. Kelas ini memiliki sebuah atribut \texttt{link} yang digunakan untuk menyimpan objek dari kelas \texttt{Link} yang ingin ditampilkan ke jendela detail tautan. Dengan adanya atribut ini maka kelas \texttt{LinkController} memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Link}. Berikut adalah penjelasan lebih rinci untuk metode pada kelas ini:
-    \textbf{Metode:}
-    \begin{itemize}
+    Kelas \texttt{LinkController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna serta mengelola data yang ditampilkan pada jendela detail tautan. Kelas ini memiliki satu atribut, yaitu \texttt{link}, yang digunakan untuk menyimpan objek dari kelas \texttt{Link} yang akan ditampilkan pada jendela detail tautan. Selain itu, kelas ini memiliki satu metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka. Dengan adanya atribut \texttt{link}, maka kelas \texttt{LinkController} memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Link}.
 
-        \item \texttt{initialize}: Metode ini digunakan untuk menyiapkan komponen atarmuka pada jendela detail tautan.
-        
-        \item \texttt{setLink}: Metode ini digunakan untuk memasukkan nilai dari atribut pada kelas \texttt{Link} ke komponen antarmuka. Masukan dari metode ini adalah sebuah objek dari kelas \texttt{Link} yang ingin ditampilkan pada jendela detail tautan.
-        
-    \end{itemize}
 
+    \vspace{8mm}
 
     % ######################################################################
     \item \textbf{Kelas NotificationController}\\
-    Kelas \texttt{NotificationController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela notifikasi. Berikut adalah penjelasan lebih rinci untuk metode pada kelas ini:
+    Kelas \texttt{NotificationController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna serta mengelola data yang ditampilkan pada jendela notifikasi. Kelas ini memiliki atribut \texttt{type} dan \texttt{message}, yang masing-masing merupakan nilai \texttt{String} dan digunakan untuk menyimpan jenis pesan serta isi pesan yang akan ditampilkan. Kelas ini juga memiliki metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka.
+
+    \vspace{1mm}
+    % ######################################################################
+    \item \textbf{Kelas Exporter}\\
+    Kelas \texttt{Exporter} bertugas untuk melakukan ekspor hasil pemeriksaan ke berkas Excel (\texttt{.xlsx}). Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
+
+    \textbf{Atribut:}
+    \begin{itemize}
+        
+        \item \texttt{summary}: Atribut ini menyimpan ringkasan proses pemeriksaan yang akan diekspor.
+        
+        \item \texttt{brokenLinks}: Atribut ini menyimpan daftar tautan rusak yang akan diekspor.
+        
+    \end{itemize}
 
     \textbf{Metode:}
     \begin{itemize}
-        \item \texttt{initialize}: Metode ini digunakan untuk menyiapkan komponen atarmuka pada jendela notifikasi.
         
-        \item \texttt{setNotification}: Metode ini digunakan untuk memasukkan pesan yang ingin ditampilkan ke komponen antarmuka. Masukan dari metode ini adalah jenis pesan dan teks pesan yang ingin ditampilkan pada jendela notifikasi.
+        \item \texttt{save}: Metode ini digunakan untuk membuat dan menyimpan berkas Excel ke dalam penyimpanan lokal komputer. Masukan metode ini adalah objek \texttt{File} yang menunjukkan lokasi berkas hasil ekspor.
+        
+        \item \texttt{writeSummaryTable}: Metode ini digunakan untuk menulis tabel ringkasan proses pemeriksaan pada berkas Excel yang akan diekspor. Masukan dari metode ini adalah objek \texttt{Sheet} tempat tabel ditulis. 
+        
+        \item \texttt{writeBrokenLinkTable}: Metode ini digunakan untuk menulis tabel tautan rusak pada berkas Excel yang akan diekspor. Masukan dari metode ini adalah objek \texttt{Sheet} tempat tabel ditulis. 
+        
+    \end{itemize}
+
+    \textbf{Relasi:}
+    \begin{itemize}
+        \item Relasi \textit{association} berkardinalitas \textit{one-to-many} dengan kelas \texttt{Link}.
+        \item Relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Summary}.
+        \item Relasi \textit{dependency} dengan kelas \texttt{HttpHandler}.
+    \end{itemize}
+
+
+    \vspace{1mm}
+    % ######################################################################
+    \item \textbf{Kelas RateLimiter}\\
+    Kelas \texttt{RateLimiter} bertugas untuk membatasi frekuensi permintaan HTTP agar pemeriksaan tidak dilakukan terlalu cepat yang dapat membebani \textit{server} situs web tujuan. Kelas ini memiliki metode \texttt{delay} yang digunakan untuk mengatur jarak waktu antar permintaan HTTP. Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
+
+    \begin{itemize}
+
+        \item \texttt{INTERVAL}: Atribut ini menyimpan rentang waktu untuk melakukan permintaan HTTP.
+        
+        \item \texttt{lastRequestTime}: Atribut ini menyimpan waktu terakhir permintaan HTTP dilakukan.
         
     \end{itemize}
 
 
+    \vspace{1mm}
+    % ######################################################################
+    \item \textbf{Kelas UrlHandler}\\
+    Kelas \texttt{UrlHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait URL. Berikut adalah penjelasan lebih rinci untuk metode pada kelas ini:
+    \begin{itemize}
+        
+        \item \texttt{normalizeUrl}: Metode ini digunakan untuk melakukan normalisasi sebuah URL dengan menetapkan aturan-aturan tertentu. Masukan dari metode ini adalah sebuah URL, sedangkan keluarannya adalah URL yang sudah dinormalisasi.
+
+        \item \texttt{getHost}: Metode ini digunakan untuk mendapatkan \textit{host} dari sebuah URL. Masukan dari metode ini adalah sebuah URL, sedangkan keluarannya adalah \textit{host} dari URL tersebut.
+        
+    \end{itemize}
+    
+    
     % ######################################################################
     \item \textbf{Kelas Crawler}\\
-    Kelas \texttt{Crawler} bertugas untuk menjalankan proses \textit{web crawling} dan melalukan pemeriksaan pada setiap tautan yang ditemukan. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
-
+    Kelas \texttt{Crawler} bertugas untuk menjalankan proses \textit{web crawling} dan melakukan pemeriksaan pada setiap tautan yang ditemukan dalam proses tersebut. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
 
     \textbf{Atribut:}
     \begin{itemize}
 
-        \item \texttt{MAX\_LINKS}: Atribut ini menyimpan batas jumlah tautan yang akan diperiksa dan digunakan untuk mencegah proses pemeriksaan terlalu lama pada situs web yang memiliki tautan yang banyak.
+        \item \texttt{MAX\_LINKS}: Atribut ini menyimpan batas maksimum jumlah tautan yang diperiksa untuk mencegah proses pemeriksaan berlangsung terlalu lama.
+
+        \item \texttt{rootHost}: Atribut ini menyimpan \textit{host} dari URL awal dan digunakan untuk menentukan apakah sebuah tautan adalah tautan halaman situs web atau bukan.
         
-        \item \texttt{rootHost}: Atribut ini menyimpan \textit{host} dari URL awal dan digunakan untuk menentukan apakah sebuah tautan adalah tautan halaman situ web atau bukan.
+        \item \texttt{linkSender}: Atribut ini menyimpan sebuah fungsi \textit{callback} bertipe \texttt{Consumer} yang digunakan untuk mengirimkan objek \texttt{Link} kembali ke kelas \texttt{MainController} setiap kali sebuah tautan selesai diperiksa.
         
-        \item \texttt{frontier}: Atribut ini digunakan untuk menyimpan antrean halaman situs web yang akan diperiksa. Struktur data yang digunakan adalah \texttt{Queue<Link>} agar halaman situs web diproses menggunakan urutan \textit{First-In-First-Out} (FIFO), sesuai dengan kebutuhan algoritma BFS.
+        \item \texttt{frontier}: Atribut ini digunakan untuk menyimpan antrean halaman situs web yang akan diperiksa. Struktur data yang digunakan adalah \texttt{Queue} agar halaman situs web diproses menggunakan urutan \textit{First-In-First-Out} (FIFO).
         
-        \item \texttt{repositories}: Atribut ini menyimpan daftar URL unik yang ditemukan selama proses pemeriksaan dan digunakan untuk memastikan tidak ada duplikasi dalam pemeriksaan. Struktur data yang digunakan adalah \texttt{Map<String, Link>}, dengan \textit{key} berupa URL dan \textit{value} berupa objek \texttt{Link} yang mewakili URL tersebut.
+        \item \texttt{repositories}: Atribut ini menyimpan daftar URL unik yang ditemukan selama proses pemeriksaan dan digunakan untuk memastikan tidak ada duplikasi dalam pemeriksaan. Struktur data yang digunakan adalah \texttt{Map}, dengan \textit{key} berupa URL dan \textit{value} berupa objek \texttt{Link} yang mewakili URL tersebut.
         
-        \item \texttt{rateLimiters}: Atribut ini menyimpan daftar objek \texttt{RateLimiter} yang digunakan untuk membatasi frekuensi permintaan HTTP ke setiap \textit{host} URL. Struktur data yang digunakan adalah \texttt{Map<String, RateLimiter>}, dengan \textit{key} berupa \textit{host} URL dan \textit{value} berupa objek \texttt{RateLimiter} yang terkait dengan \textit{host} tersebut.
+        \item \texttt{rateLimiters}: Atribut ini menyimpan daftar objek \texttt{RateLimiter} yang digunakan untuk membatasi frekuensi permintaan HTTP ke setiap \textit{host} URL. Struktur data yang digunakan adalah \texttt{Map}, dengan \textit{key} berupa \textit{host} URL dan \textit{value} berupa objek \texttt{RateLimiter} yang terkait dengan \textit{host} tersebut.
         
     \end{itemize}
 
@@ -124,7 +177,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
         \item \texttt{stop}: Metode ini digunakan untuk menghentikan proses \textit{web crawling}.
         
-        \item \texttt{checkLink}: Metode ini digunakan untuk melakukan pemeriksaan pada tautan dengan melakukan permintaan HTTP dan melakukan \textit{parsing} pada \textit{response body} ke dokumen HTML. Masukan dari metode ini adalah tautan target pemeriksaan dan sebuah penanda apakah \textit{response body} akan di-\textit{parse} ke HTML atau tidak. Keluaran dari metode ini adalah sebuah dokumen HTML jika \textit{parsing} dilakukan.
+        \item \texttt{checkLink}: Metode ini digunakan untuk melakukan pemeriksaan pada tautan dengan melakukan permintaan HTTP dan melakukan \textit{parsing} pada \textit{response body} ke dokumen HTML. Masukan dari metode ini adalah tautan target pemeriksaan dan sebuah penanda untuk melakukan \textit{parsing}. Keluaran dari metode ini adalah sebuah dokumen HTML jika \textit{parsing} dilakukan.
         
         \item \texttt{extractLink}: Metode ini digunakan untuk melakukan ekstraksi tautan dari sebuah dokumen HTML. Masukan dari metode ini adalah sebuah dokumen HTML, sedangkan keluarannya adalah daftar tautan pada HTML tersebut beserta dengan teks pada tautan tersebut (\textit{anchor text}).
         
@@ -139,93 +192,42 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \end{itemize}
 
 
-    % ######################################################################
-    \item \textbf{Kelas Exporter}\\
-    Kelas \texttt{Exporter} bertugas untuk melakukan ekspor hasil pemeriksaan ke berkas Excel (\texttt{.xlsx}). Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
 
-    \textbf{Atribut:}
-    \begin{itemize}
-        
-        \item \texttt{summary}: Atribut ini menyimpan objek dari kelas \texttt{Summary} yang akan diekspor.
-        
-        \item \texttt{brokenLinks}: Atribut ini menyimpan daftar tautan rusak yang akan diekspor.
-        
-    \end{itemize}
-
-    \textbf{Metode:}
-    \begin{itemize}
-        
-        \item \texttt{save}: Metode ini digunakan untuk membuat dan menyimpan berkas Excel ke dalam penyimpanan lokal komputer. Masukan metode ini adalah objek \texttt{File} yang menunjukkan lokasi berkas hasil ekspor.
-        
-        \item \texttt{writeSummaryTable}: Metode ini digunakan untuk menulis tabel ringkasan proses pemeriksaan pada bekal Excel yang akan di ekspor. Masukan dari metode ini adalah objek \texttt{Sheet} tempat tabel ditulis. 
-        
-        \item \texttt{writeBrokenLinkTable}: Metode ini digunakan untuk menulis tabel tautan rusak pada berkas Excel yang akan diekspor. Masukan dari metode ini adalah objek \texttt{Sheet} tempat tabel ditulis. 
-        
-    \end{itemize}
-
-    \textbf{Relasi:}
-    \begin{itemize}
-        \item Relasi \textit{association} berkardinalitas \textit{one-to-many} dengan kelas \texttt{Link}.
-        \item Relasi \textit{association} berkardinalitas \textit{one-to-many} dengan kelas \texttt{Summary}.
-        \item Relasi \textit{dependency} dengan kelas \texttt{HttpHandler}.
-    \end{itemize}
-
-
-    % ######################################################################
-    \item \textbf{Kelas RateLimiter}\\
-    Kelas \texttt{RateLimiter} bertugas untuk membatasi frekuensi permintaan HTTP agar pemeriksaan tidak dilakukan terlalu cepat yang dapat membebani \textit{server} situs web tujuan. Kelas ini memiliki metode \texttt{delay} yang digunakan untuk mengatur jarak waktu antar permintaan HTTP. Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
-    \textbf{Atribut:}
-    \begin{itemize}
-
-        \item \texttt{INTERVAL}: Atribut ini menyimpan rentang waktu untuk melakukan permintaan HTTP.
-        
-        \item \texttt{lastRequestTime}: Atribut ini menyimpan waktu terakhir permintaan HTTP dilakukan.
-        
-    \end{itemize}
-
-
-    % ######################################################################
-    \item \textbf{Kelas UrlHandler}\\
-    Kelas \texttt{UrlHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait URL. Berikut adalah penjelasan lebih rinci untuk metode pada kelas ini:
-    \textbf{Metode:}
-    \begin{itemize}
-        
-        \item \texttt{normalizeUrl}: Metode ini digunakan untuk melakukan normalisasi sebuah URL dengan menetapkan aturan-aturan tertentu. Masukan dari metode ini adalah sebuah URL, sedangkan keluarannya adalah URL yang sudah dinormalisasi.
-
-        \item \texttt{getHost}: Metode ini digunakan untuk mendapatkan \textit{host} dari sebuah URL. Masukan dari metode ini adalah sebuah URL, sedangkan keluarannya adalah \textit{host} dari URL tersebut.
-        
-    \end{itemize}
-
+    \vspace{10mm}
 
     % ######################################################################
     \item \textbf{Kelas HttpHandler}\\
     Kelas \texttt{HttpHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait HTTP. Berikut adalah penjelasan lebih rinci untuk atribut dan metode pada kelas ini:
 
+    \vspace{1mm}
     \textbf{Atribut:}
     \begin{itemize}
 
         \item \texttt{HTTP\_CLIENT}: Atribut ini menyimpan objek \texttt{HttpClient} dan digunakan untuk melakukan permintaan HTTP.
         
-        \item \texttt{STATUS\_MAP}: Atribut ini menyimpan daftar pesan kesalahan berdasarkan kode status HTTP. Struktur data yang digunakan adalah \texttt{Map<Integer, String>}, dengan \textit{key} berupa kode status HTTP dan \textit{value} berupa pesan kesalahan untuk kode status HTTP tersebut.
+        \item \texttt{STATUS\_MAP}: Atribut ini menyimpan daftar pesan kesalahan berdasarkan kode status HTTP. Struktur data yang digunakan adalah \texttt{Map}, dengan \textit{key} berupa kode status HTTP dan \textit{value} berupa pesan kesalahan yang sesuai dengan kode status tersebut.
         
     \end{itemize}
 
+    \vspace{1mm}
     \textbf{Metode:}
     \begin{itemize}
 
-        \item \texttt{fetch}: Metode ini digunakan untuk melakukan permintaan HTTP. Masukan dari metode ini adalah URL target dan sebuah penanda apakah \textit{response body} diperlukan atau tidak. Keluaran dari metode ini adalah objek \texttt{HttpResponse} yang berisi informasi, seperti kode status HTTP, URL akhir setelah \textit{redirect}, tipe konten pada \textit{response body}, serta \textit{response body} itu sendiri.
+        \item \texttt{fetch}: Metode ini digunakan untuk melakukan permintaan HTTP. Masukan dari metode ini adalah URL target dan sebuah penanda apakah \textit{response body} diperlukan atau tidak. Keluaran dari metode ini adalah objek \texttt{HttpResponse} yang berisi informasi, seperti kode status HTTP, URL akhir setelah \textit{redirect}, tipe konten pada \textit{response body} serta \textit{response body} itu sendiri.
         
-        \item \texttt{getStatusError}: Metode ini digunakan untuk mendapatkan pesan kesalahan dari atribut \texttt{STATUS\_MAP}. Masukan dari metode ini adalah sebuah kode status HTTP, sedangkan keluarannya adalah pesan kesalahan untuk kode status HTTP tersebut.
+        \item \texttt{getStatusError}: Metode ini digunakan untuk mendapatkan pesan kesalahan dari atribut \texttt{STATUS\_MAP}. Masukan dari metode ini adalah sebuah kode status HTTP, sedangkan keluarannya adalah pesan kesalahan yang sesuai dengan kode status tersebut.
         
         \item \texttt{isStandardError}: Metode ini digunakan untuk menentukan apakah sebuah kode status HTTP merupakan kode status yang standar atau tidak.
         
     \end{itemize}
 
+    \vspace{3mm}
 
     % ######################################################################
     \item \textbf{Kelas Link}\\
-    Kelas \texttt{Link} merupakan model yang digunakan untuk merepresentasikan tautan yang ditemukan selama proses pemeriksaan. Kelas ini memiliki metode \texttt{addConnection} yang digunakan untuk menambahkan relasi pada pada tautan saat ini. Masukan dari metode ini adalah tautan lain yang ingin ditambahkan sebagai relasi dan teks pada tautan (\textit{anchor text}). Berikut adalah penjelasan lebih rinci untuk atribut dan relasi pada kelas ini:
+    Kelas \texttt{Link} merupakan model yang digunakan untuk merepresentasikan tautan yang ditemukan selama proses pemeriksaan. Kelas ini memiliki metode \texttt{addRelation} yang digunakan untuk menambahkan relasi pada tautan saat ini. Masukan dari metode ini adalah tautan lain yang ingin ditambahkan sebagai relasi dan teks pada tautan (\textit{anchor text}). Berikut adalah penjelasan lebih rinci untuk atribut dan relasi pada kelas ini:
 
+    \vspace{1mm}
     \textbf{Atribut:}
     \begin{itemize}
 
@@ -237,15 +239,15 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
         \item \texttt{contentType}: Atribut ini menyimpan tipe konten dari \textit{response body} HTTP.
         
-        \item \texttt{error}: Atribut ini menyimpan pesan kesalahan tautan gagal diperiksa.
+        \item \texttt{error}: Atribut ini menyimpan pesan kesalahan tautan yang gagal diperiksa.
         
         \item \texttt{isWebpage}: Atribut ini digunakan untuk menandai apakah tautan saat ini merupakan tautan halaman atau bukan.
         
-        \item \texttt{connections}: Atribut ini menyimpan daftar relasi tautan saat ini dengan tautan lain. Struktur data yang digunakan adalah \texttt{Map<Link, String>}, dengan \textit{key} berupa tautan lain dan \textit{value} berupa teks pada tautan (\textit{anchor text}).
+        \item \texttt{relations}: Atribut ini menyimpan daftar relasi tautan saat ini dengan tautan lain. Struktur data yang digunakan adalah \texttt{Map}, dengan \textit{key} berupa objek tautan lain dan \textit{value} berupa teks pada tautan (\textit{anchor text}).
         
     \end{itemize}
 
-
+    \vspace{1mm}
     \textbf{Relasi:}
     \begin{itemize}
         
@@ -255,19 +257,21 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
     \end{itemize}
 
+    \vspace{10mm}
 
     % ######################################################################
     \item \textbf{Kelas Summary}\\
     Kelas \texttt{Summary} merupakan model yang digunakan untuk merepresentasikan data ringkasan dari proses pemeriksaan. Kelas ini memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan enum \texttt{Status}. Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
+
     \begin{itemize}
 
-        \item \texttt{status}: Atribut ini menyimpan status terakhir dari proses pemeriksaan.
+        \item \texttt{status}: Atribut ini menyimpan enum \texttt{Status} yang menunjukan status terakhir dari proses pemeriksaan.
         
-        \item \texttt{allLinksCount}: Atribut ini menyimpan jumlah total tautan yang ditemukan dalam proses pemeriksaan.
+        \item \texttt{allLinksCount}: Atribut ini menyimpan jumlah total tautan.
         
-        \item \texttt{webpageLinksCount}: Atribut ini menyimpan jumlah tautan halaman yang ditemukan dalam proses pemeriksaan.
+        \item \texttt{webpageLinksCount}: Atribut ini menyimpan jumlah tautan halaman.
         
-        \item \texttt{brokenLinksCount}: Atribut ini menyimpan jumlah tautan rusak yang ditemukan dalam proses pemeriksaan.
+        \item \texttt{brokenLinksCount}: Atribut ini menyimpan jumlah tautan rusak.
         
         \item \texttt{startTime}: Atribut ini menyimpan waktu mulai proses pemeriksaan.
         
@@ -277,26 +281,15 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     % ######################################################################
     \item \textbf{Enum Status}\\
-    Enum \texttt{Status} merupakan model yang digunakan untuk mendefinisikan status dari proses pemeriksaan. Berikut adalah penjelasan lebih rinci untuk konstanta pada enum ini:
-    \begin{itemize}
-
-        \item \texttt{IDLE}: Konstanta ini digunakan untuk menandakan bahwa belum ada aktifitas apapun pada sistem.
-        
-        \item \texttt{CHECKING}: Konstanta ini digunakan untuk menandakan bahwa proses pemeriksaan sedang berlangsung.
-        
-        \item \texttt{STOPPED}: Konstanta ini digunakan untuk menandakan bahwa proses pemeriksaan dihentikan oleh pengguna.
-        
-        \item \texttt{COMPLETED}: Konstanta ini digunakan untuk menandakan bahwa proses pemeriksaan telah selesai.
-        
-    \end{itemize}
+    Enum \texttt{Status} merupakan model yang digunakan untuk mendefinisikan status dari proses pemeriksaan. Enum ini memiliki empat konstanta, yaitu \texttt{IDLE} yang menandakan bahwa belum ada aktivitas pada sistem, \texttt{CHECKING} yang menunjukkan bahwa proses pemeriksaan sedang berlangsung, \texttt{STOPPED} yang menandakan bahwa proses pemeriksaan dihentikan oleh pengguna, serta \texttt{COMPLETED} yang menunjukkan bahwa proses pemeriksaan telah selesai.
 
 \end{enumerate}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{Gambar/040100-class-diagram.png}
-%     \caption{Diagram kelas aplikasi}
-%     \label{fig:class-diagram}
-% \end{figure}
+\vspace{10mm}
 
-% Kelas ini memiliki relasi \textit{association} dengan kardinalitas \textit{one-to-one} terhadap enum \texttt{Status}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Gambar/040100-class-diagram.png}
+    \caption{Diagram kelas aplikasi}
+    \label{fig:class-diagram}
+\end{figure}

@@ -1,15 +1,6 @@
 
 Perancangan alur menggambarkan interaksi antarobjek pada sistem \textit{Broken Link Checker} selama proses pemeriksaan tautan berlangsung. Interaksi ini divisualisasikan dalam bentuk \textit{sequence diagram} yang menunjukkan urutan pesan antarobjek sejak pengguna memulai pemeriksaan hingga proses selesai tanpa interupsi. Diagram lengkap ditunjukkan pada Gambar~\ref{fig:sequence-diagram}.
 
-\vspace{16mm}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{Gambar/040200-sequence-diagram.png}
-    \caption{Sequence diagram proses pemeriksaan tautan}
-    \label{fig:sequence-diagram}
-\end{figure}
-
 Berikut adalah penjelasan dari diagram pada Gambar~\ref{fig:sequence-diagram}:
 
 \begin{enumerate}
@@ -37,4 +28,14 @@ Berikut adalah penjelasan dari diagram pada Gambar~\ref{fig:sequence-diagram}:
     \end{enumerate}
     \item (27–29) Proses berulang sampai \texttt{Frontier} kosong. Pada akhir siklus, \texttt{Crawler} menghentikan proses, \texttt{Controller} menandai proses selesai, dan GUI menampilkan status akhir serta ringkasan hasil.  
 \end{enumerate}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Gambar/040200-sequence-diagram.png}
+    \caption{\textit{Sequence Diagram} Proses Pemeriksaan Tautan}
+    \label{fig:sequence-diagram}
+\end{figure}
+
+
 
