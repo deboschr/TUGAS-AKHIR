@@ -1,4 +1,4 @@
-\renewcommand{\arraystretch}{1.4}
+\renewcommand{\arraystretch}{1.8}
 \begin{table}[H]
 \centering
 \caption{Parameter Pengujian Eksperimantal}
@@ -6,26 +6,32 @@
 \label{tab:parameter-pengujian-eksperimantal}
 
 \begin{tabular}{|
-    >{\raggedright\arraybackslash}p{6cm}|
-    >{\raggedright\arraybackslash}p{6cm}|
-    >{\raggedright\arraybackslash}p{3cm}|}
+    >{\raggedright\arraybackslash}m{3.5cm}|
+    >{\raggedright\arraybackslash}m{4.5cm}|
+    >{\centering\arraybackslash}m{3.3cm}|
+    >{\centering\arraybackslash}m{3.3cm}|}
 \hline
 
 \multicolumn{1}{|c|}{\textbf{Parameter}} &
 \multicolumn{1}{c|}{\textbf{Deskripsi}} &
-\multicolumn{1}{c|}{\textbf{Rentang Nilai}} \\ \hline
+\multicolumn{1}{c|}{\textbf{Rentang Nilai}} &
+\multicolumn{1}{c|}{\textbf{Interval Percobaan}} \\ \hline
 
 Interval pada \texttt{RateLimiter} & 
-Jarak antar permintaan HTTP per \textit{host} & 
-0--1000~ms \\ \hline
+Jarak antar permintaan HTTP per \textit{host} URL & 
+0--2000~milidetik &
+100~milidetik \\ \hline
 
 \textit{Connection Timeout} pada \texttt{HttpClient} & 
 Batas waktu pembentukan koneksi dalam permintaan HTTP & 
-1--15 detik \\ \hline
+0--20~detik &
+1~detik \\ \hline
 
 \textit{Request Timeout} pada \texttt{HttpRequest} & 
 Batas waktu menunggu respons \textit{server} dalam permintaan HTTP & 
-2--30~\textit{detik} \\ \hline
+0--30~detik &
+1~detik \\ \hline
+
 
 \end{tabular}
 \end{table}

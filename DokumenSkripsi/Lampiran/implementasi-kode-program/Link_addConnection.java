@@ -1,6 +1,9 @@
 public void addConnection(Link other, String anchorText) {
    if (other == null || other == this) return;
 
-   this.connections.putIfAbsent(other, anchorText != null ? anchorText : "");
-   other.connections.putIfAbsent(this, anchorText != null ? anchorText : "");
+   String text = anchorText != null ? anchorText : "";
+
+   this.connections.putIfAbsent(other, text);
+   
+   other.connections.putIfAbsent(this, text);
 }

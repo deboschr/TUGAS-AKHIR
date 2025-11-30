@@ -1,5 +1,7 @@
 public static String normalizeUrl(String rawUrl, boolean isStrict) {
-   if (rawUrl == null || rawUrl.trim().isEmpty()) return null
+   if (rawUrl == null || rawUrl.trim().isEmpty()) {
+      return null
+   }
 
    try {
       URI uri = new URI(rawUrl.trim());
@@ -15,9 +17,13 @@ public static String normalizeUrl(String rawUrl, boolean isStrict) {
          if (host == null || host.isEmpty()) return null;
       }
 
-      if (!scheme.equalsIgnoreCase("http") && !scheme.equalsIgnoreCase("https")) return null
+      if (!scheme.equalsIgnoreCase("http") && !scheme.equalsIgnoreCase("https")) {
+         return null
+      }
 
-      if ((scheme.equalsIgnoreCase("http") && port == 80) || (scheme.equalsIgnoreCase("https") && port == 443)) port = -1
+      if ((scheme.equalsIgnoreCase("http") && port == 80) || (scheme.equalsIgnoreCase("https") && port == 443)) {
+         port = -1
+      }
 
       path = normalizePath(path);
 

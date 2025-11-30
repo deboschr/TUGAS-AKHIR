@@ -1,7 +1,5 @@
 HTTPHandler_fetchpResponse<?> fetch(String url, boolean needResponseBody) throws Exception {
-
    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().header("User-Agent", USER_AGENT).timeout(Duration.ofSeconds(30)).build();
-
    HttpResponse<?> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.discarding());
 
    int statusCode = response.statusCode();

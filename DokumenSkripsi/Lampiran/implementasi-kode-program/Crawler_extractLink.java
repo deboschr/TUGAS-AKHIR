@@ -1,7 +1,7 @@
-private Map<Link, String> extractLink(Document doc) {
+private Map<Link, String> extractLink(Document html) {
    Map<Link, String> result = new HashMap<>();
 
-   for (Element a : doc.select("a[href]")) {
+   for (Element a : html.select("a[href]")) {
       String absoluteUrl = a.absUrl("href");
 
       String normalizedUrl = UrlHandler.normalizeUrl(absoluteUrl);
