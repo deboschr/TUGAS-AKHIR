@@ -17,7 +17,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
         \item \texttt{openLinkWindow}: Metode ini digunakan untuk membuka jendela detail tautan. Masukan dari metode ini adalah sebuah objek \texttt{Link} yang ingin ditampilkan pada jendela detail tautan.
         
-        \item \texttt{openNotificationWindow}: Metode ini digunakan untuk membuka jendela notifikasi. Masukan dari metode ini adalah jenis pesan dan teks pesan yang ingin ditampilkan pada jendela notifikasi.
+        \item \texttt{openNotifWindow}: Metode ini digunakan untuk membuka jendela notifikasi. Masukan dari metode ini adalah jenis pesan dan teks pesan yang ingin ditampilkan pada jendela notifikasi.
         
     \end{itemize}
 
@@ -25,7 +25,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \textbf{Relasi:}
     \begin{itemize}
         \item Relasi \textit{dependency} dengan kelas \texttt{LinkController}.
-        \item Relasi \textit{dependency} dengan kelas \texttt{NotificationController}.
+        \item Relasi \textit{dependency} dengan kelas \texttt{NotifController}.
     \end{itemize}
 
     \vspace{15mm}
@@ -39,7 +39,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
         \item \texttt{crawler}: Atribut ini menyimpan objek dari kelas \texttt{Crawler} yang digunakan untuk menjalankan proses pemeriksaan.
         
-        \item \texttt{summary}: Atribut ini menyimpan objek dari kelas \texttt{Summary} yang digunakan untuk mencatat ringkasan proses pemeriksaan.
+        \item \texttt{summary}: Atribut ini menyimpan objek dari kelas \texttt{Summary} yang digunakan untuk mencatat ringkasan hasil pemeriksaan.
         
         \item \texttt{allLinks}: Atribut ini menyimpan daftar seluruh tautan yang ditemukan dalam proses pemeriksaan.
         
@@ -83,18 +83,18 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     \vspace{8mm}
     % ######################################################################
-    \item \textbf{Kelas \texttt{NotificationController}}\\
-    Kelas \texttt{NotificationController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela notifikasi. Kelas ini memiliki atribut \texttt{type} dan \texttt{message}, yang masing-masing merupakan nilai \texttt{String} dan digunakan untuk menyimpan jenis pesan serta isi pesan yang akan ditampilkan. Kelas ini juga memiliki metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka.
+    \item \textbf{Kelas \texttt{NotifController}}\\
+    Kelas \texttt{NotifController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela notifikasi. Kelas ini memiliki atribut \texttt{type} dan \texttt{message}, yang masing-masing merupakan nilai \texttt{String} dan digunakan untuk menyimpan jenis pesan serta isi pesan yang akan ditampilkan. Kelas ini juga memiliki metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka.
 
     \vspace{1mm}
     % ######################################################################
     \item \textbf{Kelas \texttt{Exporter}}\\
-    Kelas \texttt{Exporter} bertugas untuk melakukan ekspor hasil pemeriksaan ke berkas Excel (\texttt{.xlsx}). Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
+    Kelas \texttt{Exporter} bertugas untuk melakukan ekspor hasil pemeriksaan ke berkas Excel (\texttt{xlsx}). Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
 
     \textbf{Atribut:}
     \begin{itemize}
         
-        \item \texttt{summary}: Atribut ini menyimpan ringkasan proses pemeriksaan yang akan diekspor.
+        \item \texttt{summary}: Atribut ini menyimpan ringkasan hasil pemeriksaan yang akan diekspor.
         
         \item \texttt{brokenLinks}: Atribut ini menyimpan daftar tautan rusak yang akan diekspor.
         
@@ -105,7 +105,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
         \item \texttt{save}: Metode ini digunakan untuk membuat dan menyimpan berkas Excel ke dalam penyimpanan lokal komputer. Masukan dari metode ini adalah objek \texttt{File} yang menunjukkan lokasi berkas hasil ekspor.
         
-        \item \texttt{writeSummaryTable}: Metode ini digunakan untuk menulis tabel ringkasan proses pemeriksaan pada berkas Excel yang akan diekspor. Masukan dari metode ini adalah objek \texttt{Sheet} tempat tabel ditulis. 
+        \item \texttt{writeSummaryTable}: Metode ini digunakan untuk menulis tabel ringkasan hasil pemeriksaan pada berkas Excel yang akan diekspor. Masukan dari metode ini adalah objek \texttt{Sheet} tempat tabel ditulis. 
         
         \item \texttt{writeBrokenLinkTable}: Metode ini digunakan untuk menulis tabel tautan rusak pada berkas Excel yang akan diekspor. Masukan dari metode ini adalah objek \texttt{Sheet} tempat tabel ditulis. 
         

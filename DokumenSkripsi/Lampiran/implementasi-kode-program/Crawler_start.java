@@ -5,6 +5,7 @@ public void start(String seedUrl) {
    frontier.clear();
    rootHost = URLHandler.getHost(seedUrl);
    frontier.offer(new Link(seedUrl));
+
    while (!isStopped && !frontier.isEmpty() && repositories.size() < MAX_LINKS) {
       Link currLink = frontier.poll();
       if (currLink == null) continue;
@@ -13,7 +14,7 @@ public void start(String seedUrl) {
       if (existing != null) continue;
 
       Document doc = fetchLink(currLink, true);
-      send(currLink);
+
       if (!currLink.isWebpage()) continue;
 
       Map<Link, String> linksOnWebpage = extractLink(doc);
@@ -38,7 +39,6 @@ public void start(String seedUrl) {
                repositories.putIfAbsent(link.getUrl(), link);
                executor.submit(() -> {
                   fetchLink(link, false);
-                  send(link);
                });
             }
          }

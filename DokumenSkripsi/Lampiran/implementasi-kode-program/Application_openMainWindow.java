@@ -1,7 +1,7 @@
 public static void openMainWindow() {
    try {
-      FXMLLoader loader = new FXMLLoader(MAIN_FXML);
-
+      URL fxml = Application.class.getResource("/com/unpar/brokenlinkscanner/scenes/main-scene.fxml");
+      FXMLLoader loader = new FXMLLoader(fxml);
       Scene scene = new Scene(loader.load());
 
       MAIN_STAGE.setScene(scene);

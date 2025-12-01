@@ -1,4 +1,4 @@
-Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi desktop pemeriksa tautan rusak berjalan sesuai dengan kebutuhan yang telah ditetapkan (lihat Subbab~\ref{sec:030300-analisis-kebutuhan}). Pengujian dilakukan secara manual menggunakan berbagai skenario input dan interaksi antarmuka, berikut adalah daftar hasil pengujian fungsional:
+Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi desktop pemeriksa tautan rusak berjalan sesuai dengan kebutuhan yang telah ditetapkan (lihat Subbab~\ref{sec:030300-analisis-kebutuhan}). Pengujian dilakukan secara manual menggunakan berbagai skenario input dan interaksi antarmuka. Berikut adalah daftar hasil pengujian fungsional:
 
 \vspace{2mm}
 \begin{enumerate}
@@ -20,7 +20,7 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
 
 
    \item \textbf{Pengujian pada \textit{Pagination}}\\
-   Pengujian ini dilakukan untuk memastikan bahwa \textit{pagination} terbentuk dan berperilaku sesuai dengan keadaan data hasil pemeriksaan dan \textit{filter}, serta untuk memastikan pengguna dapat melakukan navigasi pada halaman \textit{pagination}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-pagination}.
+   Pengujian ini dilakukan untuk memastikan bahwa \textit{pagination} terbentuk dan berperilaku sesuai dengan keadaan data hasil pemeriksaan dan \textit{filter} serta untuk memastikan pengguna dapat melakukan navigasi pada halaman \textit{pagination}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-pagination}.
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-pagination.tex}
 
@@ -29,11 +29,11 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
 
 
    \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
-   Subjek pada pengujian ini adalah situs web Program Studi Informatika Universitas Katolik Parahyangan yang beralamat pada \url{https://informatika.unpar.ac.id}, hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-pemeriksaan}, sedangkan ringkasan proses pemeriksaan dapat dilihat pada tabel Tabel~\ref{tab:ringkasan-proses-pemeriksaan-fitur-pemeriksaan} dan ringkasan hasil pemeriksaan dapat dilihat pada tabel Tabel~\ref{tab:ringkasan-hasil-pemeriksaan-fitur-pemeriksaan}. Pengujian ini dilakukan untuk memastikan bahwa proses pemeriksaan sesuai dengan ketentuan berikut:
+   Subjek pada pengujian ini adalah situs web Program Studi Informatika Universitas Katolik Parahyangan yang beralamat pada \url{https://informatika.unpar.ac.id}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-pemeriksaan}, sedangkan ringkasan proses pemeriksaan dapat dilihat pada Tabel~\ref{tab:ringkasan-proses-pemeriksaan-fitur-pemeriksaan} dan ringkasan tautan rusak dapat dilihat pada Tabel~\ref{tab:ringkasan-tautan-rusak-fitur-pemeriksaan}. Pengujian ini dilakukan untuk memastikan bahwa proses pemeriksaan sesuai dengan ketentuan berikut:
    \begin{itemize}
       \item Memastikan tautan rusak teridentifikasi dengan benar.
       \item Memastikan setiap URL hanya diperiksa satu kali.
-      \item Memastikan \textit{rate limiting} dikelompokan berdasarkan \textit{host} URL.
+      \item Memastikan \textit{rate limiting} dikelompokkan berdasarkan \textit{host} URL.
       \item Memastikan \textit{crawling} hanya dilakukan pada halaman situs web yang sedang diperiksa.
    \end{itemize}
    
@@ -44,7 +44,7 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
 
    \vspace{5mm}
    \item \textbf{Pengujian pada Fitur \textit{Filter}}\\
-   Fitur \textit{filter} terdiri dari dua kelompok kondisi, yaitu \textit{filter} berdasarkan URL dan \textit{filter} berdasarkan kode status HTTP. Kedua jenis \textit{filter} ini dapat digunakan secara terpisah maupun bersamaan sehingga pengguna dapat menyempitkan hasil pencarian sesuai kebutuhan. \textit{Filter} untuk URL mencakup empat kondisi yaitu, \texttt{Equals}, \texttt{Contains}, \texttt{Starts With}, dan \texttt{Ends With}. Sementara itu, \textit{filter} untuk kode status HTTP mencakup tiga kondisi: \texttt{Equals}, \texttt{Greater Than}, dan \texttt{Less Than}.
+   Fitur \textit{filter} terdiri dari dua kelompok kondisi, yaitu \textit{filter} berdasarkan URL dan \textit{filter} berdasarkan kode status HTTP. Kedua jenis \textit{filter} ini dapat digunakan secara terpisah maupun bersamaan sehingga pengguna dapat menyempitkan hasil pencarian sesuai kebutuhan. \textit{Filter} untuk URL mencakup empat kondisi, yaitu \textit{Equals}, \textit{Contains}, \textit{Starts With}, dan \textit{Ends With}. Sementara itu, \textit{filter} untuk kode status HTTP mencakup tiga kondisi: \textit{Equals}, \textit{Greater Than}, dan \textit{Less Than}.
 
    Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring isi tabel berdasarkan kondisi URL maupun kode status HTTP. Kondisi awal pada pengujian ini adalah proses pemeriksaan sedang berlangsung atau sudah selesai dan menggunakan situs web Program Studi Informatika Universitas Katolik Parahyangan yang beralamat pada \url{https://informatika.unpar.ac.id}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-filter}.
 
@@ -55,9 +55,9 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
 
 
    \item \textbf{Pengujian pada Fitur Ekspor}\\
-   Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat mengekspor data hasil pemeriksaan ke berkas Excel dengan benar. Kondisi awal pada pengujian ini adalah proses pemeriksaan sudah selesai dengan status \texttt{COMPLETED} atau \texttt{STOPPED}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-export}.
+   Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat mengekspor data hasil pemeriksaan ke berkas Excel dengan benar. Kondisi awal pada pengujian ini adalah proses pemeriksaan sudah selesai dengan status \texttt{COMPLETED} atau \texttt{STOPPED}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-ekspor}.
    
-   \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-export.tex}
+   \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-ekspor.tex}
 
 
    \vspace{5mm}
@@ -73,7 +73,7 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
    \vspace{5mm}
 
    \item \textbf{Pengujian pada Jendela Notifikasi}\\
-   Pengujian ini dilakukan untuk memastikan bahwa jendela notifikasi untuk pesan bertipe \texttt{SUCCESS}, \texttt{WARNING}, dan \texttt{ERROR} muncul pada kondisi yang tepat serta menampilkan pesan yang sesuai. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-jendela-notifikasi}.
+   Pengujian ini dilakukan untuk memastikan bahwa jendela notifikasi untuk pesan bertipe \textit{success}, \textit{warning}, dan \textit{error} muncul pada kondisi yang tepat serta menampilkan pesan yang sesuai. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-jendela-notifikasi}.
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-notifikasi.tex}
 

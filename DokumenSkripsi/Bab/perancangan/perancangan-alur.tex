@@ -2,51 +2,51 @@ Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikas
 
 \begin{enumerate}
 
-    \item \textbf{(Langkah 1)} Pengguna menekan tombol \textit{Start} sehingga metode \texttt{onStartClick()} pada \texttt{MainController} dipanggil.
+    \item (Langkah 1) Pengguna menekan tombol \textit{Start} sehingga metode \texttt{onStartClick()} pada \texttt{MainController} dipanggil.
     
-    \item \textbf{(Langkah 2)} \texttt{MainController} meminta \texttt{UrlHandler} untuk menormalisasi URL masukan melalui metode \texttt{normalizeUrl()}.
+    \item (Langkah 2) \texttt{MainController} meminta \texttt{UrlHandler} untuk menormalisasi URL masukan melalui metode \texttt{normalizeUrl()}.
     
-    \item \textbf{(Langkah 3)} \texttt{UrlHandler} mengembalikan URL hasil normalisasi kepada \texttt{MainController}.
+    \item (Langkah 3) \texttt{UrlHandler} mengembalikan URL hasil normalisasi kepada \texttt{MainController}.
     
-    \item \textbf{(Langkah 4)} Jika URL tidak valid, \texttt{MainController} menampilkan pesan kesalahan kepada pengguna.
+    \item (Langkah 4) Jika URL tidak valid, \texttt{MainController} menampilkan pesan kesalahan kepada pengguna.
     
-    \item \textbf{(Langkah 5)} Jika URL valid, \texttt{MainController} memulai proses pemeriksaan dengan memanggil metode \texttt{start()} pada objek \texttt{Crawler}.
+    \item (Langkah 5) Jika URL valid, \texttt{MainController} memulai proses pemeriksaan dengan memanggil metode \texttt{start()} pada objek \texttt{Crawler}.
     
-    \item \textbf{(Langkah 6)} \texttt{Crawler} membuat objek \texttt{Link} baru untuk merepresentasikan URL awal.
+    \item (Langkah 6) \texttt{Crawler} membuat objek \texttt{Link} baru untuk merepresentasikan URL awal.
     
-    \item \textbf{(Langkah 7)} Objek \texttt{Link} awal tersebut dimasukkan oleh \texttt{Crawler} ke dalam antrean \texttt{frontier} urutan paling belakang.
+    \item (Langkah 7) Objek \texttt{Link} awal tersebut dimasukkan oleh \texttt{Crawler} ke dalam antrean \texttt{frontier} urutan paling belakang.
     
-    \item \textbf{(Langkah 8)} \texttt{Crawler} mengambil tautan urutan paling depan dari \texttt{frontier}.
+    \item (Langkah 8) \texttt{Crawler} mengambil tautan urutan paling depan dari \texttt{frontier}.
     
-    \item \textbf{(Langkah 9)} \texttt{Crawler} meminta \texttt{HttpHandler} untuk melakukan pemeriksaan dengan memanggil metode \texttt{fetch()}.
+    \item (Langkah 9) \texttt{Crawler} meminta \texttt{HttpHandler} untuk melakukan pemeriksaan dengan memanggil metode \texttt{fetch()}.
     
-    \item \textbf{(Langkah 10)} \texttt{HttpHandler} mengembalikan hasil pemeriksaan beserta dokumen HTML.
+    \item (Langkah 10) \texttt{HttpHandler} mengembalikan hasil pemeriksaan beserta dokumen HTML.
     
-    \item \textbf{(Langkah 11)} \texttt{Crawler} mengirimkan objek \texttt{Link} yang telah diperiksa ke \texttt{MainController} melalui \texttt{linkSender}.
+    \item (Langkah 11) \texttt{Crawler} mengirimkan objek \texttt{Link} yang telah diperiksa ke \texttt{MainController} melalui \texttt{linkSender}.
     
-    \item \textbf{(Langkah 12)} \texttt{MainController} menampilkan tautan tersebut pada pengguna.
+    \item (Langkah 12) \texttt{MainController} menampilkan tautan tersebut pada pengguna.
     
-    \item \textbf{(Langkah 13)} \texttt{Crawler} memanggil metode \texttt{extractLink()} untuk mengekstraksi tautan dari dokumen HTML.
+    \item (Langkah 13) \texttt{Crawler} memanggil metode \texttt{extractLink()} untuk mengekstraksi tautan dari dokumen HTML.
     
-    \item \textbf{(Langkah 14)} Untuk setiap tautan yang berhasil diekstraksi dari halaman tersebut, \texttt{Crawler} memanggil \texttt{normalizeUrl()} pada \texttt{UrlHandler} untuk menormalisasi URL tautan.
+    \item (Langkah 14) Untuk setiap tautan yang berhasil diekstraksi dari halaman tersebut, \texttt{Crawler} memanggil \texttt{normalizeUrl()} pada \texttt{UrlHandler} untuk menormalisasi URL tautan.
     
-    \item \textbf{(Langkah 15)} \texttt{UrlHandler} mengembalikan URL hasil normalisasi kepada \texttt{Crawler}.
+    \item (Langkah 15) \texttt{UrlHandler} mengembalikan URL hasil normalisasi kepada \texttt{Crawler}.
     
-    \item \textbf{(Langkah 16)} \texttt{Crawler} membuat objek \texttt{Link} baru berdasarkan URL hasil normalisasi.
+    \item (Langkah 16) \texttt{Crawler} membuat objek \texttt{Link} baru berdasarkan URL hasil normalisasi.
     
-    \item \textbf{(Langkah 17)} Jika tautan merupakan halaman dari situs web target, maka \texttt{Crawler} memasukkannya ke \texttt{frontier} urutan paling belakang.
+    \item (Langkah 17) Jika tautan merupakan halaman dari situs web target, maka \texttt{Crawler} memasukkannya ke \texttt{frontier} urutan paling belakang.
     
-    \item \textbf{(Langkah 18)} Jika tautan bukan merupakan halaman dari situs web target, \texttt{Crawler} memeriksa tautan tersebut dengan memanggil \texttt{fetch()} pada \texttt{HttpHandler}.
+    \item (Langkah 18) Jika tautan bukan merupakan halaman dari situs web target, \texttt{Crawler} memeriksa tautan tersebut dengan memanggil \texttt{fetch()} pada \texttt{HttpHandler}.
     
-    \item \textbf{(Langkah 19)} \texttt{HttpHandler} mengembalikan hasil pemeriksaan tanpa dokumen HTML.
+    \item (Langkah 19) \texttt{HttpHandler} mengembalikan hasil pemeriksaan tanpa dokumen HTML.
     
-    \item \textbf{(Langkah 20)} \texttt{Crawler} mengirimkan tautan yang baru diperiksa tersebut ke \texttt{MainController} melalui \texttt{linkSender}.
+    \item (Langkah 20) \texttt{Crawler} mengirimkan tautan yang baru diperiksa tersebut ke \texttt{MainController} melalui \texttt{linkSender}.
 
-    \item \textbf{(Langkah 21)} \texttt{MainController} menampilkan tautan tersebut pada pengguna.
+    \item (Langkah 21) \texttt{MainController} menampilkan tautan tersebut pada pengguna.
     
-    \item \textbf{(Langkah 22)} Ketika seluruh tautan dalam \texttt{frontier} sudah selesai diproses, \texttt{Crawler} mengirimkan sinyal bahwa proses pemeriksaan telah selesai.
+    \item (Langkah 22) Ketika seluruh tautan dalam \texttt{frontier} sudah selesai diproses, \texttt{Crawler} mengirimkan sinyal bahwa proses pemeriksaan telah selesai.
     
-    \item \textbf{(Langkah 23)} \texttt{MainController} menampilkan status bahwa proses pemeriksaan telah selesai kepada pengguna.
+    \item (Langkah 23) \texttt{MainController} menampilkan status bahwa proses pemeriksaan telah selesai kepada pengguna.
     
 \end{enumerate}
 

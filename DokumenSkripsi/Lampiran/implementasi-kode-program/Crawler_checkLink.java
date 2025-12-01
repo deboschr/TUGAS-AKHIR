@@ -1,13 +1,14 @@
 private Document checkLink(Link link, boolean isParseDoc) {
    try {
-      RateLimiter limiter = rateLimiters.computeIfAbsent(URLHandler.getHost(link.getUrl()), h -> new RateLimiter());
+      RateLimiter limiter = rateLimiters.computeIfAbsent(UrlHandler.getHost(link.getUrl()), h -> new RateLimiter());
       limiter.delay();
-      HttpResponse<?> res = HTTPHandler.fetch(link.getUrl(), isParseDoc);
+      HttpResponse<?> res = HttpHandler.fetch(link.getUrl(), isParseDoc);
       link.setFinalUrl(res.uri().toString());
       link.setContentType(res.headers().firstValue("Content-Type").orElse("").toLowerCase());
       link.setStatusCode(res.statusCode());
       Document doc = null;
-      if (isParseDoc && res.body() != null && link.getStatusCode() == 200 && !URLHandler.getHost(link.getFinalUrl()).equals(rootHost)) {
+      if (isParseDoc && res.body() != null && link.getStatusCode() == 200
+            && UrlHandler.getHost(link.getFinalUrl()).equals(rootHost)) {
          String body = (String) res.body();
          try {
             doc = Jsoup.parse(body, link.getFinalUrl());
@@ -18,11 +19,9 @@ private Document checkLink(Link link, boolean isParseDoc) {
       }
       return doc;
    } catch (Throwable e) {
-      String errorName = e.getClass().getSimpleName();
-      if (errorName.isBlank()) {
-         errorName = "UnknownError";
-      }
-      link.setError(errorName);
+      link.setError(e.getClass().getSimpleName() || "UnknownError");
       return null;
+   } finally {
+      if (linkSender != null) Platform.runLater(() -> linkSender.accept(link));
    }
 }

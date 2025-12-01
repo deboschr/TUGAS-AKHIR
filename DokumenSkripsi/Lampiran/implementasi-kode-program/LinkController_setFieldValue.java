@@ -1,12 +1,13 @@
-public void setLink(Link link) {
+LinkController_setFieldValuelue() {
    urlField.setText(link.getUrl());
+   
    finalUrlField.setText(link.getFinalUrl());
+
    contentTypeField.setText(link.getContentType());
+
    errorField.setText(link.getError());
-   webpageLinks.setAll(link.getConnection().entrySet());
 
    makeFieldClickable(urlField);
+
    makeFieldClickable(finalUrlField);
-   
-   setTableView();
 }

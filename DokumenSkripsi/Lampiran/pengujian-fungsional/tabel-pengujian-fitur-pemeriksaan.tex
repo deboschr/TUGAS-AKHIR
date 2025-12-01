@@ -34,17 +34,17 @@
 \endlastfoot
 
 1 &
-Memeriksa satu persatu tautan rusak yang ditemukan dengan menekan URL pada tabel &
-Aplikasi mengarahkan tautan untuk terbuka ke \textit{browser} dan menampilkan error yang sama. &
-Tautan terbuka di-\textit{browser} dan menunjukan \textit{error} yang sama dengan hasil pemeriksaan aplikasi. \\ \hline
+Memeriksa satu per satu tautan rusak yang ditemukan dengan menekan URL pada tabel. &
+Aplikasi mengarahkan tautan untuk terbuka ke \textit{browser} dan menampilkan \textit{error} yang sama. &
+Tautan terbuka ke \textit{browser} dan menunjukkan \textit{error} yang sama dengan hasil pemeriksaan aplikasi. \\ \hline
 
 2 &
-Mengekspor hasil pemeriksaan lalu memeriksa satu persatu daftar halaman sumber. &
+Mengekspor hasil pemeriksaan lalu memeriksa satu per satu daftar halaman sumber. &
 Seluruh daftar URL halaman sumber memiliki \textit{host} yang sama dengan \textit{host} URL awal. &
-Seluruh daftar URL halaman menunjukan bahwa \textit{host}-nya ``informatika.unpar.ac.id'', sama dengan \textit{host} URL awal. \\ \hline
+Seluruh daftar URL halaman menunjukkan bahwa \textit{host}-nya ``informatika.unpar.ac.id'', sama dengan \textit{host} URL awal. \\ \hline
 
 3 &
-Membuat \textit{counter} untuk masing-masing URL yang ditemukan, lalu tampilkan jendela notifikasi jika \textit{counter} lebih dari satu &
+Membuat \textit{counter} untuk masing-masing URL yang ditemukan, lalu tampilkan jendela notifikasi jika \textit{counter} lebih dari satu. &
 Aplikasi tidak membuka jendela notifikasi untuk menampilkan pesan tautan diperiksa lebih dari satu kali. &
 Pemeriksaan berjalan sampai proses selesai tanpa menampilkan jendela notifikasi apapun. \\ \hline
 
@@ -72,8 +72,8 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
    \begin{tabular}{|p{7cm}|p{5cm}|}
       \hline      
       \textbf{Status Pemeriksaan} & COMPLETED \\ \hline
-      \textbf{Waktu Mulai Pemeriksaan} & 26--11--2025 06:41:36 \\ \hline
-      \textbf{Waktu Selesai Pemeriksaan} & 26--11--2025 06:54:43 \\ \hline
+      \textbf{Waktu Mulai Pemeriksaan} & 26-11-2025 06:41:36 \\ \hline
+      \textbf{Waktu Selesai Pemeriksaan} & 26-11-2025 06:54:43 \\ \hline
       \textbf{Durasi Pemeriksaan} & 13~menit 6~detik \\ \hline
       \textbf{Jumlah Total Tautan} & 602 \\ \hline
       \textbf{Jumlah Tautan Halaman} & 302 \\ \hline
@@ -90,9 +90,9 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
    |>{\raggedright\arraybackslash}m{4cm}
    |>{\raggedright\arraybackslash}m{6cm}
    |>{\centering\arraybackslash}m{2cm}|}
-\caption{Ringkasan Hasil Pemeriksaan}
+\caption{Ringkasan Tautan Rusak}
 \vspace{-3mm}
-\label{tab:ringkasan-hasil-pemeriksaan-fitur-pemeriksaan} \\
+\label{tab:ringkasan-tautan-rusak-fitur-pemeriksaan} \\
 \hline
 
 {\centering\arraybackslash\textbf{Kategori}} &
@@ -100,7 +100,7 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
 {\centering\arraybackslash\textbf{Jumlah}} \\ \hline
 \endfirsthead
 
-\multicolumn{3}{c}{Tabel~\ref{tab:ringkasan-hasil-pemeriksaan-fitur-pemeriksaan} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\multicolumn{3}{c}{Tabel~\ref{tab:ringkasan-tautan-rusak-fitur-pemeriksaan} dilanjutkan dari halaman sebelumnya}\\[4pt]
 
 \hline
 {\centering\arraybackslash\textbf{Kategori}} &
@@ -137,24 +137,24 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
  & 410 Gone & 1 \\ \cline{2-3}
  & 429 Too Many Requests & 4 \\ \hline
 
-\multicolumn{2}{|c|}{{\centering\textbf{Total Connection Error}}} &
-{\centering\arraybackslash\textbf{25}} \\ \hline
+\multicolumn{2}{|c|}{{\centering\textbf{Total 4XX Client Error}}} &
+{\centering\arraybackslash\textbf{50}} \\ \hline
 
 % ********************************************
 
 \multirow{1}{*}{\textbf{5XX Server Error}}
  & 503 Service Unavailable & 1 \\ \hline
 
-\multicolumn{2}{|c|}{{\centering\textbf{Total Connection Error}}} &
-{\centering\arraybackslash\textbf{25}} \\ \hline
+\multicolumn{2}{|c|}{{\centering\textbf{Total 5XX Server Error}}} &
+{\centering\arraybackslash\textbf{1}} \\ \hline
 
 % ********************************************
 
 \multirow{2}{*}{\textbf{Non-Standard Error}}
- & 520 Unknown Error & 2 \\ \cline{2-3}
- & 999 Unknown & 2 \\ \hline
+ & 520 & 2 \\ \cline{2-3}
+ & 999 & 2 \\ \hline
 
-\multicolumn{2}{|c|}{{\centering\textbf{Total Connection Error}}} &
-{\centering\arraybackslash\textbf{25}} \\ \hline
+\multicolumn{2}{|c|}{{\centering\textbf{Total Non-Standard Error}}} &
+{\centering\arraybackslash\textbf{4}} \\ \hline
 
 \end{longtable}
