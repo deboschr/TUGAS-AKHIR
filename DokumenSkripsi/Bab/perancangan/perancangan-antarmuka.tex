@@ -1,9 +1,9 @@
-Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual komponen antarmuka yang tersedia pada aplikasi dekstop pemeriksa tautan rusak yang dikembangkan. Pada aplikasi ini akan buat dua jendala, yaitu jendela utama, dan jendela detail tautan. Berikut adalah penjelasan lebih detail untuk masing-masing jendela:
+Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual komponen antarmuka yang tersedia pada aplikasi desktop pemeriksa tautan rusak yang dikembangkan. Pada aplikasi ini akan dibuat dua jendela, yaitu jendela utama, dan jendela detail tautan. Berikut adalah penjelasan lebih detail untuk masing-masing jendela:
 
 \begin{enumerate}
     \vspace{5mm}
     \item \textbf{Jendela Utama} \\
-    Jendela utama merupakan merupakan antarmuka pengguna yang muncul ketika aplikasi baru dijalankan. Melalui jendela ini pengguna dapat memasukkan URL situs web yang menjadi target pemeriksaan, memulai dan menghentikan proses pemeriksaan, melihat daftar hasil pemeriksaan, melihat ringkasan hasil pemeriksaan, serta menyaring dan mengekspor hasil pemeriksaan. Rancangan jendela ini terdapat pada Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}.
+    Jendela utama merupakan antarmuka pengguna yang muncul ketika aplikasi baru dijalankan. Melalui jendela ini, pengguna dapat memasukkan URL situs web yang menjadi target pemeriksaan, memulai dan menghentikan proses pemeriksaan, melihat daftar hasil pemeriksaan, melihat ringkasan hasil pemeriksaan, serta menyaring dan mengekspor hasil pemeriksaan. Rancangan jendela ini terdapat pada Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}.
     
     \vspace{2mm}
 
@@ -19,7 +19,7 @@ Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual kompon
         
         \item \textbf{Status}: Menunjukkan status proses pemeriksaan.
         
-        \item \textbf{All Links}: Menunjukan jumlah total tautan yang ditemukan.
+        \item \textbf{All Links}: Menunjukkan jumlah total tautan yang ditemukan.
         
         \item \textbf{Webpage Links}: Menunjukkan jumlah tautan halaman situs web yang ditemukan.
         
@@ -28,13 +28,13 @@ Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual kompon
         \item \textbf{Opsi \textit{Filter} URL}: Digunakan untuk menentukan jenis pencarian berdasarkan URL. Opsi yang tersedia adalah:
         
         \begin{itemize}[itemsep=3pt]
-            \item \textbf{\textit{Equals}}: Menampilkan tautan rusak dengan URL yang sama persis dengan kata kunci yang dimasukan.
+            \item \textbf{\textit{Equals}}: Menampilkan tautan rusak dengan URL yang sama persis dengan kata kunci yang dimasukkan.
             
-            \item \textbf{\textit{Contains}}: Menampilkan tautan rusak dengan URL yang mengandung kata kunci yang dimasukan.
+            \item \textbf{\textit{Contains}}: Menampilkan tautan rusak dengan URL yang mengandung kata kunci yang dimasukkan.
             
-            \item \textbf{\textit{Starts With}}: Menampilkan tautan rusak dengan URL yang diawali dengan kata kunci yang dimasukan.
+            \item \textbf{\textit{Starts With}}: Menampilkan tautan rusak dengan URL yang diawali dengan kata kunci yang dimasukkan.
             
-            \item \textbf{\textit{Ends With}}: Menampilkan tautan rusak dengan URL yang diakhiri dengan kata kunci yang dimasukan.
+            \item \textbf{\textit{Ends With}}: Menampilkan tautan rusak dengan URL yang diakhiri dengan kata kunci yang dimasukkan.
         \end{itemize}
         
         \item \textbf{Kolom Masukan \textit{Filter} URL}: Digunakan untuk memasukkan kata kunci pencarian URL sesuai dengan opsi \textit{filter} yang dipilih sebelumnya.
@@ -43,11 +43,11 @@ Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual kompon
 
         \item \textbf{Opsi \textit{Filter} Status Code}: Digunakan untuk menentukan jenis pencarian berdasarkan kode status HTTP. Opsi yang tersedia adalah:
         \begin{itemize}[itemsep=3pt]
-            \item \textbf{\textit{Equals}}: Menampilkan tautan rusak dengan kode status sama persis dengan kata kunci yang dimasukan.
+            \item \textbf{\textit{Equals}}: Menampilkan tautan rusak dengan kode status sama persis dengan kata kunci yang dimasukkan.
             
-            \item \textbf{\textit{Greater Than}}: Menampilkan tautan rusak dengan kode status lebih besar dari kata kunci yang dimasukan.
+            \item \textbf{\textit{Greater Than}}: Menampilkan tautan rusak dengan kode status lebih besar dari kata kunci yang dimasukkan.
             
-            \item \textbf{\textit{Less Than}}: Menampilkan tautan rusak dengan kode status lebih kecil dari kata kunci yang dimasukan.
+            \item \textbf{\textit{Less Than}}: Menampilkan tautan rusak dengan kode status lebih kecil dari kata kunci yang dimasukkan.
         \end{itemize}
         
         \item \textbf{Kolom Masukan \textit{Filter} Status Code}: Digunakan untuk memasukkan kata kunci pencarian kode status HTTP sesuai dengan opsi \textit{filter} yang dipilih sebelumnya.
@@ -56,10 +56,10 @@ Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual kompon
         
         \item \textbf{Tombol Export}: Digunakan untuk menjalankan proses ekspor isi tabel ke berkas Excel.
         
-        \item \textbf{Tabel Hasil}: Menampilkan daftar tautan rusak, tabel ini memiliki dua kolom sebagai berikut:
+        \item \textbf{Tabel Hasil}: Digunakan untuk menampilkan untuk menampilkan daftar tautan rusak. Tabel ini memiliki dua kolom sebagai berikut:
         \begin{enumerate}[itemsep=3pt]
-            \item \textbf{Error}: Menunjukan pesan kesalahan tautan dari tautan rusak.
-            \item \textbf{URL}: Menunjukan URL dari tautan rusak.
+            \item \textbf{Error}: Menunjukkan pesan kesalahan tautan dari tautan rusak.
+            \item \textbf{URL}: Menunjukkan URL dari tautan rusak.
         \end{enumerate}
         
         \item \textbf{\textit{Pagination}}: Digunakan untuk melakukan navigasi tabel jika jumlah tautan yang ditemukan cukup banyak.
@@ -76,18 +76,18 @@ Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual kompon
 
     \begin{enumerate}[itemsep=7pt]
 
-        \item \textbf{Kolom URL}: Menunjukan URL asli dari tautan.
+        \item \textbf{Kolom URL}: Menunjukkan URL asli dari tautan.
         
-        \item \textbf{Kolom \textit{Final} URL}: Menunjukan URL terakhir setelah proses \textit{redirect}.
+        \item \textbf{Kolom \textit{Final} URL}: Menunjukkan URL terakhir setelah proses \textit{redirect}.
         
-        \item \textbf{Kolom \textit{Content Type}}: Menunjukan jenis konten dari tautan.
+        \item \textbf{Kolom \textit{Content Type}}: Menunjukkan jenis konten dari tautan.
         
-        \item \textbf{Kolom \textit{Error}}: Menunjukan pesan \textit{error} jika tautan gagal diperiksa.
+        \item \textbf{Kolom \textit{Error}}: Menunjukkan pesan \textit{error} jika tautan gagal diperiksa.
         
-        \item \textbf{Tabel \textit{Webpage Link}}: Menampilkan daftar halaman yang menjadi sumber dimana tautan rusak ditemukan, tabel ini memiliki dua kolom sebagai berikut:
+        \item \textbf{Tabel \textit{Webpage Link}}: Menampilkan daftar halaman yang menjadi sumber dimana tautan rusak ditemukan. Tabel ini memiliki dua kolom sebagai berikut:
         \begin{enumerate}[itemsep=3pt]
-            \item \textbf{\textit{Anchor Text}}: Menunjukan teks tautan yang muncul pada halaman sumber.
-            \item \textbf{\textit{Webpage URL}}: Menunjukan URL halaman tempat tautan rusak ditemukan.
+            \item \textbf{\textit{Anchor Text}}: Menunjukkan teks tautan yang muncul pada halaman sumber.
+            \item \textbf{\textit{Webpage URL}}: Menunjukkan URL halaman tempat tautan rusak ditemukan.
         \end{enumerate}
     \end{enumerate}
 

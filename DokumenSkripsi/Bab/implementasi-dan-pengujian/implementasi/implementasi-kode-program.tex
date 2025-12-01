@@ -3,7 +3,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 \vspace{2mm}
 
 \begin{enumerate}
-   \item \textbf{Application.java}\\
+   \item \textbf{Berkas \texttt{Application.java}}\\
    Kelas \texttt{Application} merupakan titik awal masuk aplikasi JavaFX dan bertugas untuk membuka jendela aplikasi seperti jendela utama, jendela detail tautan dan jendela notifikasi. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:application-java}, namun pada bagian ini akan dijelaskan lebih rinci untuk metode \texttt{openMainWindow}, yaitu metode yang digunakan untuk membuka jendela utama aplikasi.
    
    \vspace{2mm}
@@ -31,7 +31,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \vspace{5mm}
 
-   \item \textbf{MainController.java, main-scene.fxml dan main-style.css}\\
+   \item \textbf{Berkas \texttt{MainController.java}, \texttt{main-scene.fxml} dan \texttt{main-style.css}}\\
    Ketiga kode program ini bertanggung jawab untuk mengelola antarmuka jendela utama (lihat Gambar~\ref{fig:implementasi-jendela-utama}). Kelas \texttt{MainController} digunakan untuk mengendalikan interaksi pada jendela utama (lihat Lampiran~\ref{code:main-controller-java}). Berkas \texttt{main-scene.fxml} digunakan untuk mendefinisikan struktur, hierarki, dan komponen antarmuka pada jendela utama (lihat Lampiran~\ref{code:main-scene-fxml}). Sedangkan, berkas \texttt{main-style.css} digunakan untuk mengatur gaya visual pada jendela utama (lihat Lampiran~\ref{code:main-scene-fxml}). Pada kelas \texttt{MainController} terdapat metode \texttt{onStartClick} yang digunakan untuk menjalankan proses pemeriksaan ketika pengguna menekan tombol \textit{Start}, berikut adalah penjelasan lebih rinci untuk metode ini (lihat Kode~\ref{code:main-controller-on-start-click-java}):
 
    \begin{enumerate}
@@ -58,7 +58,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \vspace{5mm}
 
-   \item \textbf{LinkController.java, link-scene.fxml dan link-style.css}\\
+   \item \textbf{Berkas \texttt{LinkController.java}, \texttt{link-scene.fxml} dan \texttt{link-style.css}}\\
    Ketiga kode program ini bertanggung jawab untuk mengelola antarmuka jendela detail tautan (lihat Gambar~\ref{fig:implementasi-jendela-detail-tautan}). Kelas \texttt{LinkController} bertugas sebagai pengendali interaksi pada jendela detail tautan (lihat Lampiran~\ref{code:link-controller-java}). Berkas \texttt{link-scene.fxml} digunakan untuk mendefinisikan struktur, hierarki, dan komponen antarmuka pada jendela detail tautan (lihat Lampiran~\ref{code:link-scene-fxml}). Sedangkan, berkas \texttt{link-style.css} digunakan untuk mengatur gaya visual pada jendela detail tautan (lihat Lampiran~\ref{code:link-scene-fxml}). Pada kelas \texttt{LinkController} terdapat metode \texttt{setLink} yang digunakan untuk menetapkan nilai dari atribut objek \texttt{Link} ke komponen GUI jendela detail tautan, berikut adalah penjelasan lebih rinci untuk metode ini (lihat Kode~\ref{code:link-controller-set-link-java}):
 
    \begin{enumerate}
@@ -78,9 +78,8 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \vspace{7mm}
 
-   \item \textbf{NotificationController.java, notification-scene.fxml dan    
-   notification-style.css}\\
-   Ketiga kode program ini bertanggung jawab untuk mengelola antarmuka jendela notifikasi (lihat Gambar~\ref{fig:implementasi-jendela-notifikasi}). Kelas \texttt{NotificationController} bertugas sebagai pengendali interaksi pada jendela notifikasi (lihat Lampiran~\ref{code:notification-controller-java}). Berkas \texttt{notification-scene.fxml} digunakan untuk mendefinisikan struktur, hierarki, dan komponen antarmuka pada jendela notifikasi (lihat Lampiran~\ref{code:notification-scene-fxml}). Sedangkan, berkas \texttt{notification-style.css} digunakan untuk mengatur gaya visual pada jendela notifikasi (lihat Lampiran~\ref{code:notification-scene-fxml}). Pada kelas \texttt{NotificationController} terdapat metode \texttt{setNotification} yang digunakan untuk menetapkan pesan dan jenis pesan yang ingin ditampilkan ke jendela notifikasi, berikut adalah penjelasan lebih rinci untuk metode ini (lihat Kode~\ref{code:notification-controller-set-notification-java}):
+   \item \textbf{Berkas \texttt{NotifController.java}, \texttt{notif-scene.fxml} dan \texttt{notif-style.css}}\\
+   Ketiga kode program ini bertanggung jawab untuk mengelola antarmuka jendela notifikasi (lihat Gambar~\ref{fig:implementasi-jendela-notifikasi}). Kelas \texttt{NotifController} bertugas sebagai pengendali interaksi pada jendela notifikasi (lihat Lampiran~\ref{code:notif-controller-java}). Berkas \texttt{notif-scene.fxml} digunakan untuk mendefinisikan struktur, hierarki, dan komponen antarmuka pada jendela notifikasi (lihat Lampiran~\ref{code:notif-scene-fxml}). Sedangkan, berkas \texttt{notif-style.css} digunakan untuk mengatur gaya visual pada jendela notifikasi (lihat Lampiran~\ref{code:notif-style-css}). Pada kelas \texttt{NotifController} terdapat metode \texttt{setNotification} yang digunakan untuk menetapkan pesan dan jenis pesan yang ingin ditampilkan ke jendela notifikasi, berikut adalah penjelasan lebih rinci untuk metode ini (lihat Kode~\ref{code:notif-controller-set-notif-java}):
 
    \begin{enumerate}
       \item (Baris 2) Memasukkan pesan notifikasi ke komponen GUI.
@@ -94,12 +93,12 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \lstinputlisting[
       language=Java, 
-      caption=Kelas \texttt{NotificationController} metode \texttt{setNotification},
-      label={code:notification-controller-set-notification-java}
-   ]{Lampiran/implementasi-kode-program/NotificationController_setNotification.java}
+      caption=Kelas \texttt{NotifController} metode \texttt{setNotif},
+      label={code:notif-controller-set-notif-java}
+   ]{Lampiran/implementasi-kode-program/NotifController_setNotif.java}
 
 
-   \item \textbf{Crawler.java}\\
+   \item \textbf{Berkas \texttt{Crawler.java}}\\
    Kelas \texttt{Crawler} bertugas untuk melakukan proses pemeriksaan tautan rusak dengan cara menjalankan proses \textit{crawling}. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:crawler-java}, namun pada bagian ini akan dijelaskan lebih rinci untuk metode \texttt{start}, \texttt{checkLink} dan \texttt{extractLink}. Kelas ini juga memiliki beberapa atribut sebagai berikut:
 
    \begin{enumerate}
@@ -231,7 +230,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \vspace{12mm}
 
-   \item \textbf{Exporter.java}\\
+   \item \textbf{Berkas \texttt{Exporter.java}}\\
    Kelas \texttt{Exporter} bertugas untuk melakukan ekspor hasil pemeriksaan ke berkas Excel (\texttt{.xlsx}). Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:exporter-java}, namun pada bagian ini akan dijelaskan lebih rinci untuk metode \texttt{save}, yaitu metode utama dari kelas ini yang digunakan untuk mempersiapkan data sebelum diekspor dan menyimpannya ke berkas Excel. Berikut adalah penjelasan lebih rinci untuk metode \texttt{save} (lihat Kode~\ref{code:exporter-save-java}):
 
    \begin{enumerate}
@@ -257,7 +256,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
       label={code:exporter-save-java}
    ]{Lampiran/implementasi-kode-program/Exporter_save.java}
 
-   \item \textbf{RateLimiter.java}\\
+   \item \textbf{Berkas \texttt{RateLimiter.java}}\\
    Kelas \texttt{RateLimiter} bertugas membatasi frekuensi permintaan HTTP agar pemeriksaan tidak dilakukan terlalu cepat dan tidak membebani \textit{server} situs web tujuan. Kelas ini memiliki dua atribut, yaitu atribut \texttt{INTERVAL} yang digunakan untuk mengatur jarak antar permintaan HTTP dan atribut \texttt{lastRequestTime} yang digunakan untuk menyimpan waktu terakhir permintaan HTTP dilakukan. 
 
    Atribut \texttt{lastRequestTime} dideklarasikan menggunakan \texttt{volatile} untuk memastikan setiap \textit{thread} yang membaca dan menulis nilai atribut ini secara langsung ke memori utama, bukan dari \texttt{cache} CPU masing-masing. Dengan demikian, perubahan nilai yang dilakukan oleh satu \textit{thread} selalu terlihat oleh \textit{thread} lain, sehingga menghindari inkonsistensi saat kelas ini digunakan dalam lingkungan \textit{multi-thread}.
@@ -284,7 +283,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \vspace{5mm}
 
-   \item \textbf{URLHandler.java}\\
+   \item \textbf{Berkas \texttt{URLHandler.java}}\\
    Kelas \texttt{URLHandler} bertugas untuk menyediakan metode untuk menangani segala kebutuhan terkait URL. Pada kelas ini terdapat tiga metode, yaitu \texttt{normalizeUrl} untuk menetapkan aturan pada URL yang ditangani, metode \texttt{normalizePath} untuk menetapkan aturan pada \textit{path} dari URL, dan metode \texttt{getHost} untuk mendapatkan \textit{host} dari URL. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:url-handler-java}, namun pada bagian ini yang akan dijelaskan lebih rinci adalah metode \texttt{normalizeUrl}.
 
    Metode \texttt{normalizeUrl} menerima dua masukan berupa \textit{string} \texttt{rawUrl} yang merupakan URL yang akan dinormalisasi dan \textit{boolean} \texttt{isStrict} untuk menandakan apakah normalisasi dilakukan secara ketat atau tidak. Kembalian dari metode ini terdapat tiga berbentuk, yaitu URL awal apabila tidak valid dibentuk sebagai objek URI, \texttt{null} apabila URL tidak memenuhi aturan normalisasi dan URL baru yang sudah dinormalisasi jika seluruh aturan berhasil diterapkan. Berikut adalah penjelasan lebih rinci untuk metode \texttt{normalizeUrl} (lihat Kode~\ref{code:url-handler-normalize-url-java}):
@@ -322,7 +321,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \vspace{5mm}
 
-   \item \textbf{HTTPHandler.java}\\
+   \item \textbf{Berkas \texttt{HTTPHandler.java}}\\
    Kelas \texttt{HTTPHandler} bertugas untuk menyediakan metode untuk menangani segala kebutuhan terkait HTTP. Pada kelas ini terdapat tiga metode, yaitu \texttt{fetch} untuk melakukan permintaan HTTP, metode \texttt{getStatusError} untuk mendapatkan pesan dari sebuah kode status HTTP, dan metode \texttt{isStandardError} untuk menentukan apakah sebuah kode status HTTP standar atau tidak. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:http-handler-java}, namun pada bagian ini yang akan dijelaskan lebih rinci adalah metode \texttt{fetch}.
 
    \vspace{5mm}
@@ -349,7 +348,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
    ]{Lampiran/implementasi-kode-program/HTTPHandler_fetch.java}
 
 
-   \item \textbf{Link.java}\\
+   \item \textbf{Berkas \texttt{Link.java}}\\
    Kelas \texttt{Link} merupakan model yang digunakan untuk merepresentasikan tautan yang ditemukan selama proses pemeriksaan. Atribut dari kelas ini terdiri atas \textit{url} untuk menyimpan URL awal, \texttt{finalUrl} untuk menyimpan URL hasil \textit{redirect}, \texttt{statusCode} untuk menyimpan kode status HTTP, \texttt{contentType} untuk menyimpan jenis konten yang dikembalikan URL, \texttt{error} untuk menyimpan pesan \textit{error}, \texttt{isWebpage} untuk menentukan apakah URL merupakan halaman situs web atau bukan, serta \texttt{connections} untuk menyimpan daftar tautan lain yang berelasi dengan objek tautan ini. Seluruh atribut pada kelas ini kecuali \texttt{connections}, didefinisikan menggunakan \textit{JavaFX properties} agar nilai pada atribut dapat diperbarui secara otomatis di antarmuka. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:link-java}, namun pada bagian ini yang akan dijelaskan lebih rinci adalah metode \texttt{addConnection}.
 
    Metode \texttt{addConnection} merupakan metode yang digunakan untuk menambahkan objek tautan lain sebagai relasi dari objek tautan saat ini. Masukan dari metode ini adalah sebuah objek tautan yang ingin ditambahkan kedalam daftar relasi. Berikut adalah penjelasan lebih rinci untuk metode \texttt{addConnection} (lihat Kode~\ref{code:link-add-connection-java}):
@@ -374,13 +373,13 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \vspace{8mm}
 
-   \item \textbf{Summary.java}\\
+   \item \textbf{Berkas \texttt{Summary.java}}\\
    Kelas \texttt{Summary} merupakan model yang digunakan untuk merepresentasikan data ringkasan dari proses pemeriksaan yang akan ditampilkan pada bagian \textit{Summary} di jendela utama.
    Data tersebut dikonversi menjadi atribut kelas yang mencakup jumlah total tautan, jumlah tautan halaman, jumlah tautan rusak, serta status proses pemeriksaan. Atribut pada kelas ini didefinisikan menggunakan \textit{JavaFX properties} agar nilai pada atribut dapat diperbarui secara otomatis di antarmuka. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:summary-java}.
 
    \vspace{3mm}
 
-   \item \textbf{Status.java}\\
+   \item \textbf{Berkas \texttt{Status.java}}\\
    Enumerasi \texttt{Status} merupakan model yang digunakan untuk mendefinisikan status dari proses pemeriksaan, yaitu \texttt{IDLE} untuk keadaan diam, \texttt{CHECKING} untuk keadaan sedang dalam proses pemeriksaan, \texttt{STOPPED} untuk keadaan proses dihentikan oleh pengguna, dan \texttt{COMPLETED} untuk keadaan proses selesai. Enumerasi ini digunakan oleh kelas \texttt{Summary} dan kelas \texttt{MainController} untuk menampilkan status proses kepada pengguna. Kode lengkap untuk enumerasi ini terdapat pada Lampiran~\ref{code:status-java}.
 
    \vspace{5mm}

@@ -1,23 +1,23 @@
-Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi sebelum proses implementasi dilakukan. Perancangan ini menunjukkan hubungan antar kelas, atribut serta metode yang dimiliki oleh setiap kelas. Hasil pada perancangan ini ditunjukkan melalui diagram kelas pada Gambar~\ref{fig:class-diagram}. Berikut adalah penjelasan dari diagram kelas tersebut:
+Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi sebelum proses implementasi dilakukan. Perancangan ini menunjukkan hubungan antarkelas, atribut, serta metode yang dimiliki oleh setiap kelas. Hasil pada perancangan ini ditunjukkan melalui diagram kelas pada Gambar~\ref{fig:class-diagram}. Berikut adalah penjelasan dari diagram kelas tersebut:
 
 \vspace{5mm}
 \begin{enumerate}
 
     % ######################################################################
-    \item \textbf{Kelas Application}\\
+    \item \textbf{Kelas \texttt{Application}}\\
     Kelas \texttt{Application} merupakan titik awal aplikasi JavaFX dan bertugas untuk membuka jendela aplikasi. Kelas ini memiliki atribut \texttt{mainStage} yang menyimpan referensi ke jendela utama dan digunakan untuk menjadikan jendela lain sebagai turunan dari jendela utama. Berikut adalah penjelasan lebih rinci untuk metode dan relasi pada kelas ini:
 
     \vspace{2mm}
     \textbf{Metode:}
     \begin{itemize}
 
-        \item \texttt{start}: Metode ini digunakan untuk memulai aplikasi. Masukan metode ini adalah sebuah objek \texttt{Stage} yang digunakan untuk membuat jendela utama.
+        \item \texttt{start}: Metode ini digunakan untuk memulai aplikasi. Masukan dari metode ini adalah sebuah objek \texttt{Stage} yang digunakan untuk membuat jendela utama.
         
         \item \texttt{openMainWindow}: Metode ini digunakan untuk membuka jendela utama.
         
-        \item \texttt{openLinkWindow}: Metode ini digunakan untuk membuka jendela detail tautan. Masukan metode ini adalah sebuah objek \texttt{Link} yang ingin ditampilkan ke jendela detail tautan.
+        \item \texttt{openLinkWindow}: Metode ini digunakan untuk membuka jendela detail tautan. Masukan dari metode ini adalah sebuah objek \texttt{Link} yang ingin ditampilkan pada jendela detail tautan.
         
-        \item \texttt{openNotificationWindow}: Metode ini digunakan untuk membuka jendela notifikasi. Masukan metode ini adalah jenis pesan dan teks pesan yang ingin ditampilkan ke jendela notifikasi.
+        \item \texttt{openNotificationWindow}: Metode ini digunakan untuk membuka jendela notifikasi. Masukan dari metode ini adalah jenis pesan dan teks pesan yang ingin ditampilkan pada jendela notifikasi.
         
     \end{itemize}
 
@@ -30,8 +30,8 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     \vspace{15mm}
     % ######################################################################
-    \item \textbf{Kelas MainController}\\
-    Kelas \texttt{MainController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna serta mengelola data yang ditampilkan pada jendela utama. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
+    \item \textbf{Kelas \texttt{MainController}}\\
+    Kelas \texttt{MainController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela utama. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
 
     \vspace{2mm}
     \textbf{Atribut:}
@@ -55,11 +55,11 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
         \item \texttt{initialize}: Metode ini digunakan untuk menyiapkan komponen antarmuka.
         
-        \item \texttt{onStartClick}: Metode ini digunakan untuk menangani aksi pengguna ketika tombol \texttt{Start} ditekan dan akan memulai proses pemeriksaan.
+        \item \texttt{onStartClick}: Metode ini digunakan untuk menangani aksi pengguna ketika tombol \textit{Start} ditekan dan akan memulai proses pemeriksaan.
         
-        \item \texttt{onStopClick}: Metode ini digunakan untuk menangani aksi pengguna ketika tombol \texttt{Stop} ditekan dan akan menghentikan proses pemeriksaan.
+        \item \texttt{onStopClick}: Metode ini digunakan untuk menangani aksi pengguna ketika tombol \textit{Stop} ditekan dan akan menghentikan proses pemeriksaan.
         
-        \item \texttt{onExportClick}: Metode ini digunakan untuk menangani aksi pengguna ketika tombol \texttt{Export} ditekan dan akan memulai proses ekspor.
+        \item \texttt{onExportClick}: Metode ini digunakan untuk menangani aksi pengguna ketika tombol \textit{Export} ditekan dan akan memulai proses ekspor.
         
     \end{itemize}
 
@@ -69,7 +69,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         \item Relasi \textit{dependency} dengan kelas \texttt{Application}.
         \item Relasi \textit{dependency} dengan kelas \texttt{UrlHandler}.
         \item Relasi \textit{dependency} dengan kelas \texttt{Exporter}.
-        \item Relasi \textit{dependency} dengan enum \texttt{Status}.
+        \item Relasi \textit{dependency} dengan enumerasi \texttt{Status}.
         \item Relasi \textit{association} berkardinalitas \textit{one-to-many} dengan kelas \texttt{Link}.
         \item Relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Crawler}.
         \item Relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Summary}.
@@ -77,18 +77,18 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     \vspace{4mm}
     % ######################################################################
-    \item \textbf{Kelas LinkController}\\ 
-    Kelas \texttt{LinkController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna serta mengelola data yang ditampilkan pada jendela detail tautan. Kelas ini memiliki satu atribut, yaitu \texttt{link}, yang digunakan untuk menyimpan objek dari kelas \texttt{Link} yang akan ditampilkan pada jendela detail tautan. Selain itu, kelas ini memiliki satu metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka. Dengan adanya atribut \texttt{link}, maka kelas \texttt{LinkController} memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Link}.
+    \item \textbf{Kelas \texttt{LinkController}}\\ 
+    Kelas \texttt{LinkController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela detail tautan. Kelas ini memiliki satu atribut, yaitu \texttt{link}, yang digunakan untuk menyimpan objek dari kelas \texttt{Link} yang akan ditampilkan pada jendela detail tautan. Selain itu, kelas ini memiliki satu metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka. Dengan adanya atribut \texttt{link}, maka kelas \texttt{LinkController} memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Link}.
 
 
     \vspace{8mm}
     % ######################################################################
-    \item \textbf{Kelas NotificationController}\\
-    Kelas \texttt{NotificationController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna serta mengelola data yang ditampilkan pada jendela notifikasi. Kelas ini memiliki atribut \texttt{type} dan \texttt{message}, yang masing-masing merupakan nilai \texttt{String} dan digunakan untuk menyimpan jenis pesan serta isi pesan yang akan ditampilkan. Kelas ini juga memiliki metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka.
+    \item \textbf{Kelas \texttt{NotificationController}}\\
+    Kelas \texttt{NotificationController} bertugas untuk mengatur logika antarmuka, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela notifikasi. Kelas ini memiliki atribut \texttt{type} dan \texttt{message}, yang masing-masing merupakan nilai \texttt{String} dan digunakan untuk menyimpan jenis pesan serta isi pesan yang akan ditampilkan. Kelas ini juga memiliki metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka.
 
     \vspace{1mm}
     % ######################################################################
-    \item \textbf{Kelas Exporter}\\
+    \item \textbf{Kelas \texttt{Exporter}}\\
     Kelas \texttt{Exporter} bertugas untuk melakukan ekspor hasil pemeriksaan ke berkas Excel (\texttt{.xlsx}). Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
 
     \textbf{Atribut:}
@@ -103,7 +103,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \textbf{Metode:}
     \begin{itemize}
         
-        \item \texttt{save}: Metode ini digunakan untuk membuat dan menyimpan berkas Excel ke dalam penyimpanan lokal komputer. Masukan metode ini adalah objek \texttt{File} yang menunjukkan lokasi berkas hasil ekspor.
+        \item \texttt{save}: Metode ini digunakan untuk membuat dan menyimpan berkas Excel ke dalam penyimpanan lokal komputer. Masukan dari metode ini adalah objek \texttt{File} yang menunjukkan lokasi berkas hasil ekspor.
         
         \item \texttt{writeSummaryTable}: Metode ini digunakan untuk menulis tabel ringkasan proses pemeriksaan pada berkas Excel yang akan diekspor. Masukan dari metode ini adalah objek \texttt{Sheet} tempat tabel ditulis. 
         
@@ -121,8 +121,8 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     \vspace{1mm}
     % ######################################################################
-    \item \textbf{Kelas RateLimiter}\\
-    Kelas \texttt{RateLimiter} bertugas untuk membatasi frekuensi permintaan HTTP agar pemeriksaan tidak dilakukan terlalu cepat yang dapat membebani \textit{server} situs web tujuan. Kelas ini memiliki metode \texttt{delay} yang digunakan untuk mengatur jarak waktu antar permintaan HTTP. Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
+    \item \textbf{Kelas \texttt{RateLimiter}}\\
+    Kelas \texttt{RateLimiter} bertugas untuk membatasi frekuensi permintaan HTTP agar pemeriksaan tidak dilakukan terlalu cepat yang dapat membebani \textit{server} situs web tujuan. Kelas ini memiliki metode \texttt{delay} yang digunakan untuk mengatur jarak waktu antarpermintaan HTTP. Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
 
     \begin{itemize}
 
@@ -135,7 +135,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     \vspace{1mm}
     % ######################################################################
-    \item \textbf{Kelas UrlHandler}\\
+    \item \textbf{Kelas \texttt{UrlHandler}}\\
     Kelas \texttt{UrlHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait URL. Berikut adalah penjelasan lebih rinci untuk metode pada kelas ini:
     \begin{itemize}
         
@@ -147,7 +147,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     
     
     % ######################################################################
-    \item \textbf{Kelas Crawler}\\
+    \item \textbf{Kelas \texttt{Crawler}}\\
     Kelas \texttt{Crawler} bertugas untuk menjalankan proses \textit{web crawling} dan melakukan pemeriksaan pada setiap tautan yang ditemukan dalam proses tersebut. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
 
     \textbf{Atribut:}
@@ -192,7 +192,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     \vspace{10mm}
     % ######################################################################
-    \item \textbf{Kelas HttpHandler}\\
+    \item \textbf{Kelas \texttt{HttpHandler}}\\
     Kelas \texttt{HttpHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait HTTP. Berikut adalah penjelasan lebih rinci untuk atribut dan metode pada kelas ini:
 
     \vspace{1mm}
@@ -209,7 +209,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \textbf{Metode:}
     \begin{itemize}
 
-        \item \texttt{fetch}: Metode ini digunakan untuk melakukan permintaan HTTP. Masukan dari metode ini adalah URL target dan sebuah penanda apakah \textit{response body} diperlukan atau tidak. Keluaran dari metode ini adalah objek \texttt{HttpResponse} yang berisi informasi, seperti kode status HTTP, URL akhir setelah \textit{redirect}, tipe konten pada \textit{response body} serta \textit{response body} itu sendiri.
+        \item \texttt{fetch}: Metode ini digunakan untuk melakukan permintaan HTTP. Masukan dari metode ini adalah URL target dan sebuah penanda apakah \textit{response body} diperlukan atau tidak. Keluaran dari metode ini adalah objek \texttt{HttpResponse} yang berisi informasi, seperti kode status HTTP, URL akhir setelah \textit{redirect}, tipe konten pada \textit{response body}, serta \textit{response body} itu sendiri.
         
         \item \texttt{getStatusError}: Metode ini digunakan untuk mendapatkan pesan kesalahan dari atribut \texttt{STATUS\_MAP}. Masukan dari metode ini adalah sebuah kode status HTTP, sedangkan keluarannya adalah pesan kesalahan yang sesuai dengan kode status tersebut.
         
@@ -219,7 +219,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     \vspace{3mm}
     % ######################################################################
-    \item \textbf{Kelas Link}\\
+    \item \textbf{Kelas \texttt{Link}}\\
     Kelas \texttt{Link} merupakan model yang digunakan untuk merepresentasikan tautan yang ditemukan selama proses pemeriksaan. Kelas ini memiliki metode \texttt{addRelation} yang digunakan untuk menambahkan relasi pada tautan saat ini. Masukan dari metode ini adalah tautan lain yang ingin ditambahkan sebagai relasi dan teks pada tautan (\textit{anchor text}). Berikut adalah penjelasan lebih rinci untuk atribut dan relasi pada kelas ini:
 
     \vspace{1mm}
@@ -255,12 +255,12 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \vspace{10mm}
 
     % ######################################################################
-    \item \textbf{Kelas Summary}\\
-    Kelas \texttt{Summary} merupakan model yang digunakan untuk merepresentasikan data ringkasan dari proses pemeriksaan. Kelas ini memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan enum \texttt{Status}. Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
+    \item \textbf{Kelas \texttt{Summary}}\\
+    Kelas \texttt{Summary} merupakan model yang digunakan untuk merepresentasikan data ringkasan dari proses pemeriksaan. Kelas ini memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan enumerasi \texttt{Status}. Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
 
     \begin{itemize}
 
-        \item \texttt{status}: Atribut ini menyimpan enum \texttt{Status} yang menunjukan status terakhir dari proses pemeriksaan.
+        \item \texttt{status}: Atribut ini menyimpan enumerasi \texttt{Status} yang menunjukkan status terakhir dari proses pemeriksaan.
         
         \item \texttt{allLinksCount}: Atribut ini menyimpan jumlah total tautan.
         
@@ -275,8 +275,8 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
 
     % ######################################################################
-    \item \textbf{Enum Status}\\
-    Enum \texttt{Status} merupakan model yang digunakan untuk mendefinisikan status dari proses pemeriksaan. Enum ini memiliki empat konstanta, yaitu \texttt{IDLE} yang menandakan bahwa belum ada aktivitas pada sistem, \texttt{CHECKING} yang menunjukkan bahwa proses pemeriksaan sedang berlangsung, \texttt{STOPPED} yang menandakan bahwa proses pemeriksaan dihentikan oleh pengguna, serta \texttt{COMPLETED} yang menunjukkan bahwa proses pemeriksaan telah selesai.
+    \item \textbf{Enumerasi \texttt{Status}}\\
+    Enumerasi \texttt{Status} merupakan model yang digunakan untuk mendefinisikan status dari proses pemeriksaan. Enumerasi ini memiliki empat konstanta, yaitu \texttt{IDLE} yang menunjukkan bahwa belum ada aktivitas pada sistem, \texttt{CHECKING} yang menunjukkan bahwa proses pemeriksaan sedang berlangsung, \texttt{STOPPED} yang menunjukkan bahwa proses pemeriksaan dihentikan oleh pengguna, serta \texttt{COMPLETED} yang menunjukkan bahwa proses pemeriksaan telah selesai.
 
 \end{enumerate}
 

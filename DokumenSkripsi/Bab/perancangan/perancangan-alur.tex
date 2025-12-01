@@ -2,7 +2,7 @@ Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikas
 
 \begin{enumerate}
 
-    \item \textbf{(Langkah 1)} Pengguna menekan tombol \texttt{Start} sehingga metode \texttt{onStartClick()} pada \texttt{MainController} dipanggil.
+    \item \textbf{(Langkah 1)} Pengguna menekan tombol \textit{Start} sehingga metode \texttt{onStartClick()} pada \texttt{MainController} dipanggil.
     
     \item \textbf{(Langkah 2)} \texttt{MainController} meminta \texttt{UrlHandler} untuk menormalisasi URL masukan melalui metode \texttt{normalizeUrl()}.
     
@@ -26,7 +26,7 @@ Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikas
     
     \item \textbf{(Langkah 12)} \texttt{MainController} menampilkan tautan tersebut pada pengguna.
     
-    \item \textbf{(Langkah 13)} \texttt{Crawler} memanggil metode \texttt{extractLink} untuk mengekstraksi tautan dari dokumen HTML.
+    \item \textbf{(Langkah 13)} \texttt{Crawler} memanggil metode \texttt{extractLink()} untuk mengekstraksi tautan dari dokumen HTML.
     
     \item \textbf{(Langkah 14)} Untuk setiap tautan yang berhasil diekstraksi dari halaman tersebut, \texttt{Crawler} memanggil \texttt{normalizeUrl()} pada \texttt{UrlHandler} untuk menormalisasi URL tautan.
     
@@ -34,11 +34,11 @@ Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikas
     
     \item \textbf{(Langkah 16)} \texttt{Crawler} membuat objek \texttt{Link} baru berdasarkan URL hasil normalisasi.
     
-    \item \textbf{(Langkah 17)} Jika tautan merupakan halaman dari situs web target, \texttt{Crawler} masukannya ke \texttt{frontier} urutan paling belakang.
+    \item \textbf{(Langkah 17)} Jika tautan merupakan halaman dari situs web target, maka \texttt{Crawler} memasukkannya ke \texttt{frontier} urutan paling belakang.
     
     \item \textbf{(Langkah 18)} Jika tautan bukan merupakan halaman dari situs web target, \texttt{Crawler} memeriksa tautan tersebut dengan memanggil \texttt{fetch()} pada \texttt{HttpHandler}.
     
-    \item \textbf{(Langkah 19)} \texttt{HttpHandler} mengembalikan hasil pemeriksaan tanpa dokukan HTML.
+    \item \textbf{(Langkah 19)} \texttt{HttpHandler} mengembalikan hasil pemeriksaan tanpa dokumen HTML.
     
     \item \textbf{(Langkah 20)} \texttt{Crawler} mengirimkan tautan yang baru diperiksa tersebut ke \texttt{MainController} melalui \texttt{linkSender}.
 
