@@ -1,37 +1,59 @@
-Perancangan alur menggambarkan interaksi antarobjek pada sistem \textit{Broken Link Checker} selama proses pemeriksaan tautan berlangsung. Interaksi ini divisualisasikan dalam bentuk \textit{sequence diagram} yang menunjukkan urutan pesan antarobjek sejak pengguna memulai pemeriksaan hingga proses selesai tanpa interupsi. Diagram lengkap ditunjukkan pada Gambar~\ref{fig:sequence-diagram}.
-
-Berikut adalah penjelasan dari diagram pada Gambar~\ref{fig:sequence-diagram}:
+Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikasi yang dikembangkan selama proses pemeriksaan tautan berlangsung. Hasil pada perancangan ini ditujukan melalui \textit{sequence diagram} pada Gambar~\ref{fig:sequence-diagram}. Berikut adalah penjelasan dari \textit{sequence diagram} tersebut:
 
 \begin{enumerate}
-    \item (1) Pengguna memasukkan URL pada GUI.  
-    \item (2) Pengguna menekan tombol \textit{Start}.  
-    \item (3) GUI memanggil metode \texttt{onStartClick()} pada \texttt{MainController}.  
-    \item (4) \texttt{Controller} membuat objek \texttt{Crawler} baru.  
-    \item (5) \texttt{Crawler} menambahkan URL awal ke \texttt{Frontier} melalui \texttt{enqueueUrl()}.  
-    \item (6) \texttt{Controller} memanggil \texttt{startCrawling()} pada \texttt{Crawler}.  
-    \item (7–8) \texttt{Crawler} masuk ke dalam \textit{loop} dengan mengambil URL dari \texttt{Frontier} menggunakan \texttt{dequeue()}, yang mengembalikan URL paling depan.  
-    \item (9) URL di-\textit{fetch} oleh \texttt{Crawler}.  
-    \item (10–12) Jika terjadi \texttt{error}, maka dibuat objek \texttt{BrokenLink}. Objek ini dikirim ke \texttt{Controller} melalui \texttt{streamBrokenLink()}, kemudian (12-13) ditampilkan pada tabel \textit{BrokenLink} di GUI.  
-    \item (14–20) Jika status code hasil \texttt{fetch} oke, maka dilakukan:  
-    \begin{enumerate}
-        \item (14) Parsing HTML.  
-        \item (15–16) Ekstraksi dan normalisasi URL dari dokumen.  
-        \item (17) Dibuat objek \texttt{WebpageLink}.  
-        \item (18–20) Objek ini dikirim ke \texttt{Controller} melalui \texttt{streamWebpageLink()} dan ditampilkan di tabel \textit{WebpageLink} pada GUI.  
-    \end{enumerate}
-    \item (21–26) Untuk setiap URL hasil ekstraksi (\textit{loop}):  
-    \begin{enumerate}
-        \item Jika URL adalah halaman web, maka dimasukkan kembali ke \texttt{Frontier} melalui \texttt{enqueueUrl()}.  
-        \item Jika URL bukan halaman web, dilakukan \texttt{fetch}.  
-        \item (23–26) Jika \texttt{fetch} error, dibuat objek \texttt{BrokenLink}, dikirim ke \texttt{Controller} (\texttt{streamBrokenLink()}), kemudian diperbarui pada tabel dan ditampilkan di GUI.  
-    \end{enumerate}
-    \item (27–29) Proses berulang sampai \texttt{Frontier} kosong. Pada akhir siklus, \texttt{Crawler} menghentikan proses, \texttt{Controller} menandai proses selesai, dan GUI menampilkan status akhir serta ringkasan hasil.  
+
+    \item \textbf{(Langkah 1)} Pengguna menekan tombol \texttt{Start} sehingga metode \texttt{onStartClick()} pada \texttt{MainController} dipanggil.
+    
+    \item \textbf{(Langkah 2)} \texttt{MainController} meminta \texttt{UrlHandler} untuk menormalisasi URL masukan melalui metode \texttt{normalizeUrl()}.
+    
+    \item \textbf{(Langkah 3)} \texttt{UrlHandler} mengembalikan URL hasil normalisasi kepada \texttt{MainController}.
+    
+    \item \textbf{(Langkah 4)} Jika URL tidak valid, \texttt{MainController} menampilkan pesan kesalahan kepada pengguna.
+    
+    \item \textbf{(Langkah 5)} Jika URL valid, \texttt{MainController} memulai proses pemeriksaan dengan memanggil metode \texttt{start()} pada objek \texttt{Crawler}.
+    
+    \item \textbf{(Langkah 6)} \texttt{Crawler} membuat objek \texttt{Link} baru untuk merepresentasikan URL awal.
+    
+    \item \textbf{(Langkah 7)} Objek \texttt{Link} awal tersebut dimasukkan oleh \texttt{Crawler} ke dalam antrean \texttt{frontier} urutan paling belakang.
+    
+    \item \textbf{(Langkah 8)} \texttt{Crawler} mengambil tautan urutan paling depan dari \texttt{frontier}.
+    
+    \item \textbf{(Langkah 9)} \texttt{Crawler} meminta \texttt{HttpHandler} untuk melakukan pemeriksaan dengan memanggil metode \texttt{fetch()}.
+    
+    \item \textbf{(Langkah 10)} \texttt{HttpHandler} mengembalikan hasil pemeriksaan beserta dokumen HTML.
+    
+    \item \textbf{(Langkah 11)} \texttt{Crawler} mengirimkan objek \texttt{Link} yang telah diperiksa ke \texttt{MainController} melalui \texttt{linkSender}.
+    
+    \item \textbf{(Langkah 12)} \texttt{MainController} menampilkan tautan tersebut pada pengguna.
+    
+    \item \textbf{(Langkah 13)} \texttt{Crawler} memanggil metode \texttt{extractLink} untuk mengekstraksi tautan dari dokumen HTML.
+    
+    \item \textbf{(Langkah 14)} Untuk setiap tautan yang berhasil diekstraksi dari halaman tersebut, \texttt{Crawler} memanggil \texttt{normalizeUrl()} pada \texttt{UrlHandler} untuk menormalisasi URL tautan.
+    
+    \item \textbf{(Langkah 15)} \texttt{UrlHandler} mengembalikan URL hasil normalisasi kepada \texttt{Crawler}.
+    
+    \item \textbf{(Langkah 16)} \texttt{Crawler} membuat objek \texttt{Link} baru berdasarkan URL hasil normalisasi.
+    
+    \item \textbf{(Langkah 17)} Jika tautan merupakan halaman dari situs web target, \texttt{Crawler} masukannya ke \texttt{frontier} urutan paling belakang.
+    
+    \item \textbf{(Langkah 18)} Jika tautan bukan merupakan halaman dari situs web target, \texttt{Crawler} memeriksa tautan tersebut dengan memanggil \texttt{fetch()} pada \texttt{HttpHandler}.
+    
+    \item \textbf{(Langkah 19)} \texttt{HttpHandler} mengembalikan hasil pemeriksaan tanpa dokukan HTML.
+    
+    \item \textbf{(Langkah 20)} \texttt{Crawler} mengirimkan tautan yang baru diperiksa tersebut ke \texttt{MainController} melalui \texttt{linkSender}.
+
+    \item \textbf{(Langkah 21)} \texttt{MainController} menampilkan tautan tersebut pada pengguna.
+    
+    \item \textbf{(Langkah 22)} Ketika seluruh tautan dalam \texttt{frontier} sudah selesai diproses, \texttt{Crawler} mengirimkan sinyal bahwa proses pemeriksaan telah selesai.
+    
+    \item \textbf{(Langkah 23)} \texttt{MainController} menampilkan status bahwa proses pemeriksaan telah selesai kepada pengguna.
+    
 \end{enumerate}
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{Gambar/040200-sequence-diagram.png}
+    \includegraphics[width=0.95\textwidth]{Gambar/040200-sequence-diagram.png}
     \caption{\textit{Sequence Diagram} Proses Pemeriksaan Tautan}
     \label{fig:sequence-diagram}
 \end{figure}
