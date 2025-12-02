@@ -1,0 +1,56 @@
+\section[URI]{URI~\cite{RFC3986}}
+\label{sec:020200-uri}
+
+\textit{Uniform Resource Identifier} (URI) adalah rangkaian karakter yang digunakan untuk mengidentifikasi suatu sumber daya, baik berupa entitas fisik maupun abstrak. URI menyediakan cara standar untuk merepresentasikan identitas sumber daya melalui sintaksis yang terstruktur. Dua bentuk penting dari URI adalah \textit{Uniform Resource Locator} (URL) dan \textit{Uniform Resource Name} (URN). URL digunakan untuk menunjukkan lokasi dan mekanisme akses sumber daya, sedangkan URN digunakan sebagai nama tetap yang tidak bergantung pada lokasi.
+
+URI secara umum dapat dibedakan menjadi dua bentuk sintaksis, yaitu \textit{hierarchical URI} dan \textit{opaque URI}. \textit{Hierarchical URI} mengikuti struktur umum yang terdiri atas komponen seperti \textit{authority} dan \textit{path}, dan direpresentasikan menggunakan sintaks generik yang diorganisasi dalam bentuk hierarki. Sementara itu, \textit{opaque URI} adalah URI yang tidak mengikuti sintaks generik tersebut. URI ini terdiri dari suatu skema yang langsung diikuti data tanpa struktur hierarkis, misalnya \texttt{mailto:example@domain.com}. Dalam URI semacam ini, bagian setelah skema diperlakukan sebagai data yang tidak diuraikan ke dalam komponen \textit{authority}, \textit{path}, \textit{query}, atau \textit{fragment}.
+
+\subsection{Struktur Sintaks URI Hierarkis}
+\label{subsec:0202-struktur-url}
+
+URI hierarkis direpresentasikan menggunakan bentuk umum berikut:
+\begin{center}
+\texttt{scheme:[//authority]path[?query][\#fragment]}
+\end{center}
+
+Komponen-komponen tersebut dijelaskan sebagai berikut:
+\begin{itemize}
+  \item \textbf{Scheme}\\
+  Bagian ini berada pada awal URI dan diakhiri dengan tanda titik dua (\texttt{:}). Scheme menentukan aturan interpretasi URI atau protokol yang digunakan, misalnya \texttt{http}, \texttt{https}, \texttt{ftp}, atau \texttt{mailto}.
+  
+  \item \textbf{Authority}\\
+  Bagian ini bersifat opsional dan diawali dengan dua garis miring (\texttt{//}). Struktur \textit{authority} terdiri atas \textit{userinfo}, \textit{host}, dan \textit{port}. \textit{Userinfo} merupakan informasi opsional yang muncul sebelum host, \textit{host} dapat berupa nama domain atau alamat IP, dan \textit{port} menentukan nomor port layanan. Jika port tidak dituliskan, maka port bawaan dari scheme digunakan.
+  
+  \item \textbf{Path}\\
+  Bagian ini menunjukkan jalur menuju sumber daya. Path terdiri atas beberapa segmen yang dipisahkan oleh garis miring (\texttt{/}). Segmen khusus seperti \texttt{.} dan \texttt{..} disebut \textit{dot-segments} dan digunakan dalam mekanisme penyederhanaan jalur.
+  
+  \item \textbf{Query}\\
+  Bagian ini bersifat opsional dan diawali dengan tanda tanya (\texttt{?}). Isi query merupakan data yang interpretasinya bergantung pada scheme atau aplikasi yang memprosesnya. Bentuk pasangan \texttt{key=value} dengan pemisah \texttt{\&} merupakan konvensi umum, tetapi tidak merupakan bagian dari standar sintaks URI.
+  
+  \item \textbf{Fragment}\\
+  Bagian ini bersifat opsional dan diawali dengan tanda pagar (\texttt{\#}). Fragment merujuk pada bagian tertentu dalam representasi sumber daya dan tidak dikirimkan ke server.
+\end{itemize}
+
+\subsection{Kategori Karakter dan \textit{Percent-Encoding}}
+\label{subsec:0202-karakter-percent-encoding}
+
+URI menggunakan kategori karakter tertentu untuk memastikan representasi yang aman dan tidak ambigu.
+\begin{itemize}
+  \item \textbf{Unreserved characters}\\
+  Karakter yang dapat dituliskan langsung tanpa pengkodean tambahan. Termasuk di dalamnya huruf alfabet A--Z dan a--z, digit 0--9, serta karakter \texttt{-}, \texttt{\_}, \texttt{.}, dan \texttt{\textasciitilde}.
+  
+  \item \textbf{Reserved characters}\\
+  Karakter yang memiliki makna khusus tergantung konteks. Karakter pemisah umum (\textit{general delimiters}) meliputi \texttt{:}, \texttt{/}, \texttt{?}, \texttt{\#}, \texttt{[}, \texttt{]}, dan \texttt{@}. Karakter pemisah subkomponen (\textit{subcomponent delimiters}) meliputi \texttt{!}, \texttt{\$}, \texttt{\&}, \texttt{'}, \texttt{(}, \texttt{)}, \texttt{*}, \texttt{+}, \texttt{,}, \texttt{;}, dan \texttt{=}. Apabila karakter reserved digunakan di luar konteks yang diperbolehkan, maka karakter tersebut harus dikodekan.
+  
+  \item \textbf{Karakter lainnya}\\
+  Karakter non-ASCII, spasi, atau karakter lain yang tidak termasuk kategori sebelumnya harus dikodekan sebelum dapat dimasukkan dalam URI.
+\end{itemize}
+
+Karakter yang harus dikodekan direpresentasikan menggunakan mekanisme \textit{percent-encoding}, yaitu menggantikan suatu karakter dengan format \texttt{\%HH} yang terdiri atas nilai heksadesimal dalam huruf besar. Karakter unreserved sebaiknya tidak dikodekan agar URI tetap ringkas dan mudah dibaca.
+
+\subsection{Referensi Absolut dan Relatif}
+\label{subsec:0202-referensi-url}
+
+URI dapat berbentuk \textit{absolute URI} maupun \textit{relative reference}. \textit{Absolute URI} mencantumkan scheme dan seluruh komponen yang dibutuhkan untuk menginterpretasikan alamat secara mandiri. \textit{Relative reference} tidak mencantumkan scheme dan dapat berupa path, query, atau fragment. Terdapat pula \textit{same-document reference}, yaitu referensi yang hanya berisi fragment untuk merujuk pada bagian tertentu dari dokumen yang sama.
+
+Resolusi \textit{relative reference} terhadap suatu \textit{base URI} dilakukan melalui proses penggabungan komponen dan penyederhanaan jalur. Salah satu langkah penting dalam proses ini adalah penghapusan \textit{dot-segments}, yang memastikan bahwa path berada dalam bentuk yang ringkas dan tidak ambigu.

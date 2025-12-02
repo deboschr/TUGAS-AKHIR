@@ -1,18 +1,21 @@
-\textit{Hypertext Transfer Protocol} (HTTP) adalah protokol tingkat aplikasi yang menjadi dasar komunikasi pada arsitektur \textit{World Wide Web}. HTTP bekerja dengan pola komunikasi berbasis pesan, di mana sebuah \textit{client} mengirimkan \textit{request} dan \textit{server} menanggapinya dengan \textit{response}. Protokol ini bersifat \textit{stateless}, artinya setiap \textit{request} dapat dipahami secara terpisah tanpa ketergantungan pada interaksi sebelumnya, sehingga \textit{server} tidak diwajibkan menyimpan konteks antar \textit{request}. 
+\textit{Hypertext Transfer Protocol} (HTTP) adalah protokol tingkat aplikasi yang menjadi dasar komunikasi pada arsitektur \textit{World Wide Web}. HTTP berjalan di atas protokol TCP dengan port standar 80. Untuk komunikasi yang membutuhkan perlindungan, digunakan dapat digunakan HTTPS, yaitu HTTP yang berjalan di atas \textit{Transport Layer Security} (TLS) pada port standar 443. Melalui HTTPS, komunikasi memperoleh jaminan kerahasiaan, autentikasi, dan integritas data.
 
-Tujuan dari sebuah \textit{request} adalah \textit{resource}, yang umumnya diidentifikasi melalui URI (lihat Subbab~\ref{sec:020200-uri}). HTTP tidak membatasi apa yang dimaksud dengan \textit{resource}, melainkan hanya menyediakan antarmuka untuk berinteraksi dengannya. Informasi mengenai \textit{resource} tersebut disampaikan dalam bentuk \textit{representation}, yaitu data beserta metadata yang mencerminkan keadaan \textit{resource} pada waktu tertentu dan dapat ditransmisikan melalui protokol.
+HTTP bekerja dengan pola komunikasi berbasis \textit{client-server}, di mana sebuah \textit{client} mengirimkan \textit{request} dan \textit{origin server} menanggapinya dengan \textit{response}. Protokol ini bersifat \textit{stateless}, artinya setiap \textit{request} dapat dipahami secara terpisah tanpa ketergantungan pada interaksi sebelumnya, sehingga \textit{server} tidak diwajibkan menyimpan konteks antar \textit{request}. 
 
-Untuk meningkatkan kinerja, HTTP juga memanfaatkan \textit{caches}. Sebuah \textit{cache} menyimpan \textit{response} sebelumnya yang bersifat \textit{cacheable}, sehingga \textit{request} yang sama di kemudian hari dapat dijawab lebih cepat tanpa perlu menghubungi kembali \textit{origin server}. \textit{Origin server} adalah program yang dapat menghasilkan \textit{response} otoritatif untuk sebuah \textit{resource}. Mekanisme ini membantu mengurangi waktu \textit{response} sekaligus menekan konsumsi \textit{bandwidth}.
-
-Secara umum, HTTP dijalankan di atas protokol TCP dengan port standar 80. Untuk komunikasi yang membutuhkan perlindungan, digunakan skema \texttt{https}, yaitu HTTP yang berjalan di atas \textit{Transport Layer Security} (TLS) pada port standar 443. Melalui HTTPS, komunikasi memperoleh jaminan kerahasiaan, autentikasi, dan integritas data.
+Tujuan dari sebuah \textit{request} adalah \textit{resource} yang disediakan oleh \textit{origin server} melalui URL (lihat Subbab~\ref{sec:020200-uri}). \textit{Origin server} adalah program yang dapat menghasilkan \textit{response} untuk sebuah \textit{resource}. HTTP tidak membatasi apa yang dimaksud dengan \textit{resource}, melainkan hanya menyediakan antarmuka untuk berinteraksi dengannya. Informasi mengenai \textit{resource} tersebut disampaikan dalam bentuk \textit{representation}, yaitu data beserta metadata yang mencerminkan keadaan \textit{resource} pada waktu tertentu dan dapat ditransmisikan melalui protokol.
 
 
 \subsection{Metode HTTP}
 \label{subsec:0201-metode-http}
+Metode HTTP berfungsi untuk menunjukkan tujuan dari \textit{request} yang dibuat oleh \textit{client} dan hasil sukses apa yang diharapkan dari \textit{request} tersebut. Metode HTTP memiliki beberapa sifat umum, diantaranya adalah \textit{safe} dan \textit{idempotent}. Sebuah metode dikatakan \textit{safe} apabila semantik yang didefinisikan bersifat \textit{read-only}, yaitu \textit{client} tidak meminta dan tidak mengharapkan adanya perubahan keadaan pada \textit{origin server} akibat penerapan metode tersebut. Metode yang termasuk \textit{safe} adalah \texttt{GET}, \texttt{HEAD}, \texttt{OPTIONS}, dan \texttt{TRACE}. Sebuah metode disebut \textit{idempotent} apabila dampak yang dimaksudkan pada \textit{server} dari beberapa \textit{request} identik, sama dengan dampak dari satu \textit{request}. Metode \texttt{PUT}, \texttt{DELETE}, serta seluruh metode aman adalah \textit{idempotent}. 
 
-Metode HTTP berfungsi untuk menunjukkan tujuan dari \textit{request} yang dibuat oleh \textit{client} dan hasil sukses apa yang diharapkan dari \textit{request} tersebut. Metode HTTP memiliki beberapa sifat umum, diantaranya adalah \textit{safe} dan \textit{idempotent}. Sebuah metode dikatakan \textit{safe} apabila semantik yang didefinisikan bersifat \textit{read-only}, yaitu \textit{client} tidak meminta dan tidak mengharapkan adanya perubahan keadaan pada \textit{origin server} akibat penerapan metode tersebut. Metode yang termasuk \textit{safe} adalah \texttt{GET}, \texttt{HEAD}, \texttt{OPTIONS}, dan \texttt{TRACE}. Sebuah metode disebut \textit{idempotent} apabila dampak yang dimaksudkan pada \textit{server} dari beberapa \textit{request} identik, sama dengan dampak dari satu \textit{request}. Metode \texttt{PUT}, \texttt{DELETE}, serta seluruh metode aman adalah \textit{idempotent}. Berikut ini adalah daftar beberapa metode HTTP:
+\vspace{10mm}
 
-\begin{itemize}
+Berikut ini adalah daftar beberapa metode HTTP:
+
+\vspace{2mm}
+
+\begin{itemize}[itemsep=2pt]
     \item \textbf{GET}: Metode ini digunakan untuk meminta transfer representasi terkini dari sumber daya target.
   
     \item \textbf{HEAD}: Metode ini identik dengan \texttt{GET}, tetapi \textit{server} tidak boleh mengirimkan konten dalam \textit{response}. \texttt{HEAD} digunakan untuk memperoleh metadata dari representasi yang dipilih tanpa harus mentransfer data representasi itu sendiri.
@@ -37,7 +40,7 @@ Kode status HTTP adalah bagian dari baris awal pada \textit{response} \textit{se
 \subsubsection{\textit{Informational} 1xx}
 \label{subsubsec:020104-infotmational-1xx}
 
-Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima dan sedang diproses, tetapi belum ada \textit{response} final.
+Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima dan sedang diproses, tetapi belum ada \textit{response} final. Berikut adalah daftar kode status pada kategori ini:
 
 \begin{itemize}
     \item \textbf{100 (\textit{Continue})}: Menunjukkan bahwa bagian awal dari \textit{request} telah diterima dan belum ditolak oleh \textit{server}. \textit{Server} bermaksud untuk mengirimkan \textit{response} akhir setelah seluruh \textit{request} diterima dan diproses.
@@ -53,7 +56,7 @@ Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima dan s
 \subsubsection{\textit{Successful} 2xx}
 \label{subsubsec:201004-successful-2xx}
 
-Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima, dipahami, dan diproses dengan sukses.
+Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima, dipahami, dan diproses dengan sukses. Berikut adalah daftar kode status pada kategori ini:
 
 \begin{itemize}
     \item \textbf{200 (\textit{OK})}: Menunjukkan bahwa \textit{request} berhasil diproses.
@@ -80,11 +83,13 @@ Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima, dipa
 \subsubsection{\textit{Redirection} 3xx}
 \label{subsubsec:020104-redirection-3xx}
 
-Kode-kode pada kelas ini menunjukkan bahwa \textit{client} harus melakukan langkah tambahan untuk menyelesaikan \textit{request}, seperti mengikuti \textit{redirect}.
+Kode-kode pada kelas ini menunjukkan bahwa \textit{client} harus melakukan langkah tambahan untuk menyelesaikan \textit{request}, seperti mengikuti \textit{redirect}. Berikut adalah daftar kode status pada kategori ini:
 
 \begin{itemize}
 
     \item \textbf{300 (\textit{Multiple Choices})}: Menunjukkan bahwa sumber daya target memiliki lebih dari satu representasi, masing-masing dengan \textit{identifier} yang lebih spesifik. Informasi mengenai alternatif tersebut diberikan agar pengguna atau \textit{user agent} dapat memilih representasi yang diinginkan dengan mengarahkan permintaannya ke salah satu dari \textit{identifier} tersebut.
+    
+    \vspace{5mm}
   
     \item \textbf{301 (\textit{Moved Permanently})}: Menunjukkan bahwa sumber daya target telah diberikan URI baru yang bersifat permanen, dan semua referensi di masa depan sebaiknya menggunakan URI baru tersebut.
   
@@ -103,9 +108,9 @@ Kode-kode pada kelas ini menunjukkan bahwa \textit{client} harus melakukan langk
 \subsubsection{\textit{Client Error} 4xx}
 \label{subsubsec:020104-client-error-4xx}
 
-Kode-kode pada kelas ini menunjukkan bahwa telah terjadi kesalahan di sisi \textit{client}. Berikut adalah daftar kode pada kelas ini:
+Kode-kode pada kelas ini menunjukkan bahwa telah terjadi kesalahan di sisi \textit{client}. Berikut adalah daftar kode status pada kategori ini:
 
-\begin{itemize}
+\begin{itemize}[itemsep=2pt]
     \item \textbf{400 (\textit{Bad Request})}: Menunjukkan bahwa \textit{server} tidak dapat atau tidak mau memproses \textit{request} karena dianggap sebagai kesalahan dari \textit{client}, seperti sintaks \textit{request} salah, format pesan tidak valid, atau rute \textit{request} yang menyesatkan.
   
     \item \textbf{401 (\textit{Unauthorized})}: Menunjukkan bahwa \textit{request} tidak dapat dijalankan karena tidak memiliki kredensial autentikasi yang sah untuk sumber daya yang diminta.
@@ -167,9 +172,11 @@ Kode-kode pada kelas ini menunjukkan bahwa telah terjadi kesalahan di sisi \text
 \subsubsection{\textit{Server Error} 5xx}
 \label{subsubsec:020104-server-error-5xx}
 
-Kode-kode pada kelas ini menunjukkan bahwa \textit{server} menyadari bahwa terjadi kesalahan di sisi \textit{server}. Berikut adalah daftar kode pada kelas ini:
+Kode-kode pada kelas ini menunjukkan bahwa \textit{server} menyadari bahwa terjadi kesalahan di sisi \textit{server}. Berikut adalah daftar kode status pada kategori ini:
 
-\begin{itemize}
+\vspace{3mm}
+
+\begin{itemize}[itemsep=4pt]
 
     \item \textbf{500 (\textit{Internal Server Error})}: Menunjukkan bahwa \textit{server} mengalami kondisi tak terduga yang menghalangi \textit{server} untuk dapat memenuhi.
   
@@ -193,3 +200,4 @@ Kode-kode pada kelas ini menunjukkan bahwa \textit{server} menyadari bahwa terja
   
 \end{itemize}
 
+\vspace{10mm}

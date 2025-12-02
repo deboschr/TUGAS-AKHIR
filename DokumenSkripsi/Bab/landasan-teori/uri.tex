@@ -1,6 +1,10 @@
-\textit{Uniform Resource Identifier} (URI) adalah string karakter yang digunakan untuk mengidentifikasi suatu sumber daya. Identifikasi tersebut dapat berupa lokasi, nama, atau kombinasi keduanya. Spesifikasi URI ditetapkan dalam RFC~3986 yang mendefinisikan aturan sintaks, komponen, serta mekanisme representasi sumber daya.
+\textit{Uniform Resource Identifier} (URI) adalah rangkaian karakter yang digunakan untuk mengidentifikasi suatu sumber daya, baik berupa entitas fisik maupun abstrak. URI menyediakan cara standar untuk merepresentasikan identitas sumber daya melalui sintaksis yang terstruktur. Terdapat dua bentuk utama URI, yaitu \textit{Uniform Resource Locator} (URL) dan \textit{Uniform Resource Name} (URN).  URL adalah URI yang menyertakan informasi lokasi dan mekanisme akses terhadap sumber daya, sedangkan URN adalah URI yang berfungsi sebagai nama tetap suatu sumber daya tanpa menyertakan lokasi penyimpanannya.
 
-RFC~3986 mendeskripsikan URI sebagai konsep umum yang memiliki beberapa bentuk. Dua bentuk yang paling dikenal adalah \textit{Uniform Resource Locator} (URL) dan \textit{Uniform Resource Name} (URN). URL adalah URI yang menyertakan informasi lokasi dan mekanisme akses terhadap sumber daya, contohnya \texttt{http://unpar.ac.id/index.html}. URN adalah URI yang berfungsi sebagai nama tetap suatu sumber daya tanpa menyertakan lokasi aksesnya, contohnya \texttt{urn:isbn:0451450523}. RFC juga membedakan URI yang bersifat hierarkis dan URI yang bersifat opak. URI hierarkis memiliki komponen seperti \textit{authority} dan \textit{path}, misalnya skema \texttt{http}. URI opak tidak dapat diuraikan ke dalam komponen hierarkis, misalnya skema \texttt{mailto}.
+
+Secara struktur, URI terbagi menjadi dua bentuk, yaitu \textit{hierarchical} URI dan \textit{opaque} URI. \textit{Hierarchical} URI mengikuti sintaksis generik yang tersusun atas komponen seperti \textit{authority}, \textit{path}, \textit{query}, dan \textit{fragment}, sehingga dapat diuraikan ke dalam struktur yang berlapis. Sebaliknya, \textit{opaque} URI tidak mengikuti sintaksis generik tersebut, namun terdiri atas skema yang langsung diikuti data tanpa ada struktur hierarkis.
+
+
+
 
 \subsection{Struktur Sintaks URL}
 \label{subsec:0202-struktur-url}
@@ -13,13 +17,13 @@ URL, sebagai bentuk URI yang bersifat hierarkis, memiliki struktur sintaks yang 
 Komponen-komponen dalam URL dijelaskan sebagai berikut:
 \begin{itemize}
   \item \textbf{Scheme}\\
-  Bagian ini dituliskan pada awal URL dan diakhiri dengan tanda titik dua (\texttt{:}). Scheme menunjukkan protokol atau mekanisme akses yang digunakan, contohnya \texttt{http}, \texttt{https}, \texttt{ftp}, atau \texttt{mailto}.
+  Bagian ini dituliskan pada awal URL dan diakhiri dengan tanda titik dua (\texttt{:}). Scheme menunjukkan protokol atau mekanisme akses yang digunakan, seperti \texttt{http}, \texttt{https}, \texttt{ftp}, atau \texttt{mailto}.
   
   \item \textbf{Authority}\\
-  Bagian ini bersifat opsional dan diawali dengan dua garis miring (\texttt{//}). Authority dapat terdiri atas tiga subkomponen, yaitu \textit{userinfo}, \textit{host}, dan \textit{port}. \textit{Userinfo} berisi informasi pengguna dengan format \texttt{user:password@} yang digunakan dalam beberapa skema seperti FTP. \textit{Host} adalah lokasi sumber daya yang dapat berupa nama domain atau alamat IP. \textit{Port} adalah nomor port koneksi, misalnya \texttt{80} untuk HTTP atau \texttt{443} untuk HTTPS. Jika port tidak dituliskan, maka \textit{port default} dari skema tersebut digunakan.
+  Bagian ini bersifat opsional dan diawali dengan dua garis miring (\texttt{//}). Authority dapat terdiri atas tiga subkomponen, yaitu \textit{userinfo}, \textit{host}, dan \textit{port}. \textit{Userinfo} berisi informasi pengguna dengan format \texttt{user:password@} yang digunakan dalam beberapa skema seperti FTP. \textit{Host} adalah lokasi sumber daya yang dapat berupa nama domain atau alamat IP. \textit{Port} adalah nomor port koneksi, contohnya seperti \texttt{80} untuk HTTP atau \texttt{443} untuk HTTPS. Jika port tidak dituliskan, maka \textit{port default} dari skema tersebut digunakan.
   
   \item \textbf{Path}\\
-  Bagian ini menunjukkan jalur menuju sumber daya pada host. Path terdiri atas segmen-segmen yang dipisahkan tanda garis miring (\texttt{/}). Di dalamnya dapat terdapat \textit{dot-segments}, yaitu segmen khusus berupa \texttt{.} yang merujuk ke direktori saat ini dan \texttt{..} yang merujuk ke direktori induk.
+  Bagian ini menunjukkan jalur menuju sumber daya pada host. Path terdiri atas segmen-segmen yang dipisahkan tanda garis miring (\texttt{/}). Di dalamnya dapat terdapat \textit{dot-segments}, yaitu segmen khusus berupa sebuah titik (\texttt{.}) yang merujuk ke direktori saat ini dan dua titik (\texttt{..}) yang merujuk ke direktori induk.
   
   \item \textbf{Query}\\
   Bagian ini bersifat opsional dan diawali dengan tanda tanya (\texttt{?}). Query berisi parameter dalam format pasangan \texttt{key=value}. Jika terdapat lebih dari satu parameter, maka masing-masing dipisahkan dengan tanda \texttt{\&}.

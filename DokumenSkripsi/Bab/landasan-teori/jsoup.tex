@@ -1,161 +1,55 @@
-Jsoup adalah sebuah pustaka Java yang dikembangkan oleh Jonathan Hedley pada tahun 2009 dan dipublikasikan sebagai proyek sumber terbuka dengan lisensi MIT. Pustaka ini berfungsi sebagai HTML \textit{parser} yang digunakan untuk memproses dokumen HTML maupun XML sehingga dapat diolah dalam bentuk struktur yang lebih teratur.  
+Jsoup adalah sebuah pustaka Java yang berfungsi sebagai HTML \textit{parser} untuk memproses dokumen HTML sehingga dapat diolah dalam struktur yang lebih teratur. Dokumen yang diproses oleh Jsoup dapat berasal dari tiga sumber utama, yaitu halaman web yang diakses melalui URL, berkas yang tersimpan secara lokal, dan \texttt{String} yang berisi kode HTML. Pustaka ini dirancang agar toleran terhadap dokumen HTML yang tidak valid atau tidak terstruktur, sehingga hasil \textit{parsing} selalu dalam bentuk \textit{Document Object Model} (DOM) yang telah diperbaiki.
 
-Dokumen yang diproses dengan Jsoup dapat berasal dari tiga sumber utama, yaitu halaman web yang diakses melalui URL, file yang tersimpan secara lokal, dan string yang berisi kode HTML. Setelah dokumen diperoleh, Jsoup melakukan \textit{parsing} berdasarkan spesifikasi HTML5 untuk menghasilkan representasi dalam bentuk \textit{Document Object Model} (DOM) yang konsisten dengan hasil pemrosesan browser modern.  
-
-Selain menghasilkan representasi DOM, Jsoup juga dirancang agar toleran terhadap dokumen HTML yang tidak valid atau tidak terstruktur. Dengan karakteristik ini, Jsoup tetap mampu membentuk pohon hasil \textit{parsing} yang dapat diproses lebih lanjut. Pustaka ini mendukung keluaran kembali dalam bentuk HTML yang telah ditata (\textit{tidy HTML}), sehingga dokumen hasil pemrosesan menjadi lebih rapi dan siap digunakan pada tahap berikutnya.
-
-\subsection{Kelas Utama}
-\label{subsec:0227-kelas-utama}
+Jsoup adalah pustaka Java yang menyediakan kemampuan untuk mengambil dan memproses dokumen HTML. Pustaka ini mendukung operasi \textit{parsing}, manipulasi elemen, ekstraksi data, serta pencarian elemen dengan sintaksis yang menyerupai CSS \textit{selector}. Jsoup dapat memproses HTML yang berasal dari beberapa sumber, seperti halaman situ web melalui URL, berkas lokal, atau \texttt{String} yang berisi markup HTML. Pustaka ini dirancang untuk toleran terhadap HTML yang tidak valid dan menghasilkan struktur \textit{Document Object Model} (DOM) yang telah diperbaiki sehingga dapat diolah secara konsisten.
 
 
-Beberapa kelas utama yang disediakan oleh Jsoup dalam pengolahan dokumen HTML adalah sebagai berikut:
+\noindent Berikut adalah beberapa kelas yang tersedia pada pustaka Jsoup:
 
-\begin{enumerate}[label=\alph*.]
-    \item \texttt{Jsoup}\\
-    Kelas ini merupakan titik masuk utama untuk menggunakan pustaka Jsoup. Seluruh \textit{method} yang disediakan bersifat \textit{static} dan digunakan untuk memulai proses pengambilan maupun \textit{parsing} dokumen.
-    \begin{itemize}
-        \item \texttt{connect(String url)}\\
-        Membuat sebuah koneksi HTTP ke alamat web yang ditentukan oleh parameter URL, menghasilkan objek \texttt{Connection}.
-        \item \texttt{parse(String html)}\\
-        Melakukan \textit{parsing} terhadap string HTML dan menghasilkan sebuah objek \texttt{Document}.
-        \item \texttt{parse(File file, String charsetName)}\\
-        Memproses file HTML lokal dengan karakter encoding tertentu, menghasilkan objek \texttt{Document}.
-    \end{itemize}
+\subsection{Kelas \texttt{Jsoup}}
+\label{subsec:020601-kelas-jsoup}
+Kelas \texttt{Jsoup} merupakan titik masuk utama untuk menggunakan pustaka Jsoup. Berikut adalah beberapa metode yang tersedia pada kelas ini:
 
-    \item \texttt{Connection}\\
-    Antarmuka yang merepresentasikan konfigurasi sebuah koneksi HTTP sebelum dijalankan. Melalui \texttt{Connection}, berbagai properti \textit{request} dapat diatur.
-    \begin{itemize}
-        \item \texttt{userAgent(String ua)}\\
-        Menentukan nilai \textit{User-Agent} yang dikirimkan pada \textit{request} HTTP.
-        \item \texttt{timeout(int millis)}\\
-        Menentukan batas waktu koneksi dalam satuan milidetik.
-        \item \texttt{method(Connection.Method m)}\\
-        Menetapkan HTTP \textit{method} yang akan digunakan, seperti GET, POST, atau HEAD.
-        \item \texttt{get()}\\
-        Mengeksekusi HTTP \textit{request} dengan \textit{method} GET dan menghasilkan objek \texttt{Document}.
-        \item \texttt{execute()}\\
-        Mengeksekusi \textit{request} dan mengembalikan objek \texttt{Connection.Response} yang memuat informasi lengkap hasil \textit{request}.
-    \end{itemize}
+\begin{itemize}
+    \item \texttt{connect}: Metode ini digunakan untuk membuat koneksi HTTP menuju URL situs web tujuan.
+    
+    \item \texttt{parse}: Metode ini digunakan untuk melakukan \textit{parsing} pada \texttt{String} HTML menjadi objek \texttt{Document}.
+    
+    \item \texttt{parseBodyFragment}: Metode ini digunakan untuk melakukan \textit{parsing} pada potongan HTML parsial dan menghasilkan objek \texttt{Document}.
+    
+\end{itemize}
 
-    \item \texttt{Connection.Response}\\
-    Antarmuka yang merepresentasikan \textit{response} HTTP yang diterima setelah \textit{request} dijalankan.
-    \begin{itemize}
-        \item \texttt{statusCode()}\\
-        Mengembalikan HTTP \textit{status code} dari \textit{response}, seperti 200 atau 404.
-        \item \texttt{headers()}\\
-        Mengembalikan seluruh \textit{header} dari \textit{response} dalam bentuk pasangan nama–nilai.
-        \item \texttt{cookies()}\\
-        Mengembalikan seluruh \textit{cookie} yang diterima dari server.
-        \item \texttt{body()}\\
-        Mengembalikan isi \textit{response body} dalam bentuk string.
-        \item \texttt{parse()}\\
-        Memproses isi \textit{response body} menjadi objek \texttt{Document}.
-    \end{itemize}
 
-    \item \texttt{Document}\\
-    Kelas yang merepresentasikan sebuah dokumen HTML utuh. \texttt{Document} merupakan turunan dari \texttt{Element}, sehingga mewarisi banyak \textit{method} darinya.
-    \begin{itemize}
-        \item \texttt{title()}\\
-        Mengembalikan nilai judul halaman HTML dari elemen \texttt{<title>}.
-        \item \texttt{body()}\\
-        Mengembalikan elemen \texttt{<body>} dari dokumen.
-        \item \texttt{select(String cssQuery)}\\
-        Mencari elemen-elemen yang sesuai dengan CSS \textit{selector} dan mengembalikan objek \texttt{Elements}.
-        \item \texttt{baseUri()}\\
-        Mengembalikan URI dasar dari dokumen yang digunakan untuk menyelesaikan URL relatif.
-    \end{itemize}
+\subsection{Kelas \texttt{Document}}
+\label{subsec:020602-kelas-document}
+Kelas \texttt{Document} merupakan representasi dari keseluruhan dokumen HTML setelah proses \textit{parsing}. Kelas ini berfungsi sebagai akar struktur DOM dan menyediakan metode untuk membaca, menelusuri, atau memodifikasi isi dokumen. Berikut adalah beberapa metode yang tersedia pada kelas ini:
 
-    \item \texttt{Element}\\
-    Kelas yang merepresentasikan sebuah elemen tunggal dalam struktur HTML, seperti \texttt{<a>}, \texttt{<p>}, atau \texttt{<div>}.
-    \begin{itemize}
-        \item \texttt{attr(String key)}\\
-        Membaca atau mengubah nilai atribut dari sebuah elemen.
-        \item \texttt{text()}\\
-        Mengembalikan isi teks dari elemen tanpa menyertakan \textit{markup} HTML.
-        \item \texttt{html()}\\
-        Mengembalikan isi HTML dari elemen, termasuk \textit{markup} di dalamnya.
-        \item \texttt{absUrl(String key)}\\
-        Mengembalikan URL absolut dari sebuah atribut, seperti \texttt{href} atau \texttt{src}, berdasarkan URI dasar dokumen.
-    \end{itemize}
+\begin{itemize}
+    \item \texttt{title}: Metode ini digunakan untuk mendapatkan elemen \texttt{<title>} dari dokumen.
+    
+    \item \texttt{body}: Metode ini digunakan untuk mendapatkan elemen \texttt{<body>} dari dokumen.
+    
+    \item \texttt{select}: Metode ini digunakan untuk mencari elemen dalam dokumen berdasarkan CSS \textit{selector}.
+    
+    \item \texttt{baseUri}: Metode ini digunakan untuk mendapatkan URL dasar dari dokumen, jika sumbernya diambil melalui URL.
+    
+\end{itemize}
 
-    \item \texttt{Elements}\\
-    Kelas yang merepresentasikan sekumpulan objek \texttt{Element}. Biasanya dihasilkan oleh pemanggilan \textit{method} \texttt{select()}.
-    \begin{itemize}
-        \item \texttt{size()}\\
-        Mengembalikan jumlah elemen dalam koleksi.
-        \item \texttt{get(int index)}\\
-        Mengambil elemen pada posisi tertentu di dalam koleksi.
-        \item \texttt{eachText()}\\
-        Mengembalikan daftar teks dari seluruh elemen dalam koleksi.
-    \end{itemize}
 
-    \item \texttt{Parser}\\
-    Kelas yang digunakan untuk melakukan \textit{parsing} terhadap dokumen HTML atau XML.
-    \begin{itemize}
-        \item \texttt{htmlParser()}\\
-        Menghasilkan parser HTML sesuai spesifikasi HTML5.
-        \item \texttt{xmlParser()}\\
-        Menghasilkan parser XML untuk memproses dokumen XML.
-        \item \texttt{parse(String html, String baseUri)}\\
-        Memproses string HTML dengan URI dasar yang ditentukan, menghasilkan objek \texttt{Document}.
-    \end{itemize}
+\subsection{Kelas \texttt{Element}}
+\label{subsec:020603-kelas-element}
+Kelas \texttt{Element} merupakan representasi satu elemen HTML dalam struktur DOM. Kelas ini memiliki \textit{tag}, atribut, konten teks, serta daftar elemen anak. Berikut adalah beberapa metode yang tersedia pada kelas ini:
 
-    \item \texttt{Selector}\\
-    Kelas yang digunakan secara internal untuk mendukung mekanisme CSS selector pada Jsoup.
-    \begin{itemize}
-        \item \texttt{select(String cssQuery, Element root)}\\
-        Mencari elemen-elemen yang sesuai dengan \textit{query} CSS dari suatu elemen root.
-        \item \texttt{selectFirst(String cssQuery, Element root)}\\
-        Mengembalikan elemen pertama yang sesuai dengan \textit{query} CSS dari suatu elemen \textit{root}.
-        \item \texttt{evaluate(String cssQuery, Element root)}\\
-        Mengevaluasi \textit{query} CSS terhadap elemen \textit{root} untuk menghasilkan koleksi elemen yang sesuai.
-    \end{itemize}
-\end{enumerate}
-
-\noindent Selain kelas-kelas utama tersebut, Jsoup juga mendefinisikan beberapa kelas \textit{exception}, antara lain \texttt{HttpStatusException}, yang dilemparkan ketika server mengembalikan HTTP \textit{status code} selain 2xx, serta \texttt{UnsupportedMimeTypeException}, yang muncul apabila dokumen memiliki tipe konten yang tidak dapat diproses sebagai HTML.
-
-\subsection{Contoh Kode Program}
-\label{subsec:0227-contoh-kode-program}
-
-Kode~\ref{lst:jsoup-example} menunjukkan contoh penggunaan Jsoup untuk mengambil sebuah halaman web, memprosesnya menjadi objek \texttt{Document}, dan mengekstraksi sejumlah informasi dari dokumen tersebut. Contoh ini menggambarkan bagaimana kelas-kelas utama yang telah dijelaskan sebelumnya, yaitu \texttt{Jsoup}, \texttt{Connection}, \texttt{Connection.Response}, \texttt{Document}, \texttt{Elements}, dan \texttt{Element}, digunakan secara bersama-sama dalam sebuah program nyata. Hasil eksekusi dari kode ini berupa informasi judul halaman, URI dasar dokumen, serta daftar tautan beserta teks, URL absolut, dan atribut lain yang terkait.
-
-\begin{lstlisting}[language=Java, caption={Contoh Penggunaan Jsoup}, label={lst:jsoup-example}]
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-public class JsoupExample {
-    public static void main(String[] args) throws Exception {
-        // Membuat koneksi dengan pengaturan user-agent dan timeout
-        Connection connection = Jsoup.connect("https://www.example.com")
-                .userAgent("BrokenLinkChecker 1.0")
-                .timeout(5000);
-
-        // Mengeksekusi request dan memperoleh response
-        Connection.Response response = connection.execute();
-
-        // Menampilkan status code dan content type
-        System.out.println("Status Code : " + response.statusCode());
-        System.out.println("Content-Type: " + response.headers().get("Content-Type"));
-
-        // Memproses response menjadi Document
-        Document doc = response.parse();
-
-        System.out.println("Title   : " + doc.title());
-        System.out.println("Base URI: " + doc.baseUri());
-
-        // Menyeleksi semua elemen <a> yang memiliki atribut href
-        Elements links = doc.select("a[href]");
-
-        for (Element link : links) {
-            System.out.println("Teks   : " + link.text());
-            System.out.println("Href   : " + link.attr("href"));
-            System.out.println("AbsURL : " + link.absUrl("href"));
-        }
-    }
-}
-\end{lstlisting}
-
-Alur dari Kode~\ref{lst:jsoup-example} dimulai dengan pembuatan objek \texttt{Connection} melalui pemanggilan metode \texttt{Jsoup.connect()}, kemudian ditetapkan nilai \textit{User-Agent} dengan \texttt{userAgent()} dan batas waktu koneksi dengan \texttt{timeout()}. Permintaan dieksekusi melalui \texttt{execute()} untuk menghasilkan objek \texttt{Connection.Response}, dari mana dapat diperoleh kode status dengan \texttt{statusCode()} dan \textit{header} tertentu melalui \texttt{headers()}. Isi respons kemudian diproses menjadi objek \texttt{Document} menggunakan \texttt{parse()}, yang selanjutnya menyediakan informasi judul halaman dengan \texttt{title()} dan URI dasar dengan \texttt{baseUri()}. Setelah itu, method \texttt{select()} digunakan untuk memilih seluruh elemen \texttt{<a>} yang memiliki atribut \texttt{href}, menghasilkan koleksi \texttt{Elements}. Koleksi ini diiterasi, dan untuk setiap \texttt{Element} diperoleh teks melalui \texttt{text()}, nilai atribut melalui \texttt{attr("href")}, serta URL absolut melalui \texttt{absUrl("href")}. Dengan demikian, kode ini tidak hanya menampilkan daftar tautan, tetapi juga memperlihatkan cara menggunakan beberapa method penting yang telah dijelaskan sebelumnya.
+\begin{itemize}
+    \item \texttt{attr}: Metode ini digunakan untuk mengambil nilai suatu atribut.
+    
+    \item \texttt{text}: Metode ini digunakan untuk mendapatkan teks dalam elemen beserta elemen turunannya.
+    
+    \item \texttt{absUrl}: Metode ini digunakan untuk mendapatkan URL absolut dari sebuah atribut, seperti \texttt{href} atau \texttt{src}, berdasarkan URI dasar dokumen.
+    
+    \item \texttt{html}: Metode ini digunakan untuk memperoleh markup HTML bagian dalam elemen.
+    
+    \item \texttt{select}: Metode ini digunakan untuk mencari elemen turunan berdasarkan CSS \textit{selector}.
+    
+    \item \texttt{children}: Metode ini digunakan untuk mendapatkan daftar elemen anak dari sebuah elemen tertentu.
+    
+\end{itemize}
