@@ -1,0 +1,66 @@
+\renewcommand{\arraystretch}{1.3}
+\begin{longtable}{
+   |>{\raggedright\arraybackslash}m{4cm}
+   |>{\raggedright\arraybackslash}m{6cm}
+   |>{\centering\arraybackslash}m{2cm}|}
+\caption{Dead Link Checker (informatika.unpar.ac.id)}
+\vspace{-3mm}
+\label{tab:dlc-informatika} \\
+\hline
+{\centering\arraybackslash\textbf{Kategori}} &
+{\centering\arraybackslash\textbf{Error}} &
+{\centering\arraybackslash\textbf{Jumlah}} \\ \hline
+\endfirsthead
+
+\multicolumn{3}{c}{Tabel~\ref{tab:dlc-informatika} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\hline
+{\centering\arraybackslash\textbf{Kategori}} &
+{\centering\arraybackslash\textbf{Error}} &
+{\centering\arraybackslash\textbf{Jumlah}} \\ \hline
+\endhead
+
+\hline
+\multicolumn{3}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
+\endfoot
+
+\hline
+\endlastfoot
+
+% ================= CONNECTION ERROR ======================
+\multirow{5}{*}{\textbf{Connection Error}}
+ & Timeout & 3 \\ \cline{2-3}
+ & Not found – server name/address & 6 \\ \cline{2-3}
+ & Not found – certificate authority invalid & 1 \\ \cline{2-3}
+ & Not found – error occurred sending request & 1 \\ \cline{2-3}
+ & Not found – host name invalid & 1 \\ \hline
+
+\multicolumn{2}{|c|}{\textbf{Total Connection Error}} &
+\textbf{12} \\ \hline
+
+% ================= 4XX CLIENT ERROR ======================
+\multirow{6}{*}{\textbf{4XX Client Error}}
+ & 429 Too Many Requests & 2 \\ \cline{2-3}
+ & 404 Not Found & 57 \\ \cline{2-3}
+ & 403 Forbidden & 3 \\ \cline{2-3}
+ & 410 Gone & 2 \\ \cline{2-3}
+ & 405 Method Not Allowed & 1 \\ \cline{2-3}
+ & 400 Bad Request & 1 \\ \hline
+
+\multicolumn{2}{|c|}{\textbf{Total 4XX Client Error}} &
+\textbf{66} \\ \hline
+
+% ================= 5XX SERVER ERROR ======================
+\multirow{1}{*}{\textbf{5XX Server Error}}
+ & 500 Internal Server Error & 1 \\ \hline
+
+\multicolumn{2}{|c|}{\textbf{Total 5XX Server Error}} &
+\textbf{1} \\ \hline
+
+% ================= NON-STANDARD ERROR ======================
+\multirow{1}{*}{\textbf{Non-Standard Error}}
+ & 520 Unknown Error & 1 \\ \hline
+
+\multicolumn{2}{|c|}{\textbf{Total Non-Standard Error}} &
+\textbf{1} \\ \hline
+
+\end{longtable}

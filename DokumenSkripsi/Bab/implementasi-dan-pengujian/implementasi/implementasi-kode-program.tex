@@ -135,36 +135,34 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
    Metode \texttt{start} merupakan metode utama dari kelas \texttt{Crawler} dan digunakan untuk menjalankan proses \textit{crawling} dengan algoritma BFS. Masukan metode ini adalah URL yang menjadi titik awal proses \texttt{crawling}. Berikut adalah penjelasan lebih rinci untuk metode \texttt{start} (lihat Kode~\ref{code:crawler-start-java}):
 
 
-   \begin{enumerate}
+   \begin{enumerate}[itemsep=3pt]
       \item (Baris 2--5) Mengatur ulang status penghentian dan membersihkan seluruh struktur data internal agar proses \textit{crawling} dimulai dalam keadaan bersih.
       
-      \item (Baris 6--7) Mendapatkan \textit{host} dari URL awal, lalu masukkan URL awal ini ke dalam antrean \texttt{frontier} sebagai titik awal pemeriksaan.
+      \item (Baris 7--8) Mendapatkan \textit{host} dari URL awal, lalu masukkan URL awal ini ke dalam antrean \texttt{frontier} sebagai titik awal pemeriksaan.
       
-      \item (Baris 9) Menjalankan \textit{loop} untuk memproses isi dari antrean \texttt{frontier}. \textit{Loop} akan terus berlangsung selama \texttt{frontier} belum kosong, tidak dihentikan oleh pengguna dan jumlah tautan belum melebihi batas.
+      \item (Baris 10) Menjalankan \textit{loop} untuk memproses isi dari antrean \texttt{frontier}. \textit{Loop} akan terus berlangsung selama \texttt{frontier} belum kosong, tidak dihentikan oleh pengguna dan jumlah tautan belum melebihi batas.
       
-      \item (Baris 10--11) Mengambil elemen pertama dari antrean menggunakan \texttt{poll()}. Jika nilai yang diambil adalah \texttt{null}, proses langsung dilanjutkan ke iterasi berikutnya.
+      \item (Baris 11--12) Mengambil elemen pertama dari antrean menggunakan \texttt{poll()}. Jika nilai yang diambil adalah \texttt{null}, proses langsung dilanjutkan ke iterasi berikutnya.
       
-      \item (Baris 13--14) Memasukkan tautan saat ini ke \texttt{repositories}, jika mengembalikan \texttt{null} artinya tautan ini sudah ada dalam daftar dan tidak perlu diperiksa lagi.
+      \item (Baris 14) Melakukan pemeriksaan terhadap tautan saat ini dan mengirim perintah agar \textit{response body} dilakukan \textit{parsing} untuk mendapatkan dokumen HTML.
       
-      \item (Baris 16) Melakukan pemeriksaan terhadap tautan saat ini dan mengirim perintah agar \textit{response body} dilakukan \textit{parsing} untuk mendapatkan dokumen HTML.
+      \item (Baris 16) Jika tautan bukan merupakan tautan halaman situs web atau dokumen HTML kosong, maka lanjutkan ke iterasi berikutnya.
       
-      \item (Baris 18) Jika tautan bukan merupakan tautan halaman situs web, maka lanjutkan ke iterasi berikutnya.
+      \item (Baris 18) Melakukan ekstraksi seluruh tautan yang terdapat pada tautan halaman.
       
-      \item (Baris 20) Melakukan ekstraksi seluruh tautan yang terdapat pada tautan halaman.
+      \item (Baris 20) Membuat \textit{executor service} berbasis \textit{virtual thread} sehingga setiap pemeriksaan tautan dapat dilakukan dalam \textit{thread} terpisah.
       
-      \item (Baris 21) Membuat \textit{executor service} berbasis \textit{virtual thread} sehingga setiap pemeriksaan tautan dapat dilakukan dalam \textit{thread} terpisah.
+      \item (Baris 21) Melakukan \textit{looping} terhadap setiap tautan hasil ekstraksi.
       
-      \item (Baris 22) Melakukan \textit{looping} terhadap setiap tautan hasil ekstraksi.
-      
-      \item (Baris 23--26) Jika jumlah tautan sudah melebihi batas maka hentikan \textit{looping} dan kosongkan \textit{frontier}.
+      \item (Baris 22--25) Jika jumlah tautan sudah melebihi batas atau proses dihentikan pengguna, maka hentikan \textit{looping} dan kosongkan \textit{frontier}.
       
       \item (Baris 27--28) Mengambil objek \texttt{Link} hasil ekstraksi beserta teks \textit{anchor}-nya.
       
-      \item (Baris 29--34) Jika tautan sudah dikunjungi, maka tambahkan relasi antara tautan yang lama dengan halaman saat ini, jika belum maka tambahkan relasi tautan saat ini dengan halaman saat ini.
+      \item (Baris 30--34) Jika tautan sudah dikunjungi, maka tambahkan relasi antara tautan yang lama dengan tautan halaman, lalu lanjutkan ke iterasi berikutnya.
       
-      \item (Baris 36--37) Jika tautan memiliki \textit{host} yang sama dengan \texttt{rootHost} maka ditambahkan ke dalam \texttt{frontier} karena tautan tersebut berpotensi menjadi tautan halaman.
+      \item (Baris 35) Tambahkan relasi antara tautan saat ini dengan tautan halaman.
       
-      \item (Baris 39) Masukan tautan ke dalam \texttt{repositories} jika belum.
+      \item (Baris 37--38) Jika tautan memiliki \textit{host} yang sama dengan \texttt{rootHost} maka ditambahkan ke dalam \texttt{frontier} karena tautan tersebut berpotensi menjadi tautan halaman.
       
       \item (Baris 40) Mengirim tugas ke \textit{executor service} agar dibuatkan \textit{virtual thread} untuk menjalankan tugas ini.
       
@@ -187,22 +185,49 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
    
    Metode \texttt{checkLink} digunakan untuk memeriksa tautan dengan cara melakukan permintaan HTTP lalu memperbarui atribut dari objek tautan, serta melakukan \textit{parsing} terhadap \textit{response body} menjadi dokumen HTML. Masukan metode ini adalah objek \texttt{Link} yang atributnya akan diperbarui dan sebuah penanda untuk melakukan \textit{parsing}. Keluaran dari metode ini dokumen HTML jika dilakukan \textit{parsing} dan \texttt{null} jika tidak. Berikut adalah penjelasan lebih rinci untuk metode \texttt{checkLink} (lihat Kode~\ref{code:crawler-check-link-java}):
 
-   \begin{enumerate}
-      \item (Baris 3--4) Membuat atau mengambil objek \texttt{RateLimiter} berdasarkan \textit{host} dari URL, lalu menerapkan \textit{rate limiting}.
+   \begin{enumerate}[itemsep=4pt]
+
+      \item (Baris 3--4) Jika tautan sudah pernah diperiksa atau jumlah tautan keseluruhan sudah melebihi batas, maka keluar dari metode.
       
-      \item (Baris 5) Melakukan \textit{fetching} pada tautan.
+      \item (Baris 8) Mengambil atau membuat objek \texttt{RateLimiter} berdasarkan \textit{host} dari URL tautan. Sehingga penerapan \textit{rate limiting} dapat dilakukan per \textit{host}.
       
-      \item (Baris 6--8) Memperbarui nilai dari atribut objek \texttt{Link}.
+      \item (Baris 9) Menerapkan \textit{rate limiting} per \textit{host}.
       
-      \item (Baris 10) Jika diminta untuk melakukan \textit{parsing}, \textit{fetching} berhasil, dan berpotensi sebagai tautan halaman.
+      \item (Baris 11) Melakukan permintaan HTTP pada tautan.
       
-      \item (Baris 11--20) Dapatkan \textit{response body} dalam format \texttt{String}, lalu \textit{parse} ke HTML, jika berhasil maka tandai tautan saat ini sebagai halaman, lalu kembalikan dokumen HTML.
+      \item (Baris 13--15) Memperbarui nilai dari atribut objek \texttt{Link}, seperti \textit{final} URL, tipe konten, kode status HTTP.
       
-      \item (Baris 21--23) Jika terjadi \textit{error} maka perbarui atribut \texttt{error} pada objek tautan berdasarkan jenis \textit{error} yang dilempar.
+      \item (Baris 18) Menyiapkan variabel untuk menyimpan dokumen HTML hasil \textit{parsing}.
       
-      \item (Baris 25) Kirim tautan ke \texttt{MainController} apapun hasil pemeriksaannya.
+      \item (Baris 20) Menetapkan syarat \textit{parsing}. Jika permintaan HTTP berhasil dan \textit{response body} tidak kosong.
+      
+      \item (Baris 21) Menetapkan syarat \textit{parsing}. Jika \textit{final} URL memiliki \textit{host} yang sama dengan \textit{host} dari URL awal.
+      
+      \item (Baris 23) Jika diminta untuk \textit{parsing} dan semua syarat \textit{parsing} terpenuhi.
+      
+      \item (Baris 24) Mengambil \textit{response body} dalam bentuk \texttt{String} agar bisa di-\textit{parsing}.
+      
+      \item (Baris 26) Memulai blok \texttt{try} internal untuk menangani kemungkinan kegagalan selama proses \textit{parsing}.
+      
+      \item (Baris 27) Melakukan \textit{parsing} \textit{response body} menjadi objek \texttt{Document} HTML menggunakan pustaka \texttt{Jsoup}.
+      
+      \item (Baris 29) Jika \textit{parsing} berhasil maka buat tautan saat ini menjadi tautan halaman.
+      
+      \item (Baris 31) Jika \textit{parsing} gagal, nilai \texttt{html} tetap \texttt{null}.
+      
+      \item (Baris 35) Mengembalikan dokumen HTML hasil \textit{parsing}.
+      
+      \item (Baris 30) Jika terjadi \texttt{exception} atau \texttt{error}, nama tipe kesalahan disimpan ke atribut \texttt{error} pada objek \texttt{Link} untuk tujuan pelaporan.
+      
+      \item (Baris 37) Jika terjadi kesalahan dalam proses permintaan HTTP, maka simpan nama tipe kesalahan ke atribut \texttt{error} pada objek \texttt{Link}.
+      
+      \item (Baris 38) Kembalikan \texttt{null} jika gagal.
+      
+      \item (Baris 40--43) Jika tautan baru berhasil ditambahkan ke \texttt{repositories}, maka kirim tautan ke \texttt{MainController} untuk ditampilkan ke GUI.
       
    \end{enumerate}
+
+   \vspace{12mm}
 
    \lstinputlisting[
       language=Java, 
@@ -210,33 +235,31 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
       label={code:crawler-check-link-java}
    ]{Lampiran/implementasi-kode-program/Crawler_checkLink.java}
 
-   
+   \vspace{12mm}
 
    Metode \texttt{extractLink} digunakan untuk mendapatkan seluruh tautan yang diambil dari \textit{tag} \texttt{<a>} yang memiliki atribut \texttt{href} pada sebuah dokumen HTML. Masukan metode ini adalah dokumen HTML yang akan diekstrak tautannya, sedangkan keluaran dari metode ini adalah sebuah daftar tautan yang dipetakan dengan teks yang berada pada tautan tersebut. Berikut adalah penjelasan lebih rinci untuk metode \texttt{extractLink} (lihat Kode~\ref{code:crawler-extract-link-java}):
    
    \begin{enumerate}[itemsep=3pt]
 
-      \item (Baris 2) Membuat objek \texttt{HashMap} untuk menyimpan hasil ekstraksi tautan, dengan \texttt{key} berupa objek \texttt{Link} dan \texttt{value} berupa teks yang berada pada tautan tersebut.
+      \item (Baris 2) Membuat objek \texttt{Map} untuk menyimpan hasil ekstraksi tautan, dengan \texttt{key} berupa objek \texttt{Link} dan \texttt{value} berupa teks yang berada pada tautan tersebut.
       
-      \item (Baris 4) Melakukan iterasi untuk setiap elemen HTML pada \textit{tag} \texttt{<a>} yang memiliki atribut \texttt{href}.
+      \item (Baris 3) Melakukan iterasi untuk setiap elemen HTML pada \textit{tag} \texttt{<a>} yang memiliki atribut \texttt{href}.
       
-      \item (Baris 5) Mengambil URL dari atribut \texttt{href}, lalu ubah menjadi URL absolut menggunakan metode \texttt{absUrl} dari Jsoup.
+      \item (Baris 4) Mengambil URL dari atribut \texttt{href}, lalu ubah menjadi URL absolut menggunakan metode \texttt{absUrl} dari Jsoup.
       
-      \item (Baris 7) Menormalisasi URL menggunakan metode \texttt{normalizeUrl} untuk memastikan URL konsisten secara format.
+      \item (Baris 6) Menormalisasi URL menggunakan metode \texttt{normalizeUrl} untuk memastikan URL konsisten secara format.
       
-      \item (Baris 9) Lanjutkan ke iterasi berikutnya jika hasil normalisasi \texttt{null}, yang berarti URL tidak memenuhi aturan normalisasi.
+      \item (Baris 7) Lanjutkan ke iterasi berikutnya jika hasil normalisasi \texttt{null}, yang berarti URL tidak memenuhi aturan normalisasi.
       
-      \item (Baris 11) Membuat objek \texttt{Link} baru berdasarkan URL yang telah dinormalisasi.
+      \item (Baris 9) Membuat objek \texttt{Link} baru berdasarkan URL yang telah dinormalisasi.
       
-      \item (Baris 13) Mengambil teks yang berada di dalam \textit{tag} \texttt{a} dan menghapus spasi berlebih pada bagian ujung teks.
+      \item (Baris 10) Mengambil teks yang berada di dalam \textit{tag} \texttt{<a>} dan menghapus spasi berlebih pada bagian ujung teks.
       
-      \item (Baris 15) Jika objek \texttt{Link} saat ini belum ada di dalam map hasil maka tambahkan.
+      \item (Baris 12) Jika objek \texttt{Link} saat ini belum ada di dalam map hasil maka tambahkan.
       
-      \item (Baris 18) Mengembalikan seluruh tautan yang telah berhasil diekstraksi dari dokumen HTML.
+      \item (Baris 14) Mengembalikan seluruh tautan yang telah berhasil diekstraksi dari dokumen HTML.
       
    \end{enumerate}
-
-   \vspace{8mm}
 
    \lstinputlisting[
       language=Java, 

@@ -3,9 +3,9 @@
    |>{\raggedright\arraybackslash}m{4cm}
    |>{\raggedright\arraybackslash}m{6cm}
    |>{\centering\arraybackslash}m{2cm}|}
-\caption{Ringkasan Hasil Pemeriksaan}
+\caption{(Pengujian 1) Percobaan Interval 500~milidetik}
 \vspace{-3mm}
-\label{tab:ringkasan-hasil-pemeriksaan-fitur-pemeriksaan} \\
+\label{tab:percobaan-interval-500} \\
 \hline
 
 {\centering\arraybackslash\textbf{Kategori}} &
@@ -13,7 +13,7 @@
 {\centering\arraybackslash\textbf{Jumlah}} \\ \hline
 \endfirsthead
 
-\multicolumn{3}{c}{Tabel~\ref{tab:ringkasan-hasil-pemeriksaan-fitur-pemeriksaan} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\multicolumn{3}{c}{Tabel~\ref{tab:percobaan-interval-500} dilanjutkan dari halaman sebelumnya}\\[4pt]
 
 \hline
 {\centering\arraybackslash\textbf{Kategori}} &
@@ -31,43 +31,36 @@
 
 % ********************************************
 
-\multirow{5}{*}{\textbf{Connection Error}}
- & ConnectException & 13 \\ \cline{2-3}
- & HttpConnectTimeoutException & 5 \\ \cline{2-3}
+\multirow{6}{*}{\textbf{Connection Error}}
+ & ConnectException & 11 \\ \cline{2-3}
+ & HttpConnectTimeoutException & 7 \\ \cline{2-3}
+ & HttpTimeoutException & 5 \\ \cline{2-3}
  & IOException & 1 \\ \cline{2-3}
  & IllegalArgumentException & 1 \\ \cline{2-3}
  & SSLHandshakeException & 5 \\ \hline
 
-\multicolumn{2}{|c|}{{\centering\textbf{Total Connection Error}}} &
-{\centering\arraybackslash\textbf{25}} \\ \hline
+\multicolumn{2}{|c|}{\centering\textbf{Total Connection Error}} &
+{\centering\arraybackslash\textbf{30}} \\ \hline
 
 % ********************************************
 
 \multirow{5}{*}{\textbf{4XX Client Error}}
  & 400 Bad Request & 2 \\ \cline{2-3}
- & 403 Forbidden & 12 \\ \cline{2-3}
- & 404 Not Found & 31 \\ \cline{2-3}
+ & 403 Forbidden & 6 \\ \cline{2-3}
+ & 404 Not Found & 29 \\ \cline{2-3}
  & 410 Gone & 1 \\ \cline{2-3}
- & 429 Too Many Requests & 4 \\ \hline
+ & 429 Too Many Requests & 6 \\ \hline
 
-\multicolumn{2}{|c|}{{\centering\textbf{Total Connection Error}}} &
-{\centering\arraybackslash\textbf{25}} \\ \hline
-
-% ********************************************
-
-\multirow{1}{*}{\textbf{5XX Server Error}}
- & 503 Service Unavailable & 1 \\ \hline
-
-\multicolumn{2}{|c|}{{\centering\textbf{Total Connection Error}}} &
-{\centering\arraybackslash\textbf{25}} \\ \hline
+\multicolumn{2}{|c|}{\centering\textbf{Total 4XX Client Error}} &
+{\centering\arraybackslash\textbf{44}} \\ \hline
 
 % ********************************************
 
 \multirow{2}{*}{\textbf{Non-Standard Error}}
- & 520 Unknown Error & 2 \\ \cline{2-3}
- & 999 Unknown & 2 \\ \hline
+ & 520 & 2 \\ \cline{2-3}
+ & 999 & 2 \\ \hline
 
-\multicolumn{2}{|c|}{{\centering\textbf{Total Connection Error}}} &
-{\centering\arraybackslash\textbf{25}} \\ \hline
+\multicolumn{2}{|c|}{\centering\textbf{Total Non-Standard Error}} &
+{\centering\arraybackslash\textbf{4}} \\ \hline
 
 \end{longtable}

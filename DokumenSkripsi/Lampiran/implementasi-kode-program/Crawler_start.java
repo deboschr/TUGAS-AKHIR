@@ -3,6 +3,7 @@ public void start(String seedUrl) {
    repositories.clear();
    rateLimiters.clear();
    frontier.clear();
+
    rootHost = URLHandler.getHost(seedUrl);
    frontier.offer(new Link(seedUrl));
 
@@ -10,33 +11,32 @@ public void start(String seedUrl) {
       Link currLink = frontier.poll();
       if (currLink == null) continue;
 
-      Link existing = repositories.putIfAbsent(currLink.getUrl(), currLink);
-      if (existing != null) continue;
+      Document html = fetchLink(currLink, true);
 
-      Document doc = fetchLink(currLink, true);
+      if (!currLink.isWebpage() || html == null) continue;
 
-      if (!currLink.isWebpage()) continue;
+      Map<Link, String> linksOnWebpage = extractLink(html);
 
-      Map<Link, String> linksOnWebpage = extractLink(doc);
       try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
          for (var entry : linksOnWebpage.entrySet()) {
             if (repositories.size() >= MAX_LINKS || isStopped) {
                frontier.clear();
                break;
             }
+
             Link link = entry.getKey();
             String anchorText = entry.getValue();
+
             Link existingLink = repositories.get(link.getUrl());
             if (existingLink != null) {
-               existingLink.addConnection(currLink, anchorText);
+               existingLink.addRelation(currLink, anchorText);
                continue;
             }
-            link.addConnection(currLink, anchorText);
+            link.addRelation(currLink, anchorText);
 
             if (URLHandler.getHost(link.getUrl()).equalsIgnoreCase(rootHost)) {
                frontier.offer(link);
             } else {
-               repositories.putIfAbsent(link.getUrl(), link);
                executor.submit(() -> {
                   fetchLink(link, false);
                });
