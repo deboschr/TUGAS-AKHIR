@@ -1,14 +1,38 @@
 \chapter{Kesimpulan dan Saran}
 \label{chap:060000-kesimpulan-dan-saran}
 
-Bab ini menyajikan kesimpulan dari penelitian dan pengembangan aplikasi pemeriksa tautan rusak yang telah dilakukan. Kesimpulan dirumuskan berdasarkan hasil analisis, perancangan, implementasi, serta pengujian yang telah dipaparkan pada bab-bab sebelumnya. Selain itu, bab ini juga memberikan saran yang dapat menjadi masukan untuk pengembangan lebih lanjut, baik dalam peningkatan fitur maupun perluasan cakupan penelitian di masa mendatang.
+Bab ini menyajikan kesimpulan dari penelitian dan pengembangan aplikasi desktop pemeriksa tautan rusak pada situs web. Kesimpulan dirumuskan berdasarkan hasil analisis, perancangan, implementasi, serta pengujian yang telah dipaparkan pada bab-bab sebelumnya. Selain itu, bab ini juga memberikan saran yang dapat menjadi masukan untuk pengembangan lebih lanjut, baik dalam peningkatan fitur maupun perluasan cakupan penelitian di masa mendatang.
 
+\vspace{3mm}
 
 \section{Kesimpulan}
 \label{sec:060100-kesimpulan}
-\input{Bab/kesimpulan-dan-saran/kesimpulan}
+% \input{Bab/kesimpulan-dan-saran/kesimpulan}
+
+Berdasarkan penelitian dan implementasi yang telah dilakukan dalam pengembangan aplikasi pemeriksa tautan rusak pada situs web, diperoleh beberapa kesimpulan sebagai berikut:
+
+\vspace{2mm}
+
+\begin{enumerate}
+   \item Penelitian ini berhasil menghasilkan sebuah aplikasi desktop yang mampu melakukan pemeriksaan terhadap tautan rusak pada sebuah situs web. Aplikasi mampu melakukan proses \textit{web crawling} mulai dari satu URL awal, menelusuri halaman situs web yang saling terhubung, mengekstrak tautan pada setiap halaman, serta mengelompokkan tautan berdasarkan jenis kesalahannya. Pemeriksaan tautan berhasil dilakukan melalui integrasi pustaka Java \texttt{HttpClient} untuk \textit{fetching} dan Jsoup untuk \textit{parsing}. Hasil pemeriksaan ditampilkan secara \textit{real-time} melalui antarmuka pengguna, dan seluruh data dapat diekspor ke dalam berkas Excel. Dengan demikian, seluruh tujuan penelitian terkait pengembangan perangkat lunak berhasil dicapai.
+   
+   \vspace{2mm}
+
+   \item Pengujian yang dilakukan menunjukkan bahwa aplikasi bekerja sesuai dengan kebutuhan yang telah ditetapkan. Seluruh fitur utama berfungsi dengan benar pada berbagai skenario, dan pengujian eksperimental menunjukkan bahwa kecepatan dan kestabilan koneksi internet memiliki pengaruh yang lebih besar terhadap hasil pemeriksaan dibandingkan dengan nilai interval pada \texttt{RateLimiter}, \textit{connection timeout} pada \texttt{HttpClient}, dan \textit{request timeout} pada \texttt{HttpRequest}. Perbandingan dengan perangkat lunak serupa juga menunjukkan bahwa terdapat perbedaan dalam pendefinisian tautan rusak dan kelengkapan informasi yang ditampilkan.
+
+\end{enumerate}
+
+
+\vspace{10mm}
 
 
 \section{Saran}
 \label{sec:060200-saran}
-\input{Bab/kesimpulan-dan-saran/saran}
+% \input{Bab/kesimpulan-dan-saran/saran}
+
+Berdasarkan hasil penelitian dan implementasi yang telah dilakukan pada pengembangan aplikasi pemeriksa tautan rusak pada situs web, terdapat beberapa hal yang dapat dijadikan pertimbangan untuk pengembangan lebih lanjut. Adapun saran-saran tersebut adalah sebagai berikut:
+\begin{enumerate}
+   \item Proses \textit{parsing} dokumen HTML pada sistem saat ini menggunakan pustaka Jsoup yang hanya memproses HTML statis tanpa menjalankan JavaScript. Hal ini menyebabkan tautan yang muncul sebagai hasil \textit{rendering} JavaScript pada situs web tidak dapat terdeteksi. Pada pengembangan selanjutnya, sistem dapat menggunakan pustaka yang mampu menjalankan JavaScript, seperti Playwright, sehingga dokumen HTML yang diperoleh menjadi lebih lengkap dan mencakup tautan yang sebelumnya tidak muncul pada HTML statis. Dengan demikian, keakuratan proses pemeriksaan tautan dapat meningkat dan risiko tautan terlewat dapat diminimalkan.
+
+   \item Proses ekstraksi tautan pada sistem saat ini hanya dilakukan pada elemen \texttt{<a>} melalui atribut \texttt{href}. Untuk meningkatkan kelengkapan pemeriksaan, sistem dapat dikembangkan agar mampu mengekstrak tautan dari elemen HTML lain yang juga memuat URL, seperti \texttt{<img>} (\texttt{src}), \texttt{<script>} (\texttt{src}), \texttt{<link>} (\texttt{href}), dan elemen serupa. Pengembangan ini akan membuat hasil pemeriksaan tautan rusak menjadi lebih komprehensif.
+\end{enumerate}
