@@ -1,0 +1,7 @@
+Berdasarkan hasil penelitian dan implementasi yang telah dilakukan pada pengembangan aplikasi pemeriksa tautan rusak pada situs web, terdapat beberapa hal yang dapat dijadikan pertimbangan untuk pengembangan lebih lanjut. Adapun saran-saran tersebut adalah sebagai berikut:
+
+\begin{enumerate}
+   \item Proses \textit{parsing} dokumen HTML pada sistem saat ini menggunakan pustaka Jsoup yang hanya memproses HTML statis tanpa menjalankan JavaScript. Hal ini menyebabkan tautan yang muncul sebagai hasil \textit{rendering} JavaScript pada situs web tidak dapat terdeteksi. Pada pengembangan selanjutnya, sistem dapat menggunakan pustaka yang mampu menjalankan JavaScript, seperti Playwright, sehingga dokumen HTML yang diperoleh menjadi lebih lengkap dan mencakup tautan yang sebelumnya tidak muncul pada HTML statis. Dengan demikian, keakuratan proses pemeriksaan tautan dapat meningkat dan risiko tautan terlewat dapat diminimalkan.
+
+   \item Proses ekstraksi tautan pada sistem saat ini hanya dilakukan pada elemen \texttt{<a>} melalui atribut \texttt{href}. Untuk meningkatkan kelengkapan pemeriksaan, sistem dapat dikembangkan agar mampu mengekstrak tautan dari elemen HTML lain yang juga memuat URL, seperti \texttt{<img>} (\texttt{src}), \texttt{<script>} (\texttt{src}), \texttt{<link>} (\texttt{href}), dan elemen serupa. Pengembangan ini akan membuat hasil pemeriksaan tautan rusak menjadi lebih komprehensif.
+\end{enumerate}

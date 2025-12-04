@@ -66,6 +66,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \vspace{2mm}
     \textbf{Relasi:}
     \begin{itemize}
+        \item Relasi \textit{generalization} dengan kelas \texttt{LinkReceiver}.
         \item Relasi \textit{dependency} dengan kelas \texttt{Application}.
         \item Relasi \textit{dependency} dengan kelas \texttt{UrlHandler}.
         \item Relasi \textit{dependency} dengan kelas \texttt{Exporter}.
@@ -115,7 +116,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \begin{itemize}
         \item Relasi \textit{association} berkardinalitas \textit{one-to-many} dengan kelas \texttt{Link}.
         \item Relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Summary}.
-        \item Relasi \textit{dependency} dengan kelas \texttt{HttpHandler}.
+        \item Relasi \textit{dependency} dengan kelas \texttt{ErrorHandler}.
     \end{itemize}
 
 
@@ -182,38 +183,37 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     \textbf{Relasi:}
     \begin{itemize}
+        \item Relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{LinkReceiver}.
         \item Relasi \textit{association} berkardinalitas \textit{one-to-many} dengan kelas \texttt{Link}.
         \item Relasi \textit{association} berkardinalitas \textit{one-to-many} dengan kelas \texttt{RateLimiter}.
         \item Relasi \textit{dependency} dengan kelas \texttt{UrlHandler}.
-        \item Relasi \textit{dependency} dengan kelas \texttt{HttpHandler}.
+        \item Relasi \textit{dependency} dengan kelas \texttt{ErrorHandler}.
     \end{itemize}
 
 
 
     \vspace{10mm}
     % ######################################################################
-    \item \textbf{Kelas \texttt{HttpHandler}}\\
-    Kelas \texttt{HttpHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait HTTP. Berikut adalah penjelasan lebih rinci untuk atribut dan metode pada kelas ini:
+    \item \textbf{Kelas \texttt{ErrorHandler}}\\
+    Kelas \texttt{ErrorHandler} bertugas untuk menyediakan metode yang menangani pesan kesalahan. Berikut adalah penjelasan lebih rinci untuk atribut dan metode pada kelas ini:
 
     \vspace{1mm}
     \textbf{Atribut:}
     \begin{itemize}
-
-        \item \texttt{HTTP\_CLIENT}: Atribut ini menyimpan objek \texttt{HttpClient} dan digunakan untuk melakukan permintaan HTTP.
         
-        \item \texttt{STATUS\_MAP}: Atribut ini menyimpan daftar pesan kesalahan berdasarkan kode status HTTP. Struktur data yang digunakan adalah \texttt{Map}, dengan \textit{key} berupa kode status HTTP dan \textit{value} berupa pesan kesalahan yang sesuai dengan kode status tersebut.
+        \item \texttt{HTTP_ERROR\_MAP}: Atribut ini menyimpan daftar pesan kesalahan berdasarkan kode status HTTP. Struktur data yang digunakan adalah \texttt{Map}, dengan \textit{key} berupa kode status HTTP dan \textit{value} berupa pesan kesalahan yang sesuai dengan kode status tersebut.
         
     \end{itemize}
 
     \vspace{1mm}
     \textbf{Metode:}
     \begin{itemize}
-
-        \item \texttt{fetch}: Metode ini digunakan untuk melakukan permintaan HTTP. Masukan dari metode ini adalah URL target dan sebuah penanda apakah \textit{response body} diperlukan atau tidak. Keluaran dari metode ini adalah objek \texttt{HttpResponse} yang berisi informasi, seperti kode status HTTP, URL akhir setelah \textit{redirect}, tipe konten pada \textit{response body}, serta \textit{response body} itu sendiri.
         
-        \item \texttt{getStatusError}: Metode ini digunakan untuk mendapatkan pesan kesalahan dari atribut \texttt{STATUS\_MAP}. Masukan dari metode ini adalah sebuah kode status HTTP, sedangkan keluarannya adalah pesan kesalahan yang sesuai dengan kode status tersebut.
+        \item \texttt{getExceptionError}: Metode ini digunakan untuk memperoleh pesan kesalahan yang lebih mudah dipahami berdasarkan \texttt{exception} yang diberikan. Masukan dari metode ini adalah sebuah objek \texttt{Throwable} yang mewakili kesalahan yang terjadi, sedangkan keluarannya berupa teks yang mewakili kesalahan tersebut.
         
-        \item \texttt{isStandardError}: Metode ini digunakan untuk menentukan apakah sebuah kode status HTTP merupakan kode status yang standar atau tidak.
+        \item \texttt{getHttpError}: Metode ini digunakan untuk mendapatkan pesan kesalahan pada HTTP yang diambil dari atribut \texttt{HTTP_ERROR\_MAP}. Masukan dari metode ini adalah sebuah kode status HTTP, sedangkan keluarannya adalah pesan kesalahan yang sesuai dengan kode status tersebut.
+        
+        \item \texttt{isHttpError}: Metode ini digunakan untuk menentukan apakah sebuah masukan berupa bilangan bulat merupakan kode status HTTP.
         
     \end{itemize}
 
@@ -238,7 +238,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
         \item \texttt{isWebpage}: Atribut ini digunakan untuk menandai apakah tautan saat ini merupakan tautan halaman atau bukan.
         
-        \item \texttt{relations}: Atribut ini menyimpan daftar relasi tautan saat ini dengan tautan lain. Struktur data yang digunakan adalah \texttt{Map}, dengan \textit{key} berupa objek tautan lain dan \textit{value} berupa teks pada tautan (\textit{anchor text}).
+        \item \texttt{webpageSources}: Atribut ini menyimpan daftar tautan halaman yang menjadi sumber dari tautan ini ditemukan. Struktur data yang digunakan adalah \texttt{Map}, dengan \textit{key} berupa tautan halaman sumber dan \textit{value} berupa teks pada tautan (\textit{anchor text}).
         
     \end{itemize}
 
@@ -248,7 +248,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         
         \item Relasi \textit{association} berkardinalitas \textit{many-to-many} dengan kelas \texttt{Link}.
         
-        \item Relasi \textit{dependency} dengan kelas \texttt{HttpHandler}.
+        \item Relasi \textit{dependency} dengan kelas \texttt{ErrorHandler}.
         
     \end{itemize}
 

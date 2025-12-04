@@ -1,0 +1,12 @@
+Berdasarkan penelitian dan implementasi yang telah dilakukan dalam pengembangan aplikasi pemeriksa tautan rusak pada situs web, diperoleh beberapa kesimpulan sebagai berikut:
+
+\vspace{2mm}
+
+\begin{enumerate}
+   \item Penelitian ini berhasil menghasilkan sebuah aplikasi desktop yang mampu melakukan pemeriksaan terhadap tautan rusak pada sebuah situs web. Aplikasi mampu melakukan proses \textit{web crawling} mulai dari satu URL awal, menelusuri halaman situs web yang saling terhubung, mengekstrak tautan pada setiap halaman, serta mengelompokkan tautan berdasarkan jenis kesalahannya. Pemeriksaan tautan berhasil dilakukan melalui integrasi pustaka Java \texttt{HttpClient} untuk \textit{fetching} dan Jsoup untuk \textit{parsing}. Hasil pemeriksaan ditampilkan secara \textit{real-time} melalui antarmuka pengguna, dan seluruh data dapat diekspor ke dalam berkas Excel. Dengan demikian, seluruh tujuan penelitian terkait pengembangan perangkat lunak berhasil dicapai.
+   
+   \vspace{2mm}
+
+   \item Pengujian yang dilakukan menunjukkan bahwa aplikasi bekerja sesuai dengan kebutuhan yang telah ditetapkan. Seluruh fitur utama berfungsi dengan benar pada berbagai skenario, dan pengujian eksperimental menunjukkan bahwa kecepatan dan kestabilan koneksi internet memiliki pengaruh yang lebih besar terhadap hasil pemeriksaan dibandingkan dengan nilai interval pada \texttt{RateLimiter}, \textit{connection timeout} pada \texttt{HttpClient}, dan \textit{request timeout} pada \texttt{HttpRequest}. Perbandingan dengan perangkat lunak serupa juga menunjukkan bahwa terdapat perbedaan dalam pendefinisian tautan rusak dan kelengkapan informasi yang ditampilkan.
+
+\end{enumerate}

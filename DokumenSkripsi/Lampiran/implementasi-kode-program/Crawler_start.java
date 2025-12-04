@@ -1,51 +1,51 @@
 public void start(String seedUrl) {
+   executor = Executors.newVirtualThreadPerTaskExecutor();
    isStopped = false;
    repositories.clear();
    rateLimiters.clear();
    frontier.clear();
-
-   rootHost = URLHandler.getHost(seedUrl);
+   rootHost = UrlHandler.getHost(seedUrl);
    frontier.offer(new Link(seedUrl));
-
    while (!isStopped && !frontier.isEmpty() && repositories.size() < MAX_LINKS) {
       Link currLink = frontier.poll();
-      if (currLink == null) continue;
+      if (currLink == null) return;
 
-      Document html = fetchLink(currLink, true);
+      Document html = checkLink(currLink, true);
 
       if (!currLink.isWebpage() || html == null) continue;
 
       Map<Link, String> linksOnWebpage = extractLink(html);
 
-      try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
-         for (var entry : linksOnWebpage.entrySet()) {
-            if (repositories.size() >= MAX_LINKS || isStopped) {
-               frontier.clear();
-               break;
-            }
+      List<Callable<Void>> tasks = new ArrayList<>();
 
-            Link link = entry.getKey();
-            String anchorText = entry.getValue();
-
-            Link existingLink = repositories.get(link.getUrl());
-            if (existingLink != null) {
-               existingLink.addRelation(currLink, anchorText);
-               continue;
-            }
-            link.addRelation(currLink, anchorText);
-
-            if (URLHandler.getHost(link.getUrl()).equalsIgnoreCase(rootHost)) {
-               frontier.offer(link);
-            } else {
-               executor.submit(() -> {
-                  fetchLink(link, false);
-               });
-            }
+      for (var entry : linksOnWebpage.entrySet()) {
+         if (isStopped) return;
+         
+         Link link = entry.getKey();
+         String anchorText = entry.getValue();
+         
+         Link existingLink = repositories.get(link.getUrl());
+         if (existingLink != null) {
+            existingLink.addWebpageSource(currLink, anchorText);
+            continue;
          }
-         executor.shutdown();
-         executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-      } catch (InterruptedException e) {
-         Thread.currentThread().interrupt();
+         link.addWebpageSource(currLink, anchorText);
+
+         if (UrlHandler.getHost(link.getUrl()).equalsIgnoreCase(rootHost)) {
+            frontier.offer(link);
+         } else {
+            tasks.add(() -> {
+               checkLink(link, false);
+               return null;
+            });
+         }
+      }
+      if (!tasks.isEmpty()) {
+         try {
+            executor.invokeAll(tasks);
+         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+         }
       }
    }
 }
