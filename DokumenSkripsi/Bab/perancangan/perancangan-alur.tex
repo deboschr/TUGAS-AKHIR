@@ -1,8 +1,7 @@
 Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikasi yang dikembangkan selama proses pemeriksaan tautan berlangsung. Hasil pada perancangan ini ditujukan melalui \textit{sequence diagram} pada Gambar~\ref{fig:sequence-diagram}. Berikut adalah penjelasan dari \textit{sequence diagram} tersebut:
 
-\begin{enumerate}
-
-    \item (Langkah 1) Pengguna menekan tombol \textit{Start} sehingga metode \texttt{onStartClick()} pada \texttt{MainController} dipanggil.
+\begin{enumerate}[itemsep=-2pt]
+    \item (Langkah 1) Pengguna menekan tombol \textit{Start} sehingga metode \texttt{onStartClick()} pada kelas \texttt{MainController} dipanggil.
     
     \item (Langkah 2) \texttt{MainController} meminta \texttt{UrlHandler} untuk menormalisasi URL masukan melalui metode \texttt{normalizeUrl()}.
     
@@ -18,11 +17,11 @@ Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikas
     
     \item (Langkah 8) \texttt{Crawler} mengambil tautan urutan paling depan dari \texttt{frontier}.
     
-    \item (Langkah 9) \texttt{Crawler} meminta \texttt{HttpHandler} untuk melakukan pemeriksaan dengan memanggil metode \texttt{fetch()}.
+    \item (Langkah 9) \texttt{Crawler} meminta \texttt{RateLimiter} untuk melakukan \textit{rate limiting} sebelum permintaan HTTP dilakukan dengan memanggil metode \texttt{delay()}.
     
-    \item (Langkah 10) \texttt{HttpHandler} mengembalikan hasil pemeriksaan beserta dokumen HTML.
+    \item (Langkah 10) \texttt{Crawler} melakukan permintaan HTTP untuk pemeriksaan tautan dengan memanggil metode \texttt{checkLink()}.
     
-    \item (Langkah 11) \texttt{Crawler} mengirimkan objek \texttt{Link} yang telah diperiksa ke \texttt{MainController} melalui \texttt{linkSender}.
+    \item (Langkah 11) \texttt{Crawler} mengirimkan tautan yang telah diperiksa ke \texttt{MainController} melalui metode \texttt{receive()}.
     
     \item (Langkah 12) \texttt{MainController} menampilkan tautan tersebut pada pengguna.
     
@@ -36,11 +35,11 @@ Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikas
     
     \item (Langkah 17) Jika tautan merupakan halaman dari situs web target, maka \texttt{Crawler} memasukkannya ke \texttt{frontier} urutan paling belakang.
     
-    \item (Langkah 18) Jika tautan bukan merupakan halaman dari situs web target, \texttt{Crawler} memeriksa tautan tersebut dengan memanggil \texttt{fetch()} pada \texttt{HttpHandler}.
+    \item (Langkah 18) \texttt{Crawler} meminta \texttt{RateLimiter} untuk melakukan \textit{rate limiting} sebelum permintaan HTTP dilakukan dengan memanggil metode \texttt{delay()}.
     
-    \item (Langkah 19) \texttt{HttpHandler} mengembalikan hasil pemeriksaan tanpa dokumen HTML.
+    \item (Langkah 19) \texttt{Crawler} melakukan permintaan HTTP untuk pemeriksaan tautan dengan memanggil metode \texttt{checkLink()}.
     
-    \item (Langkah 20) \texttt{Crawler} mengirimkan tautan yang baru diperiksa tersebut ke \texttt{MainController} melalui \texttt{linkSender}.
+    \item (Langkah 20) \texttt{Crawler} mengirimkan tautan yang telah diperiksa ke \texttt{MainController} melalui metode \texttt{receive()}.
 
     \item (Langkah 21) \texttt{MainController} menampilkan tautan tersebut pada pengguna.
     
