@@ -1,6 +1,6 @@
-LinkController_setFieldValuelue() {
+public void setFieldValue() {
    urlField.setText(link.getUrl());
-   
+
    finalUrlField.setText(link.getFinalUrl());
 
    contentTypeField.setText(link.getContentType());

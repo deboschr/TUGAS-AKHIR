@@ -1,4 +1,4 @@
-NotifController_setNotifValuee() {
+public void setNotifValue() {
    messageLabel.setText(message);
    switch (type) {
       case "ERROR" -> applyStyle("-red", "\u2716", "ERROR");

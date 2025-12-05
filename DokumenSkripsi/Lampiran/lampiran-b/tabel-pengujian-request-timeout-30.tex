@@ -3,43 +3,38 @@
    |>{\raggedright\arraybackslash}m{4cm}
    |>{\raggedright\arraybackslash}m{6cm}
    |>{\centering\arraybackslash}m{2cm}|}
-\caption{(Pengujian 2) Percobaan Connection Timeout 1~detik}
+\caption{(Pengujian 3) Percobaan Request Timeout 20~detik}
 \vspace{-3mm}
-\label{tab:percobaan-connection-timeout-1} \\
+\label{tab:percobaan-request-timeout-20} \\
 \hline
 {\centering\arraybackslash\textbf{Kategori}} &
 {\centering\arraybackslash\textbf{Error}} &
-{\centering\arraybackslash\textbf{Jumlah}} \\
-\hline
+{\centering\arraybackslash\textbf{Jumlah}} \\ \hline
 \endfirsthead
 
-\multicolumn{3}{c}{Tabel~\ref{tab:percobaan-connection-timeout-1} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\multicolumn{3}{c}{Tabel~\ref{tab:percobaan-request-timeout-20} dilanjutkan dari halaman sebelumnya}\\[4pt]
 \hline
 {\centering\arraybackslash\textbf{Kategori}} &
 {\centering\arraybackslash\textbf{Error}} &
-{\centering\arraybackslash\textbf{Jumlah}} \\
-\hline
+{\centering\arraybackslash\textbf{Jumlah}} \\ \hline
 \endhead
 
 \hline
-\multicolumn{3}{|r|}{Bersambung ke halaman berikutnya} \\
-\hline
+\multicolumn{3}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
 \endfoot
 
 \hline
 \endlastfoot
 
 % ================= CONNECTION ERROR ======================
-\multirow{6}{*}{\textbf{Connection Error}}
- & ConnectException & 12 \\ \cline{2-3}
- & HttpConnectTimeoutException & 17 \\ \cline{2-3}
- & HttpTimeoutException & 5 \\ \cline{2-3}
- & IOException & 1 \\ \cline{2-3}
+\multirow{4}{*}{\textbf{Connection Error}}
+ & ConnectException & 14 \\ \cline{2-3}
+ & IOException & 2 \\ \cline{2-3}
  & IllegalArgumentException & 1 \\ \cline{2-3}
- & SSLHandshakeException & 4 \\ \hline
+ & SSLHandshakeException & 11 \\ \hline
 
 \multicolumn{2}{|c|}{\textbf{Total Connection Error}} &
-\textbf{40} \\ \hline
+\textbf{28} \\ \hline
 
 % ================= 4XX CLIENT ERROR ======================
 \multirow{5}{*}{\textbf{4XX Client Error}}
@@ -53,10 +48,11 @@
 \textbf{44} \\ \hline
 
 % ================= NON-STANDARD ERROR ======================
-\multirow{1}{*}{\textbf{Non-Standard Error}}
+\multirow{2}{*}{\textbf{Non-Standard Error}}
+ & 520 & 2 \\ \cline{2-3}
  & 999 & 2 \\ \hline
 
 \multicolumn{2}{|c|}{\textbf{Total Non-Standard Error}} &
-\textbf{2} \\ \hline
+\textbf{4} \\ \hline
 
 \end{longtable}
