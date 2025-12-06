@@ -2,7 +2,7 @@
 \renewcommand{\arraystretch}{1.4}
 
 \begin{longtable}{
-|>{\centering\arraybackslash}m{4cm}
+|>{\centering\arraybackslash}m{5cm}
 |>{\centering\arraybackslash}m{3cm}
 |>{\centering\arraybackslash}m{3cm}
 |>{\centering\arraybackslash}m{3cm}|}
@@ -35,24 +35,40 @@
 
 % ====== ISI DATA DI SINI ======
 
-Timeout & -- & -- & -- \\ \hline
+Connection Reset & 1 & -- & -- \\ \hline
 
-SSL Error & -- & -- & -- \\ \hline
+Host Not Found & 14 & 11 & 7 \\ \hline
+
+I/O Error & 1 & -- & -- \\ \hline
+
+Invalid URL & 1 & -- & -- \\ \hline
+
+SSL Error & 6 & -- & 5 \\ \hline
+
+Timeout & 3 & 3 & 2 \\ \hline
+
+400 Bad Request & 1 & 1 & 1 \\ \hline
+
+403 Forbidden & 12 & -- & 3 \\ \hline
+
+404 Not Found & 27 & 23 & 35 \\ \hline
+
+405 Method Not Allowed & -- & -- & 1 \\ \hline
+
+410 Gone & 1 & -- & -- \\ \hline
+
+429 Too Many Requests & -- & -- & 3 \\ \hline
+
+502 Bad Gateway & 1 & 1 & 1 \\ \hline
+
+520 & 2 & 1 & 2 \\ \hline
+
+999 & 2 & -- & -- \\ \hline
 
 -- & -- & -- & -- \\ \hline
 
-400 Bad Request & -- & -- & -- \\ \hline
-
-403 Forbidden & -- & -- & -- \\ \hline
-
-404 Not Found & -- & -- & -- \\ \hline
-
-410 Gone & -- & -- & -- \\ \hline
-
-520 & -- & -- & -- \\ \hline
-
-999 & -- & -- & -- \\ \hline
-
+-- & -- & -- & -- \\ \hline
 
 
 \end{longtable}
+

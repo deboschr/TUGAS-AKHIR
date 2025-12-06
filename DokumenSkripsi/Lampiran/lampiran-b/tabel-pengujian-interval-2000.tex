@@ -3,7 +3,7 @@
    |>{\raggedright\arraybackslash}m{4cm}
    |>{\raggedright\arraybackslash}m{6cm}
    |>{\centering\arraybackslash}m{2cm}|}
-\caption{(Pengujian 1) Percobaan Interval 2000~milidetik}
+\caption{(Pengujian 1) Percobaan \texttt{INTERVAL} 2000~milidetik}
 \vspace{-3mm}
 \label{tab:percobaan-interval-2000} \\
 \hline
@@ -32,24 +32,23 @@
 % ********************************************
 
 \multirow{6}{*}{\textbf{Connection Error}}
- & ConnectException & 13 \\ \cline{2-3}
- & HttpConnectTimeoutException & 5 \\ \cline{2-3}
- & HttpTimeoutException & 5 \\ \cline{2-3}
- & IOException & 1 \\ \cline{2-3}
- & IllegalArgumentException & 1 \\ \cline{2-3}
- & SSLHandshakeException & 5 \\ \hline
+ & Connection Reset & 1 \\ \cline{2-3}
+ & Host Not Found & 14 \\ \cline{2-3}
+ & I/O Error & 1 \\ \cline{2-3}
+ & Invalid URL & 1 \\ \cline{2-3}
+ & SSL Error & 6 \\ \cline{2-3}
+ & Timeout & 3 \\ \hline
 
 \multicolumn{2}{|c|}{\centering\textbf{Total Connection Error}} &
-{\centering\arraybackslash\textbf{30}} \\ \hline
+{\centering\arraybackslash\textbf{26}} \\ \hline
 
 % ********************************************
 
 \multirow{5}{*}{\textbf{4XX Client Error}}
  & 400 Bad Request & 2 \\ \cline{2-3}
- & 403 Forbidden & 5 \\ \cline{2-3}
+ & 403 Forbidden & 12 \\ \cline{2-3}
  & 404 Not Found & 29 \\ \cline{2-3}
  & 410 Gone & 1 \\ \cline{2-3}
- & 429 Too Many Requests & 7 \\ \hline
 
 \multicolumn{2}{|c|}{\centering\textbf{Total 4XX Client Error}} &
 {\centering\arraybackslash\textbf{44}} \\ \hline

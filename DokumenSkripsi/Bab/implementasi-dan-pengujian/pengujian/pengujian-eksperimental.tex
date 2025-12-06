@@ -5,41 +5,73 @@ Setiap pengujian akan difokuskan pada satu parameter dan paramater lain akan dib
 \noindent
 Berikut adalah daftar parameter yang akan di eksplorasi:
 \begin{itemize}[itemsep=4pt]
-   \item \textbf{Interval pada \texttt{RateLimiter}}: Parameter ini menentukan jarak antarpermintaan HTTP pada \textit{host} yang sama.
+   \item \textbf{\texttt{INTERVAL} pada \texttt{RateLimiter}}: Parameter ini menentukan jarak antarpermintaan HTTP pada \textit{host} yang sama.
    
-   \item \textbf{\textit{Connection timeout} pada \texttt{HttpClient}}: Parameter ini menentukan batas waktu pembentukan koneksi dalam permintaan HTTP.
+   \item \textbf{\texttt{CONNECTION\_TIMEOUT} pada \texttt{HttpClient}}: Parameter ini menentukan batas waktu pembentukan koneksi dalam permintaan HTTP.
    
-   \item \textbf{\textit{Request timeout} pada \texttt{HttpRequest}}: Parameter ini menentukan batas waktu menunggu respons \textit{server} dalam permintaan HTTP
+   \item \textbf{\texttt{REQUEST\_TIMEOUT} pada \texttt{HttpRequest}}: Parameter ini menentukan batas waktu menunggu respons \textit{server} dalam permintaan HTTP
 
 \end{itemize}
 
 
-\subsubsection{Pengujian 1: Interval pada \texttt{RateLimiter}}
+\subsubsection{Pengujian 1: \texttt{INTERVAL} pada \texttt{RateLimiter}}
 \label{subsubsec:05020301-pengujian-1-interval-rate-limiter}
-Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \texttt{interval} pada \texttt{RateLimiter} terhadap hasil pemeriksaan. Pada pengujian ini dilakukan serangkaian percobaan dengan rentang nilai 0--2000~milidetik dengan kenaikan 100~milidetik untuk setiap percobaan. Parameter lain dibuat konstan, yaitu \textit{connection timeout} sebesar 10~detik dan \textit{request timeout} sebesar 10~detik. Pemilihan nilai konstan tersebut dilakukan dengan mengambil nilai tengah dari rentang percobaan masing-masing parameter. Dengan demikian, setiap perubahan pada hasil pemeriksaan sepenuhnya disebabkan oleh variasi nilai \texttt{interval}. Hasil percobaan ditampilkan pada Tabel~\ref{tab:hasil-pengujian-interval}.
+Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \texttt{INTERVAL} pada \texttt{RateLimiter} terhadap performa dan hasil pemeriksaan. Eksplorasi pada parameter ini menggunakan nilai dalam satuan milidetik, dengan nilai percobaan yaitu 0, 500, 1000, 1500, dan 2000. Dalam pengujian ini parameter \texttt{CONNECTION\_TIMEOUT} akan bernilai konstan 20~detik dan \texttt{REQUEST\_TIMEOUT} bernilai konstan 20~detik. Hasil dari pengujian ini ditampilkan pada Tabel~\ref{tab:hasil-pengujian-interval}.
 
-Tabel~\ref{tab:hasil-pengujian-interval}.
+Berdasarkan hasil pengujian yang ditampilkan pada Tabel~\ref{tab:hasil-pengujian-interval}, berikut adalah temuan yang didapatkan:
+\begin{enumerate}
+   \item A
+   \item B
+   \item C
+\end{enumerate}
 
-\subsubsection{Pengujian 2: \textit{Connection Timeout} pada \texttt{HttpClient}}
+\input{Lampiran/pengujian-eksperimental/tabel-pengujian-interval.tex}
+
+
+
+
+% ###########################################################################
+% ###########################################################################
+% ###########################################################################
+\subsubsection{Pengujian 2: \texttt{CONNECTION\_TIMEOUT} pada \texttt{HttpClient}}
 \label{subsubsec:05020302-pengujian-2-connection-timeout-httpclient}
-Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \textit{connection timeout} pada \texttt{HttpClient} terhadap hasil pemeriksaan. Pada pengujian ini dilakukan serangkaian percobaan dengan rentang nilai 1--20~detik dengan kenaikan 1~detik untuk setiap percobaan. Parameter lain dibuat konstan, yaitu \texttt{interval} pada \texttt{RateLimiter} sebesar 1000~milidetik serta \textit{request timeout} sebesar 10~detik. Pemilihan nilai konstan tersebut dilakukan dengan mengambil nilai tengah dari rentang percobaan masing-masing parameter. Dengan demikian, setiap perubahan pada hasil pemeriksaan sepenuhnya disebabkan oleh variasi \textit{connection timeout}. Hasil percobaan ditampilkan pada Tabel~\ref{tab:hasil-pengujian-connection-timeout}.
+Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \texttt{CONNECTION\_TIMEOUT} pada \texttt{HttpClient} terhadap performa dan hasil pemeriksaan. Eksplorasi pada parameter ini menggunakan nilai dalam satuan detik, dengan nilai percobaan yaitu 5, 10, 15, 20, dan 25. Dalam pengujian ini parameter \texttt{INTERVAL} akan bernilai konstan 1500~milidetik dan \texttt{REQUEST\_TIMEOUT} bernilai konstan 20~detik. Hasil dari pengujian ini ditampilkan pada Tabel~\ref{tab:hasil-pengujian-connection-timeout}.
 
-Tabel~\ref{tab:hasil-pengujian-connection-timeout}
+Berdasarkan hasil pengujian yang ditampilkan pada Tabel~\ref{tab:hasil-pengujian-connection-timeout}, berikut adalah temuan yang didapatkan:
+\begin{enumerate}
+   \item A
+   \item B
+   \item C
+\end{enumerate}
 
-\subsubsection{Pengujian 3: \textit{Request Timeout} pada \texttt{HttpRequest}}
+\input{Lampiran/pengujian-eksperimental/tabel-pengujian-connection-timeout.tex}
+
+
+% ###########################################################################
+% ###########################################################################
+% ###########################################################################
+\subsubsection{Pengujian 3: \texttt{REQUEST\_TIMEOUT} pada \texttt{HttpRequest}}
 \label{subsubsec:05020303-pengujian-3-request-timeout-httprequest}
-Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \textit{request timeout} pada \texttt{HttpRequest} terhadap hasil pemeriksaan. Pada pengujian ini dilakukan serangkaian percobaan dengan rentang nilai 1--20~detik dengan kenaikan 1~detik untuk setiap percobaan. Parameter lain dibuat konstan, yaitu \textit{connection timeout} sebesar 10~detik serta \texttt{interval} pada \texttt{RateLimiter} sebesar 1000~milidetik. Pemilihan nilai konstan tersebut dilakukan dengan mengambil nilai tengah dari rentang percobaan masing-masing parameter. Dengan demikian, setiap perubahan pada hasil pemeriksaan sepenuhnya disebabkan oleh variasi \textit{request timeout}. Hasil percobaan ditampilkan pada Tabel~\ref{tab:hasil-pengujian-request-timeout}.
+Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \texttt{REQUEST\_TIMEOUT} pada \texttt{HttpRequest} terhadap performa dan hasil pemeriksaan. Eksplorasi pada parameter ini menggunakan nilai dalam satuan detik, dengan nilai percobaan yaitu 5, 10, 15, 20, dan 25. Dalam pengujian ini parameter \texttt{INTERVAL} akan bernilai konstan 1500~milidetik dan \texttt{CONNECTION\_TIMEOUT} bernilai konstan 20~detik. Hasil dari pengujian ini ditampilkan pada Tabel~\ref{tab:hasil-pengujian-request-timeout}.
 
-Tabel~\ref{tab:hasil-pengujian-request-timeout}
+Berdasarkan hasil pengujian yang ditampilkan pada Tabel~\ref{tab:hasil-pengujian-request-timeout}, berikut adalah temuan yang didapatkan:
+\begin{enumerate}
+   \item A
+   \item B
+   \item C
+\end{enumerate}
+
+\input{Lampiran/pengujian-eksperimental/tabel-pengujian-request-timeout.tex}
 
 
+% ###########################################################################
+% ###########################################################################
+% ###########################################################################
 \subsubsection{Kesimpulan Hasil Pengujian}
 \label{subsubsec:05020306-kesimpulan-hasil-pengujian}
 
 \subsubsection{Perbandingan dengan Perangkat Lunak Serupa}
 \label{subsubsec:05020304-perbandingan-dengan-perangkat-lunak-serupa}
-
-\input{Lampiran/lampiran-b/tabel-unpas-dead-link-checker.tex}
 
 \input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unpar.tex}
 \input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unpas.tex}
