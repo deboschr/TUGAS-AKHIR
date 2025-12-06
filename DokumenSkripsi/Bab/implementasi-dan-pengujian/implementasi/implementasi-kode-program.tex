@@ -339,6 +339,8 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    Metode \texttt{normalizeUrl} menerima dua masukan, yaitu \texttt{rawUrl} yang merupakan URL target normalisasi dan \texttt{isStrict} untuk menandakan apakah normalisasi dilakukan secara ketat atau tidak. Kembalian dari metode ini memiliki tiga kemungkinan bentuk, yaitu URL awal apabila tidak valid dibentuk sebagai objek URI, \texttt{null} apabila URL tidak memenuhi aturan normalisasi, dan URL baru yang sudah dinormalisasi jika seluruh aturan berhasil diterapkan. Berikut adalah penjelasan lebih rinci untuk metode \texttt{normalizeUrl} (lihat Kode~\ref{code:url-handler-normalize-url-java}):
 
+   \vspace{2mm}
+   
    \begin{enumerate}[itemsep=4pt]
 
       \item (Baris 2--4) Melakukan pemeriksaan awal terhadap nilai masukan. Jika bernilai \texttt{null} atau hanya berisi spasi, maka URL dianggap tidak valid dan kembalikan \texttt{null}.

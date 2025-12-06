@@ -1,144 +1,45 @@
-Berbeda dengan pengujian fungsional yang berfokus pada verifikasi implementasi fitur berdasarkan hasil perancangan, pengujian eksperimental menekankan eksplorasi terhadap parameter-parameter operasional yang memengaruhi performa dan hasil pemeriksaan. Pada pengujian ini, kualitas hasil pemeriksaan dievaluasi berdasarkan tiga aspek utama, yaitu efisiensi, akurasi, dan konsistensi. Pemeriksaan dikatakan efisien apabila proses diselesaikan dalam waktu yang relatif singkat namun identifikasi tautan rusak tetap akurat. Pemeriksaan dikatakan akurat apabila hasil pemeriksaan mencerminkan kondisi tautan yang sebenarnya tanpa menghasilkan \textit{false positive}, yaitu tautan yang tidak rusak namun diidentifikasi sebagai tautan rusak. Sementara itu, pemeriksaan dikatakan konsisten apabila hasil pemeriksaan yang diperoleh tetap sama atau sangat mendekati pada percobaan yang berbeda dalam kondisi pengujian tidak berubah.
+Pada pengujian ini akan dilakukan eksplorasi terhadap terhadap parameter-parameter operasional yang memengaruhi performa dan hasil pemeriksaan. Tujuan dari eksplorasi ini adalah untuk mendapatkan nilai terbaik pada setiap parameter sehingga durasi pemeriksaan dan hasil pemeriksaan dapat optimal. Meskipun demikin, hasil pemeriksaan akan lebih diprioritaskan dalam menentukan nilai terbaik pada masing-masing parameter. Setelah didapatkan nilai terbaik pada setiap paramater, akan dilakukan eksplorasi lanjutan dengan membandingan hasil pemeriksaan pada perangkat lunak yang dikembangkan dengan perangkat lunak serupa.
 
-\vspace{-3mm}
-% ####################### TUJUAN PENGUJIAN #######################
-\subsubsection{Tujuan Pengujian}
-\label{subsubsec:05020301-tujuan-pengujian}
-\vspace{-2mm}
-Pengujian eksperimental ini memiliki beberapa tujuan sebagai berikut:
-\begin{itemize}
-
-   \item Menentukan nilai interval pada \texttt{RateLimiter} untuk mendapatkan kecepatan \textit{crawling} terbaik tanpa menyebabkan lonjakan permintaan HTTP terhadap \textit{host} yang sama yang dapat memicu pemblokiran sementara atau menghasilkan kode status HTTP 429 (\textit{Too Many Requests}).
-   
-   \item Menentukan nilai \textit{connection timeout} pada \texttt{HttpClient} untuk memperoleh batas waktu pembentukan koneksi yang optimal, sehingga tidak terjadi \textit{connection error} pada tautan yang responsif jika nilainya terlalu kecil ataupun menyebabkan waktu pemeriksaan menjadi terlalu lama jika nilainya terlalu besar. 
-   
-   \item Menentukan nilai \textit{request timeout} pada \texttt{HttpRequest} untuk memperoleh batas waktu permintaan HTTP yang optimal, sehingga tidak terjadi identifikasi \textit{false positive} pada tautan yang respons \textit{server}-nya lambat jika nilainya terlalu kecil ataupun menyebabkan waktu pemeriksaan menjadi terlalu lama jika nilainya terlalu besar. 
-
-   \item Membandingkan hasil pemeriksaan dengan perangkat lunak serupa untuk melihat perbedaan pada hasil pemeriksaan.
-
-\end{itemize}
-
-\vspace{-3mm}
-% ####################### DESAIN PERCOBAAN #######################
-\subsubsection{Desain Percobaan}
-\label{subsubsec:05020302-desain-percobaan}
-\vspace{-2mm}
-Seluruh percobaan pada setiap pengujian menggunakan subjek yang sama, yaitu situs web Program Studi Informatika Universitas Katolik Parahyangan yang beralamat pada \url{https://informatika.unpar.ac.id}. Penggunaan subjek yang sama memastikan bahwa setiap variasi hasil benar-benar disebabkan oleh perubahan pada nilai parameter yang sedang diuji, bukan disebabkan oleh perbedaan struktur atau jumlah tautan pada subjek pengujian.
-
-Setiap pengujian difokuskan pada satu parameter tertentu, dan di dalamnya dilakukan beberapa percobaan dengan variasi nilai parameter tersebut, sementara parameter lainnya dibuat konstan. Pendekatan ini digunakan agar pengaruh masing-masing parameter dapat diamati secara terpisah. Tiga parameter yang diuji beserta rentang nilai percobaannya ditunjukkan pada Tabel~\ref{tab:parameter-pengujian-eksperimantal}.
-
-Pada setiap percobaan dilakukan evaluasi terhadap indikator berikut:
-\begin{itemize}
-   \item Durasi pemeriksaan.
-   \item Jumlah total tautan.
-   \item Jumlah tautan halaman.
-   \item Jumlah tautan rusak.
-\end{itemize}
-
-\input{Lampiran/pengujian-eksperimental/tabel-parameter-pengujian.tex}
-
-
-
-
-% ####################### PENGUJIAN 1 #######################
-\subsubsection{Pengujian 1: Interval pada \texttt{RateLimiter}}
-\label{subsubsec:05020303-pengujian-1-interval-rate-limiter}
-
-Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \texttt{interval} pada \texttt{RateLimiter} terhadap hasil pemeriksaan. Pada pengujian ini dilakukan serangkaian percobaan dengan rentang nilai 0--2000~milidetik dengan kenaikan 100~milidetik untuk setiap percobaan. Parameter lain dibuat konstan, yaitu \textit{connection timeout} sebesar 10~detik dan \textit{request timeout} sebesar 10~detik. Pemilihan nilai konstan tersebut dilakukan dengan mengambil nilai tengah dari rentang percobaan masing-masing parameter. Dengan demikian, setiap perubahan pada hasil pemeriksaan sepenuhnya disebabkan oleh variasi nilai \texttt{interval}. Hasil percobaan ditampilkan pada Tabel~\ref{tab:hasil-pengujian-interval}.
-
-
-\input{Lampiran/pengujian-eksperimental/tabel-pengujian-interval-ratelimiter.tex}
-
-
-
-
-% ####################### PENGUJIAN 2 #######################
-\subsubsection{Pengujian 2: \textit{Connection Timeout} pada \texttt{HttpClient}}
-\label{subsubsec:05020304-pengujian-2-connection-timeout-httpclient}
-
-Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \textit{connection timeout} pada \texttt{HttpClient} terhadap hasil pemeriksaan. Pada pengujian ini dilakukan serangkaian percobaan dengan rentang nilai 1--20~detik dengan kenaikan 1~detik untuk setiap percobaan. Parameter lain dibuat konstan, yaitu \texttt{interval} pada \texttt{RateLimiter} sebesar 1000~milidetik serta \textit{request timeout} sebesar 10~detik. Pemilihan nilai konstan tersebut dilakukan dengan mengambil nilai tengah dari rentang percobaan masing-masing parameter. Dengan demikian, setiap perubahan pada hasil pemeriksaan sepenuhnya disebabkan oleh variasi \textit{connection timeout}. Hasil percobaan ditampilkan pada Tabel~\ref{tab:hasil-pengujian-connection-timeout}.
-
-\input{Lampiran/pengujian-eksperimental/tabel-pengujian-connection-timeout-httpclient.tex}
-
-
-
-
-% ####################### PENGUJIAN 3 #######################
-\subsubsection{Pengujian 3: \textit{Request Timeout} pada \texttt{HttpRequest}}
-\label{subsubsec:05020305-pengujian-3-request-timeout-httprequest}
-Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \textit{request timeout} pada \texttt{HttpRequest} terhadap hasil pemeriksaan. Pada pengujian ini dilakukan serangkaian percobaan dengan rentang nilai 1--20~detik dengan kenaikan 1~detik untuk setiap percobaan. Parameter lain dibuat konstan, yaitu \textit{connection timeout} sebesar 10~detik serta \texttt{interval} pada \texttt{RateLimiter} sebesar 1000~milidetik. Pemilihan nilai konstan tersebut dilakukan dengan mengambil nilai tengah dari rentang percobaan masing-masing parameter. Dengan demikian, setiap perubahan pada hasil pemeriksaan sepenuhnya disebabkan oleh variasi \textit{request timeout}. Hasil percobaan ditampilkan pada Tabel~\ref{tab:hasil-pengujian-request-timeout}.
-
-
-\input{Lampiran/pengujian-eksperimental/tabel-pengujian-request-timeout-httprequest.tex}
-
-
-
-
-% ####################### KESIMPULAN HASIL PENGUJIAN #######################
-\subsubsection{Kesimpulan Hasil Pengujian}
-\label{subsubsec:05020306-kesimpulan-hasil-pengujian}
-Berdasarkan keseluruhan rangkaian pengujian terhadap parameter \texttt{interval} pada \texttt{RateLimiter}, \textit{connection timeout} pada \texttt{HttpClient}, dan \textit{request timeout} pada \texttt{HttpRequest}, diperoleh beberapa temuan penting terkait pengaruh masing-masing parameter terhadap proses pemeriksaan tautan. Evaluasi dilakukan berdasarkan empat indikator utama, yaitu durasi pemeriksaan, jumlah total tautan yang ditemukan, jumlah tautan halaman, dan jumlah tautan rusak, serta satu jenis kesalahan (\textit{error}) spesifik pada setiap pengujian.
-
-\begin{enumerate}
-   \item \textbf{Pengujian 1}\\
-   Hasil pengujian menunjukkan bahwa nilai \texttt{interval} berpengaruh secara konsisten terhadap durasi pemeriksaan; semakin besar nilai \texttt{interval}, semakin lama waktu yang dibutuhkan untuk menyelesaikan proses pemeriksaan. Sementara itu, jumlah total tautan dan jumlah tautan halaman relatif stabil pada semua percobaan. Kesalahan \texttt{429 Too Many Requests}, yang menjadi fokus pengamatan pada pengujian ini, tidak menunjukkan pola yang bergantung pada nilai \texttt{interval}. Setelah ditelusuri lebih lanjut, seluruh kesalahan \texttt{429} ternyata berasal dari domain yang sama, yaitu \url{https://www.researchgate.net}, yang memiliki mekanisme pembatasan permintaan (\textit{rate limiting}) yang ketat terhadap aktivitas \textit{crawling}. Dengan demikian, variasi jumlah kesalahan \texttt{429} tidak dapat dijadikan indikator evaluasi kualitas nilai \texttt{interval}. Nilai \texttt{interval} yang dianggap optimal adalah rentang menengah, yaitu sekitar 600--1200~milidetik, karena memberikan durasi pemeriksaan yang efisien tanpa menimbulkan variasi anomali pada hasil.
-
-
-   \item \textbf{Pengujian 2}\\
-   Durasi pemeriksaan cenderung meningkat ketika nilai \textit{connection timeout} diperbesar, sebagaimana sesuai dengan karakteristik mekanisme pembentukan koneksi HTTP. Namun demikian, jumlah kesalahan \texttt{HttpConnectTimeoutException} yang diamati tidak menunjukkan pola yang konsisten terhadap perubahan nilai \textit{connection timeout}. Variasi ini sangat dipengaruhi oleh kondisi jaringan dan kestabilan koneksi internet pada saat pengujian berlangsung. Oleh karena itu, nilai \textit{connection timeout} tidak dapat dievaluasi secara akurat berdasarkan jumlah kesalahan tersebut. Rentang nilai menengah, yaitu 10--16~detik, menjadi pilihan yang paling stabil karena tidak menghasilkan kegagalan pembentukan koneksi yang berlebihan dan tetap menjaga durasi pemeriksaan pada tingkat yang wajar.
-
-   \item \textbf{Pengujian 3}\\
-   Pengujian ini memberikan hasil yang paling konsisten dibandingkan parameter lainnya. Pada nilai \textit{request timeout} yang kecil (2--4~detik), jumlah kesalahan \texttt{HttpTimeoutException} meningkat sangat signifikan, menunjukkan bahwa batas waktu tersebut tidak memadai untuk menunggu respons dari sebagian \textit{server}. Ketika nilai \textit{request timeout} diperbesar hingga 7--14~detik, jumlah kesalahan ini menurun secara drastis dan stabil. Nilai yang terlalu besar, seperti 20~detik, memang menghilangkan kesalahan \texttt{HttpTimeoutException}, namun berdampak pada peningkatan durasi pemeriksaan secara signifikan. Dengan demikian, nilai \textit{request timeout} yang optimal berada pada rentang 10--14~detik karena memberikan keseimbilan terbaik antara rendahnya kesalahan dan efisiensi waktu.
-
-\end{enumerate}
+Setiap pengujian akan difokuskan pada satu parameter dan paramater lain akan dibuat konstan. Selain itu, seluruh percobaan akan menggunakan subjek yang sama, yaitu situs web Program Studi Informatika Universitas Katolik Parahyangan yang beralamat pada \url{https://informatika.unpar.ac.id}. Pendekatan ini dilakukan agar pengaruh masing-masing parameter dapat diamati secara terpisah dan memastikan bahwa setiap variasi hasil benar-benar disebabkan oleh perubahan pada nilai parameter yang sedang diuji. Pada setiap percobaan dilakukan evaluasi terhadap duriasi pemeriksaan, jumlah total tautan, jumlah tautan halaman, serta jumlah tautan rusak yang ditemukan.
 
 \noindent
-\textbf{Kesimpulan Akhir.}
-Meskipun beberapa variasi hasil dipengaruhi oleh kondisi jaringan internet yang tidak sepenuhnya dapat dikendalikan, keseluruhan pengujian menunjukkan bahwa:
-\begin{itemize}
-    \item nilai \texttt{interval} yang ideal berada pada rentang 600--1200~milidetik;
-    \item nilai \textit{connection timeout} yang paling stabil berada pada rentang 10--16~detik; dan
-    \item nilai \textit{request timeout} yang optimal berada pada rentang 10--14~detik.
+Berikut adalah daftar parameter yang akan di eksplorasi:
+\begin{itemize}[itemsep=4pt]
+   \item \textbf{Interval pada \texttt{RateLimiter}}: Parameter ini menentukan jarak antarpermintaan HTTP pada \textit{host} yang sama.
+   
+   \item \textbf{\textit{Connection timeout} pada \texttt{HttpClient}}: Parameter ini menentukan batas waktu pembentukan koneksi dalam permintaan HTTP.
+   
+   \item \textbf{\textit{Request timeout} pada \texttt{HttpRequest}}: Parameter ini menentukan batas waktu menunggu respons \textit{server} dalam permintaan HTTP
+
 \end{itemize}
 
-Konfigurasi tersebut memberikan kombinasi terbaik antara kecepatan durasi, stabilitas hasil pemeriksaan, serta minimnya kesalahan yang tidak diinginkan, sehingga direkomendasikan sebagai konfigurasi operasional untuk sistem \textit{Broken Link Scanner}. Berdasarkan rentang nilai optimal tersebut, serta mempertimbangkan titik tengah yang memberikan kinerja paling konsisten pada berbagai percobaan, sistem ini menetapkan konfigurasi tetap berupa \texttt{interval} sebesar 1000~milidetik, \textit{connection timeout} sebesar 12~detik, dan \textit{request timeout} sebesar 12~detik. Nilai-nilai ini dipilih karena menghasilkan durasi pemeriksaan yang lebih cepat, jumlah kesalahan yang rendah, serta tingkat kestabilan hasil yang lebih baik dibandingkan nilai lainnya dalam rentang pengujian.
+
+\subsubsection{Pengujian 1: Interval pada \texttt{RateLimiter}}
+\label{subsubsec:05020301-pengujian-1-interval-rate-limiter}
+Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \texttt{interval} pada \texttt{RateLimiter} terhadap hasil pemeriksaan. Pada pengujian ini dilakukan serangkaian percobaan dengan rentang nilai 0--2000~milidetik dengan kenaikan 100~milidetik untuk setiap percobaan. Parameter lain dibuat konstan, yaitu \textit{connection timeout} sebesar 10~detik dan \textit{request timeout} sebesar 10~detik. Pemilihan nilai konstan tersebut dilakukan dengan mengambil nilai tengah dari rentang percobaan masing-masing parameter. Dengan demikian, setiap perubahan pada hasil pemeriksaan sepenuhnya disebabkan oleh variasi nilai \texttt{interval}. Hasil percobaan ditampilkan pada Tabel~\ref{tab:hasil-pengujian-interval}.
+
+Tabel~\ref{tab:hasil-pengujian-interval}.
+
+\subsubsection{Pengujian 2: \textit{Connection Timeout} pada \texttt{HttpClient}}
+\label{subsubsec:05020302-pengujian-2-connection-timeout-httpclient}
+Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \textit{connection timeout} pada \texttt{HttpClient} terhadap hasil pemeriksaan. Pada pengujian ini dilakukan serangkaian percobaan dengan rentang nilai 1--20~detik dengan kenaikan 1~detik untuk setiap percobaan. Parameter lain dibuat konstan, yaitu \texttt{interval} pada \texttt{RateLimiter} sebesar 1000~milidetik serta \textit{request timeout} sebesar 10~detik. Pemilihan nilai konstan tersebut dilakukan dengan mengambil nilai tengah dari rentang percobaan masing-masing parameter. Dengan demikian, setiap perubahan pada hasil pemeriksaan sepenuhnya disebabkan oleh variasi \textit{connection timeout}. Hasil percobaan ditampilkan pada Tabel~\ref{tab:hasil-pengujian-connection-timeout}.
+
+Tabel~\ref{tab:hasil-pengujian-connection-timeout}
+
+\subsubsection{Pengujian 3: \textit{Request Timeout} pada \texttt{HttpRequest}}
+\label{subsubsec:05020303-pengujian-3-request-timeout-httprequest}
+Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \textit{request timeout} pada \texttt{HttpRequest} terhadap hasil pemeriksaan. Pada pengujian ini dilakukan serangkaian percobaan dengan rentang nilai 1--20~detik dengan kenaikan 1~detik untuk setiap percobaan. Parameter lain dibuat konstan, yaitu \textit{connection timeout} sebesar 10~detik serta \texttt{interval} pada \texttt{RateLimiter} sebesar 1000~milidetik. Pemilihan nilai konstan tersebut dilakukan dengan mengambil nilai tengah dari rentang percobaan masing-masing parameter. Dengan demikian, setiap perubahan pada hasil pemeriksaan sepenuhnya disebabkan oleh variasi \textit{request timeout}. Hasil percobaan ditampilkan pada Tabel~\ref{tab:hasil-pengujian-request-timeout}.
+
+Tabel~\ref{tab:hasil-pengujian-request-timeout}
 
 
-\vspace{30mm}
-% ####################### PERBANDINGAN #######################
+\subsubsection{Kesimpulan Hasil Pengujian}
+\label{subsubsec:05020306-kesimpulan-hasil-pengujian}
+
 \subsubsection{Perbandingan dengan Perangkat Lunak Serupa}
-\label{subsubsec:05020307-perbandingan-dengan-perangkat-lunak-serupa}
-Bagian ini bertujuan untuk membandingkan hasil pemeriksaan tautan rusak yang dilakukan oleh aplikasi yang dikembangkan pada tugas akhir ini (Broken Link Scanner) dengan dua perangkat lunak serupa, yaitu Broken Link Checker dan Dead Link Checker. Pengujian dilakukan pada situs \url{https://informatika.unpar.ac.id}, dan setiap hasil pemeriksaan ditampilkan pada Tabel~\ref{tab:bls-informatika}, Tabel~\ref{tab:blc-informatika}, dan Tabel~\ref{tab:dlc-informatika}. Perbandingan ini dilakukan untuk melihat perbedaan cara masing-masing perangkat lunak dalam mendeteksi, mengategorikan, dan menampilkan tautan rusak.
+\label{subsubsec:05020304-perbandingan-dengan-perangkat-lunak-serupa}
 
-
-Berdasarkan ketiga tabel tersebut, terlihat bahwa setiap perangkat lunak memiliki kebijakan yang berbeda dalam menentukan jenis kesalahan yang dikategorikan sebagai tautan rusak. Broken Link Scanner menampilkan hasil yang bersifat teknis dan eksplisit terhadap berbagai \texttt{exception}, sedangkan Broken Link Checker dan Dead Link Checker cenderung menyajikan pesan yang sudah diringkas dan diformat agar lebih mudah dipahami.
-
-Berikut adalah beberapa perbedaan penting yang muncul dari hasil pemeriksaan pada Tabel~\ref{tab:bls-informatika}, Tabel~\ref{tab:blc-informatika}, dan Tabel~\ref{tab:dlc-informatika}:
-\begin{itemize}
-    \item Broken Link Checker tidak memasukkan kesalahan yang berkaitan dengan keamanan, seperti \texttt{403 Forbidden} dan kegagalan sertifikat, sebagai tautan rusak, sedangkan Broken Link Scanner tetap mengkategorikan kesalahan tersebut sebagai error (baik pada kategori 4XX maupun Connection Error).
-    
-    \item Broken Link Scanner menampilkan kesalahan teknis seperti \texttt{SSLHandshakeException} secara eksplisit, sementara Broken Link Checker dan Dead Link Checker tidak menampilkan jenis kesalahan ini dalam laporannya.
-    
-    \item Dead Link Checker menyederhanakan kode status yang tidak standar (misalnya 520 dan 999) menjadi kategori umum seperti \textit{unknown error}, sedangkan Broken Link Scanner tetap menampilkan kode tersebut apa adanya.
-    
-    \item Pada kategori Connection Error, Broken Link Checker dan Dead Link Checker menampilkan pesan yang sudah diformat dan lebih mudah dibaca, seperti \textit{timeout} atau \textit{server name/address not found}. Sebaliknya, Broken Link Scanner menampilkan nama kesalahan sesuai dengan nama \texttt{exception} di Java, yang lebih informatif bagi pengguna teknis, tetapi kurang ramah bagi pengguna yang tidak terbiasa dengan istilah pemrograman.
-    
-    \item Perbedaan kebijakan dalam mengelompokkan dan menyajikan kesalahan ini menyebabkan jumlah total tautan rusak yang dilaporkan Broken Link Scanner cenderung lebih besar dibandingkan dua perangkat lunak lainnya.
-\end{itemize}
-
-Secara keseluruhan, perbandingan ini menunjukkan bahwa Broken Link Scanner memiliki cakupan deteksi error yang lebih luas dan detail secara teknis, sehingga lebih tepat digunakan untuk analisis mendalam dan proses debugging. Di sisi lain, Broken Link Checker dan Dead Link Checker lebih menekankan keterbacaan dan kesederhanaan informasi, sehingga hasil laporannya lebih mudah dipahami oleh pengguna non-teknis.
-
-% ==========================================================
-% TABEL: Broken Link Scanner
-% ==========================================================
-\input{Lampiran/pengujian-eksperimental/broken-link-scanner-informatika.tex}
-
-% ==========================================================
-% TABEL: Broken Link Checker
-% ==========================================================
-\input{Lampiran/pengujian-eksperimental/broken-link-checker-informatika.tex}
-
-% ==========================================================
-% TABEL: Dead Link Checker
-% ==========================================================
-\input{Lampiran/pengujian-eksperimental/dead-link-checker-informatika.tex}
+\input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unpar.tex}
+\input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unpas.tex}
+\input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unpad.tex}
+\input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unikom.tex}
