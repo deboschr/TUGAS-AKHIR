@@ -1,53 +1,71 @@
+
+
 \setlength{\LTcapwidth}{\textwidth}
-\renewcommand{\arraystretch}{1.4}
+\renewcommand{\arraystretch}{1.7}
 
 \begin{longtable}{
-|>{\centering\arraybackslash}m{2.2cm}
-|>{\centering\arraybackslash}m{2.2cm}
-|>{\centering\arraybackslash}m{2.8cm}
-|>{\centering\arraybackslash}m{2.8cm}
-|>{\centering\arraybackslash}m{3.5cm}|}
+|>{\centering\arraybackslash}m{4cm}
+|>{\centering\arraybackslash}m{1.7cm}
+|>{\centering\arraybackslash}m{1.7cm}
+|>{\centering\arraybackslash}m{1.7cm}
+|>{\centering\arraybackslash}m{1.7cm}
+|>{\centering\arraybackslash}m{1.7cm}|}
 \caption{Hasil Eksplorasi Parameter \texttt{CONNECTION\_TIMEOUT}}
 \vspace{-3mm}
 \label{tab:hasil-pengujian-connection-timeout} \\
 \hline
-\textbf{Connection Timeout} &
-\textbf{Durasi} &
-\textbf{Total Tautan} &
-\textbf{Tautan Halaman} &
-\textbf{Tautan Rusak} \\
+\multirow{2}{*}{\textbf{Error}} &
+\multicolumn{5}{c|}{\textbf{Connection Timeout}} \\ \cline{2-6} & 
+\textbf{5~detik} &
+\textbf{10~detik} &
+\textbf{15~detik} &
+\textbf{20~detik} &
+\textbf{25~detik} \\
 \hline
 \endfirsthead
 
-\multicolumn{5}{c}{Tabel~\ref{tab:hasil-pengujian-connection-timeout} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\multicolumn{6}{c}{Tabel~\ref{tab:hasil-pengujian-connection-timeout} dilanjutkan dari halaman sebelumnya}\\[4pt]
 \hline
-\textbf{Connection Timeout} &
-\textbf{Durasi} &
-\textbf{Total Tautan} &
-\textbf{Tautan Halaman} &
-\textbf{Tautan Rusak} \\
+\multirow{2}{*}{\textbf{Error}} &
+\multicolumn{5}{c|}{\textbf{Interval}} \\ \cline{2-6} & 
+\textbf{5~detik} &
+\textbf{10~detik} &
+\textbf{15~detik} &
+\textbf{20~detik} &
+\textbf{25~detik} \\
 \hline
 \endhead
 
 \hline
-\multicolumn{5}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
+\multicolumn{6}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
 \endfoot
 
 \hline
 \endlastfoot
 
-% ====== ISI DATA DI SINI ======
+% ====== ISI DATA ======
+Host Not Found       & 14 & 14 & 14 & 14 & 14 \\ \hline
 
-5 & 14m 50s & 585 & 343 & 91 (Lampiran~\ref{tab:percobaan-connection-timeout-5}) \\ \hline
+I/O Error            & 1 & 1 & 1 & 1 & 1 \\ \hline
 
-10 & 14m 01s & 602 & 368 & 79 (Lampiran~\ref{tab:percobaan-connection-timeout-10}) \\ \hline
+Invalid URL          & 1 & 1 & 1 & 1 & 1 \\ \hline
 
-15 & 14m 01s & 602 & 368 & 79 (Lampiran~\ref{tab:percobaan-connection-timeout-15}) \\ \hline
+SSL Error            & 5 & 5 & 6 & 6 & 6 \\ \hline
 
-20 & 17m 16s & 602 & 368 & 76 (Lampiran~\ref{tab:percobaan-connection-timeout-20}) \\ \hline
+Timeout              & 7 & 8 & 6 & 4 & 4 \\ \hline
 
-25 & 17m 16s & 602 & 368 & 76 (Lampiran~\ref{tab:percobaan-connection-timeout-25}) \\ \hline
+400 Bad Request      & 2 & 2 & 2 & 2 & 2 \\ \hline
 
+403 Forbidden        & 11 & 10 & 12 & 12 & 12 \\ \hline
 
+404 Not Found        & 27 & 27 & 28 & 29 & 29 \\ \hline
+
+410 Gone             & 1 & 1 & 1 & 1 & 1 \\ \hline
+
+502 Bad Gateway      & 1 & 1 & 1 & 1 & 1 \\ \hline
+
+520                  & 2 & 2 & 2 & 2 & 2 \\ \hline
+
+999                  & 2 & 2 & 2 & 2 & 2 \\ \hline
 
 \end{longtable}

@@ -1,56 +1,70 @@
+
 \setlength{\LTcapwidth}{\textwidth}
 \renewcommand{\arraystretch}{1.4}
 
 \begin{longtable}{
-|>{\centering\arraybackslash}m{2.2cm}
-|>{\centering\arraybackslash}m{2.2cm}
-|>{\centering\arraybackslash}m{2.8cm}
-|>{\centering\arraybackslash}m{2.8cm}
-|>{\centering\arraybackslash}m{3.5cm}|}
+|>{\centering\arraybackslash}m{4cm}
+|>{\centering\arraybackslash}m{1.7cm}
+|>{\centering\arraybackslash}m{1.7cm}
+|>{\centering\arraybackslash}m{1.7cm}
+|>{\centering\arraybackslash}m{1.7cm}
+|>{\centering\arraybackslash}m{1.7cm}|}
 \caption{Hasil Eksplorasi Parameter \texttt{INTERVAL}}
 \vspace{-3mm}
 \label{tab:hasil-pengujian-interval} \\
 \hline
-\textbf{Interval} &
-\textbf{Durasi} &
-\textbf{Total Tautan} &
-\textbf{Tautan Halaman} &
-\textbf{Tautan Rusak} \\
+\multirow{2}{*}{\textbf{Error}} &
+\multicolumn{5}{c|}{\textbf{Interval}} \\ \cline{2-6}
+& \textbf{0~ms} &
+  \textbf{500~ms} &
+  \textbf{1000~ms} &
+  \textbf{1500~ms} &
+  \textbf{2000~ms} \\
 \hline
 \endfirsthead
 
-\multicolumn{5}{c}{Tabel~\ref{tab:hasil-pengujian-interval} dilanjutkan dari halaman sebelumnya}\\[4pt]
+\multicolumn{6}{c}{Tabel~\ref{tab:hasil-pengujian-interval} dilanjutkan dari halaman sebelumnya}\\[4pt]
 \hline
-\textbf{Interval} &
-\textbf{Durasi} &
-\textbf{Total Tautan} &
-\textbf{Tautan Halaman} &
-\textbf{Tautan Rusak} \\
+\multirow{2}{*}{\textbf{Error}} &
+\multicolumn{5}{c|}{\textbf{Interval}} \\ \cline{2-6}
+& \textbf{0~ms} &
+  \textbf{500~ms} &
+  \textbf{1000~ms} &
+  \textbf{1500~ms} &
+  \textbf{2000~ms} \\
 \hline
 \endhead
 
 \hline
-\multicolumn{5}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
+\multicolumn{6}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
 \endfoot
 
 \hline
 \endlastfoot
 
-% ====== ISI DATA DI SINI ======
+% ====== ISI DATA ======
+Host Not Found    & 14 & 14 & 14 & 14 & 14 \\ \hline
 
-0 & -- & -- & -- & -- (Lampiran~\ref{tab:percobaan-interval-0}) \\ \hline
+I/O Error         & 1 & 1 & 1 & 1 & 1 \\ \hline
 
+Invalid URL       & 1 & 1 & 1 & 1 & 1 \\ \hline
 
-500 & -- & -- & -- & -- (Lampiran~\ref{tab:percobaan-interval-500}) \\ \hline
+SSL Error         & 6 & 5 & 6 & 6 & 6 \\ \hline
 
+Timeout           & 4 & 5 & 4 & 4 & 4 \\ \hline
 
-1000 & 14m 38s & 603 & 369 & 75 (Lampiran~\ref{tab:percobaan-interval-1000}) \\ \hline
+400 Bad Request   & 2 & 2 & 2 & 2 & 2 \\ \hline
 
+403 Forbidden     & 12 & 12 & 12 & 12 & 12 \\ \hline
 
-1500 & 15m 11s & 603 & 369 & 75 (Lampiran~\ref{tab:percobaan-interval-1500}) \\ \hline
+404 Not Found     & 29 & 29 & 29 & 29 & 29 \\ \hline
 
+410 Gone          & 1 & 1 & 1 & 1 & 1 \\ \hline
 
-2000 & 16m 34s & 603 & 369 & 75 (Lampiran~\ref{tab:percobaan-interval-2000}) \\ \hline
+502 Bad Gateway   & 1 & 1 & 1 & 1 & 1 \\ \hline
 
+520               & 2 & 2 & 2 & 2 & 2 \\ \hline
+
+999               & 2 & 2 & 2 & 2 & 2 \\ \hline
 
 \end{longtable}
