@@ -177,7 +177,7 @@
 % seterusnya, harus dilakukan secara manual dengan mengubah file skripsi.tex
 % Catatan: bagian ini hanya bisa diatur di mode bimbingan
 %=============================================================================
-\lampiran{all}
+\lampiran{A}
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -239,8 +239,14 @@
 % - hilangkan tanda << & >>, dan isi sesuai dengan data anda
 % - langsung mulai setelah '{' awal, jangan mulai menulis di baris bawahnya
 %=============================================================================
-\abstrakINA{<<Tuliskan abstrak anda di sini, dalam bahasa Indonesia>>}
-\abstrakENG{<<Tuliskan abstrak anda di sini, dalam bahasa Inggris>>} 
+\abstrakINA{Keberadaan tautan rusak pada situs web dapat mengganggu aksesibilitas informasi serta menurunkan kualitas pengalaman pengguna. Untuk membantu mengatasi permasalahan tersebut, penelitian ini mengembangkan sebuah aplikasi berbasis desktop yang mampu memeriksa tautan rusak pada situs web. Aplikasi yang dikembangkan melakukan \textit{web crawling} dengan menelusuri setiap halaman pada situs web dan pada setiap halaman yang dikunjungi dilakukan ekstraksi terhadap tautan di dalamnya. Setiap tautan akan diperiksa dengan melakukan permintaan HTTP untuk menentukan apakah tautan tersebut masih dapat diakses, dan hasil pemeriksaan ditampilkan secara langsung melalui antarmuka grafis.
+\\
+Hasil pengujian menunjukkan bahwa aplikasi dapat melakukan pemeriksaan secara efektif dan konsisten. Pengujian lebih lanjut mengungkap bahwa pengaturan waktu tunggu ketika menghubungi \textit{server} dan waktu tunggu untuk mendapatkan respons dari \textit{server} pada permintaan HTTP berpengaruh secara langsung terhadap ketepatan hasil pemeriksaan. Waktu tunggu yang terlalu singkat menyebabkan lebih banyak tautan yang keliru teridentifikasi sebagai tidak dapat diakses, sedangkan waktu tunggu yang lebih panjang menghasilkan hasil yang lebih stabil meskipun mengorbankan waktu pemeriksaan yang menjadi lebih lama.}
+
+\abstrakENG{Broken links on a website can disrupt information accessibility and diminish the overall user experience. To address this issue, this study develops a desktop-based application capable of detecting broken links on websites. The application performs \textit{web crawling} by traversing each page within a website and extracting the hyperlinks found on those pages. Each link is then examined through an HTTP request to determine whether it remains accessible, and the results are presented in real time through a graphical user interface.
+\\
+Experimental results show that the application can perform link checking effectively and consistently. Further testing reveals that the configuration of waiting time when establishing a connection to the server and waiting for the server’s response in HTTP requests has a direct impact on the accuracy of the inspection results. Short waiting times cause more links to be incorrectly identified as inaccessible, whereas longer waiting times produce more stable results, although with the trade-off of increased inspection duration.}
+
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -252,8 +258,9 @@
 % - kunciENG: keywords in english
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\kunciINA{<<Tuliskan di sini kata-kata kunci yang anda gunakan, dalam bahasa Indonesia>>}
-\kunciENG{<<Tuliskan di sini kata-kata kunci yang anda gunakan, dalam bahasa Inggris>>}
+\kunciINA{tautan rusak, tautan halaman, web crawling, pemeriksaan tautan, algoritma BFS, aplikasi desktop}
+\kunciENG{broken links, webpage links, web crawling, link checking, BFS algorithm, desktop application}
+
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -263,7 +270,8 @@
 % Persembahan : kepada siapa anda mempersembahkan skripsi ini ...
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\untuk{<<kepada siapa anda mempersembahkan skripsi ini\ldots?>>}
+% \untuk{<<kepada siapa anda mempersembahkan skripsi ini\ldots?>>}
+
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -274,7 +282,8 @@
 % kasih kepada yang telah membantu anda bla bla bla ....  
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\prakata{<<Tuliskan kata pengantar dari anda di sini \ldots>>} 
+% \prakata{<<Tuliskan kata pengantar dari anda di sini \ldots>>} 
+
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -379,7 +388,20 @@
   sensitive=true,
 }
 
-
+% ------------------ JavaScript ------------------
+\lstdefinelanguage{JavaScript}{
+  morekeywords={
+    break,case,catch,continue,debugger,default,delete,do,else,finally,for,function,
+    if,in,instanceof,new,return,switch,this,throw,try,typeof,var,let,const,void,while,
+    with,yield,async,await,export,import,from,class,extends,super
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/}{/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]`,
+}
 
 % ------------------ CSS ------------------
 \lstdefinelanguage{CSS}{
