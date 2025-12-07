@@ -9,29 +9,10 @@ Bab ini menyajikan kesimpulan akhir dari penelitian yang telah dilakukan, yang d
 
 \section{Kesimpulan}
 \label{sec:060100-kesimpulan}
-Berdasarkan rangkaian pengembangan dan pengujian yang telah dilakukan, diperoleh beberapa kesimpulan sebagai berikut:
+% \input{Bab/kesimpulan-dan-saran/kesimpulan.tex}
 
-\vspace{3mm}
-\begin{enumerate}[itemsep=7pt]
-   % DONE!!
-   \item Penelitian ini berhasil menghasilkan sebuah aplikasi desktop yang mampu melakukan pemeriksaan tautan rusak pada sebuah situs web. Aplikasi mampu melakukan proses \textit{web crawling} mulai dari satu URL awal, menelusuri halaman situs web yang saling terhubung, mengekstrak tautan pada setiap halaman, serta melakukan pemeriksaan tautan melalui integrasi pustaka Java \texttt{HttpClient} untuk \textit{fetching} dan Jsoup untuk \textit{parsing}. Hasil pemeriksaan ditampilkan secara \textit{real-time} melalui antarmuka pengguna dan data hasil pemeriksaan dapat diekspor ke dalam berkas Excel. Dengan demikian, seluruh tujuan penelitian terkait pengembangan perangkat lunak berhasil dicapai.
-   
-   
-   % DONE!!
-   \item Pengujian eksperimental menunjukkan bahwa setiap parameter operasional memberikan pengaruh yang berbeda terhadap hasil pemeriksaan. Parameter \texttt{CONNECTION\_TIMEOUT} dan \texttt{REQUEST\_TIMEOUT} berpengaruh langsung terhadap kualitas hasil pemeriksaan. Nilai yang terlalu kecil secara konsisten menyebabkan meningkatnya jumlah kesalahan pada kategori \textit{Timeout} yang tidak selalu mencerminkan kondisi tautan sebenarnya, sedangkan nilai yang lebih besar menghasilkan hasil pemeriksaan yang lebih stabil. Sementara itu, parameter \texttt{INTERVAL} tidak memengaruhi akurasi hasil pemeriksaan dan hanya menambah durasi eksekusi, karena waktu pemeriksaan bertambah seiring dengan meningkatnya nilai \texttt{INTERVAL}. Dengan demikian, kombinasi nilai terbaik untuk ketiga parameter adalah \texttt{INTERVAL} sebesar 0~ms, \texttt{CONNECTION\_TIMEOUT} sebesar 20 detik, dan \texttt{REQUEST\_TIMEOUT} sebesar 20 detik.
-   
-   \vspace{30mm}
-   
-   % DONE!!
-   \item Hasil perbandingan dengan Broken Link Checker dan Dead Link Checker menunjukkan bahwa perbedaan cakupan pemeriksaan merupakan faktor utama yang menyebabkan variasi hasil pemeriksaan. Kedua perangkat lunak pembanding memeriksa lebih banyak elemen HTML, seperti \texttt{img}, \texttt{form}, atau URL yang muncul pada berkas CSS, sedangkan aplikasi yang dikembangkan dalam penelitian ini hanya memeriksa tautan pada elemen \texttt{a}. Akibatnya, perangkat lunak pembanding sering kali menemukan lebih banyak tautan rusak daripada aplikasi yang dikembangkan dalam penelitian ini. Dengan demikian, dapat disimpulkan bahwa perbedaan hasil pemeriksaan antarperangkat lunak disebabkan oleh perbedaan jangkauan elemen HTML yang diperiksa.
-\end{enumerate}
 
 \section{Saran}
 \label{sec:060200-saran}
-Berdasarkan rangkaian pengujian eksperimental dan perbandingan dengan perangkat lunak serupa, diperoleh beberapa saran yang dapat dijadikan acuan untuk pengembangan lebih lanjut:
+% \input{Bab/kesimpulan-dan-saran/saran.tex}
 
-\begin{enumerate}
-   \item Pengujian eksperimental menunjukkan adanya inkonsistensi hasil pada beberapa percobaan yang dipengaruhi oleh kondisi jaringan internet. Untuk menjaga konsistensi hasil pemeriksaan, disarankan agar sistem dilengkapi mekanisme pemeriksaan ulang khusus untuk tautan yang gagal karena \textit{timeout}, sehingga kesalahan yang disebabkan kondisi jaringan dapat diminimalkan dan hasil pemeriksaan menjadi lebih akurat.
-
-   \item Untuk meningkatkan kelengkapan dan akurasi identifikasi tautan rusak, sistem dapat diperluas agar tidak hanya mengekstraksi tautan dari elemen \texttt{<a>}, tetapi juga dari elemen HTML lain yang memuat URL, seperti \texttt{<img>} (\texttt{src}), \texttt{<script>} (\texttt{src}), \texttt{<link>} (\texttt{href}), dan elemen serupa. Perluasan cakupan ini bertujuan mengurangi jumlah tautan yang terlewat sehingga hasil pemeriksaan menjadi lebih komprehensif.
-\end{enumerate}
