@@ -1,0 +1,25 @@
+Pemilihan Apache POI sebagai pustaka untuk melakukan ekspor hasil pemeriksaan ke berkas Excel dilandasi kebutuhan sistem untuk menghasilkan keluaran dalam format \texttt{XLSX}. Format ini dipilih karena merupakan standar \textit{Office Open XML} (OOXML) yang umum digunakan dan didukung secara luas oleh perangkat lunak spreadsheet modern. Sebagaimana dijelaskan pada Subbab~\ref{sec:020800-apache-poi}, Apache POI menyediakan modul \texttt{XSSF} yang dirancang khusus untuk memproses berkas Excel dengan format OOXML, sehingga sesuai dengan kebutuhan aplikasi ini.
+
+Dari sisi fungsional, penggunaan Apache POI mendukung kebutuhan untuk:
+\begin{itemize}
+  \item Menghasilkan berkas Excel berisi daftar tautan rusak serta informasi pendukung seperti sumber halaman dan kode status dan ringkasan hasil.
+  \item Menjaga format keluaran yang konsisten dan mudah dibaca oleh pengguna.
+\end{itemize}
+
+Dalam implementasi, modul dan kelas berikut akan digunakan:
+\begin{itemize}
+  \item \texttt{XSSFWorkbook}\\
+  Kelas ini merupakan implementasi \texttt{Workbook} untuk format \texttt{XLSX}. Objek \texttt{XSSFWorkbook} akan menjadi kontainer utama yang menyimpan seluruh \textit{sheet}, baris, dan sel yang akan ditulis ke berkas.
+
+  \item \texttt{Sheet}\\
+  Digunakan untuk membuat satu lembar kerja yang memuat tabel hasil pemeriksaan. Setiap baris pada \textit{sheet} akan mewakili satu entri data, misalnya satu tautan rusak.
+
+  \item \texttt{Row} dan \texttt{Cell}\\
+  Kedua kelas ini dipakai untuk membentuk tabel secara terstruktur. \texttt{Row} merepresentasikan baris dalam spreadsheet, sedangkan \texttt{Cell} digunakan untuk mengisi nilai dalam setiap kolom, seperti URL, sumber tautan, dan status HTTP.
+
+  \item \texttt{FileOutputStream}\\
+  Digunakan untuk menuliskan isi \texttt{Workbook} ke berkas fisik dalam format \texttt{XLSX}. Setelah proses penulisan selesai, \texttt{Workbook} ditutup agar sumber daya tidak bocor.
+
+\end{itemize}
+
+Dengan penggunaan \texttt{XSSF} dan SS UserModel, sistem dapat membentuk berkas \texttt{XLSX} tanpa perlu menangani detail internal format OOXML. Seluruh pembuatan \textit{sheet}, baris, dan sel dilakukan melalui antarmuka yang telah distandarkan oleh Apache POI, sehingga implementasi ekspor menjadi lebih sederhana.

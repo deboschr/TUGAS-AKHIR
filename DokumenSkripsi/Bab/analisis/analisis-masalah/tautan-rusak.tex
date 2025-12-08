@@ -2,14 +2,14 @@
 Analisis mengenai tautan rusak pada penelitian ini didasarkan pada teori URI yang dijelaskan pada Subbab~\ref{sec:020200-uri} serta teori HTTP pada Subbab~\ref{sec:020100-http}. Tujuan utamanya adalah memahami faktor-faktor yang membuat tautan gagal diakses. Dengan melihat struktur URL, aturan sintaks, mekanisme resolusi, hingga kode status HTTP, kita dapat memahami dengan lebih jelas bagaimana tautan dinyatakan rusak dan apa saja indikator yang bisa digunakan untuk mengenalinya.
 
 \subsubsection*{Struktur URL}
-Pada Subbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL memiliki sejumlah komponen, mulai dari \textit{scheme}, \textit{host}, \textit{port}, \textit{path}, \textit{query}, hingga \textit{fragment}. Dari sisi analisis, tidak semua bagian berpengaruh langsung pada keabsahan tautan. Komponen yang paling menentukan adalah \textit{scheme}, \textit{host}, \textit{port}, \textit{path}, dan \textit{query}, sedangkan \textit{fragment} hanya diproses di sisi klien.
+Pada Subbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL memiliki sejumlah komponen, mulai dari \textit{scheme}, \textit{host}, \textit{port}, \textit{path}, \textit{query}, hingga \textit{fragment}. Tidak semua bagian berpengaruh langsung pada keabsahan tautan. Komponen yang paling menentukan adalah \textit{scheme}, \textit{host}, \textit{port}, \textit{path}, dan \textit{query}, sedangkan \textit{fragment} hanya diproses di sisi klien.
 
 Beberapa contoh permasalahan yang bisa muncul:
 \begin{itemize}
   \item \textbf{Scheme} yang salah membuat agen pengguna tidak bisa membangun koneksi.
-  \item \textbf{Host} yang keliru, misalnya domain salah ketik atau tidak terdaftar, menyebabkan tautan tidak ditemukan.
+  \item \textbf{Host} yang salah, misalnya domain salah ketik atau tidak terdaftar, menyebabkan tautan tidak ditemukan.
   \item \textbf{Port} yang tidak sesuai membuat layanan yang dituju tidak dapat diakses.
-  \item \textbf{Path} yang tidak valid biasanya mengembalikan respons \texttt{404 Not Found}.
+  \item \textbf{Path} yang tidak valid biasanya mengembalikan respons 404 \textit{Not Found}.
   \item \textbf{Query} yang salah dapat membuat server gagal menampilkan hasil yang diinginkan.
 \end{itemize}
 
@@ -23,30 +23,27 @@ Masalah lain muncul dari normalisasi,
 misalnya \textit{host} ditulis dengan huruf besar, port default tetap dicantumkan, atau path masih berisi segmen \texttt{.} dan \texttt{..}. Situasi semacam ini membuat URL ambigu. Artinya, meskipun sebuah URL terlihat benar, kesalahan kecil dalam sintaks atau encoding bisa membuatnya dianggap rusak.
 
 \subsubsection*{URL Relatif}
-Pada Subbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL relatif harus digabungkan dengan \textit{base URI} untuk membentuk URL absolut. Masalah muncul ketika \textit{base URI} tidak jelas atau proses resolusinya tidak berjalan dengan benar. Hasilnya, URL absolut yang terbentuk tidak menunjuk ke sumber daya yang diinginkan.
+Pada Subbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL relatif harus digabungkan dengan \textit{base} URI untuk membentuk URL absolut. Masalah muncul ketika \textit{base} URI tidak jelas atau proses resolusinya tidak berjalan dengan benar. Hasilnya, URL absolut yang terbentuk tidak menunjuk ke sumber daya yang diinginkan.
 
 Hal serupa bisa terjadi bila \textit{dot-segments} tidak dihapus. Akibatnya, jalur yang terbentuk tidak sesuai. Dalam kondisi ini, tautan yang seharusnya valid sebagai URL relatif menjadi tidak dapat digunakan setelah diubah menjadi absolut.
 
 \subsubsection*{Komunikasi HTTP}
 HTTP sebagai protokol komunikasi dibahas pada Subbab~\ref{sec:020100-http}. Walaupun sebuah URL valid secara struktur, tautan tetap bisa gagal diakses bila komunikasi HTTP tidak berhasil. Permasalahan ini biasanya muncul pada tahap koneksi antara klien dan server.
 
-Beberapa kasus yang sering ditemui adalah:
+Beberapa kasus yang dapat terjadi:
 \begin{itemize}
-  \item \textbf{Host tidak ditemukan}, misalnya ketika domain gagal dipetakan oleh DNS.
+  \item \textbf{Host tidak ditemukan}, ini bisa terjadi ketika domain gagal dipetakan oleh DNS.
   \item \textbf{Koneksi ditolak}, ketika server tidak menyediakan layanan pada port yang diminta.
   \item \textbf{Timeout}, ketika server tidak memberikan respons dalam batas waktu yang ditentukan.
 \end{itemize}
 
-Dengan kata lain, validitas URL belum cukup. Tautan juga perlu diuji pada tahap komunikasi, karena kegagalan di sini tetap membuatnya rusak.
+Dengan kata lain, validitas URL belum cukup. Tautan juga perlu diuji pada tahap permintaan HTTP, karena kegagalan di sini tetap membuatnya rusak.
 
 \subsubsection*{Kode Status HTTP}
-Pada Subbab~\ref{subsec:0201-kode-status-http} dijelaskan bahwa setiap respons HTTP memiliki kode status sebagai penanda hasil permintaan. Dalam analisis tautan rusak, kode inilah yang biasanya menjadi acuan utama.
+Pada Subbab~\ref{subsec:0201-kode-status-http} dijelaskan bahwa setiap respons HTTP memiliki kode status sebagai penanda hasil permintaan. Dalam analisis tautan rusak, kode status pada kelas 
 
 Beberapa kategori kode status yang sering digunakan adalah:
 \begin{itemize}
-  \item \textbf{4xx Client Error}. Kategori ini menandakan kesalahan di sisi klien. Contoh yang paling sering ditemui adalah \texttt{404 Not Found}. Ada juga \texttt{410 Gone} yang berarti sumber daya sudah dihapus secara permanen, serta \texttt{403 Forbidden} ketika akses ditolak.
+  \item \textbf{4xx Client Error}. Kategori ini menandakan kesalahan di sisi klien. Contoh yang paling sering ditemui adalah 404 \textit{Not Found}. Ada juga \textit{410 Gone} yang berarti sumber daya sudah dihapus secara permanen, serta \textit{403 Forbidden} ketika akses ditolak.
   \item \textbf{5xx Server Error}. Kategori ini menunjukkan kegagalan di sisi server. Misalnya \texttt{500 Internal Server Error} yang menandakan adanya masalah umum pada server, atau \texttt{503 Service Unavailable} ketika layanan tidak tersedia untuk sementara.
-  \item \textbf{Redirect loop}. Kondisi ini muncul ketika server berulang kali mengarahkan ke lokasi lain dengan kode 3xx tanpa pernah benar-benar sampai ke sumber daya tujuan.
 \end{itemize}
-
-Dari sini dapat dipahami bahwa kode status HTTP bukan hanya informasi teknis, tetapi juga indikator praktis untuk menentukan apakah sebuah tautan masih berfungsi atau sudah masuk kategori rusak.

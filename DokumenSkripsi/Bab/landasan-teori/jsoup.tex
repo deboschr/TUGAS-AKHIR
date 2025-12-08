@@ -1,7 +1,5 @@
 Jsoup adalah sebuah pustaka Java yang berfungsi sebagai HTML \textit{parser} untuk memproses dokumen HTML sehingga dapat diolah dalam struktur yang lebih teratur. Dokumen yang diproses oleh Jsoup dapat berasal dari tiga sumber utama, yaitu halaman web yang diakses melalui URL, berkas yang tersimpan secara lokal, dan \texttt{String} yang berisi kode HTML. Pustaka ini dirancang agar toleran terhadap dokumen HTML yang tidak valid atau tidak terstruktur, sehingga hasil \textit{parsing} selalu dalam bentuk \textit{Document Object Model} (DOM) yang telah diperbaiki.
 
-Jsoup adalah pustaka Java yang menyediakan kemampuan untuk mengambil dan memproses dokumen HTML. Pustaka ini mendukung operasi \textit{parsing}, manipulasi elemen, ekstraksi data, serta pencarian elemen dengan sintaksis yang menyerupai CSS \textit{selector}. Jsoup dapat memproses HTML yang berasal dari beberapa sumber, seperti halaman situ web melalui URL, berkas lokal, atau \texttt{String} yang berisi markup HTML. Pustaka ini dirancang untuk toleran terhadap HTML yang tidak valid dan menghasilkan struktur \textit{Document Object Model} (DOM) yang telah diperbaiki sehingga dapat diolah secara konsisten.
-
 
 \noindent Berikut adalah beberapa kelas yang tersedia pada pustaka Jsoup:
 
@@ -53,3 +51,53 @@ Kelas \texttt{Element} merupakan representasi satu elemen HTML dalam struktur DO
     \item \texttt{children}: Metode ini digunakan untuk mendapatkan daftar elemen anak dari sebuah elemen tertentu.
     
 \end{itemize}
+
+
+\subsection{Contoh Kode Program}
+\label{subsec:0227-contoh-kode-program}
+
+Kode~\ref{lst:jsoup-example} menunjukkan contoh penggunaan Jsoup untuk mengambil sebuah halaman web, memprosesnya menjadi objek \texttt{Document}, dan mengekstraksi sejumlah informasi dari dokumen tersebut. Contoh ini menggambarkan bagaimana kelas-kelas utama yang telah dijelaskan sebelumnya, yaitu \texttt{Jsoup}, \texttt{Connection}, \texttt{Connection.Response}, \texttt{Document}, \texttt{Elements}, dan \texttt{Element}, digunakan secara bersama-sama dalam sebuah program nyata. Hasil eksekusi dari kode ini berupa informasi judul halaman, URI dasar dokumen, serta daftar tautan beserta teks, URL absolut, dan atribut lain yang terkait.
+
+\begin{lstlisting}[language=Java, caption={Contoh Penggunaan Jsoup}, label={lst:jsoup-example}]
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class JsoupExample {
+    public static void main(String[] args) throws Exception {
+        // Membuat koneksi dengan pengaturan user-agent dan timeout
+        Connection connection = Jsoup.connect("https://www.example.com")
+                .userAgent("BrokenLinkChecker 1.0")
+                .timeout(5000);
+
+        // Mengeksekusi request dan memperoleh response
+        Connection.Response response = connection.execute();
+
+        // Menampilkan status code dan content type
+        System.out.println("Status Code : " + response.statusCode());
+        System.out.println("Content-Type: " + response.headers().get("Content-Type"));
+
+        // Memproses response menjadi Document
+        Document doc = response.parse();
+
+        System.out.println("Title   : " + doc.title());
+        System.out.println("Base URI: " + doc.baseUri());
+
+        // Menyeleksi semua elemen <a> yang memiliki atribut href
+        Elements links = doc.select("a[href]");
+
+        for (Element link : links) {
+            System.out.println("Teks   : " + link.text());
+            System.out.println("Href   : " + link.attr("href"));
+            System.out.println("AbsURL : " + link.absUrl("href"));
+        }
+    }
+}
+\end{lstlisting}
+
+\vspace{5mm}
+
+Alur dari Kode~\ref{lst:jsoup-example} dimulai dengan pembuatan objek \texttt{Connection} melalui pemanggilan metode \texttt{Jsoup.connect()}, kemudian ditetapkan nilai \textit{User-Agent} dengan \texttt{userAgent()} dan batas waktu koneksi dengan \texttt{timeout()}. Permintaan dieksekusi melalui \texttt{execute()} untuk menghasilkan objek \texttt{Connection.Response}, dari mana dapat diperoleh kode status dengan \texttt{statusCode()} dan \textit{header} tertentu melalui \texttt{headers()}. Isi respons kemudian diproses menjadi objek \texttt{Document} menggunakan \texttt{parse()}, yang selanjutnya menyediakan informasi judul halaman dengan \texttt{title()} dan URI dasar dengan \texttt{baseUri()}. Setelah itu, method \texttt{select()} digunakan untuk memilih seluruh elemen \texttt{<a>} yang memiliki atribut \texttt{href}, menghasilkan koleksi \texttt{Elements}. Koleksi ini diiterasi, dan untuk setiap \texttt{Element} diperoleh teks melalui \texttt{text()}, nilai atribut melalui \texttt{attr("href")}, serta URL absolut melalui \texttt{absUrl("href")}. Dengan demikian, kode ini tidak hanya menampilkan daftar tautan, tetapi juga memperlihatkan cara menggunakan beberapa method penting yang telah dijelaskan sebelumnya.
+

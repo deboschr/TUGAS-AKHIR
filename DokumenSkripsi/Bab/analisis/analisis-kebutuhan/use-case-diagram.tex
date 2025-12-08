@@ -32,6 +32,30 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
     \end{itemize}
     
 
+    \item \textbf{\textit{Filter} Hasil}\\
+    Fitur ini digunakan untuk menyaring hasil pemeriksaan sehingga pengguna dapat menemukan tautan rusak dengan jenis kesalahan atau URL tertentu.
+    \begin{itemize}
+        \item Nama: \textit{Filter} Hasil
+        \item Aktor: Pengguna
+        \item Deskripsi: Melakukan penyaringan pada hasil pemeriksaan.
+        \item Kondisi awal: Terdapat hasil pemeriksaan pada tabel hasil.
+        \item Kondisi akhir: Tabel hasil menampilkan daftar tautan rusak berdasarkan ketentuan penyaringan.
+        \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-02}
+        \begin{table}[htbp]
+            \centering
+            \caption{Skenario Ekspor Hasil}
+            \vspace{6pt}
+            \begin{tabular}{|p{0.5cm} |p{6cm}| p{6cm}|}\hline
+                No & Aksi Aktor & Reaksi Sistem \\ \hline
+                1 & Pengguna memilih opsi pencarian & \\ \hline
+                2 & Pengguna memasukkan kata kunci pencarian & Sistem menyaring hasil pemeriksaan sesuai masukan pengguna \\ \hline
+                3 & & Sistem menampilkan hasil penyaringan ke tabel hasil. \\ \hline
+            \end{tabular}
+            \label{tab:skenario-02}
+        \end{table}
+    \end{itemize}
+    
+
     \item \textbf{Ekspor Hasil}\\
     Fitur ini digunakan untuk mengekspor hasil pemeriksaan tautan rusak ke dalam berkas eksternal untuk keperluan dokumentasi atau analisis lebih lanjut.
     \begin{itemize}
@@ -40,7 +64,7 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
         \item Deskripsi: Ekspor hasil pemeriksaan tautan rusak ke berkas ekternal dalam format Excel.
         \item Kondisi awal: Pemeriksaan tautan telah selesai dan hasilnya telah ditampilkan di tabel.
         \item Kondisi akhir: Berkas hasil ekspor tersimpan di perangkat pengguna.
-        \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-02}
+        \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-03}
         \begin{table}[htbp]
             \centering
             \caption{Skenario Ekspor Hasil}
@@ -51,7 +75,7 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
                 2 & Pengguna menentukan nama dan lokasi penyimpanan berkas. & Sistem memproses data hasil pemeriksaan menjadi format \texttt{.xlsx}. \\ \hline
                 3 & & Sistem menyimpan berkas hasil ekspor di lokasi yang telah dipilih pengguna. \\ \hline
             \end{tabular}
-            \label{tab:skenario-02}
+            \label{tab:skenario-03}
         \end{table}
     \end{itemize}
 \end{enumerate}

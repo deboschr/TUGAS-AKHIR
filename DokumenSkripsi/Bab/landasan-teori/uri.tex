@@ -1,9 +1,6 @@
 \textit{Uniform Resource Identifier} (URI) adalah rangkaian karakter yang digunakan untuk mengidentifikasi suatu sumber daya, baik berupa entitas fisik maupun abstrak. URI menyediakan cara standar untuk merepresentasikan identitas sumber daya melalui sintaksis yang terstruktur. Terdapat dua bentuk utama URI, yaitu \textit{Uniform Resource Locator} (URL) dan \textit{Uniform Resource Name} (URN).  URL adalah URI yang menyertakan informasi lokasi dan mekanisme akses terhadap sumber daya, sedangkan URN adalah URI yang berfungsi sebagai nama tetap suatu sumber daya tanpa menyertakan lokasi penyimpanannya.
 
 
-Secara struktur, URI terbagi menjadi dua bentuk, yaitu \textit{hierarchical} URI dan \textit{opaque} URI. \textit{Hierarchical} URI mengikuti sintaksis generik yang tersusun atas komponen seperti \textit{authority}, \textit{path}, \textit{query}, dan \textit{fragment}, sehingga dapat diuraikan ke dalam struktur yang berlapis. Sebaliknya, \textit{opaque} URI tidak mengikuti sintaksis generik tersebut, namun terdiri atas skema yang langsung diikuti data tanpa ada struktur hierarkis.
-
-
 \subsection{Struktur Sintaks URL}
 \label{subsec:0202-struktur-url}
 URL, sebagai bentuk URI yang bersifat hierarkis, memiliki struktur sintaks yang terdiri atas beberapa komponen. Format umum penulisan URL ditunjukkan sebagai berikut:
@@ -24,15 +21,18 @@ Komponen-komponen dalam URL dijelaskan sebagai berikut:
   
   \item \textbf{Query}\\
   Bagian ini bersifat opsional dan diawali dengan tanda tanya (\texttt{?}). Query berisi parameter dalam format pasangan \texttt{key=value}. Jika terdapat lebih dari satu parameter, maka masing-masing dipisahkan dengan tanda \texttt{\&}.
-  
+
   \item \textbf{Fragment}\\
   Bagian ini bersifat opsional dan diawali dengan tanda pagar (\texttt{\#}). Fragment digunakan untuk merujuk ke bagian tertentu dari sumber daya. Informasi ini tidak dikirim ke server, melainkan diproses oleh agen pengguna seperti browser.
 \end{itemize}
 
+
+
+
 \subsection{Kategori Karakter dan \textit{Percent-Encoding}}
 \label{subsec:0202-karakter-percent-encoding}
 
-RFC~3986 menetapkan kategori karakter yang dapat digunakan dalam URI, beserta aturan pengkodeannya.
+RFC~3986 menetapkan kategori karakter yang dapat digunakan dalam URI, beserta aturan pengkodeannya sebagai berikut:
 \begin{itemize}
   \item \textbf{Unreserved characters}\\
   Karakter ini dapat digunakan langsung tanpa pengkodean tambahan. Termasuk di dalamnya huruf alfabet A sampai Z dan a sampai z, digit angka 0 sampai 9, serta simbol \texttt{-}, \texttt{\_}, \texttt{.}, dan \texttt{\textasciitilde}.
@@ -41,7 +41,7 @@ RFC~3986 menetapkan kategori karakter yang dapat digunakan dalam URI, beserta at
   Karakter ini memiliki fungsi khusus tergantung pada konteks penggunaannya. RFC membagi reserved characters menjadi dua kelompok. General delimiters meliputi \texttt{:}, \texttt{/}, \texttt{?}, \texttt{\#}, \texttt{[}, \texttt{]}, dan \texttt{@}. Subcomponent delimiters meliputi \texttt{!}, \texttt{\$}, \texttt{\&}, \texttt{'}, \texttt{(}, \texttt{)}, \texttt{*}, \texttt{+}, \texttt{,}, \texttt{;}, dan \texttt{=}. Jika karakter ini digunakan di luar konteks yang diperbolehkan, maka harus dikodekan.
   
   \item \textbf{Karakter lain}\\
-  Karakter non-ASCII, spasi, dan simbol lain yang tidak termasuk dalam kategori di atas tidak dapat digunakan secara langsung. Karakter ini harus dikodekan sebelum dapat dimasukkan ke dalam URI.
+  Karakter non-ASCII, spasi, dan simbol lain yang tidak termasuk dalam kategori \textit{Unreserved characters} dan \textit{Reserved characters} tidak dapat digunakan secara langsung. Karakter ini harus dikodekan sebelum dapat dimasukkan ke dalam URI.
 \end{itemize}
 
 Pengkodean karakter dilakukan dengan mekanisme \textit{percent-encoding}. Mekanisme ini menggantikan karakter dengan representasi heksadesimalnya dalam format \texttt{\%HH}, di mana \texttt{HH} adalah nilai ASCII karakter tersebut. Sebagai contoh, spasi ditulis sebagai \texttt{\%20}, tanda kutip ganda sebagai \texttt{\%22}, dan tanda pagar sebagai \texttt{\%23}. RFC juga mengatur bahwa karakter unreserved yang tidak perlu dikodekan sebaiknya dituliskan dalam bentuk aslinya. Selain itu, digit heksadesimal dalam \textit{percent-encoding} harus ditulis dengan huruf besar.

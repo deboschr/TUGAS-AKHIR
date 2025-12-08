@@ -117,7 +117,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \begin{enumerate}
       
-      \item \texttt{frontier}: Atribut ini menyimpan antrean halaman situs web yang akan dilakukan \textit{crawling}. Struktur data yang digunakan adalah \texttt{Queue<Link>} agar halaman situs web diproses menggunakan urutan \textit{First-In-First-Out} (FIFO), sesuai dengan kebutuhan algoritma BFS. Implementasi dari antrean ini menggunakan kelas \texttt{ConcurrentLinkedQueue} agar setiap pembacaan dan penulisan \textit{entry} tidak mengalami \textit{race condition}.
+      \item \texttt{frontier}: Atribut ini menyimpan antrean halaman situs web yang akan dilakukan \textit{crawling}. Struktur data yang digunakan adalah \texttt{Queue<Link>} agar halaman situs web diproses menggunakan urutan \textit{First-In-First-Out} (FIFO), sesuai dengan kebutuhan strategi \textit{Breadth-First Crawler}. Implementasi dari antrean ini menggunakan kelas \texttt{ConcurrentLinkedQueue} agar setiap pembacaan dan penulisan \textit{entry} tidak mengalami \textit{race condition}.
       
       \item \texttt{repositories}: Atribut ini menyimpan seluruh URL unik yang diperiksa selama proses \textit{crawling} dan digunakan untuk memastikan tidak ada duplikasi dalam pemeriksaan. Struktur data yang digunakan adalah \texttt{Map<String, Link>}, dengan \textit{key} berupa URL dan \textit{value} berupa objek \texttt{Link} yang mewakili URL tersebut. Implementasinya menggunakan \texttt{ConcurrentHashMap} agar setiap pembacaan dan penulisan \textit{entry} tidak mengalami \textit{race condition}.
       
@@ -135,7 +135,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
 
    \vspace{5mm}
 
-   Metode \texttt{start} merupakan metode utama dari kelas \texttt{Crawler} dan digunakan untuk menjalankan proses \textit{crawling} dengan algoritma BFS. Masukan metode ini adalah URL yang menjadi titik awal proses \texttt{crawling}. Berikut adalah penjelasan lebih rinci untuk metode \texttt{start} (lihat Kode~\ref{code:crawler-start-java}):
+   Metode \texttt{start} merupakan metode utama dari kelas \texttt{Crawler} dan digunakan untuk menjalankan proses \textit{crawling}. Masukan metode ini adalah URL yang menjadi titik awal proses \texttt{crawling}. Berikut adalah penjelasan lebih rinci untuk metode \texttt{start} (lihat Kode~\ref{code:crawler-start-java}):
 
 
    \begin{enumerate}[itemsep=2pt]
