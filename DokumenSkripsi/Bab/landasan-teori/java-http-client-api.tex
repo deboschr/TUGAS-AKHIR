@@ -2,8 +2,7 @@ Java HTTP Client API adalah sebuah API dari Java yang digunakan untuk mengirim \
 
 Objek pada kelas \texttt{HttpClient} juga memiliki karakteristik yang penting untuk penggunaan di lingkungan \textit{multithread}. Objek ini bersifat \textit{immutable}, artinya konfigurasi tidak dapat diubah setelah dibuat, serta bersifat \textit{thread-safe}, artinya dapat diakses secara bersamaan oleh beberapa \textit{thread} tanpa menimbulkan \textit{race condition}.
 
-
-\vspace{20mm}
+\vspace{-3mm}
 \subsection{Kelas \texttt{HttpClient}}
 \label{subsec:020701-kelas-httpclient}
 Kelas \texttt{HttpClient} merupakan komponen inti dalam Java HTTP Client API yang digunakan untuk mengirim \textit{request} HTTP dan menerima \textit{response} dari \textit{server}. Objek dari kelas ini dapat dibuat dengan menggunakan metode \texttt{newHttpClient} dengan konfigurasi bawaan yang siap pakai, atau bisa menggunakan metode \texttt{newBuilder} apabila ingin membuat objek dengan konfigurasi yang dapat disesuaikan.
@@ -24,6 +23,9 @@ Berikut adalah beberapa metode yang tersedia pada \texttt{HttpClient}:
 
 \subsection{Kelas \texttt{HttpRequest}}
 \label{subsec:020702-kelas-httprequest}
+
+\vspace{-1mm}
+
 Kelas \texttt{HttpRequest} merepresentasikan sebuah \textit{request} HTTP yang akan dikirim menggunakan \texttt{HttpClient}. Untuk membangun objek kelas ini, dapat digunakan metode \texttt{newBuilder}, sehingga penyesuaian konfigurasi \textit{request} dapat dilakukan.
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpRequest}:
@@ -41,8 +43,11 @@ Berikut adalah beberapa metode yang tersedia pada \texttt{HttpRequest}:
     
 \end{itemize}
 
+\vspace{-2mm}
+
 \subsection{Kelas \texttt{HttpResponse}}
 \label{subsec:020703-kelas-httpresponse}
+\vspace{-1mm}
 
 Kelas \texttt{HttpResponse} merepresentasikan \textit{response} yang diterima setelah sebuah \textit{request} dieksekusi oleh \texttt{HttpClient}. Kelas ini menggunakan parameter generik \texttt{<T>} yang menunjukkan tipe data dari isi \textit{response body}. Nilai generik ini ditentukan oleh \texttt{HttpResponse.BodyHandler} yang digunakan saat mengirim \textit{request}.
 
@@ -64,8 +69,12 @@ Berikut adalah beberapa metode yang tersedia pada \texttt{HttpResponse}:
 
 \end{itemize}
 
+\vspace{-2mm}
+
 \subsection{Kelas \texttt{HttpHeaders}}
 \label{subsec:020704-kelas-httpheaders}
+\vspace{-1mm}
+
 Kelas \texttt{HttpHeaders} merepresentasikan kumpulan \textit{header} yang terdapat pada \textit{request} maupun \textit{response} HTTP. Setiap \textit{header} dapat memiliki lebih dari satu nilai, dan semua nilai disimpan dalam struktur yang mempertahankan urutan kemunculannya.
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpHeaders}:
@@ -86,14 +95,12 @@ Kode~\ref{lst:httpclient-example} menunjukkan contoh penggunaan Java HTTP Client
 \begin{lstlisting}[language=Java, caption={Contoh penggunaan Java HTTP Client API}, label={lst:httpclient-example}]
 public class HttpClientExample {
     public static void main(String[] args) throws Exception {
-        // Membangun HttpClient dengan konfigurasi yang relevan
         HttpClient client = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
                 .connectTimeout(Duration.ofSeconds(5))
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build();
 
-        // Menyusun HttpRequest: URI, header, timeout, dan method GET
         HttpRequest request = HttpRequest.newBuilder(URI.create("https://informatika.unpar.ac.id"))
                 .header("User-Agent", "BrokenLinkChecker 1.0")
                 .timeout(Duration.ofSeconds(10))
@@ -113,7 +120,6 @@ public class HttpClientExample {
             String values = String.join(", ", e.getValue());
             System.out.println(name + ": " + values);
         }
-
         System.out.println("Body        : " + response.body());
     }
 }

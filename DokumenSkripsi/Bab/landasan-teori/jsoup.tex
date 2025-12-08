@@ -59,35 +59,20 @@ Kelas \texttt{Element} merupakan representasi satu elemen HTML dalam struktur DO
 Kode~\ref{lst:jsoup-example} menunjukkan contoh penggunaan Jsoup untuk mengambil sebuah halaman web, memprosesnya menjadi objek \texttt{Document}, dan mengekstraksi sejumlah informasi dari dokumen tersebut. Contoh ini menggambarkan bagaimana kelas-kelas utama yang telah dijelaskan sebelumnya, yaitu \texttt{Jsoup}, \texttt{Connection}, \texttt{Connection.Response}, \texttt{Document}, \texttt{Elements}, dan \texttt{Element}, digunakan secara bersama-sama dalam sebuah program nyata. Hasil eksekusi dari kode ini berupa informasi judul halaman, URI dasar dokumen, serta daftar tautan beserta teks, URL absolut, dan atribut lain yang terkait.
 
 \begin{lstlisting}[language=Java, caption={Contoh Penggunaan Jsoup}, label={lst:jsoup-example}]
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 public class JsoupExample {
     public static void main(String[] args) throws Exception {
-        // Membuat koneksi dengan pengaturan user-agent dan timeout
-        Connection connection = Jsoup.connect("https://www.example.com")
-                .userAgent("BrokenLinkChecker 1.0")
-                .timeout(5000);
-
-        // Mengeksekusi request dan memperoleh response
+        Connection connection = Jsoup.connect("https://www.example.com").userAgent("BrokenLinkChecker 1.0").timeout(5000);
         Connection.Response response = connection.execute();
 
-        // Menampilkan status code dan content type
         System.out.println("Status Code : " + response.statusCode());
         System.out.println("Content-Type: " + response.headers().get("Content-Type"));
 
-        // Memproses response menjadi Document
         Document doc = response.parse();
 
         System.out.println("Title   : " + doc.title());
         System.out.println("Base URI: " + doc.baseUri());
 
-        // Menyeleksi semua elemen <a> yang memiliki atribut href
         Elements links = doc.select("a[href]");
-
         for (Element link : links) {
             System.out.println("Teks   : " + link.text());
             System.out.println("Href   : " + link.attr("href"));

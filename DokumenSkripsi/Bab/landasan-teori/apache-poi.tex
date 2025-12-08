@@ -1,11 +1,10 @@
 Apache POI merupakan pustaka Java yang dikembangkan oleh The Apache Software Foundation untuk memanipulasi berbagai format berkas Microsoft Office seperti Word, Excel, maupun PowerPoint. Pustaka ini dapat memproses berkas dengan standar OLE 2 Compound Document (OLE2) maupun Office Open XML (OOXML), sehingga memungkinkan pemrosesan dokumen Microsoft Office generasi lama maupun generasi yang baru.
 
-\vspace{10mm}
 OLE2 merupakan standar penyimpanan biner yang digunakan oleh Microsoft Office untuk berkas-berkas generasi lama seperti DOC, XLS, dan PPT. Standar ini mendefinisikan struktur penyimpanan berbentuk \textit{compound file}, yaitu sistem berkas yang terdiri atas \textit{storages} dan \textit{streams}, di mana \textit{streams} menyimpan data utama dokumen dan \textit{storages} menjadi kontainer hierarkis yang memuat elemen-elemen lain di dalamnya~\cite{ms:cfb}. Sementara itu, OOXML merupakan standar yang digunakan oleh Microsoft Office untuk berkas-berkas generasi baru seperti DOCX, XLSX, dan PPTX. Standar ini mendefinisikan dokumen sebagai kumpulan berkas XML yang dikemas dalam struktur ZIP~\cite{ecma:376}.
 
 
 Struktur proyek Apache POI terdiri dari beberapa modul yang masing-masing dirancang untuk menangani format berkas tertentu dalam ekosistem Microsoft Office. Berikut adalah modul-modul tersebut:
-\begin{itemize}[itemsep=5pt]
+\begin{itemize}[itemsep=3pt]
     \item \textbf{\texttt{POIFS}}: Modul ini digunakan untuk membaca dan menulis struktur penyimpanan pada standar OLE2 sebagai kumpulan \textit{storages} dan \textit{streams}.
     
     \item \textbf{\texttt{HSSF}}: Modul ini digunakan untuk memproses isi berkas Microsoft Excel dengan format XLS pada standar OLE2.
@@ -24,33 +23,22 @@ Struktur proyek Apache POI terdiri dari beberapa modul yang masing-masing diranc
 
 Untuk mendukung pemrosesan berkas \textit{spreadsheet} pada modul \texttt{HSSF} dan \texttt{XSSF}, Apache POI menyediakan sebuah API bernama SS UserModel melalui paket \texttt{org.apache.poi.ss.usermodel}. API ini mendefinisikan elemen-elemen umum \textit{spreadsheet} seperti \texttt{Workbook}, \texttt{Sheet}, \texttt{Row}, dan \texttt{Cell}. Melalui API ini, pemrosesan \textit{spreadsheet} dapat dilakukan menggunakan antarmuka yang sama pada kedua modul, tanpa perlu menangani perbedaan struktur antara berkas dengan format XLS dan XLSX secara langsung.
 
-
-
 Kode~\ref{lst:poi-xlsx-example} menunjukkan contoh sederhana penggunaan Apache POI untuk membuat sebuah dokumen Excel dengan format XLSX. Contoh ini menggunakan modul \texttt{XSSF} karena berkas yang dihasilkan termasuk dalam standar OOXML, serta memanfaatkan SS UserModel melalui kelas-kelas seperti \texttt{Workbook}, \texttt{Sheet}, \texttt{Row}, dan \texttt{Cell}.
 
-\vspace{30mm}
 
 \begin{lstlisting}[language=Java, caption={Contoh Pembuatan Berkas XLSX Menggunakan Apache POI}, label={lst:poi-xlsx-example}]
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.io.FileOutputStream;
-
 public class ExcelExportExample {
     public static void main(String[] args) throws Exception {
-
         // Membuat workbook untuk format XLSX
         Workbook workbook = new XSSFWorkbook();
-
         // Membuat sheet baru dengan nama
         Sheet sheet = workbook.createSheet("Data");
-
         // Membuat baris pertama (indeks 0)
         Row row = sheet.createRow(0);
-
+        
         // Membuat sel (kolom 0 dan 1) dan mengisinya
         Cell cellA = row.createCell(0);
         cellA.setCellValue("Hello");
-
         Cell cellB = row.createCell(1);
         cellB.setCellValue("World");
 
@@ -58,9 +46,7 @@ public class ExcelExportExample {
         try (FileOutputStream out = new FileOutputStream("contoh.xlsx")) {
             workbook.write(out);
         }
-
-        // Menutup workbook
-        workbook.close();
+        workbook.close(); // Menutup workbook
     }
 }
 \end{lstlisting}
