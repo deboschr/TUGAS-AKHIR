@@ -27,6 +27,7 @@ Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layana
     \item \textbf{Tombol kontrol}\\
     Proses pemeriksaan dimulai dengan menekan tombol \textit{Find broken links now!}. Setelah pemeriksaan berjalan, tombol \textit{Stop} berwarna merah akan muncul di bawah tabel hasil. Tombol ini memungkinkan pengguna menghentikan proses pemeriksaan kapan saja sesuai kebutuhan. Selain itu, disediakan pula opsi \textit{Disable page auto-scrolling} yang dapat diaktifkan untuk menonaktifkan pengguliran otomatis pada tabel hasil, sehingga tampilan tetap stabil meskipun data baru terus ditambahkan secara real-time.
 
+    \vspace{3mm}
     \item \textbf{Tabel hasil}\\
     Hasil pemeriksaan ditampilkan dalam bentuk tabel yang diperbarui secara langsung. Tabel ini hanya menampilkan tautan yang telah dipastikan bermasalah, sehingga laporan lebih fokus dan tidak bercampur dengan tautan valid atau sedang dalam proses pemeriksaan. Terdapat lima kolom utama pada tabel hasil, yaitu:
     
@@ -44,6 +45,7 @@ Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layana
         
     \end{itemize}
 
+    \vspace{3mm}
     \item \textbf{Ringkasan pemeriksaan}\\
     Pada bagian bawah tabel, sistem menampilkan ringkasan proses pemeriksaan yang sedang berlangsung. Bagian ini memuat status terkini, yang ditandai dengan animasi titik berjalan selama proses aktif. Jika pemeriksaan dihentikan oleh pengguna melalui tombol \textit{Stop}, status akan berubah menjadi \texttt{DONE : process was terminated by user}. Sebaliknya, jika pemeriksaan selesai secara normal, status ditampilkan sebagai \texttt{COMPLETED!}. Selain menampilkan status, ringkasan ini juga memperlihatkan jumlah total halaman dan tautan yang telah diperiksa, serta jumlah tautan rusak yang ditemukan.
 \end{enumerate}
@@ -51,6 +53,8 @@ Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layana
 
 \subsubsection*{Mekanisme dan Ketentuan Teknis}  
 Selain fitur yang tampak pada antarmuka, Broken Link Checker juga memiliki sejumlah mekanisme teknis yang menentukan cara kerja dan batasan layanan. Mekanisme ini penting untuk dipahami agar pengguna dapat menafsirkan hasil pemeriksaan dengan tepat dan menyesuaikan penggunaan sesuai kebutuhan. Mekanisme dan ketentuan teknis tersebut dapat dirangkum sebagai berikut:
+
+\vspace{20mm}
 
 \begin{enumerate}
     \item \textbf{Cakupan pemeriksaan}\\

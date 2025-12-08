@@ -1,49 +1,58 @@
-
 Analisis mengenai tautan rusak pada penelitian ini didasarkan pada teori URI yang dijelaskan pada Subbab~\ref{sec:020200-uri} serta teori HTTP pada Subbab~\ref{sec:020100-http}. Tujuan utamanya adalah memahami faktor-faktor yang membuat tautan gagal diakses. Dengan melihat struktur URL, aturan sintaks, mekanisme resolusi, hingga kode status HTTP, kita dapat memahami dengan lebih jelas bagaimana tautan dinyatakan rusak dan apa saja indikator yang bisa digunakan untuk mengenalinya.
 
+
+\vspace{-3mm}
 \subsubsection*{Struktur URL}
-Pada Subbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL memiliki sejumlah komponen, mulai dari \textit{scheme}, \textit{host}, \textit{port}, \textit{path}, \textit{query}, hingga \textit{fragment}. Tidak semua bagian berpengaruh langsung pada keabsahan tautan. Komponen yang paling menentukan adalah \textit{scheme}, \textit{host}, \textit{port}, \textit{path}, dan \textit{query}, sedangkan \textit{fragment} hanya diproses di sisi klien.
+\vspace{-3mm}
+Pada Subbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL terdiri atas komponen \textit{scheme}, \textit{host}, \textit{port}, \textit{path}, \textit{query}, dan \textit{fragment}. Beberapa komponen memiliki peran langsung terhadap keberhasilan akses. Kesalahan pada salah satu komponen utama dapat menghasilkan tautan yang tidak dapat diproses oleh agen pengguna atau tidak dapat ditemukan oleh server.
 
-Beberapa contoh permasalahan yang bisa muncul:
+Faktor yang dapat menyebabkan tautan rusak meliputi:
 \begin{itemize}
-  \item \textbf{Scheme} yang salah membuat agen pengguna tidak bisa membangun koneksi.
-  \item \textbf{Host} yang salah, misalnya domain salah ketik atau tidak terdaftar, menyebabkan tautan tidak ditemukan.
-  \item \textbf{Port} yang tidak sesuai membuat layanan yang dituju tidak dapat diakses.
-  \item \textbf{Path} yang tidak valid biasanya mengembalikan respons 404 \textit{Not Found}.
-  \item \textbf{Query} yang salah dapat membuat server gagal menampilkan hasil yang diinginkan.
+  \item \textbf{Scheme} tidak valid sehingga koneksi tidak dapat dibangun.
+  \item \textbf{Host} tidak valid atau tidak terdaftar sehingga sumber daya tidak dapat ditemukan.
+  \item \textbf{Port} tidak sesuai dengan layanan yang tersedia.
+  \item \textbf{Path} tidak mengarah pada sumber daya sehingga menghasilkan respons 404 \textit{Not Found}.
+  \item \textbf{Query} tidak sesuai sehingga server tidak dapat menyediakan representasi sumber daya.
 \end{itemize}
 
-Dari sini terlihat bahwa kesalahan pada salah satu komponen utama sudah cukup untuk membuat tautan tidak berfungsi.
+Komponen-komponen tersebut menentukan arah dan tujuan akses. Ketidaktepatan nilai pada salah satunya cukup untuk membuat tautan tidak dapat digunakan.
 
+\vspace{-3mm}
 \subsubsection*{Validitas Sintaks dan Encoding}
-Aturan penggunaan karakter dalam URI dan mekanisme \textit{percent-encoding} dibahas pada Subbab~\ref{subsec:0202-karakter-percent-encoding}. Dalam praktiknya, banyak tautan yang rusak bukan karena salah struktur, tetapi karena melanggar aturan sintaks atau \textit{encoding}. Contoh yang sering terjadi adalah penggunaan karakter \textit{reserved} di luar konteks, adanya spasi atau karakter non-ASCII yang tidak dikodekan, atau penulisan \textit{percent-encoding} dengan format yang salah.
+Pada Subbab~\ref{subsec:0202-karakter-percent-encoding} dijelaskan bahwa URI memiliki aturan sintaks dan \textit{percent-encoding} yang harus dipenuhi agar dapat diproses dengan benar. Pelanggaran terhadap aturan ini menyebabkan URL tidak dapat ditafsirkan atau ditolak oleh server.
 
-Masalah lain muncul dari normalisasi, 
-% sebagaimana dijelaskan pada Subbab~\ref{subsec:0202-normalisasi-url}.
-misalnya \textit{host} ditulis dengan huruf besar, port default tetap dicantumkan, atau path masih berisi segmen \texttt{.} dan \texttt{..}. Situasi semacam ini membuat URL ambigu. Artinya, meskipun sebuah URL terlihat benar, kesalahan kecil dalam sintaks atau encoding bisa membuatnya dianggap rusak.
+Kesalahan yang dapat menyebabkan tautan rusak antara lain:
+\begin{itemize}
+  \item Penggunaan karakter \textit{reserved} pada posisi yang tidak sesuai.
+  \item Keberadaan spasi atau karakter non-ASCII yang tidak dikodekan.
+  \item Format \textit{percent-encoding} yang tidak valid.
+\end{itemize}
 
+Selain itu, proses normalisasi URL dapat menghasilkan URL yang tidak valid apabila tidak dilakukan dengan benar. Contohnya:
+\begin{itemize}
+  \item \textit{Host} tidak distandardisasi ke bentuk huruf kecil.
+  \item \textit{Port} default tetap dicantumkan sehingga URL tidak identik dengan bentuk kanonisnya.
+  \item \textit{Path} tidak dibersihkan dari segmen \texttt{.} atau \texttt{..}, sehingga jalur yang dibentuk tidak sesuai.
+\end{itemize}
+
+\vspace{-3mm}
 \subsubsection*{URL Relatif}
-Pada Subbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL relatif harus digabungkan dengan \textit{base} URI untuk membentuk URL absolut. Masalah muncul ketika \textit{base} URI tidak jelas atau proses resolusinya tidak berjalan dengan benar. Hasilnya, URL absolut yang terbentuk tidak menunjuk ke sumber daya yang diinginkan.
+\vspace{-2mm}
+Pada Subbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL relatif tidak dapat digunakan secara langsung, melainkan harus digabungkan dengan \textit{base} URI untuk membentuk URL absolut. Kesalahan sering terjadi apabila \textit{base} URI tidak sesuai dengan struktur dokumen, sehingga proses resolusi menghasilkan URL absolut yang berbeda dari lokasi sumber daya yang sebenarnya. Selain itu, resolusi URL juga mewajibkan penghapusan \textit{dot-segments} seperti \texttt{.} dan \texttt{..}. Apabila segmen tersebut tidak dihapus, jalur yang dihasilkan menjadi tidak akurat. Akibatnya, URL relatif yang secara sintaks valid berubah menjadi tautan yang gagal diarahkan ke sumber daya yang benar. Situasi ini merupakan salah satu penyebab tautan rusak yang berasal dari kesalahan konstruksi URL absolut, bukan dari kesalahan struktur URL awal.
 
-Hal serupa bisa terjadi bila \textit{dot-segments} tidak dihapus. Akibatnya, jalur yang terbentuk tidak sesuai. Dalam kondisi ini, tautan yang seharusnya valid sebagai URL relatif menjadi tidak dapat digunakan setelah diubah menjadi absolut.
-
+\vspace{-3mm}
 \subsubsection*{Komunikasi HTTP}
-HTTP sebagai protokol komunikasi dibahas pada Subbab~\ref{sec:020100-http}. Walaupun sebuah URL valid secara struktur, tautan tetap bisa gagal diakses bila komunikasi HTTP tidak berhasil. Permasalahan ini biasanya muncul pada tahap koneksi antara klien dan server.
+\vspace{-2mm}
+Pada Subbab~\ref{sec:020100-http} dijelaskan bahwa akses terhadap sumber daya tidak hanya ditentukan oleh validitas struktur URL, tetapi juga keberhasilan pertukaran pesan melalui HTTP. Tautan dapat dinyatakan rusak apabila proses komunikasi gagal meskipun URL telah ditulis dengan benar. Kegagalan semacam ini dapat disebabkan oleh beberapa kondisi, seperti kesalahan pemetaan domain yang mengakibatkan host tidak dapat ditemukan, penolakan koneksi ketika layanan tidak tersedia pada port tujuan, atau waktu tunggu yang habis sebelum server memberikan respons. Dengan demikian, evaluasi terhadap tautan tidak berhenti pada pemeriksaan struktur URL saja, te
 
-Beberapa kasus yang dapat terjadi:
-\begin{itemize}
-  \item \textbf{Host tidak ditemukan}, ini bisa terjadi ketika domain gagal dipetakan oleh DNS.
-  \item \textbf{Koneksi ditolak}, ketika server tidak menyediakan layanan pada port yang diminta.
-  \item \textbf{Timeout}, ketika server tidak memberikan respons dalam batas waktu yang ditentukan.
-\end{itemize}
-
-Dengan kata lain, validitas URL belum cukup. Tautan juga perlu diuji pada tahap permintaan HTTP, karena kegagalan di sini tetap membuatnya rusak.
-
+\vspace{-3mm}
 \subsubsection*{Kode Status HTTP}
-Pada Subbab~\ref{subsec:0201-kode-status-http} dijelaskan bahwa setiap respons HTTP memiliki kode status sebagai penanda hasil permintaan. Dalam analisis tautan rusak, kode status pada kelas 
+\vspace{-2mm}
+Pada Subbab~\ref{subsec:0201-kode-status-http} dijelaskan bahwa kode status HTTP digunakan untuk menunjukkan hasil pemrosesan permintaan. Untuk keperluan penentuan tautan rusak, kategori kode status perlu ditetapkan dengan batas yang jelas agar setiap respons dapat dinilai secara konsisten.
 
-Beberapa kategori kode status yang sering digunakan adalah:
-\begin{itemize}
-  \item \textbf{4xx Client Error}. Kategori ini menandakan kesalahan di sisi klien. Contoh yang paling sering ditemui adalah 404 \textit{Not Found}. Ada juga \textit{410 Gone} yang berarti sumber daya sudah dihapus secara permanen, serta \textit{403 Forbidden} ketika akses ditolak.
-  \item \textbf{5xx Server Error}. Kategori ini menunjukkan kegagalan di sisi server. Misalnya \texttt{500 Internal Server Error} yang menandakan adanya masalah umum pada server, atau \texttt{503 Service Unavailable} ketika layanan tidak tersedia untuk sementara.
-\end{itemize}
+Dalam penelitian ini ditetapkan bahwa seluruh kode pada kategori \textit{Client Error} 4xx dan \textit{Server Error} 5xx dianggap sebagai indikator kegagalan akses. Kategori \textit{Client Error} 4xx menunjukkan bahwa permintaan tidak berhasil diproses karena terdapat kekeliruan pada permintaan yang dikirimkan, seperti sumber daya yang tidak tersedia, permintaan yang tidak memenuhi syarat, atau pembatasan akses. Kategori \textit{Server Error} 5xx menunjukkan bahwa server tidak mampu menyediakan sumber daya akibat kegagalan pemrosesan atau gangguan pada layanan.
+
+
+
+Seluruh kode pada dua kategori tersebut disertakan agar tidak ada kondisi gagal yang terlewat. Respons dari server dapat bervariasi antarplatform, sehingga pembatasan hanya pada kode tertentu dapat menyebabkan kegagalan yang sah tidak dicatat. Dengan menggunakan seluruh kategori \textit{Client Error} 4xx dan \textit{Server Error} 5xx, batasan mengenai definisi tautan rusak menjadi lebih jelas, yaitu setiap respons yang menyatakan bahwa sumber daya tidak dapat disediakan oleh permintaan maupun oleh server.
+

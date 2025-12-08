@@ -42,10 +42,10 @@ Untuk menentukan urutan halaman yang dikunjungi, dua strategi yang digunakan ada
 
 \begin{itemize}
   \item \textbf{\textit{Breadth-First Crawler}}\\
-  \textit{Frontier} disusun sebagai antrean FIFO. URL yang dimasukkan lebih dulu akan diambil lebih dulu. Pendekatan ini sering membuat \textit{crawler} menjangkau halaman dengan banyak tautan masuk lebih awal.
+  Pada strategi ini, \textit{Frontier} disusun sebagai antrean FIFO (\textit{First-In First-Out}). URL yang dimasukkan lebih dulu akan diambil lebih dulu. Pendekatan ini sering membuat \textit{crawler} menjangkau halaman dengan banyak tautan masuk lebih awal.
 
   \item \textbf{\textit{Preferential Crawler}}\\
-  Pada pendekatan ini, \textit{frontier} disusun sebagai \textit{priority queue}. Setiap URL diberi skor berdasarkan petunjuk topologis dan leksikal, seperti struktur hyperlink dan kesesuaian teks pada \textit{anchor}. URL dengan skor lebih tinggi dianggap lebih menjanjikan dan akan diambil lebih dahulu.
+  Pada strategi ini, \textit{frontier} disusun sebagai \textit{priority queue}. Setiap URL diberi skor berdasarkan petunjuk topologis dan leksikal, seperti struktur hyperlink dan kesesuaian teks pada \textit{anchor}. URL dengan skor lebih tinggi dianggap lebih menjanjikan dan akan diambil lebih dahulu.
 
 \end{itemize}
 

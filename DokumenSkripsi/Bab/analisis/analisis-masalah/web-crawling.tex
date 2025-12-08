@@ -1,16 +1,13 @@
 
-Analisis pada bagian ini merujuk pada teori mengenai \textit{web crawling} yang dibahas pada Subbab~\ref{sec:020400-web-crawling} serta teori HTML pada Subbab~\ref{sec:020300-html}. Tujuan utamanya adalah mengidentifikasi permasalahan yang muncul dalam proses \textit{crawling} halaman web sebagai dasar pemeriksaan tautan rusak. Permasalahan tersebut mencakup strategi \textit{crawling}, jenis \textit{crawler} yang digunakan, tantangan teknis yang dihadapi, serta keterkaitannya dengan struktur HTML sebagai sumber tautan.
+Analisis pada bagian ini merujuk pada teori mengenai \textit{web crawling} yang dibahas pada Subbab~\ref{sec:020400-web-crawling} serta teori HTML pada Subbab~\ref{sec:020300-html}. Tujuan utamanya adalah menetapkan spesifikasi \textit{crawler} yang digunakan dalam penelitian ini sebagai dasar perancangan dan implementasi pemeriksaan tautan rusak. Aspek yang dibahas meliputi strategi \textit{crawling} yang dipilih, ruang lingkup halaman yang ditelusuri, kebijakan ekstraksi tautan dari struktur HTML, serta pengaturan teknis yang diperlukan agar proses penelusuran dapat dilakukan secara terkendali dan tetap relevan dengan tujuan pemeriksaan.
+
 
 \subsubsection*{Strategi \textit{crawling}}
-Pada Subbab~\ref{sec:020400-web-crawling} dijelaskan bahwa strategi \textit{crawling} dapat dilakukan dengan \textit{Breadth-First Crawler} maupun \textit{Preferential Crawler}. Keduanya memiliki karakteristik yang berbeda.  
+Pada Subbab~\ref{sec:020400-web-crawling} dijelaskan bahwa strategi \textit{crawling} dapat dilakukan dengan berbagai pendekatan. Berdasarkan tujuan penelitian, yaitu memperoleh seluruh halaman pada satu host untuk diperiksa tautannya, strategi yang dipilih adalah \textit{Breadth-First Crawler}.  
 
-\begin{itemize}
-  \item \textbf{\textit{Breadth-First Crawler}} menyapu halaman secara merata dari titik awal. Strategi ini cocok digunakan untuk aplikasi pemeriksa tautan, karena setiap halaman pada host yang sama dianggap memiliki tingkat kepentingan yang setara. Dengan cara ini, cakupan situs dapat diperoleh lebih menyeluruh tanpa harus memikirkan bobot prioritas antar tautan.
-  
-  \item \textbf{\textit{Preferential Crawler}} menggunakan \textit{priority queue} berbasis skor untuk menentukan halaman yang akan diambil lebih dahulu. Strategi ini bermanfaat bila ada kriteria relevansi yang jelas, misalnya hanya ingin menekankan halaman dengan potensi informasi lebih tinggi. Namun, dalam konteks aplikasi pemeriksa tautan rusak, pendekatan ini tidak relevan. Semua halaman pada satu host dianggap sama penting, sehingga tidak ada dasar untuk memberikan skor prioritas.
-\end{itemize}
+Pendekatan ini menelusuri halaman secara berlapis dari titik awal sehingga seluruh halaman pada host yang sama dapat dijangkau tanpa memberikan prioritas tertentu. Pola tersebut sesuai untuk pemeriksaan tautan rusak, karena setiap halaman dianggap memiliki tingkat kepentingan yang sama dan seluruhnya perlu diperiksa agar cakupan situs lengkap.
 
-Dengan demikian, strategi yang logis untuk aplikasi ini adalah \textit{Breadth-First Crawler}.
+Strategi \textit{Preferential Crawler} tidak digunakan. Pendekatan tersebut mengutamakan halaman tertentu berdasarkan skor atau relevansi, sehingga sebagian halaman dapat tertunda atau tidak diambil sama sekali. Mekanisme ini tidak sesuai dengan kebutuhan pemeriksaan tautan, karena tujuan sistem bukan memilih halaman yang paling relevan, melainkan memastikan semua halaman publik pada host yang sama diperiksa tanpa pengecualian.
 
 
 
@@ -25,8 +22,6 @@ Subbab~\ref{subsec:0204-tantangan-crawling} menjelaskan sejumlah tantangan yang 
   \item \textbf{\textit{Link Extraction} dan \textit{Canonicalization}}: dalam sistem ini semua URL yang ditemukan akan dinormalisasi. Langkah ini dilakukan agar tidak ada duplikasi, misalnya akibat perbedaan huruf besar, tanda garis miring di akhir, atau adanya fragmen. Dengan begitu, satu sumber daya tidak akan dianggap berbeda hanya karena variasi penulisan.
   
   \item \textbf{\textit{Repository}}: dalam sistem ini semua URL yang sudah ditemukan akan dikumpulkan menjadi satu kedalam satu penyimpanan yang bisa menjamin keunikan isinya. Tindakan ini dilakukan agar tidak terjadi duplikasi pemeriksaan.
-  
-  \vspace{5mm}
 
   \item \textbf{\textit{Spider Trap}}: dalam sistem ini tidak akan diterapkan mekanisme khusus untuk mendeteksi pola tautan tak terbatas. Namun, repository sudah cukup untuk mencegah kunjungan berulang pada URL yang sama. 
   
@@ -34,20 +29,20 @@ Subbab~\ref{subsec:0204-tantangan-crawling} menjelaskan sejumlah tantangan yang 
 \end{itemize}
 
 
-
+\vspace{-3mm}
 \subsubsection*{Etika \textit{crawling}}
+\vspace{-2mm}
 Subbab~\ref{subsec:0204-etika-crawling} menjelaskan bahwa aktivitas \textit{crawling} tidak hanya berkaitan dengan tantangan teknis, tetapi juga harus memperhatikan etika agar tidak menimbulkan masalah bagi pemilik situs. Salah satu pedoman yang tersedia adalah file \texttt{robots.txt}, yang dapat digunakan untuk menentukan bagian situs mana yang boleh dan tidak boleh diakses oleh \textit{crawler}. Pada sistem yang dikembangkan, aturan ini tidak dijadikan batasan dalam pemeriksaan karena tujuan utama adalah memastikan semua tautan dapat diperiksa.
 
 Aspek lain yang penting adalah identitas \texttt{User-Agent}. Setiap permintaan HTTP yang dikirimkan sistem akan dilengkapi dengan informasi ini agar server mengetahui perangkat lunak apa yang sedang melakukan \textit{crawling}. Identitas tersebut sebaiknya mencantumkan nama aplikasi dan informasi kontak, sehingga administrator situs dapat mengenali sumber permintaan dengan jelas.  
 
 Selain itu, sistem tidak dirancang untuk mengakses area privat, melewati autentikasi, atau mengambil konten yang bersifat berbayar. Aktivitas \textit{crawling} difokuskan pada tautan yang memang dapat diakses secara publik, sehingga tidak melanggar aturan kepemilikan maupun hak akses. Untuk mencegah server terbebani, pengaturan batas waktu dan laju permintaan juga digunakan. Dengan cara ini, sistem tetap menjalankan prinsip etika dasar dalam \textit{crawling} sekaligus mencapai tujuannya dalam memeriksa ketersediaan tautan.
 
-
+\vspace{-3mm}
 \subsubsection*{Ekstraksi Tautan}
+\vspace{-2mm}
 Subbab~\ref{subsec:0224-atribut-global-dan-spesifik} menunjukkan bahwa berbagai elemen HTML dapat memuat URL melalui atribut seperti 
 \texttt{href}, \texttt{src}, atau \texttt{data}. Elemen tersebut meliputi \texttt{<a>}, \texttt{<link>}, \texttt{<script>}, \texttt{<img>}, \texttt{<iframe>}, \texttt{<embed>}, \texttt{<object>}, dan beberapa elemen media lainnya. Karena semua elemen ini bisa mengandung URL maka artinya berpotensi menjadi tautan rusak.
 
 
 Namun, tidak semua elemen tersebut relevan untuk proses \textit{crawling} halaman. Berdasarkan landasan teori pada Subbab~\ref{sec:020400-web-crawling}, proses \textit{crawling} berfokus pada penelusuran antardokumen melalui \textit{hyperlink}. Dalam HTML, mekanisme navigasi antardokumen secara eksplisit  direpresentasikan oleh elemen \texttt{<a>} melalui atribut \texttt{href}. Elemen inilah yang digunakan pengguna untuk berpindah dari satu halaman ke halaman lainnya. Berdasarkan pertimbangan tersebut, sistem ini hanya mengekstrak URL dari elemen \texttt{<a>}.
-
-\vspace{50mm}
