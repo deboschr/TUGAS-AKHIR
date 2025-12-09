@@ -35,12 +35,8 @@ public class ErrorHandler {
          Map.entry(511, "511 Network Authentication Required"));
 
    public static String getExceptionError(Throwable e) {
-
-      if (e == null)
-         return "";
-
-      // ========== 0. Thread dihentikan ==========
-      if (e instanceof InterruptedException || e instanceof CancellationException) {
+      // ========== Thread dihentikan ==========
+      if (e == null || e instanceof InterruptedException || e instanceof CancellationException) {
          return "";
       }
 
