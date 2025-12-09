@@ -19,7 +19,7 @@ Komponen-komponen tersebut menentukan arah dan tujuan akses. Ketidaktepatan nila
 
 \vspace{-3mm}
 \subsubsection*{Validitas Sintaks dan Encoding}
-Pada Subbab~\ref{subsec:0202-karakter-percent-encoding} dijelaskan bahwa URI memiliki aturan sintaks dan \textit{percent-encoding} yang harus dipenuhi agar dapat diproses dengan benar. Pelanggaran terhadap aturan ini menyebabkan URL tidak dapat ditafsirkan atau ditolak oleh server.
+Pada Subsubbab~\ref{subsec:0202-karakter-percent-encoding} dijelaskan bahwa URI memiliki aturan sintaks dan \textit{percent-encoding} yang harus dipenuhi agar dapat diproses dengan benar. Pelanggaran terhadap aturan ini menyebabkan URL tidak dapat ditafsirkan atau ditolak oleh server.
 
 Kesalahan yang dapat menyebabkan tautan rusak antara lain:
 \begin{itemize}
@@ -38,7 +38,7 @@ Selain itu, proses normalisasi URL dapat menghasilkan URL yang tidak valid apabi
 \vspace{-3mm}
 \subsubsection*{URL Relatif}
 \vspace{-2mm}
-Pada Subbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL relatif tidak dapat digunakan secara langsung, melainkan harus digabungkan dengan \textit{base} URI untuk membentuk URL absolut. Kesalahan sering terjadi apabila \textit{base} URI tidak sesuai dengan struktur dokumen, sehingga proses resolusi menghasilkan URL absolut yang berbeda dari lokasi sumber daya yang sebenarnya. Selain itu, resolusi URL juga mewajibkan penghapusan \textit{dot-segments} seperti \texttt{.} dan \texttt{..}. Apabila segmen tersebut tidak dihapus, jalur yang dihasilkan menjadi tidak akurat. Akibatnya, URL relatif yang secara sintaks valid berubah menjadi tautan yang gagal diarahkan ke sumber daya yang benar. Situasi ini merupakan salah satu penyebab tautan rusak yang berasal dari kesalahan konstruksi URL absolut, bukan dari kesalahan struktur URL awal.
+Pada Subsubbab~\ref{subsec:0202-struktur-url} dijelaskan bahwa URL relatif tidak dapat digunakan secara langsung, melainkan harus digabungkan dengan \textit{base} URI untuk membentuk URL absolut. Kesalahan sering terjadi apabila \textit{base} URI tidak sesuai dengan struktur dokumen, sehingga proses resolusi menghasilkan URL absolut yang berbeda dari lokasi sumber daya yang sebenarnya. Selain itu, resolusi URL juga mewajibkan penghapusan \textit{dot-segments} seperti \texttt{.} dan \texttt{..}. Apabila segmen tersebut tidak dihapus, jalur yang dihasilkan menjadi tidak akurat. Akibatnya, URL relatif yang secara sintaks valid berubah menjadi tautan yang gagal diarahkan ke sumber daya yang benar. Situasi ini merupakan salah satu penyebab tautan rusak yang berasal dari kesalahan konstruksi URL absolut, bukan dari kesalahan struktur URL awal.
 
 \vspace{-3mm}
 \subsubsection*{Komunikasi HTTP}
@@ -48,7 +48,7 @@ Pada Subbab~\ref{sec:020100-http} dijelaskan bahwa akses terhadap sumber daya ti
 \vspace{-3mm}
 \subsubsection*{Kode Status HTTP}
 \vspace{-2mm}
-Pada Subbab~\ref{subsec:0201-kode-status-http} dijelaskan bahwa kode status HTTP digunakan untuk menunjukkan hasil pemrosesan permintaan. Untuk keperluan penentuan tautan rusak, kategori kode status perlu ditetapkan dengan batas yang jelas agar setiap respons dapat dinilai secara konsisten.
+Pada Subsubbab~\ref{subsec:0201-kode-status-http} dijelaskan bahwa kode status HTTP digunakan untuk menunjukkan hasil pemrosesan permintaan. Untuk keperluan penentuan tautan rusak, kategori kode status perlu ditetapkan dengan batas yang jelas agar setiap respons dapat dinilai secara konsisten.
 
 Dalam penelitian ini ditetapkan bahwa seluruh kode pada kategori \textit{Client Error} 4xx dan \textit{Server Error} 5xx dianggap sebagai indikator kegagalan akses. Kategori \textit{Client Error} 4xx menunjukkan bahwa permintaan tidak berhasil diproses karena terdapat kekeliruan pada permintaan yang dikirimkan, seperti sumber daya yang tidak tersedia, permintaan yang tidak memenuhi syarat, atau pembatasan akses. Kategori \textit{Server Error} 5xx menunjukkan bahwa server tidak mampu menyediakan sumber daya akibat kegagalan pemrosesan atau gangguan pada layanan.
 

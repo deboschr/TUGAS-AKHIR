@@ -1,29 +1,24 @@
 
 Selain fungsi inti, sistem juga harus memenuhi sejumlah kebutuhan non-fungsional agar pemeriksaan tautan dapat berjalan stabil, efisien, dan mudah digunakan. Kebutuhan non-fungsional yang ditetapkan adalah sebagai berikut:
 
-\begin{enumerate}
+\begin{enumerate}[itemsep=3pt]
     \item \textbf{Antarmuka pengguna}\\
-    Sistem disajikan dalam bentuk aplikasi desktop berbasis JavaFX dengan tampilan yang sederhana, tabel yang mudah dibaca, serta kontrol proses yang jelas.
-
-    \item \textbf{Kinerja pemeriksaan}\\
-    Sistem mampu menangani jumlah tautan yang besar dengan tetap menjaga waktu tanggap yang wajar. Hal ini dicapai dengan penerapan batas waktu (\textit{timeout}) pada setiap permintaan.
-
+    Sistem dibangun melalui aplikasi desktop berbasis JavaFX dengan tampilan yang sederhana, tabel yang mudah dibaca, serta kontrol proses yang jelas.
+    
     \item \textbf{Pengendalian laju}\\
-    Sistem membatasi jumlah permintaan dalam satuan waktu (\textit{rate limiting}) untuk mencegah server tujuan terbebani dan mengurangi risiko pemblokiran.
+    Sistem membatasi jumlah permintaan dalam satuan waktu (\textit{rate limiting}) untuk mencegah \textit{server} tujuan terbebani dan mengurangi risiko pemblokiran.
 
     \item \textbf{Eksekusi paralel}\\
-    Sistem mendukung eksekusi permintaan secara paralel khusus pada tahap pemeriksaan tautan agar proses lebih cepat.
+    Sistem mendukung eksekusi permintaan HTTP secara paralel khusus pada tahap pemeriksaan tautan agar proses lebih cepat.
 
     \item \textbf{Ketahanan terhadap HTML tidak valid}\\
     Sistem mampu mengurai dokumen HTML yang tidak sesuai standar dengan bantuan Jsoup, sehingga tautan tetap dapat diekstrak meskipun struktur dokumen bermasalah.
 
+    \vspace{20mm}
     \item \textbf{Konsistensi identifikasi URL}\\
-    Setiap URL dinormalisasi dan dicatat dalam repository untuk memastikan satu sumber daya hanya diperiksa sekali, sehingga hasil pemeriksaan konsisten dan tidak ada duplikasi.
+    Setiap URL harus dinormalisasi dan dicatat dalam penyimpanan terpusat dan unik untuk memastikan satu sumber daya hanya diperiksa sekali, sehingga hasil pemeriksaan konsisten dan tidak ada duplikasi.
 
     \item \textbf{Etika \textit{crawling}}\\
-    Setiap permintaan menyertakan identitas \texttt{User-Agent}. Sistem juga menyediakan pengaturan jeda permintaan untuk menjaga agar aktivitas pemeriksaan tidak membebani server.
+    Setiap permintaan HTTP harus menyertakan identitas aplikasi melalui \texttt{User-Agent}.
 
 \end{enumerate}
-
-
-\vspace{30mm}

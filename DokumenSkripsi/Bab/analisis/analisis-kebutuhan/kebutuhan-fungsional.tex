@@ -1,26 +1,28 @@
-
-Kebutuhan fungsional berikut menggambarkan layanan inti yang harus disediakan oleh aplikasi desktop pemeriksa tautan rusak pada situs web:
+Penetapakan kebutuhan fungsional didasarkan pada analisis masalah (lihat Subbab~\ref{sec:030100-analisis-masalah}) dan analisis sistem serupa (lihat Subbab~\ref{sec:030200-analisis-sistem-serupa}) yang telah dilakukan. Kebutuhan fungsional berikut menggambarkan layanan inti yang harus disediakan oleh aplikasi yang dikembangkan:
 
 \begin{enumerate}
-    \item \textbf{Input URL}\\
-    Sistem harus dapat menerima masukan berupa URL dari pengguna sebagai titik awal pemeriksaan.
+    \item \textbf{Nama aplikasi}\\
+    Sistem akan diberi nama Broken Link Scanner. Nama ini dipilih karena menggambarkan fungsionalitas sistem dan tidak bertabrakan dengan nama sistem lain.
 
-    \item \textbf{Tampilan hasil secara \textit{streaming}}\\
-    Sistem menampilkan daftar tautan yang ditemukan dari halaman web secara langsung (\textit{streaming}) selama proses pemeriksaan berlangsung.
+    % \vspace{-2mm}
+    \item \textbf{Input URL}\\
+    Sistem dapat menerima masukan berupa URL dari pengguna sebagai titik awal pemeriksaan.
+
+    \item \textbf{Menampilkan hasil}\\
+    Sistem menampilkan menampilkan hasil pemeriksaan tautan rusak secara langsung (\textit{streaming}) sehingga pengguna dapat melihat perkembangan pemeriksaan. Selain itu, sistem juga menyediakan bagian tersendiri untuk menampilkan informasi lebih detail dari sebuah tautan rusak.
 
     \item \textbf{Kontrol proses}\\
-    Sistem menyediakan mekanisme bagi pengguna untuk menghentikan proses pemeriksaan kapan saja.
-
+    Sistem menyediakan mekanisme bagi pengguna untuk memulai dan menghentikan proses pemeriksaan kapan saja.
 
     \item \textbf{Ringkasan hasil}\\
-    sistem menampilkan ringkasan berisi jumlah tautan yang diperiksa, jumlah tautan rusak, jumlah tautan yang terblokir, dan status proses pemeriksaan.
+    Sistem menampilkan ringkasan hasil pemeriksaan yang berisi status pemeriksaan, jumlah total tautan, jumlah tautan halaman sumber, jumlah tautan rusak, serta waktu mulai dan waktu selesai pemeriksaan.
 
-    \item \textbf{Sumber tautan rusak}\\
-    Sistem menampilkan lokasi atau halaman tempat tautan rusak ditemukan, sehingga pengguna dapat menelusuri asal masalah.
+    \item \textbf{Lokasi tautan rusak}\\
+    Sistem menampilkan halaman tempat tautan rusak ditemukan, sehingga pengguna dapat menelusuri asal masalah.
 
     \item \textbf{Ekspor hasil}\\
-    Sistem dapat mengekspor hasil pemeriksaan ke dalam berkas Excel agar mudah disimpan, dibagikan, atau dianalisis lebih lanjut.
+    Sistem dapat mengekspor hasil pemeriksaan ke dalam berkas Excel dalam format XLSX. Fitur ini ditetapkan untuk mempermudah pengguna sehingga tidak harus melakukan pemeriksaan ulang berkali-kali setiap ingin mengetahui keberadaan tautan rusak pada situs web.
 
     \item \textbf{\textit{Filter} hasil}\\
-    Sistem dapat melakukan penyaringan hasil pemeriksaan berdasarkan masukan dari pengguna.
+    Sistem dapat melakukan penyaringan hasil pemeriksaan berdasarkan masukan dari pengguna. Fitur ini ditetapkan karena pada sistem serupa sangat menyulitkan ketika ingin mendapatkan tautan rusak dengan kesalahan tertentu.
 \end{enumerate}

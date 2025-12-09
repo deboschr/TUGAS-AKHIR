@@ -58,7 +58,7 @@ Kelas \texttt{Element} merupakan representasi satu elemen HTML dalam struktur DO
 
 Kode~\ref{lst:jsoup-example} menunjukkan contoh penggunaan Jsoup untuk mengambil sebuah halaman web, memprosesnya menjadi objek \texttt{Document}, dan mengekstraksi sejumlah informasi dari dokumen tersebut. Contoh ini menggambarkan bagaimana kelas-kelas utama yang telah dijelaskan sebelumnya, yaitu \texttt{Jsoup}, \texttt{Connection}, \texttt{Connection.Response}, \texttt{Document}, \texttt{Elements}, dan \texttt{Element}, digunakan secara bersama-sama dalam sebuah program nyata. Hasil eksekusi dari kode ini berupa informasi judul halaman, URI dasar dokumen, serta daftar tautan beserta teks, URL absolut, dan atribut lain yang terkait.
 
-\begin{lstlisting}[language=Java, caption={Contoh Penggunaan Jsoup}, label={lst:jsoup-example}]
+\begin{lstlisting}[language=Java, caption={Contoh penggunaan Jsoup}, label={lst:jsoup-example}]
 public class JsoupExample {
     public static void main(String[] args) throws Exception {
         Connection connection = Jsoup.connect("https://www.example.com").userAgent("BrokenLinkChecker 1.0").timeout(5000);

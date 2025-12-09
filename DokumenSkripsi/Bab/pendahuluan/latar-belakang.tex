@@ -9,12 +9,12 @@ Namun, kedua aspek tersebut dapat terganggu oleh keberadaan tautan rusak pada si
 Untuk mendeteksi tautan rusak pada sebuah situs web, terdapat dua pendekatan yang dapat digunakan. Pendekatan pertama adalah dengan melakukan pemeriksaan secara manual, namun pendekatan ini menjadi kurang efektif jika situs web memiliki ratusan bahkan ribuan halaman, karena setiap tautan harus diuji satu per satu. Pendekatan kedua adalah dengan memanfaatkan perangkat lunak pemeriksa tautan rusak yang tersedia secara daring seperti Broken Link Checker\footnote{\url{https://www.brokenlinkcheck.com} (Diakses pada 20 Juli 2025)}. Gambar~\ref{fig:contoh-broken-link-checker} menunjukkan hasil pemeriksaan menggunakan Broken Link Checker pada situs web Informatika UNPAR\footnote{\url{https://informatika.unpar.ac.id} (Diakses pada 20 Juli 2025)}. Hasil pemeriksaan tersebut ditampilkan dalam bentuk tabel yang berisi informasi seperti URL dari tautan rusak yang ditemukan, teks pada tautan tersebut, halaman sumber tautan tersebut ditemukan, serta kode status HTTP sebagai respons dari \textit{server}. 
 
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{Gambar/010100-broken-link-checker.png}
-%     \caption{Contoh Hasil Pemeriksaan Menggunakan Broken Link Checker}
-%     \label{fig:contoh-broken-link-checker}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Gambar/010100-broken-link-checker.png}
+    \caption{Contoh pemeriksaan tautan rusak menggunakan Broken Link Checker}
+    \label{fig:contoh-broken-link-checker}
+\end{figure}
 
 
 Dalam penelitian ini dikembangkan sebuah perangkat lunak berbasis desktop yang dapat digunakan untuk memeriksa keberadaan tautan rusak pada sebuah situs web. Perangkat lunak ini menerima sebuah masukan berupa URL situs web, kemudian melakukan penelusuran terhadap halaman pada situs web tersebut. Pada setiap halaman yang dikunjungi dilakukan ekstraksi tautan dan setiap tautan yang ditemukan kemudian diperiksa dengan melakukan permintaan HTTP. Respons dari \textit{server} dicatat dan dievaluasi untuk menentukan apakah tautan tersebut teridentifikasi sebagai tautan rusak atau tidak. Selanjutnya, setiap tautan rusak akan dikumpulkan dan disajikan sebagai hasil pemeriksaan. Untuk mempermudah pengguna dalam menjalankan proses pemeriksaan dan membaca hasil pemeriksaan, perangkat lunak ini dilengkapi dengan antarmuka pengguna grafis yang intuitif.

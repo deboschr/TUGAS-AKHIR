@@ -32,7 +32,7 @@ Subbab~\ref{subsec:0204-tantangan-crawling} menjelaskan sejumlah tantangan yang 
 \vspace{-3mm}
 \subsubsection*{Etika \textit{crawling}}
 \vspace{-2mm}
-Subbab~\ref{subsec:0204-etika-crawling} menjelaskan bahwa aktivitas \textit{crawling} tidak hanya berkaitan dengan tantangan teknis, tetapi juga harus memperhatikan etika agar tidak menimbulkan masalah bagi pemilik situs. Salah satu pedoman yang tersedia adalah file \texttt{robots.txt}, yang dapat digunakan untuk menentukan bagian situs mana yang boleh dan tidak boleh diakses oleh \textit{crawler}. Pada sistem yang dikembangkan, aturan ini tidak dijadikan batasan dalam pemeriksaan karena tujuan utama adalah memastikan semua tautan dapat diperiksa.
+Subsubbab~\ref{subsec:0204-etika-crawling} menjelaskan bahwa aktivitas \textit{crawling} tidak hanya berkaitan dengan tantangan teknis, tetapi juga harus memperhatikan etika agar tidak menimbulkan masalah bagi pemilik situs. Salah satu pedoman yang tersedia adalah file \texttt{robots.txt}, yang dapat digunakan untuk menentukan bagian situs mana yang boleh dan tidak boleh diakses oleh \textit{crawler}. Pada sistem yang dikembangkan, aturan ini tidak dijadikan batasan dalam pemeriksaan karena tujuan utama adalah memastikan semua tautan dapat diperiksa.
 
 Aspek lain yang penting adalah identitas \texttt{User-Agent}. Setiap permintaan HTTP yang dikirimkan sistem akan dilengkapi dengan informasi ini agar server mengetahui perangkat lunak apa yang sedang melakukan \textit{crawling}. Identitas tersebut sebaiknya mencantumkan nama aplikasi dan informasi kontak, sehingga administrator situs dapat mengenali sumber permintaan dengan jelas.  
 
@@ -41,7 +41,7 @@ Selain itu, sistem tidak dirancang untuk mengakses area privat, melewati autenti
 \vspace{-3mm}
 \subsubsection*{Ekstraksi Tautan}
 \vspace{-2mm}
-Subbab~\ref{subsec:0224-atribut-global-dan-spesifik} menunjukkan bahwa berbagai elemen HTML dapat memuat URL melalui atribut seperti 
+Subsubbab~\ref{subsec:0224-atribut-global-dan-spesifik} menunjukkan bahwa berbagai elemen HTML dapat memuat URL melalui atribut seperti 
 \texttt{href}, \texttt{src}, atau \texttt{data}. Elemen tersebut meliputi \texttt{<a>}, \texttt{<link>}, \texttt{<script>}, \texttt{<img>}, \texttt{<iframe>}, \texttt{<embed>}, \texttt{<object>}, dan beberapa elemen media lainnya. Karena semua elemen ini bisa mengandung URL maka artinya berpotensi menjadi tautan rusak.
 
 

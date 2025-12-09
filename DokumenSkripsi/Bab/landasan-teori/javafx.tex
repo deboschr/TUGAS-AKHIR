@@ -19,7 +19,7 @@ Setiap aplikasi JavaFX diturunkan dari kelas abstrak \texttt{javafx.application.
 
 Kode~\ref{lst:javafx-basic-structure} memperlihatkan contoh struktur program JavaFX yang memuat antarmuka dari berkas FXML dan menerapkan gaya visual dengan CSS.
 
-\begin{lstlisting}[language=Java, caption=Struktur dasar aplikasi JavaFX, label=lst:javafx-basic-structure]
+\begin{lstlisting}[language=Java, caption={Contoh struktur dasar aplikasi JavaFX}, label=lst:javafx-basic-structure]
 @Override
 public void start(Stage stage) throws Exception {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("view.fxml"));
@@ -68,7 +68,7 @@ Komponen-komponen tersebut dapat didefinisikan secara deklaratif dengan mengguna
 
 Kode~\ref{lst:javafx-fxml} memperlihatkan contoh struktur antarmuka berbasis FXML yang menggunakan \texttt{BorderPane} dan \texttt{HBox} sebagai kontainer tata letak.
 
-\begin{lstlisting}[language=XML, caption=Contoh struktur antarmuka menggunakan FXML, label=lst:javafx-fxml]
+\begin{lstlisting}[language=XML, caption=Contoh struktur dasar dokumen FXML, label=lst:javafx-fxml]
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.Controller">
   <top>

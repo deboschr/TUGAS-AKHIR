@@ -3,14 +3,14 @@ Broken Link Checker\footnote{\url{https://www.brokenlinkcheck.com} (Diakses pada
 
 \subsubsection*{Tampilan dan Interaksi}
 
-Gambar~\ref{fig:analisis-brokenlinkchecker} menunjukkan antarmuka Broken Link Checker saat proses pemeriksaan berlangsung. Alur penggunaan secara umum dimulai dengan memasukkan alamat situs pada kolom input, mengisi kode keamanan, memilih mode pemeriksaan, lalu menekan tombol \textit{Find broken links now!} untuk memulai proses. Selama pemeriksaan berjalan, hasil ditampilkan langsung dalam bentuk tabel, dan pengguna dapat menghentikan proses dengan menekan tombol \textit{Stop}.
+Gambar~\ref{fig:analisis-brokenlinkchecker} menunjukkan antarmuka pengguna Broken Link Checker saat proses pemeriksaan berlangsung. Alur penggunaan secara umum dimulai dengan memasukkan alamat situs pada kolom input, mengisi kode keamanan, memilih mode pemeriksaan, lalu menekan tombol \textit{Find broken links now!} untuk memulai proses. Selama pemeriksaan berjalan, hasil ditampilkan langsung dalam bentuk tabel, dan pengguna dapat menghentikan proses dengan menekan tombol \textit{Stop}.
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.95\textwidth]{Gambar/030203-broken-link-checker.png}
-%     \caption{Antarmuka Broken Link Checker}
-%     \label{fig:analisis-brokenlinkchecker}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Gambar/030203-broken-link-checker.png}
+    \caption{Antarmuka pengguna Broken Link Checker}
+    \label{fig:analisis-brokenlinkchecker}
+\end{figure}
 
 Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layanan pemeriksaan tautan rusak:
 
@@ -19,7 +19,7 @@ Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layana
     Komponen ini digunakan untuk memasukkan alamat situs web yang akan diperiksa. Pengguna dapat menuliskan alamat dalam bentuk domain saja, tanpa harus menyertakan skema \texttt{http://} atau \texttt{https://}. Sistem akan tetap menerima input tersebut dan mengolahnya sebagai URL awal pemeriksaan. Kemudahan ini mempersingkat proses input, meskipun dapat menimbulkan potensi ambiguitas pada situs web yang hanya mendukung skema tertentu, misalnya hanya \texttt{https://}.
 
     \item \textbf{Security code}\\
-    Sebelum memulai proses pemeriksaan, pengguna diwajibkan mengisi \textit{security code} berupa captcha. Keharusan ini berfungsi sebagai mekanisme pencegahan terhadap penggunaan otomatis (bot) yang dapat membebani server layanan. Kode keamanan ini bersifat dinamis dan dapat diganti dengan menekan tombol \textit{Generate new code} yang tersedia pada antarmuka.
+    Sebelum memulai proses pemeriksaan, pengguna diwajibkan mengisi \textit{security code} berupa captcha. Keharusan ini berfungsi sebagai mekanisme pencegahan terhadap penggunaan otomatis (bot) yang dapat membebani server layanan. Kode keamanan ini bersifat dinamis dan dapat diganti dengan menekan tombol \textit{Generate new code} yang tersedia pada antarmuka pengguna.
 
     \item \textbf{Mode pemeriksaan}\\
     Tersedia dua pilihan mode pemeriksaan yang dapat dipilih melalui tombol radio, yaitu \textit{Report distinct broken links only}, dan \textit{Report all occurrences of each dead link}. Mode \textit{Report distinct broken links only} menampilkan setiap tautan rusak hanya sekali, tanpa memperhatikan berapa banyak halaman yang memuat tautan tersebut. Pendekatan ini membuat proses lebih cepat, tetapi informasi lokasi kemunculan tautan hanya terbatas pada satu halaman. Sebaliknya, mode \textit{Report all occurrences of each dead link (may be slower)} menampilkan seluruh kemunculan tautan rusak beserta halaman sumbernya. Dengan demikian, jika sebuah tautan rusak terdapat pada beberapa halaman, maka akan muncul beberapa entri dengan sumber berbeda pada tabel hasil. Mode ini memberikan informasi yang lebih lengkap, namun membutuhkan waktu pemrosesan yang lebih lama.
@@ -52,7 +52,7 @@ Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layana
 
 
 \subsubsection*{Mekanisme dan Ketentuan Teknis}  
-Selain fitur yang tampak pada antarmuka, Broken Link Checker juga memiliki sejumlah mekanisme teknis yang menentukan cara kerja dan batasan layanan. Mekanisme ini penting untuk dipahami agar pengguna dapat menafsirkan hasil pemeriksaan dengan tepat dan menyesuaikan penggunaan sesuai kebutuhan. Mekanisme dan ketentuan teknis tersebut dapat dirangkum sebagai berikut:
+Selain fitur yang tampak pada antarmuka pengguna, Broken Link Checker juga memiliki sejumlah mekanisme teknis yang menentukan cara kerja dan batasan layanan. Mekanisme ini penting untuk dipahami agar pengguna dapat menafsirkan hasil pemeriksaan dengan tepat dan menyesuaikan penggunaan sesuai kebutuhan. Mekanisme dan ketentuan teknis tersebut dapat dirangkum sebagai berikut:
 
 \vspace{20mm}
 

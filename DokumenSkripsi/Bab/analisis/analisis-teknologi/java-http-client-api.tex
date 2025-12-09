@@ -4,6 +4,7 @@ Pemanfaatan Java HTTP Client API sejalan dengan beberapa kebutuhan non-fungsiona
 
 Beberapa kelas dan method utama dari API ini yang dapat digunakan dalam implementasi adalah sebagai berikut:
 
+\vspace{2mm}
 \begin{itemize}[itemsep=5pt]
   \item \texttt{HttpClient}\\
   Kelas ini dipakai sebagai titik masuk untuk membangun klien HTTP. Objek dibuat melalui \texttt{HttpClient.newBuilder()}, dengan konfigurasi penting seperti \texttt{version()} untuk memilih protokol HTTP/1.1 atau HTTP/2, \texttt{connectTimeout(Duration)} untuk menetapkan batas waktu koneksi, dan \texttt{followRedirects()} untuk menentukan kebijakan pengalihan. Objek yang dihasilkan bersifat \textit{immutable} dan \textit{thread-safe}, sehingga dapat digunakan secara bersamaan oleh banyak \textit{thread} pemeriksaan.
@@ -18,4 +19,4 @@ Beberapa kelas dan method utama dari API ini yang dapat digunakan dalam implemen
   Digunakan untuk membaca seluruh \textit{header} dari respon, misalnya \texttt{Content-Type} atau \texttt{Set-Cookie}. Informasi ini relevan untuk analisis tambahan, namun yang paling penting adalah mendukung pelabelan hasil pemeriksaan agar pengguna dapat memahami konteks status setiap tautan.
 \end{itemize}
 
-\vspace{20mm}
+\vspace{30mm}
