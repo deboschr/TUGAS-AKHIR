@@ -155,7 +155,7 @@ Pada pengujian \texttt{INTERVAL}, seluruh variasi nilai menghasilkan jumlah taut
 
 Setelah dilakukan penetapan nilai terbaik pada setiap parameter operasional, tahap selanjutnya adalah membandingkan hasil pemeriksaan antara perangkat lunak yang dikembangkan (Broken Link Scanner), dengan dua perangkat lunak serupa lainnya, yaitu Broken Link Checker\footnote{\url{https://www.brokenlinkcheck.com}} dan Dead Link Checker\footnote{\url{https://www.deadlinkchecker.com}}. Pengujian ini dilakukan pada empat situs web, yaitu Informatika UNPAR, Informatika UNPAS, Informatika UNPAD, dan Informatika UNIKOM. Tujuan dari perbandingan ini adalah untuk mengevaluasi perbedaan hasil pemeriksaan pada setiap perangkat lunak sehingga dapat menjadi dasar dalam memberikan saran perbaikan dan arah pengembangan lebih lanjut.
 
-Pada tahap perbandingan ini, penting untuk memahami karakteristik kedua perangkat lunak pembanding, yaitu Broken Link Checker dan Dead Link Checker. Kedua perangkat lunak tersebut memeriksa tautan tidak hanya pada elemen \texttt{a} HTML, tetapi juga pada elemen \texttt{img} dengan atribut \texttt{src}, sehingga cakupan pemeriksaannya lebih luas. Selain itu, Broken Link Checker memiliki batas maksimum 3000 halaman dan tidak menganggap \textit{error} terkait keamanan seperti 403 \textit{Forbidden}, 401 \textit{Unauthorized}, maupun \textit{SSL Error} sebagai tautan rusak sehingga kategori tersebut tidak dilaporkan dalam hasil pemeriksaannya. Dead Link Checker juga memiliki batas maksimum 2000 tautan secara keseluruhan, tanpa memisahkan antara halaman dan tautan umum. Sementara itu, Broken Link Scanner hanya memeriksa tautan pada elemen \texttt{a} HTML sehingga elemen lain seperti \texttt{img} berada di luar cakupan pemeriksaan. Untuk menjaga kesetaraan kondisi pengujian, jumlah tautan rusak yang diproses oleh Broken Link Scanner dibatasi hingga 2000 tautan agar selaras dengan batas yang dimiliki oleh Dead Link Checker. Perbedaan dalam cakupan elemen, perlakuan terhadap \textit{error} tertentu, dan batas maksimum tautan tersebut menjadi faktor penting yang memengaruhi variasi hasil pemeriksaan antarperangkat lunak.
+Pada tahap perbandingan ini, penting untuk memahami karakteristik kedua perangkat lunak pembanding, yaitu Broken Link Checker dan Dead Link Checker. Kedua perangkat lunak tersebut memeriksa tautan tidak hanya pada elemen \texttt{<a>} HTML, tetapi juga pada elemen \texttt{img} dengan atribut \texttt{src}, sehingga cakupan pemeriksaannya lebih luas. Selain itu, Broken Link Checker memiliki batas maksimum 3000 halaman dan tidak menganggap \textit{error} terkait keamanan seperti 403 \textit{Forbidden}, 401 \textit{Unauthorized}, maupun SSL \textit{Error} sebagai tautan rusak sehingga kategori tersebut tidak dilaporkan dalam hasil pemeriksaannya. Dead Link Checker juga memiliki batas maksimum 2000 tautan secara keseluruhan, tanpa memisahkan antara halaman dan tautan umum. Sementara itu, Broken Link Scanner hanya memeriksa tautan pada elemen \texttt{<a>} HTML sehingga elemen lain seperti \texttt{img} berada di luar cakupan pemeriksaan. Untuk menjaga kesetaraan kondisi pengujian, jumlah tautan rusak yang diproses oleh Broken Link Scanner dibatasi hingga 2000 tautan agar selaras dengan batas yang dimiliki oleh Dead Link Checker. Perbedaan dalam cakupan elemen, perlakuan terhadap \textit{error} tertentu, dan batas maksimum tautan tersebut menjadi faktor penting yang memengaruhi variasi hasil pemeriksaan antarperangkat lunak.
 
 
 \vspace{20mm}
@@ -185,13 +185,13 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
       % \vspace{10mm}
 
       \item \textbf{I/O Error}.  
-      Pada kategori ini, hanya Broken Link Scanner yang menghasilkan I/O \textit{Error}, sedangkan Broken Link Checker dan Dead Link Checker mengategorikan tautan yang sama sebagai \textit{SSL Error}. URL pada tautan tersebut adalah \url{https://kiri.travel/}. Berdasarkan pemeriksaan manual, situs ini menunjukkan perilaku yang tidak stabil, terkadang menampilkan halaman keamanan, terkadang mengarahkan ke situs yang tidak relevan seperti halaman perjudian, dan pada waktu lain membuka halaman unduhan berkas.
+      Pada kategori ini, hanya Broken Link Scanner yang menghasilkan I/O \textit{Error}, sedangkan Broken Link Checker dan Dead Link Checker mengategorikan tautan yang sama sebagai SSL \textit{Error}. URL pada tautan tersebut adalah \url{https://kiri.travel/}. Berdasarkan pemeriksaan manual, situs ini menunjukkan perilaku yang tidak stabil, terkadang menampilkan halaman keamanan, terkadang mengarahkan ke situs yang tidak relevan seperti halaman perjudian, dan pada waktu lain membuka halaman unduhan berkas.
 
       \item \textbf{Invalid URL}.  
-      Perbedaan pada kategori ini disebabkan oleh URL \url{https://itb.ac.id./}. Broken Link Scanner mengelompokkan URL ini sebagai \textit{Invalid} URL karena proses pembentukan objek \texttt{URI} pada Java gagal akibat adanya tanda titik pada akhir domain. Dead Link Checker mengategorikannya sebagai \textit{SSL Error}.
+      Perbedaan pada kategori ini disebabkan oleh URL \url{https://itb.ac.id./}. Broken Link Scanner mengelompokkan URL ini sebagai \textit{Invalid} URL karena proses pembentukan objek \texttt{URI} pada Java gagal akibat adanya tanda titik pada akhir domain. Dead Link Checker mengategorikannya sebagai SSL \textit{Error}.
 
       \item \textbf{SSL Error}.  
-      Broken Link Scanner mendeteksi 6 tautan dengan \textit{SSL Error}, sedangkan Dead Link Checker hanya mendeteksi 5 tautan. Setelah dilakukan penelusuran, kelima tautan yang ditemukan oleh Dead Link Checker merupakan bagian dari enam tautan yang ditemukan oleh Broken Link Scanner. 
+      Broken Link Scanner mendeteksi 6 tautan dengan SSL \textit{Error}, sedangkan Dead Link Checker hanya mendeteksi 5 tautan. Setelah dilakukan penelusuran, kelima tautan yang ditemukan oleh Dead Link Checker merupakan bagian dari enam tautan yang ditemukan oleh Broken Link Scanner. 
 
       \item \textbf{Timeout}.  
       Broken Link Scanner dan Broken Link Checker menghasilkan jumlah \textit{Timeout} yang sama dan tautan yang teridentifikasi pun identik. Namun, Dead Link Checker tidak melaporkan URL \url{https://www.academynetriders.com/file.php/1/netriders_info/pdfs/Results_2015_NetRiders_APAC_CCENT_R2.pdf}, tautan ini berdasarkan pemeriksaan manual merupakan tautan yang memerlukan waktu akses lebih lama.
@@ -204,7 +204,7 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
       Broken Link Scanner menemukan jumlah 403 \textit{Forbidden} yang lebih tinggi dibandingkan kedua perangkat lunak lainnya. Pemeriksaan menggunakan \textit{browser} dan Postman memperlihatkan bahwa beberapa tautan yang dilaporkan sebagai 403 oleh Broken Link Scanner sebenarnya tidak mengembalikan status tersebut ketika diakses secara manual. Ini adalah salah satu contoh URL-nya \url{https://www.researchgate.net/profile/Pascal_Nugroho/research}
 
       \item \textbf{404 Not Found}.  
-      Seluruh tautan yang teridentifikasi sebagai 404 \textit{Not Found} oleh masing-masing perangkat lunak memang benar-benar mengembalikan status 404. Namun, Dead Link Checker menghasilkan jumlah yang lebih tinggi karena memeriksa tidak hanya tautan pada elemen \texttt{a} HTML, tetapi juga tautan pada elemen \texttt{img} dengan atribut \texttt{src}.
+      Seluruh tautan yang teridentifikasi sebagai 404 \textit{Not Found} oleh masing-masing perangkat lunak memang benar-benar mengembalikan status 404. Namun, Dead Link Checker menghasilkan jumlah yang lebih tinggi karena memeriksa tidak hanya tautan pada elemen \texttt{<a>} HTML, tetapi juga tautan pada elemen \texttt{img} dengan atribut \texttt{src}.
 
       \item \textbf{405 Method Not Allowed}.  
       Hanya Dead Link Checker yang menemukan \textit{error} ini. URL pada tautan tersebut adalah \url{https://informatika.unpar.ac.id/xmlrpc.php}. Setelah diperiksa manual, server pada tautan ini mengharapkan permintaan dengan metode \texttt{POST}, sehingga ketika perangkat lunak menggunakan metode \texttt{GET}, server mengembalikan status 405.
@@ -304,6 +304,9 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
       \item \textbf{Host Not Found}.  
       Ketiga perangkat lunak menghasilkan jumlah \textit{Host Not Found} yang tinggi, meskipun jumlahnya berbeda-beda. Pemeriksaan manual menunjukkan bahwa seluruh tautan tersebut memang tidak dapat diakses, dan masih terdapat irisan tautan yang konsisten di antara ketiganya.
 
+      \item \textbf{Timeout}.
+      Meskipun pada ketiga perangkat lunak menunjukan jumlah yang sama pada kategori \textit{error} ini, setelah ditelusuri lebih lanjut terdapat perbedaan tautan antara Broken Link Checker dengan kedua perangkat lainnya. Perbedaanya ada pada tautan dengan URL \url{http://badanbahasa.kemdikbud.go.id/kbbi/}.
+
       \item \textbf{Too Many Redirections}.  
       Hanya Dead Link Checker yang mendeteksi 11 tautan dengan kategori ini. Perbedaan ini dapat terjadi karena perangkat lunak tersebut menerapkan batas maksimal jumlah \textit{redirection}, sedangkan Broken Link Scanner tidak menerapkan pembatasan serupa sehingga tidak menghasilkan \textit{error} ini.
 
@@ -311,7 +314,7 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
       Dead Link Checker mendeteksi satu tautan yang mengembalikan status 400, yaitu \url{https://if.unpas.ac.id/?na=s}. Pemeriksaan manual menunjukkan bahwa respons 400 tersebut valid. Tautan ini diperoleh dari elemen \texttt{form} pada halaman HTML, yang tidak termasuk dalam cakupan pemeriksaan Broken Link Scanner maupun Broken Link Checker.
 
       \item \textbf{404 Not Found}.  
-      Broken Link Scanner hanya mendeteksi 8 tautan, sedangkan dua perangkat lunak lainnya mendeteksi 20 tautan. Perbedaan ini disebabkan oleh cakupan pemeriksaan: Broken Link Checker dan Dead Link Checker memeriksa tautan dari elemen HTML selain \texttt{a}, sehingga jumlah tautan \textit{404 Not Found} yang ditemukan lebih banyak.
+      Broken Link Scanner hanya mendeteksi 8 tautan, sedangkan dua perangkat lunak lainnya mendeteksi 20 tautan. Perbedaan ini disebabkan oleh cakupan pemeriksaan: Broken Link Checker dan Dead Link Checker memeriksa tautan dari elemen HTML selain \texttt{<a>}, sehingga jumlah tautan 404 \textit{Not Found} yang ditemukan lebih banyak.
 
       \item \textbf{403 Forbidden}.  
       Broken Link Scanner mendeteksi lebih banyak tautan dengan status 403 dibandingkan Dead Link Checker. Pemeriksaan manual menunjukkan bahwa beberapa tautan yang dilaporkan sebagai 403 oleh Broken Link Scanner sebenarnya dapat diakses secara langsung. Salah satu contohnya adalah \url{https://www.rivalmind.com/what-are-the-benefits-of-seo}.
@@ -320,7 +323,7 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
       Hanya Dead Link Checker yang mendeteksi dua tautan dengan kategori ini. Pemeriksaan manual menunjukkan bahwa salah satu tautan, yaitu \url{https://www.dicoding.com/blog/apa-itu-server/}, tidak mengembalikan status 405 ketika diakses menggunakan metode HTTP \texttt{GET}.
 
       \item \textbf{522}.  
-      Hanya Broken Link Checker yang mendeteksi \textit{error} ini. Tautannya adalah \url{http://wargasaluyu.unpas.ac.id/}. Pemeriksaan manual melalui Postman menunjukkan respons yang sangat lambat, dan HTML hasil permintaan menampilkan teks “522: Connection timed out”.
+      Hanya Broken Link Checker yang mendeteksi \textit{error} ini. Tautannya adalah \url{http://wargasaluyu.unpas.ac.id/}. Pemeriksaan manual melalui Postman menunjukkan respons yang sangat lambat dan HTML hasil permintaan menampilkan teks ``522: Connection timed out''. Setelah ditelusuri lebih jauh lagi, tautan ini teridentifikasi sebagai \textit{error} dengan kategori \textit{Timeout} pada perangkat lunak Broken Link Scanner dan Dead Link Checker.
    \end{itemize}
 
 
@@ -336,13 +339,13 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
 
    \begin{itemize}[itemsep=-1pt]
       \item \textbf{SSL Error}.  
-      Broken Link Scanner mendeteksi 3 tautan dengan \textit{SSL Error}, sedangkan Dead Link Checker hanya mendeteksi 1 tautan. Tautan yang ditemukan oleh Dead Link Checker juga terdapat pada hasil Broken Link Scanner. Dua tautan tambahan pada Broken Link Scanner, yaitu \url{https://smarttour.unikom.ac.id/tour-without-login} dan \url{https://jpi.unikom.ac.id/ifjudul}, telah diperiksa secara manual dan tidak valid sebagai \textit{SSL Error}. Perbedaan ini dapat terjadi karena variasi respons server terhadap pola permintaan dari masing-masing perangkat lunak.
+      Broken Link Scanner mendeteksi 3 tautan dengan SSL \textit{Error}, sedangkan Dead Link Checker hanya mendeteksi 1 tautan. Tautan yang ditemukan oleh Dead Link Checker juga terdapat pada hasil Broken Link Scanner. Dua tautan tambahan pada Broken Link Scanner, yaitu \url{https://smarttour.unikom.ac.id/tour-without-login} dan \url{https://jpi.unikom.ac.id/ifjudul}, telah diperiksa secara manual dan tidak valid sebagai SSL \textit{Error}. Perbedaan ini dapat terjadi karena variasi respons server terhadap pola permintaan dari masing-masing perangkat lunak.
 
       \item \textbf{404 Not Found}.  
       Dead Link Checker mendeteksi 13 tautan, lebih banyak daripada Broken Link Scanner dan Broken Link Checker yang masing-masing mendeteksi 10 tautan. Pemeriksaan manual menunjukkan bahwa seluruh tautan tersebut memang mengembalikan status 404. Sepuluh tautan yang ditemukan oleh kedua perangkat lunak lainnya merupakan bagian dari 13 tautan milik Dead Link Checker, sementara tiga tautan tambahan berasal dari URL yang diperoleh dari berkas CSS.
 
       \item \textbf{403 Forbidden}.  
-      Hanya Dead Link Checker yang mendeteksi dua tautan dengan status 403. Setelah ditelusuri, kedua tautan tersebut—\url{https://if.unikom.ac.id/xmlrpc.php?rsd} dan \url{https://jpi.unikom.ac.id/ifjudul/}—teridentifikasi sebagai \textit{SSL Error} oleh Broken Link Scanner. Perbedaan ini kemungkinan disebabkan oleh perbedaan cara perangkat lunak mengelola permintaan HTTPS dan kegagalan \textit{handshake} SSL.
+      Hanya Dead Link Checker yang mendeteksi dua tautan dengan status 403. Setelah ditelusuri, kedua tautan tersebut \url{https://if.unikom.ac.id/xmlrpc.php?rsd} dan \url{https://jpi.unikom.ac.id/ifjudul/} teridentifikasi sebagai SSL \textit{Error} oleh Broken Link Scanner. Perbedaan ini kemungkinan disebabkan oleh perbedaan cara perangkat lunak mengelola permintaan HTTPS dan kegagalan \textit{handshake} SSL.
 
       \item \textbf{429 Too Many Requests}.  
       Hanya Dead Link Checker yang mendeteksi \textit{error} ini. Seluruh tautan berasal dari domain \url{https://www.instagram.com}. Hal ini dapat terjadi karena server membatasi frekuensi permintaan dari sumber yang sama, sehingga permintaan yang dikirim oleh Dead Link Checker ditolak dengan status 429.

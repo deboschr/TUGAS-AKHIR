@@ -26,7 +26,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
       
       \item (Baris 13) Menampilkan jendela ke layar.
       
-      \item (Baris 15--16) Jika terjadi \textit{exception}, maka tampilkan informasi \textit{error} ke konsol.
+      \item (Baris 14--16) Jika terjadi \textit{exception}, maka tampilkan informasi \textit{error} ke konsol.
       
    \end{enumerate}
 
@@ -240,29 +240,28 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
       label={code:crawler-check-link-java}
    ]{Lampiran/implementasi-kode-program/Crawler_checkLink.java}
 
-   % \vspace{12mm}
 
-   Metode \texttt{extractLink} digunakan untuk mendapatkan seluruh tautan yang diambil dari \textit{tag} \texttt{<a>} yang memiliki atribut \texttt{href} pada sebuah dokumen HTML. Masukan metode ini adalah dokumen HTML yang akan diekstrak tautannya, sedangkan keluaran dari metode ini adalah sebuah daftar tautan yang dipetakan dengan teks yang berada pada tautan tersebut. Berikut adalah penjelasan lebih rinci untuk metode \texttt{extractLink} (lihat Kode~\ref{code:crawler-extract-link-java}):
+   Metode \texttt{extractLink} digunakan untuk mendapatkan seluruh tautan yang diambil dari elemen \texttt{<a>} yang memiliki atribut \texttt{href} pada sebuah dokumen HTML. Masukan metode ini adalah dokumen HTML yang akan diekstrak tautannya, sedangkan keluaran dari metode ini adalah sebuah daftar tautan yang dipetakan dengan teks yang berada pada tautan tersebut. Berikut adalah penjelasan lebih rinci untuk metode \texttt{extractLink} (lihat Kode~\ref{code:crawler-extract-link-java}):
    
    \begin{enumerate}[itemsep=3pt]
 
       \item (Baris 2) Membuat objek \texttt{Map} untuk menyimpan hasil ekstraksi tautan, dengan \textit{key} berupa objek \texttt{Link} dan \textit{value} berupa teks yang berada pada tautan tersebut.
       
-      \item (Baris 3) Melakukan iterasi untuk setiap elemen HTML pada \textit{tag} \texttt{<a>} yang memiliki atribut \texttt{href}.
+      \item (Baris 4) Melakukan iterasi untuk setiap elemen HTML pada elemen \texttt{<a>} yang memiliki atribut \texttt{href}.
       
-      \item (Baris 4) Mengambil URL dari atribut \texttt{href}, lalu ubah menjadi URL absolut menggunakan metode \texttt{absUrl} dari Jsoup.
+      \item (Baris 5) Mengambil URL dari atribut \texttt{href}, lalu ubah menjadi URL absolut menggunakan metode \texttt{absUrl} dari Jsoup.
       
-      \item (Baris 6) Menormalisasi URL menggunakan metode \texttt{normalizeUrl} untuk memastikan URL konsisten secara format.
+      \item (Baris 7) Menormalisasi URL menggunakan metode \texttt{normalizeUrl} untuk memastikan URL konsisten secara format.
       
-      \item (Baris 7) Lanjutkan ke iterasi berikutnya jika hasil normalisasi \texttt{null}, yang berarti URL tidak memenuhi aturan normalisasi.
+      \item (Baris 9) Lanjutkan ke iterasi berikutnya jika hasil normalisasi \texttt{null}, yang berarti URL tidak memenuhi aturan normalisasi.
       
-      \item (Baris 9) Membuat objek \texttt{Link} baru berdasarkan URL yang telah dinormalisasi.
+      \item (Baris 11) Membuat objek \texttt{Link} baru berdasarkan URL yang telah dinormalisasi.
       
-      \item (Baris 10) Mengambil teks yang berada di dalam \textit{tag} \texttt{<a>} dan menghapus spasi berlebih pada bagian ujung teks.
+      \item (Baris 13) Mengambil teks yang berada di dalam elemen \texttt{<a>} dan menghapus spasi berlebih pada bagian ujung teks.
       
-      \item (Baris 12) Jika objek \texttt{Link} saat ini belum ada di dalam map hasil maka tambahkan.
+      \item (Baris 15) Jika objek \texttt{Link} saat ini belum ada di dalam map hasil maka tambahkan.
       
-      \item (Baris 14) Mengembalikan seluruh tautan yang telah berhasil diekstraksi dari dokumen HTML.
+      \item (Baris 15) Mengembalikan seluruh tautan yang telah berhasil diekstraksi dari dokumen HTML.
       
    \end{enumerate}
 
@@ -317,7 +316,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
    \begin{enumerate}[itemsep=3pt]
       \item (Baris 2) Mengambil waktu saat ini dalam satuan milidetik.
 
-      \item (Baris 3) Menghitung waktu tunggu, jika hasilnya bernilai positif, artinya jeda antar permintaan sebelumnya belum terpenuhi.
+      \item (Baris 3) Menghitung waktu tunggu, yaitu waktu permintaan HTTP terakhir dikurangi jarak antar permintaan HTTP dan waktu saat ini.
 
       \item (Baris 5-7) Jika \texttt{waitTime} bernilai positif, maka eksekusi \textit{thread} dihentikan sementara selama \texttt{waitTime} milidetik.
 
@@ -381,7 +380,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
    \vspace{1mm}
 
    \item \textbf{Berkas \texttt{Link.java}}\\
-   Kelas \texttt{Link} merupakan model yang digunakan untuk merepresentasikan tautan yang ditemukan selama proses pemeriksaan. Atribut dari kelas ini terdiri atas \texttt{url} untuk menyimpan URL awal, \texttt{finalUrl} untuk menyimpan URL hasil \textit{redirect}, \texttt{statusCode} untuk menyimpan kode status HTTP, \texttt{contentType} untuk menyimpan jenis konten yang dikembalikan URL, \texttt{error} untuk menyimpan pesan \textit{error}, \texttt{isWebpage} untuk menentukan apakah URL merupakan halaman situs web atau bukan, serta \texttt{webpageSources} untuk menyimpan daftar tautan halaman yang menjadi sumber dari tautan saat ini. Seluruh atribut pada kelas ini kecuali \texttt{webpageSources}, didefinisikan menggunakan JavaFX \textit{properties} agar nilai pada atribut dapat diperbarui secara otomatis di antarmuka. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:link-java}.
+   Kelas \texttt{Link} merupakan model yang digunakan untuk merepresentasikan tautan yang ditemukan selama proses pemeriksaan. Atribut dari kelas ini terdiri atas \texttt{url} untuk menyimpan URL awal, \texttt{finalUrl} untuk menyimpan URL hasil \textit{redirect}, \texttt{statusCode} untuk menyimpan kode status HTTP, \texttt{contentType} untuk menyimpan jenis konten yang dikembalikan URL, \texttt{error} untuk menyimpan pesan \textit{error}, \texttt{isWebpage} untuk menentukan apakah URL merupakan halaman situs web atau bukan, serta \texttt{webpageSources} untuk menyimpan daftar tautan halaman yang menjadi sumber dari tautan saat ini. Seluruh atribut pada kelas ini kecuali \texttt{webpageSources} dan \texttt{isWebpage}, didefinisikan menggunakan JavaFX \textit{properties} agar nilai pada atribut dapat diperbarui secara otomatis di antarmuka. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:link-java}.
 
    \vspace{1mm}
 
@@ -396,6 +395,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
    \vspace{1mm}
    
    \item \textbf{Berkas \texttt{LinkReceiver.java}}\\
-   Antarmuka \texttt{LinkReceiver} digunakan untuk melakukan mekanisme komunikasi satu arah dari kelas yang menggunakan antarmuka ini menuju kelas lain yang melakukan \textit{implement} terhadap antarmuka ini. Kelas yang melakukan \textit{implement} terhadap antarmuka ini diwajibkan untuk melakukan \textit{override} terhadap metode \texttt{receive}, yaitu metode yang menerima masukan berupa objek \texttt{Link} dan tidak mengembalikan nilai apapun. Kode lengkap untuk antarmuka ini terdapat pada Lampiran~\ref{code:link-receiver-java}.
+   Antarmuka \texttt{LinkReceiver} digunakan untuk melakukan mekanisme komunikasi satu arah dari kelas yang menggunakan antarmuka ini (kelas \texttt{Crawler}) menuju kelas lain yang melakukan \textit{implement} terhadap antarmuka ini (kelas \texttt{MainController}). Kelas yang melakukan \textit{implement} terhadap antarmuka ini diwajibkan untuk melakukan \textit{override} terhadap metode \texttt{receive}, yaitu metode yang menerima masukan berupa objek \texttt{Link} dan tidak mengembalikan nilai apapun. Kode lengkap untuk antarmuka ini terdapat pada Lampiran~\ref{code:link-receiver-java}.
+   
    
 \end{enumerate}
