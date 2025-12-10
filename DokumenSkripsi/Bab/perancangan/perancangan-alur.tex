@@ -23,7 +23,7 @@ Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikas
     
     \item (Langkah 11) \texttt{Crawler} mengirimkan tautan yang telah diperiksa ke \texttt{MainController} melalui metode \texttt{receive()}.
     
-    \item (Langkah 12) \texttt{MainController} menampilkan tautan tersebut pada pengguna.
+    \item (Langkah 12) \texttt{MainController} menampilkan tautan rusak kepada pengguna.
     
     \item (Langkah 13) \texttt{Crawler} memanggil metode \texttt{extractLink()} untuk mengekstraksi tautan dari dokumen HTML.
     
@@ -41,7 +41,7 @@ Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikas
     
     \item (Langkah 20) \texttt{Crawler} mengirimkan tautan yang telah diperiksa ke \texttt{MainController} melalui metode \texttt{receive()}.
 
-    \item (Langkah 21) \texttt{MainController} menampilkan tautan tersebut pada pengguna.
+    \item (Langkah 21) \texttt{MainController} menampilkan tautan rusak kepada pengguna.
     
     \item (Langkah 22) Ketika seluruh tautan dalam \texttt{frontier} sudah selesai diproses, \texttt{Crawler} mengirimkan sinyal bahwa proses pemeriksaan telah selesai.
     
@@ -56,6 +56,3 @@ Perancangan alur digunakan untuk menggambarkan interaksi antarobjek pada aplikas
     \caption{Sequence diagram proses pemeriksaan tautan}
     \label{fig:sequence-diagram}
 \end{figure}
-
-
-
