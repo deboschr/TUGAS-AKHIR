@@ -94,19 +94,8 @@ public class Application extends javafx.application.Application {
              * LinkController constructor.
              */
             loader.setControllerFactory(param -> {
-                // Kalau controller yang diminta adalah LinkController
-                if (param == LinkController.class) {
-                    // Buat LinkController dengan constructor yang menerima parameter objek Link
-                    return new LinkController(link);
-                }
-
-                try {
-                    // Kalau controller lain, pakai constructor default
-                    return param.getDeclaredConstructor().newInstance();
-                } catch (Exception ex) {
-                    // Kalau gagal buat controller, lempar runtime exception
-                    throw new RuntimeException(ex);
-                }
+                // Buat LinkController dengan constructor yang menerima parameter objek Link
+                return new LinkController(link);
             });
 
             // Load FXML dan bungkus ke Scene
@@ -152,20 +141,9 @@ public class Application extends javafx.application.Application {
              * NotifController constructor.
              */
             loader.setControllerFactory(param -> {
-                // Kalau controller yang diminta adalah NotifController
-                if (param == NotifController.class) {
-                    // Buat NotifController dengan constructor yang menerima parameter type dan
-                    // message
-                    return new NotifController(type, message);
-                }
-
-                try {
-                    // Controller lain pakai constructor default
-                    return param.getDeclaredConstructor().newInstance();
-                } catch (Exception ex) {
-                    // Lempar exception kalau gagal instansiasi
-                    throw new RuntimeException(ex);
-                }
+                // Buat NotifController dengan constructor yang menerima parameter type dan
+                // message
+                return new NotifController(type, message);
             });
 
             // Load FXML dan bungkus ke Scene

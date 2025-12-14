@@ -1,7 +1,6 @@
-Jsoup adalah sebuah pustaka Java yang berfungsi sebagai HTML \textit{parser} untuk memproses dokumen HTML sehingga dapat diolah dalam struktur yang lebih teratur. Dokumen yang diproses oleh Jsoup dapat berasal dari tiga sumber utama, yaitu halaman web yang diakses melalui URL, berkas yang tersimpan secara lokal, dan \texttt{String} yang berisi kode HTML. Pustaka ini dirancang agar toleran terhadap dokumen HTML yang tidak valid atau tidak terstruktur, sehingga hasil \textit{parsing} selalu dalam bentuk \textit{Document Object Model} (DOM) yang telah diperbaiki.
+Jsoup adalah sebuah pustaka Java yang berfungsi sebagai HTML \textit{parser} untuk memproses dokumen HTML sehingga dapat diolah dalam struktur yang lebih teratur. Dokumen yang diproses oleh Jsoup dapat berasal dari tiga sumber utama, yaitu halaman web yang diakses melalui URL, berkas yang tersimpan secara lokal, dan \texttt{String} yang berisi kode HTML. Pustaka ini dirancang agar toleran terhadap dokumen HTML yang tidak valid atau tidak terstruktur, sehingga hasil \textit{parsing} selalu dalam bentuk \textit{Document Object Model} (DOM) yang telah diperbaiki. Berikut adalah beberapa kelas yang tersedia pada pustaka Jsoup:
 
-
-\noindent Berikut adalah beberapa kelas yang tersedia pada pustaka Jsoup:
+\vspace{-2mm}
 
 \subsection{Kelas \texttt{Jsoup}}
 \label{subsec:020601-kelas-jsoup}
@@ -21,7 +20,7 @@ Kelas \texttt{Jsoup} merupakan titik masuk utama untuk menggunakan pustaka Jsoup
 \label{subsec:020602-kelas-document}
 Kelas \texttt{Document} merupakan representasi dari keseluruhan dokumen HTML setelah proses \textit{parsing}. Kelas ini berfungsi sebagai akar struktur DOM dan menyediakan metode untuk membaca, menelusuri, atau memodifikasi isi dokumen. Berikut adalah beberapa metode yang tersedia pada kelas ini:
 
-\begin{itemize}
+\begin{itemize}[itemsep=5pt]
     \item \texttt{title}: Metode ini digunakan untuk mendapatkan elemen \texttt{<title>} dari dokumen.
     
     \item \texttt{body}: Metode ini digunakan untuk mendapatkan elemen \texttt{<body>} dari dokumen.
@@ -32,12 +31,13 @@ Kelas \texttt{Document} merupakan representasi dari keseluruhan dokumen HTML set
     
 \end{itemize}
 
+\vspace{5mm}
 
 \subsection{Kelas \texttt{Element}}
 \label{subsec:020603-kelas-element}
 Kelas \texttt{Element} merupakan representasi satu elemen HTML dalam struktur DOM. Kelas ini memiliki \textit{tag}, atribut, konten teks, serta daftar elemen anak. Berikut adalah beberapa metode yang tersedia pada kelas ini:
 
-\begin{itemize}
+\begin{itemize}[itemsep=5pt]
     \item \texttt{attr}: Metode ini digunakan untuk mengambil nilai suatu atribut.
     
     \item \texttt{text}: Metode ini digunakan untuk mendapatkan teks dalam elemen beserta elemen turunannya.
@@ -52,11 +52,14 @@ Kelas \texttt{Element} merupakan representasi satu elemen HTML dalam struktur DO
     
 \end{itemize}
 
+\vspace{5mm}
 
 \subsection{Contoh Kode Program}
 \label{subsec:0227-contoh-kode-program}
 
 Kode~\ref{lst:jsoup-example} menunjukkan contoh penggunaan Jsoup untuk mengambil sebuah halaman web, memprosesnya menjadi objek \texttt{Document}, dan mengekstraksi sejumlah informasi dari dokumen tersebut. Contoh ini menggambarkan bagaimana kelas-kelas utama yang telah dijelaskan sebelumnya, yaitu \texttt{Jsoup}, \texttt{Connection}, \texttt{Connection.Response}, \texttt{Document}, \texttt{Elements}, dan \texttt{Element}, digunakan secara bersama-sama dalam sebuah program nyata. Hasil eksekusi dari kode ini berupa informasi judul halaman, URI dasar dokumen, serta daftar tautan beserta teks, URL absolut, dan atribut lain yang terkait.
+
+\vspace{20mm}
 
 \begin{lstlisting}[language=Java, caption={Contoh penggunaan Jsoup}, label={lst:jsoup-example}]
 public class JsoupExample {

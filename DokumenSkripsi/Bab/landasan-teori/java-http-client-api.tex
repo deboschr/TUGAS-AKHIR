@@ -1,8 +1,9 @@
 Java HTTP Client API adalah sebuah API dari Java yang digunakan untuk mengirim \textit{request} dan menerima \textit{response} melalui protokol HTTP. API ini menyediakan dua model komunikasi, yaitu sinkron dan asinkron. Komunikasi sinkron berarti eksekusi program akan menunggu hingga \textit{response} dari \textit{server} diterima sepenuhnya sebelum melanjutkan instruksi berikutnya. Sebaliknya, komunikasi asinkron menggunakan kelas \texttt{CompletableFuture}, yang memungkinkan hasil komputasi diperoleh di masa mendatang tanpa harus menunggu proses selesai. 
 
+\vspace{10mm}
+
 Objek pada kelas \texttt{HttpClient} juga memiliki karakteristik yang penting untuk penggunaan di lingkungan \textit{multithread}. Objek ini bersifat \textit{immutable}, artinya konfigurasi tidak dapat diubah setelah dibuat, serta bersifat \textit{thread-safe}, artinya dapat diakses secara bersamaan oleh beberapa \textit{thread} tanpa menimbulkan \textit{race condition}.
 
-\vspace{-3mm}
 \subsection{Kelas \texttt{HttpClient}}
 \label{subsec:020701-kelas-httpclient}
 Kelas \texttt{HttpClient} merupakan komponen inti dalam Java HTTP Client API yang digunakan untuk mengirim \textit{request} HTTP dan menerima \textit{response} dari \textit{server}. Objek dari kelas ini dapat dibuat dengan menggunakan metode \texttt{newHttpClient} dengan konfigurasi bawaan yang siap pakai, atau bisa menggunakan metode \texttt{newBuilder} apabila ingin membuat objek dengan konfigurasi yang dapat disesuaikan.
@@ -52,7 +53,7 @@ Berikut adalah beberapa metode yang tersedia pada \texttt{HttpRequest}:
 Kelas \texttt{HttpResponse} merepresentasikan \textit{response} yang diterima setelah sebuah \textit{request} dieksekusi oleh \texttt{HttpClient}. Kelas ini menggunakan parameter generik \texttt{<T>} yang menunjukkan tipe data dari isi \textit{response body}. Nilai generik ini ditentukan oleh \texttt{HttpResponse.BodyHandler} yang digunakan saat mengirim \textit{request}.
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpResponse}:
-\begin{itemize}
+\begin{itemize}[itemsep=3pt]
     \item \texttt{statusCode}: Metode ini digunakan untuk mendapatkan kode status HTTP yang dikirim oleh \textit{server}.
     
     \item \texttt{headers}: Metode ini digunakan untuk mendapatkan daftar seluruh \textit{header} dari \textit{response}.
@@ -69,16 +70,14 @@ Berikut adalah beberapa metode yang tersedia pada \texttt{HttpResponse}:
 
 \end{itemize}
 
-\vspace{-2mm}
 
 \subsection{Kelas \texttt{HttpHeaders}}
 \label{subsec:020704-kelas-httpheaders}
-\vspace{-1mm}
 
 Kelas \texttt{HttpHeaders} merepresentasikan kumpulan \textit{header} yang terdapat pada \textit{request} maupun \textit{response} HTTP. Setiap \textit{header} dapat memiliki lebih dari satu nilai, dan semua nilai disimpan dalam struktur yang mempertahankan urutan kemunculannya.
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpHeaders}:
-\begin{itemize}
+\begin{itemize}[itemsep=3pt]
     \item \texttt{firstValue}: Metode ini digunakan untuk mendapatkan nilai pertama dari \textit{header} dengan nama tertentu dalam bentuk \texttt{String}.
     
     \item \texttt{allValues}: Metode ini digunakan untuk mendapatkan seluruh nilai dari \textit{header} dengan nama tertentu dalam bentuk daftar.

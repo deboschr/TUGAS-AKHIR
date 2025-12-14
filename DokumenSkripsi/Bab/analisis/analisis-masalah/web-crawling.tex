@@ -23,7 +23,7 @@ Subbab~\ref{subsec:0204-tantangan-crawling} menjelaskan sejumlah tantangan yang 
   
   \item \textbf{\textit{Repository}}: dalam sistem ini semua URL yang sudah ditemukan akan dikumpulkan menjadi satu kedalam satu penyimpanan yang bisa menjamin keunikan isinya. Tindakan ini dilakukan agar tidak terjadi duplikasi pemeriksaan.
 
-  \item \textbf{\textit{Spider Trap}}: dalam sistem ini tidak akan diterapkan mekanisme khusus untuk mendeteksi pola tautan tak terbatas. Namun, repository sudah cukup untuk mencegah kunjungan berulang pada URL yang sama. 
+  \item \textbf{\textit{Spider Trap}}: dalam sistem ini tidak akan diterapkan mekanisme khusus untuk mendeteksi pola tautan tak terbatas. Namun, akan diterapkan batas maksimal jumlah tantan yang diperiksa. 
   
   \item \textbf{\textit{Concurrency}}: dalam sistem ini \textit{concurrency} akan diterapkan, tetapi hanya pada tahap pemeriksaan tautan agar proses lebih cepat. Untuk proses \textit{crawling} halaman dan \textit{parsing} HTML tetap dilakukan secara berurutan agar hasil ekstraksi lebih terkontrol.
 \end{itemize}

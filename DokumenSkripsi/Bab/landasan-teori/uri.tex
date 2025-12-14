@@ -1,9 +1,9 @@
 \textit{Uniform Resource Identifier} (URI) adalah rangkaian karakter yang digunakan untuk mengidentifikasi suatu sumber daya, baik berupa entitas fisik maupun abstrak. URI menyediakan cara standar untuk merepresentasikan identitas sumber daya melalui sintaksis yang terstruktur. Terdapat dua bentuk utama URI, yaitu \textit{Uniform Resource Locator} (URL) dan \textit{Uniform Resource Name} (URN).  URL adalah URI yang menyertakan informasi lokasi dan mekanisme akses terhadap sumber daya, sedangkan URN adalah URI yang berfungsi sebagai nama tetap suatu sumber daya tanpa menyertakan lokasi penyimpanannya.
 
 
-\subsection{Struktur Sintaks URL}
+\subsection{Struktur Sintaksis URL}
 \label{subsec:0202-struktur-url}
-URL, sebagai bentuk URI yang bersifat hierarkis, memiliki struktur sintaks yang terdiri atas beberapa komponen. Format umum penulisan URL ditunjukkan sebagai berikut:
+URL sebagai bentuk URI yang bersifat hierarkis, memiliki struktur sintaksis yang terdiri atas beberapa komponen. Format umum penulisan URL ditunjukkan sebagai berikut:
 \begin{center}
 \texttt{scheme:[//[user:password@]host[:port]]path[?query][\#fragment]}
 \end{center}
@@ -11,20 +11,20 @@ URL, sebagai bentuk URI yang bersifat hierarkis, memiliki struktur sintaks yang 
 
 Komponen-komponen dalam URL dijelaskan sebagai berikut:
 \begin{itemize}
-  \item \textbf{Scheme}\\
-  Bagian ini dituliskan pada awal URL dan diakhiri dengan tanda titik dua (\texttt{:}). Scheme menunjukkan protokol atau mekanisme akses yang digunakan, seperti \texttt{http}, \texttt{https}, \texttt{ftp}, atau \texttt{mailto}.
+  \item \textbf{\textit{Scheme}}\\
+  Bagian ini dituliskan pada awal URL dan diakhiri dengan tanda titik dua (\texttt{:}). \textit{Scheme} menunjukkan protokol atau mekanisme akses yang digunakan, seperti \texttt{http}, \texttt{https}, \texttt{ftp}, atau \texttt{mailto}.
   
-  \item \textbf{Authority}\\
-  Bagian ini bersifat opsional dan diawali dengan dua garis miring (\texttt{//}). Authority dapat terdiri atas tiga subkomponen, yaitu \textit{userinfo}, \textit{host}, dan \textit{port}. \textit{Userinfo} berisi informasi pengguna dengan format \texttt{user:password@} yang digunakan dalam beberapa skema seperti FTP. \textit{Host} adalah lokasi sumber daya yang dapat berupa nama domain atau alamat IP. \textit{Port} adalah nomor port koneksi, contohnya seperti \texttt{80} untuk HTTP atau \texttt{443} untuk HTTPS. Jika port tidak dituliskan, maka \textit{port default} dari skema tersebut digunakan.
+  \item \textbf{\textit{Authority}}\\
+  Bagian ini bersifat opsional dan diawali dengan dua garis miring (\texttt{//}). \textit{Authority} dapat terdiri atas tiga subkomponen, yaitu \textit{userinfo}, \textit{host}, dan \textit{port}. \textit{Userinfo} berisi informasi pengguna dengan format \texttt{user:password@} yang digunakan dalam beberapa skema seperti FTP. \textit{Host} adalah lokasi sumber daya yang dapat berupa nama domain atau alamat IP. \textit{Port} adalah nomor port koneksi, contohnya seperti \texttt{80} untuk HTTP atau \texttt{443} untuk HTTPS. Jika port tidak dituliskan, maka \textit{port default} dari skema tersebut digunakan.
   
-  \item \textbf{Path}\\
-  Bagian ini menunjukkan jalur menuju sumber daya pada host. Path terdiri atas segmen-segmen yang dipisahkan tanda garis miring (\texttt{/}). Di dalamnya dapat terdapat \textit{dot-segments}, yaitu segmen khusus berupa sebuah titik (\texttt{.}) yang merujuk ke direktori saat ini dan dua titik (\texttt{..}) yang merujuk ke direktori induk.
+  \item \textbf{\textit{Path}}\\
+  Bagian ini menunjukkan jalur menuju sumber daya pada host. \textit{Path} terdiri atas segmen-segmen yang dipisahkan tanda garis miring (\texttt{/}). Di dalamnya dapat terdapat \textit{dot-segments}, yaitu segmen khusus berupa sebuah titik (\texttt{.}) yang merujuk ke direktori saat ini dan dua titik (\texttt{..}) yang merujuk ke direktori induk.
   
-  \item \textbf{Query}\\
-  Bagian ini bersifat opsional dan diawali dengan tanda tanya (\texttt{?}). Query berisi parameter dalam format pasangan \texttt{key=value}. Jika terdapat lebih dari satu parameter, maka masing-masing dipisahkan dengan tanda \texttt{\&}.
+  \item \textbf{\textit{Query}}\\
+  Bagian ini bersifat opsional dan diawali dengan tanda tanya (\texttt{?}). \textit{Query} berisi parameter dalam format pasangan \texttt{key=value}. Jika terdapat lebih dari satu parameter, maka masing-masing dipisahkan dengan tanda \texttt{\&}.
 
-  \item \textbf{Fragment}\\
-  Bagian ini bersifat opsional dan diawali dengan tanda pagar (\texttt{\#}). Fragment digunakan untuk merujuk ke bagian tertentu dari sumber daya. Informasi ini tidak dikirim ke server, melainkan diproses oleh agen pengguna seperti browser.
+  \item \textbf{\textit{Fragment}}\\
+  Bagian ini bersifat opsional dan diawali dengan tanda pagar (\texttt{\#}). \textit{Fragment} digunakan untuk merujuk ke bagian tertentu dari sumber daya. Informasi ini tidak dikirim ke server, melainkan diproses oleh agen pengguna seperti browser.
 \end{itemize}
 
 
@@ -33,23 +33,31 @@ Komponen-komponen dalam URL dijelaskan sebagai berikut:
 \subsection{Kategori Karakter dan \textit{Percent-Encoding}}
 \label{subsec:0202-karakter-percent-encoding}
 
-RFC~3986 menetapkan kategori karakter yang dapat digunakan dalam URI, beserta aturan pengkodeannya sebagai berikut:
-\begin{itemize}
-  \item \textbf{Unreserved characters}\\
+Kategori karakter yang dapat digunakan dalam URI dikelompokkan beserta aturan pengkodeannya sebagai berikut:
+\begin{itemize}[itemsep=5pt]
+  \item \textbf{\textit{Unreserved characters}}\\
   Karakter ini dapat digunakan langsung tanpa pengkodean tambahan. Termasuk di dalamnya huruf alfabet A sampai Z dan a sampai z, digit angka 0 sampai 9, serta simbol \texttt{-}, \texttt{\_}, \texttt{.}, dan \texttt{\textasciitilde}.
   
-  \item \textbf{Reserved characters}\\
-  Karakter ini memiliki fungsi khusus tergantung pada konteks penggunaannya. RFC membagi reserved characters menjadi dua kelompok. General delimiters meliputi \texttt{:}, \texttt{/}, \texttt{?}, \texttt{\#}, \texttt{[}, \texttt{]}, dan \texttt{@}. Subcomponent delimiters meliputi \texttt{!}, \texttt{\$}, \texttt{\&}, \texttt{'}, \texttt{(}, \texttt{)}, \texttt{*}, \texttt{+}, \texttt{,}, \texttt{;}, dan \texttt{=}. Jika karakter ini digunakan di luar konteks yang diperbolehkan, maka harus dikodekan.
+  \item \textbf{\textit{Reserved characters}}\\
+  Karakter ini memiliki fungsi khusus tergantung pada konteks penggunaannya. 
+  \textit{Reserved characters} dibagi menjadi dua kelompok yaitu \textit{general delimiters} dan \textit{subcomponent delimiters}. \textit{General delimiters} meliputi \texttt{:}, \texttt{/}, \texttt{?}, \texttt{\#}, \texttt{[}, \texttt{]}, dan \texttt{@}. \textit{Subcomponent delimiters} meliputi \texttt{!}, \texttt{\$}, \texttt{\&}, \texttt{'}, \texttt{(}, \texttt{)}, \texttt{*}, \texttt{+}, \texttt{,}, \texttt{;}, dan \texttt{=}. Jika karakter ini digunakan di luar konteks yang diperbolehkan, maka harus dikodekan.
   
   \item \textbf{Karakter lain}\\
   Karakter non-ASCII, spasi, dan simbol lain yang tidak termasuk dalam kategori \textit{Unreserved characters} dan \textit{Reserved characters} tidak dapat digunakan secara langsung. Karakter ini harus dikodekan sebelum dapat dimasukkan ke dalam URI.
 \end{itemize}
 
-Pengkodean karakter dilakukan dengan mekanisme \textit{percent-encoding}. Mekanisme ini menggantikan karakter dengan representasi heksadesimalnya dalam format \texttt{\%HH}, di mana \texttt{HH} adalah nilai ASCII karakter tersebut. Sebagai contoh, spasi ditulis sebagai \texttt{\%20}, tanda kutip ganda sebagai \texttt{\%22}, dan tanda pagar sebagai \texttt{\%23}. RFC juga mengatur bahwa karakter unreserved yang tidak perlu dikodekan sebaiknya dituliskan dalam bentuk aslinya. Selain itu, digit heksadesimal dalam \textit{percent-encoding} harus ditulis dengan huruf besar.
+\vspace{2mm}
+
+Pengkodean karakter dilakukan dengan mekanisme \textit{percent-encoding}. Mekanisme ini menggantikan karakter dengan representasi heksadesimalnya dalam format \texttt{\%HH}, di mana \texttt{HH} adalah nilai ASCII karakter tersebut. Sebagai contoh, spasi ditulis sebagai \texttt{\%20}, tanda kutip ganda sebagai \texttt{\%22}, dan tanda pagar sebagai \texttt{\%23}. RFC~3986 juga mengatur bahwa karakter \textit{unreserved} yang tidak perlu dikodekan sebaiknya dituliskan dalam bentuk aslinya. Selain itu, digit heksadesimal dalam \textit{percent-encoding} harus ditulis dengan huruf besar.
+
+
+\vspace{3mm}
 
 \subsection{Referensi Absolut dan Relatif}
 \label{subsec:0202-referensi-url}
 
-URL dapat berupa referensi absolut maupun relatif. URL absolut mencantumkan seluruh komponen utama termasuk scheme dan authority, sehingga dapat diinterpretasikan secara mandiri. Contohnya adalah \texttt{https://unpar.ac.id/page.html}. URL relatif tidak mencantumkan scheme atau authority dan hanya menyertakan path, query, atau fragment. Contohnya adalah \texttt{images/logo.png}. Selain itu terdapat pula \textit{same-document reference}, yaitu URL yang hanya berisi fragment untuk merujuk ke bagian tertentu dalam dokumen yang sama, contohnya \texttt{\#section2}.
+URL dapat berupa referensi absolut maupun relatif. URL absolut mencantumkan seluruh komponen utama termasuk \textit{scheme} dan \textit{authority}, sehingga dapat diinterpretasikan secara mandiri. Contohnya adalah \texttt{https://unpar.ac.id/page.html}. URL relatif tidak mencantumkan \textit{scheme} atau \textit{authority} dan hanya menyertakan \textit{path}, \textit{query}, atau \textit{fragment}. Contohnya adalah \texttt{images/logo.png}. Selain itu terdapat pula \textit{same-document reference}, yaitu URL yang hanya berisi \textit{fragment} untuk merujuk ke bagian tertentu dalam dokumen yang sama, contohnya \texttt{\#section2}.
 
-RFC~3986 mendefinisikan mekanisme resolusi yang digunakan untuk menyusun URL absolut dari sebuah referensi relatif. Resolusi dilakukan dengan menentukan base URI, menggabungkannya dengan URL relatif, lalu menyederhanakan hasilnya. Salah satu tahap penting dalam resolusi adalah penghapusan dot-segments. Prosedur ini menghilangkan segmen \texttt{.} dan \texttt{..} agar path hasil resolusi berada dalam bentuk yang ringkas dan tidak ambigu.
+RFC~3986 mendefinisikan mekanisme resolusi yang digunakan untuk menyusun URL absolut dari sebuah referensi relatif. Resolusi dilakukan dengan menentukan base URI, menggabungkannya dengan URL relatif, lalu menyederhanakan hasilnya. Salah satu tahap penting dalam resolusi adalah penghapusan \textit{dot-segments}. Prosedur ini menghilangkan segmen \texttt{.} dan \texttt{..} agar \textit{path} hasil resolusi berada dalam bentuk yang ringkas dan tidak ambigu.
+
+\vspace{20mm}
