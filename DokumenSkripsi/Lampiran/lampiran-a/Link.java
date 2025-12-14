@@ -7,19 +7,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Link {
-
    private final StringProperty url;
-
    private final StringProperty finalUrl = new SimpleStringProperty("");
-
    private final IntegerProperty statusCode = new SimpleIntegerProperty(0);
-
    private final StringProperty contentType = new SimpleStringProperty("");
-
    private final StringProperty error = new SimpleStringProperty("");
-
    private final BooleanProperty isWebpage = new SimpleBooleanProperty(false);
-
    private final Map<Link, String> webpageSources = new ConcurrentHashMap<>();
 
    public Link(String url) {
@@ -30,7 +23,7 @@ public class Link {
       this.url = new SimpleStringProperty(url);
    }
 
-   // ===============================
+   // ===================================================
    public String getUrl() {
       return url.get();
    }
@@ -39,7 +32,7 @@ public class Link {
       return url;
    }
 
-   // ===============================
+   // ===================================================
    public String getFinalUrl() {
       return finalUrl.get();
    }
@@ -52,7 +45,7 @@ public class Link {
       return finalUrl;
    }
 
-   // ===============================
+   // ===================================================
    public Integer getStatusCode() {
       return statusCode.get();
    }
@@ -70,8 +63,7 @@ public class Link {
       return statusCode;
    }
 
-   // ===============================
-
+   // ===================================================
    public String getContentType() {
       return contentType.get();
    }
@@ -84,7 +76,7 @@ public class Link {
       return contentType;
    }
 
-   // ===============================
+   // ===================================================
    public String getError() {
       return error.get();
    }
@@ -97,7 +89,7 @@ public class Link {
       return error;
    }
 
-   // ===============================
+   // ===================================================
    public boolean isWebpage() {
       return isWebpage.get();
    }
@@ -110,7 +102,7 @@ public class Link {
       return isWebpage;
    }
 
-   // ===============================
+   // ===================================================
    public void addWebpageSource(Link webpageLink, String anchorText) {
       if (webpageLink == null || webpageLink == this) {
          return;
@@ -123,7 +115,7 @@ public class Link {
       return webpageSources;
    }
 
-   // ===============================
+   // ===================================================
    @Override
    public boolean equals(Object obj) {
       if (this == obj)
@@ -141,5 +133,4 @@ public class Link {
    public int hashCode() {
       return getUrl().hashCode();
    }
-
 }

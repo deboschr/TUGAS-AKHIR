@@ -2,7 +2,6 @@ package com.unpar.brokenlinkscanner.utils;
 
 import javax.net.ssl.SSLHandshakeException;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.nio.charset.MalformedInputException;
@@ -35,7 +34,7 @@ public class ErrorHandler {
          Map.entry(511, "511 Network Authentication Required"));
 
    public static String getExceptionError(Throwable e) {
-      // ========== Thread dihentikan ==========
+      // ========== Thread dihentikan / e kosong ==========
       if (e == null || e instanceof InterruptedException || e instanceof CancellationException) {
          return "";
       }
@@ -47,7 +46,6 @@ public class ErrorHandler {
          root = root.getCause();
       }
 
-      String topName = top.getClass().getName();
       String topSimple = top.getClass().getSimpleName();
       String topMsg = top.getMessage() != null ? top.getMessage().toLowerCase() : "";
 
@@ -56,21 +54,16 @@ public class ErrorHandler {
       String msg = root.getMessage() != null ? root.getMessage().toLowerCase() : "";
 
       // ========== TIMEOUT ==========
-      if (topSimple.contains("HttpTimeoutException") ||
-            topSimple.contains("HttpConnectTimeoutException") ||
-            simple.contains("HttpTimeoutException") ||
-            simple.contains("HttpConnectTimeoutException") ||
-            msg.contains("timed out") ||
-            topMsg.contains("timed out")) {
+      if (topSimple.contains("HttpTimeoutException") || topSimple.contains("HttpConnectTimeoutException")
+            || simple.contains("HttpTimeoutException") || simple.contains("HttpConnectTimeoutException")
+            || msg.contains("timed out") || topMsg.contains("timed out")) {
 
          return "Timeout";
       }
 
       // ========== HOST NOT FOUND ==========
-      if (root instanceof UnknownHostException ||
-            msg.contains("unknown host") ||
-            msg.contains("no such host") ||
-            simple.contains("UnresolvedAddressException")) {
+      if (root instanceof UnknownHostException || msg.contains("unknown host") || msg.contains("no such host")
+            || simple.contains("UnresolvedAddressException")) {
 
          return "Host Not Found";
       }
@@ -84,23 +77,16 @@ public class ErrorHandler {
          return "Connection Closed";
 
       // ========== SSL ERRORS ==========
-      if (root instanceof SSLHandshakeException ||
-            root instanceof CertificateException ||
-            name.contains("SunCertPathBuilderException") ||
-            msg.contains("certificate") ||
-            msg.contains("pkix path") ||
-            msg.contains("unable to find valid certification path") ||
-            msg.contains("ssl") ||
-            msg.contains("tls")) {
+      if (root instanceof SSLHandshakeException || root instanceof CertificateException
+            || name.contains("SunCertPathBuilderException") || msg.contains("certificate") || msg.contains("pkix path")
+            || msg.contains("unable to find valid certification path") || msg.contains("ssl") || msg.contains("tls")) {
 
          return "SSL Error";
       }
 
       // ========== INVALID URL ==========
-      if (root instanceof MalformedURLException ||
-            root instanceof MalformedInputException ||
-            root instanceof IllegalArgumentException) {
-
+      if (root instanceof MalformedURLException || root instanceof MalformedInputException
+            || root instanceof IllegalArgumentException) {
          return "Invalid URL";
       }
 
@@ -109,7 +95,7 @@ public class ErrorHandler {
          return "I/O Error";
       }
 
-      return simple;
+      return topSimple;
    }
 
    public static String getHttpError(int statusCode) {

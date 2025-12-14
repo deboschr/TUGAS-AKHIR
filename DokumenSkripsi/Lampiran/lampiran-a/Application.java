@@ -90,7 +90,8 @@ public class Application extends javafx.application.Application {
             FXMLLoader loader = new FXMLLoader(fxml);
 
             /**
-             * Set controller factory supaya kita bisa inject parameter (Link) ke LinkController constructor.
+             * Set controller factory supaya kita bisa inject parameter (Link) ke
+             * LinkController constructor.
              */
             loader.setControllerFactory(param -> {
                 // Kalau controller yang diminta adalah LinkController
@@ -147,12 +148,14 @@ public class Application extends javafx.application.Application {
             FXMLLoader loader = new FXMLLoader(fxml);
 
             /**
-             * Set controller factory supaya kita bisa inject parameter (type, message) ke NotifController constructor.
+             * Set controller factory supaya kita bisa inject parameter (type, message) ke
+             * NotifController constructor.
              */
             loader.setControllerFactory(param -> {
                 // Kalau controller yang diminta adalah NotifController
                 if (param == NotifController.class) {
-                    // Buat NotifController dengan constructor yang menerima parameter type dan message
+                    // Buat NotifController dengan constructor yang menerima parameter type dan
+                    // message
                     return new NotifController(type, message);
                 }
 
