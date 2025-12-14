@@ -138,7 +138,7 @@ Sesuai dengan prinsip pengujian bahwa akurasi hasil pemeriksaan lebih dipriorita
 % ###########################################################################
 % ###########################################################################
 % ###########################################################################
-\subsubsection{Kesimpulan Akhir Pengujian}
+\subsubsection{Kesimpulan Akhir Pengujian Eksperimental}
 \label{subsubsec:05020303-kesimpulan-akhir-pengujian}
 Berdasarkan rangkaian pengujian yang telah dilakukan terhadap tiga parameter operasional, yaitu \texttt{INTERVAL}, \texttt{CONNECTION\_TIMEOUT}, dan \texttt{REQUEST\_TIMEOUT}, diperoleh kesimpulan bahwa setiap parameter memiliki pengaruh yang berbeda terhadap durasi pemeriksaan dan hasil identifikasi tautan rusak. Sesuai dengan prinsip pengujian bahwa akurasi hasil pemeriksaan lebih diprioritaskan dibandingkan durasi eksekusi, penetapan nilai terbaik pada setiap parameter dilakukan berdasarkan konsistensi hasil serta minimnya \textit{error} yang tidak mencerminkan kondisi tautan yang sebenarnya.
 
@@ -169,20 +169,16 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
    \item \textbf{Pengujian pada Informatika UNPAR}\footnote{\url{https://informatika.unpar.ac.id} (Diakses pada 6 Desember 2025)} \\[2pt]
    Hasil pengujian pada situs web Informatika UNPAR ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unpar}. 
 
-   % \vspace{5mm}
 
    \input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unpar.tex}
    
-   % \vspace{30mm}
 
    Berikut adalah penjelasan dari perbedaan hasil pemeriksaan pada ketiga perangkat lunak berdasarkan Tabel~\ref{tab:hasil-pengujian-if-unpar}:
 
-   % [itemsep=5pt]
    \begin{itemize}
       \item \textbf{Host Not Found}.  
       Broken Link Scanner mendeteksi 14 tautan dengan kategori \textit{Host Not Found}, lebih banyak dibandingkan Broken Link Checker yang mendeteksi 11 tautan dan Dead Link Checker yang mendeteksi 7 tautan. Setelah dilakukan pemeriksaan manual, seluruh 14 tautan yang ditemukan oleh Broken Link Scanner memang tidak dapat diakses. Selain itu, semua tautan yang teridentifikasi oleh Broken Link Checker dan Dead Link Checker merupakan bagian dari 14 tautan milik Broken Link Scanner.
 
-      % \vspace{10mm}
 
       \item \textbf{I/O Error}.  
       Pada kategori ini, hanya Broken Link Scanner yang menghasilkan I/O \textit{Error}, sedangkan Broken Link Checker dan Dead Link Checker mengategorikan tautan yang sama sebagai SSL \textit{Error}. URL pada tautan tersebut adalah \url{https://kiri.travel/}. Berdasarkan pemeriksaan manual, situs ini menunjukkan perilaku yang tidak stabil, terkadang menampilkan halaman keamanan, terkadang mengarahkan ke situs yang tidak relevan seperti halaman perjudian, dan pada waktu lain membuka halaman unduhan berkas.
@@ -231,7 +227,7 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
    
 
    \item \textbf{Pengujian pada Informatika UNPAD}\footnote{\url{https://informatika.unpad.ac.id} (Diakses pada 6 Desember 2025)} \\[2pt]
-   Hasil pengujian pada situs web Informatika UNPAR ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unpad}.
+   Hasil pengujian pada situs web Informatika UNPAD ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unpad}.
 
    
    \input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unpad.tex}
@@ -284,13 +280,16 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
 
       \item \textbf{522}.  
       Broken Link Scanner mendeteksi 5 tautan, Broken Link Checker mendeteksi 1 tautan, dan Dead Link Checker tidak mendeteksi tautan dengan status ini. Pemeriksaan manual menunjukkan bahwa kelima tautan tersebut benar-benar mengembalikan status non-standar 522.
+
+      \item \textbf{999}.  
+      Hanya Broken Link Scanner dan Dead Link Checker yang mendapatkan tautan pada kategori \textit{error} ini. Tautan tersebut adalah \url{https://www.linkedin.com/school/universitas-padjadjaran}. Setelah diperiksa secara manual, ternyata memerlukan autentikasi untuk mengakses tautan ini.
    \end{itemize}
 
-   \vspace{5mm}
+   % \vspace{5mm}
 
 
    \item \textbf{Pengujian pada Informatika UNPAS}\footnote{\url{https://if.unpas.ac.id} (Diakses pada 6 Desember 2025)} \\[2pt]
-   Hasil pengujian pada situs web Informatika UNPAR ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unpas}. 
+   Hasil pengujian pada situs web Informatika UNPAS ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unpas}. 
    
    \input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unpas.tex}
    
@@ -331,7 +330,7 @@ Berikut adalah hasil pengujian pada keempat situs web menggunakan tiga perangkat
 
 
    \item \textbf{Pengujian pada Informatika UNIKOM}\footnote{\url{https://if.unikom.ac.id} (Diakses pada 6 Desember 2025)} \\[2pt]
-   Hasil pengujian pada situs web Informatika UNPAR ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unikom}. 
+   Hasil pengujian pada situs web Informatika UNIKOM ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unikom}. 
    
    \input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unikom.tex}
 

@@ -21,7 +21,10 @@
    <!-- ===================== CONTENT ===================== -->
    <center>
       <HBox spacing="16" styleClass="content-area">
+         <!-- ======== Ikon Jenis Notifikasi (Error, Warning, Success) ======== -->
          <Label fx:id="iconLabel" styleClass="icon-label" />
+         
+         <!-- ======== Pesan Notifikasi ======== -->
          <Label fx:id="messageLabel" wrapText="true" styleClass="message-text" />
       </HBox>
    </center>

@@ -1,10 +1,10 @@
-Bagian ini memaparkan hasil implementasi antarmuka pengguna berdasarkan perancangan yang telah dibuat pada perancangan antarmuka (lihat Subbab~\ref{sec:040300-perancangan-antarmuka}). Antarmuka pengguna dikembangkan menggunakan JavaFX dengan struktur tampilan yang diatur melalui berkas FXML dan gaya visual yang diatur melalui berkas CSS. Berikut adalah penjelasan dari setiap hasil implementasi antarmuka pengguna:
+Bagian ini memaparkan hasil implementasi antarmuka pengguna berdasarkan perancangan yang telah dibuat pada perancangan antarmuka pengguna (lihat Subbab~\ref{sec:040300-perancangan-antarmuka-pengguna}). Antarmuka pengguna dikembangkan menggunakan JavaFX dengan struktur tampilan yang diatur melalui berkas FXML dan gaya visual yang diatur melalui berkas CSS. Berikut adalah penjelasan dari setiap hasil implementasi antarmuka pengguna:
 
 \vspace{5mm}
 
 \begin{enumerate}
     \item \textbf{Jendela Utama}\\
-    Hasil implementasi jendela utama aplikasi dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-utama}, implementasi ini didasarkan pada perancangan jendela utama yang telah dibuat sebelumnya (lihat Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}). Struktur tampilan dari jendela ini diatur melalui berkas \texttt{main-scene.fxml} (lihat Lampiran~\ref{code:main-scene-fxml}), gaya visualnya diatur melalui berkas \texttt{main-style.css} (lihat Lampiran~\ref{code:main-style-css}), serta logika pengendali antarmuka diatur melalui kelas \texttt{MainController.java} (lihat Lampiran~\ref{code:main-controller-java}).
+    Hasil implementasi jendela utama aplikasi dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-utama}, implementasi ini didasarkan pada perancangan jendela utama yang telah dibuat sebelumnya (lihat Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}). Struktur tampilan dari jendela ini diatur melalui berkas \texttt{main-scene.fxml} (lihat Lampiran~\ref{code:main-scene-fxml}), gaya visualnya diatur melalui berkas \texttt{main-style.css} (lihat Lampiran~\ref{code:main-style-css}), serta logika pengendali antarmuka pengguna diatur melalui kelas \texttt{MainController.java} (lihat Lampiran~\ref{code:main-controller-java}).
 
     Seluruh komponen antarmuka pengguna pada rancangan jendela utama telah berhasil diimplementasikan. Pada jendela ini terdapat kolom masukan URL, tombol kontrol \textit{Start} dan \textit{Stop}, \textit{filter}, \textit{pagination}, ringkasan proses pemeriksaan, ringkasan tabel, serta tabel hasil. Pengguna dapat memasukkan URL situs web yang menjadi awal proses pemeriksaan, menjalankan dan menghentikan proses pemeriksaan, melakukan penyaringan terhadap hasil yang ditampilkan pada tabel, serta melakukan ekspor terhadap hasil pemeriksaan dengan menekan tombol \textit{Export}.
 
@@ -20,9 +20,9 @@ Bagian ini memaparkan hasil implementasi antarmuka pengguna berdasarkan perancan
     \vspace{15mm}
 
     \item \textbf{Jendela Detail Tautan}\\
-    Hasil implementasi jendela detail tautan dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-detail-tautan}, implementasi ini didasarkan pada perancangan jendela detail tautan yang telah dibuat sebelumnya (lihat Gambar~\ref{fig:rancangan-antarmuka-jendela-detail-tautan}). Struktur tampilan dari jendela ini diatur melalui berkas \texttt{link-scene.fxml} (lihat Lampiran~\ref{code:link-scene-fxml}), gaya visualnya diatur melalui berkas \texttt{link-style.css} (lihat Lampiran~\ref{code:link-style-css}), serta logika pengendali antarmuka diatur melalui kelas \texttt{LinkController.java} (lihat Lampiran~\ref{code:link-controller-java}).
+    Hasil implementasi jendela detail tautan dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-detail-tautan}, implementasi ini didasarkan pada perancangan jendela detail tautan yang telah dibuat sebelumnya (lihat Gambar~\ref{fig:rancangan-antarmuka-jendela-detail-tautan}). Struktur tampilan dari jendela ini diatur melalui berkas \texttt{link-scene.fxml} (lihat Lampiran~\ref{code:link-scene-fxml}), gaya visualnya diatur melalui berkas \texttt{link-style.css} (lihat Lampiran~\ref{code:link-style-css}), serta logika pengendali antarmuka pengguna diatur melalui kelas \texttt{LinkController.java} (lihat Lampiran~\ref{code:link-controller-java}).
 
-    Seluruh rancangan komponen antarmuka jendela detail tautan telah berhasil diimplementasikan pada jendela ini. Pada jendela ini ditampilkan informasi lengkap dari sebuah tautan, yaitu URL, \textit{final} URL, \textit{content type}, \textit{error} serta daftar sumber halaman tempat tautan ditemukan yang ditampilkan dalam bentuk tabel.
+    Seluruh rancangan komponen antarmuka pengguna jendela detail tautan telah berhasil diimplementasikan pada jendela ini. Pada jendela ini ditampilkan informasi lengkap dari sebuah tautan, yaitu URL, \textit{final} URL, \textit{content type}, \textit{error} serta daftar sumber halaman tempat tautan ditemukan yang ditampilkan dalam bentuk tabel.
 
 
     \begin{figure}[H]
@@ -34,9 +34,9 @@ Bagian ini memaparkan hasil implementasi antarmuka pengguna berdasarkan perancan
 
 
     \item \textbf{Jendela Notifikasi}\\
-    Jendela notifikasi digunakan untuk menampilkan pesan singkat kepada pengguna. Pesan dikategorikan menjadi tiga jenis pesan, yaitu pesan \textit{error}, peringatan, dan berhasil. Pada awalnya jendela ini diimplementasikan menggunakan jendela notifikasi bawaan dari sistem operasi, namun untuk kebutuhan menyelaraskan seluruh tampilan antarmuka yang ada, maka jendela ini dibangun menggunakan FXML secara manual.
+    Jendela notifikasi digunakan untuk menampilkan pesan singkat kepada pengguna. Pesan dikategorikan menjadi tiga jenis pesan, yaitu pesan \textit{error}, \textit{warning}, dan \textit{success}. Pada awalnya jendela ini diimplementasikan menggunakan jendela notifikasi bawaan dari sistem operasi, namun untuk kebutuhan menyelaraskan seluruh tampilan antarmuka pengguna yang ada, maka jendela ini dibangun menggunakan FXML secara manual.
     
-    Hasil implementasi jendela ini dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-notifikasi}. Struktur tampilan dari jendela ini diatur melalui berkas \texttt{notif-scene.fxml} (lihat Lampiran~\ref{code:notif-scene-fxml}), gaya visualnya diatur melalui berkas \texttt{notif-style.css} (lihat Lampiran~\ref{code:notif-style-css}), serta logika pengendali antarmuka diatur melalui kelas \texttt{NotifController.java} (lihat Lampiran~\ref{code:notif-controller-java}).
+    Hasil implementasi jendela ini dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-notifikasi}. Struktur tampilan dari jendela ini diatur melalui berkas \texttt{notif-scene.fxml} (lihat Lampiran~\ref{code:notif-scene-fxml}), gaya visualnya diatur melalui berkas \texttt{notif-style.css} (lihat Lampiran~\ref{code:notif-style-css}), serta logika pengendali antarmuka pengguna diatur melalui kelas \texttt{NotifController.java} (lihat Lampiran~\ref{code:notif-controller-java}).
 
 
 

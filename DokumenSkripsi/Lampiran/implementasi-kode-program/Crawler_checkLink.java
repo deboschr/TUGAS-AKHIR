@@ -1,6 +1,5 @@
 private Document checkLink(Link link, boolean isParseDoc) {
-   Link existingLink = repositories.get(link.getUrl());
-   if (existingLink != null || repositories.size() > MAX_LINKS) return null;
+   if (repositories.get(link.getUrl()) != null || repositories.size() > MAX_LINKS) return null;
    
    try {
       RateLimiter limiter = rateLimiters.computeIfAbsent(UrlHandler.getHost(link.getUrl()), h -> new RateLimiter());
@@ -20,18 +19,19 @@ private Document checkLink(Link link, boolean isParseDoc) {
       link.setStatusCode(res.statusCode());
       
       Document html = null;   
-      boolean isOk = link.getStatusCode() == 200 && res.body() != null;
+      boolean isFetchOk = link.getStatusCode() == 200 && res.body() != null;
       boolean isSameHost = UrlHandler.getHost(link.getFinalUrl()).equalsIgnoreCase(rootHost);
       
-      if (isParseDoc && isOk && isSameHost) {
-         String body = (String) res.body();
+      if (isParseDoc && isFetchOk && isSameHost) {
          try {
+            String body = (String) res.body();
             html = Jsoup.parse(body, link.getFinalUrl());
             link.setIsWebpage(true);
          } catch (Exception ignore) {
             html = null;
          }
       }
+
       return html;
    } catch (Throwable e) {
       link.setError(ErrorHandler.getExceptionError(e));

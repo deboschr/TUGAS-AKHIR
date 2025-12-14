@@ -5,7 +5,7 @@
 |>{\raggedright\arraybackslash}p{4.5cm} 
 |>{\raggedright\arraybackslash}p{4.5cm}
 |>{\raggedright\arraybackslash}p{4.5cm}|}
-\caption{Hasil Pengujian Fungsional Tombol}
+\caption{Hasil pengujian fungsional tombol}
 \vspace{-3mm}
 \label{tab:hasil-pengujian-fungsional-tombol} \\
 
@@ -37,17 +37,17 @@
 
 1 &
 Menekan tombol \textit{Start} ketika status aplikasi berada pada status \texttt{IDLE}. &
-Proses crawling dimulai, data lama dibersihkan, dan status berubah menjadi \texttt{CHECKING}. &
+Proses \textit{crawling} dimulai, data lama dibersihkan, dan status berubah menjadi \texttt{CHECKING}. &
 Aplikasi mengubah status menjadi \texttt{CHECKING} dan memulai proses pemeriksaan. \\ \hline
 
 2 &
-Menekan tombol \textit{Start} ketika status aplikasi berada pada status \texttt{CHECKING}, \texttt{STOPPED} atau \texttt{COMPLETED}. &
+Menekan tombol \textit{Start} ketika status aplikasi berada pada status \texttt{CHECKING}, \texttt{STOPPED}, atau \texttt{COMPLETED}. &
 Proses pemeriksaan dimulai ulang dan status berubah menjadi \texttt{CHECKING}. &
 Aplikasi membersihkan data lama, mengubah status menjadi \texttt{CHECKING} dan memulai ulang proses pemeriksaan. \\ \hline
 
 3 &
 Menekan tombol \textit{Stop} ketika status aplikasi berada pada status \texttt{CHECKING}. &
-Proses crawling dihentikan dan status berubah menjadi \texttt{STOPPED}. &
+Proses \textit{crawling} dihentikan dan status berubah menjadi \texttt{STOPPED}. &
 Aplikasi menghentikan proses pemeriksaan yang sedang berjalan dan mengubah status menjadi \texttt{STOPPED}. \\ \hline
 
 4 &
@@ -74,7 +74,6 @@ Aplikasi menampilkan notifikasi \textit{warning} \textit{``There are no broken l
 Menekan tombol \textit{Export} lalu membatalkan dialog penyimpanan berkas. &
 Proses ekspor dibatalkan tanpa ada perubahan status aplikasi. &
 Aplikasi tidak memproses ekspor. \\ \hline
-
 
 
 \end{longtable}

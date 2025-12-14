@@ -3,7 +3,7 @@ public void start(String seedUrl) {
    repositories.clear();
    rateLimiters.clear();
    frontier.clear();
-   if (executor != null) executor.shutdownNow();
+   
    executor = Executors.newVirtualThreadPerTaskExecutor();
    rootHost = UrlHandler.getHost(seedUrl);
    frontier.offer(new Link(seedUrl));

@@ -2,16 +2,10 @@
 
 Berdasarkan rangkaian pengembangan dan pengujian yang telah dilakukan, diperoleh beberapa kesimpulan sebagai berikut:
 
-% \vspace{3mm}
 \begin{enumerate}[itemsep=-1pt]
-   % DONE!!
    \item Penelitian ini berhasil menghasilkan sebuah aplikasi desktop yang mampu melakukan pemeriksaan tautan rusak pada sebuah situs web. Aplikasi mampu melakukan proses \textit{web crawling} mulai dari satu URL awal, menelusuri halaman situs web yang saling terhubung, mengekstrak tautan pada setiap halaman, serta melakukan pemeriksaan tautan melalui integrasi pustaka Java \texttt{HttpClient} untuk \textit{fetching} dan Jsoup untuk \textit{parsing}. Hasil pemeriksaan ditampilkan secara \textit{real-time} melalui antarmuka pengguna dan data hasil pemeriksaan dapat diekspor ke dalam berkas Excel. Dengan demikian, seluruh tujuan penelitian terkait pengembangan perangkat lunak berhasil dicapai.
    
-   
-   % DONE!!
    \item Pengujian eksperimental menunjukkan bahwa setiap parameter operasional memberikan pengaruh yang berbeda terhadap hasil pemeriksaan. Parameter \texttt{CONNECTION\_TIMEOUT} dan \texttt{REQUEST\_TIMEOUT} berpengaruh langsung terhadap kualitas hasil pemeriksaan. Nilai yang terlalu kecil secara konsisten menyebabkan meningkatnya jumlah kesalahan pada kategori \textit{Timeout} yang tidak selalu mencerminkan kondisi tautan sebenarnya, sedangkan nilai yang lebih besar menghasilkan hasil pemeriksaan yang lebih stabil. Sementara itu, parameter \texttt{INTERVAL} tidak memengaruhi akurasi hasil pemeriksaan dan hanya menambah durasi eksekusi, karena waktu pemeriksaan bertambah seiring dengan meningkatnya nilai \texttt{INTERVAL}. Dengan demikian, kombinasi nilai terbaik untuk ketiga parameter adalah \texttt{INTERVAL} sebesar 0~milidetik, \texttt{CONNECTION\_TIMEOUT} sebesar 20~detik, dan \texttt{REQUEST\_TIMEOUT} sebesar 20~detik.
    
-   
-   % DONE!!
-   \item Hasil perbandingan dengan Broken Link Checker dan Dead Link Checker menunjukkan bahwa perbedaan cakupan pemeriksaan merupakan faktor utama yang menyebabkan variasi hasil pemeriksaan. Kedua perangkat lunak pembanding memeriksa lebih banyak elemen HTML, seperti \texttt{<img>}, \texttt{<form>}, atau URL yang muncul pada berkas CSS, sedangkan aplikasi yang dikembangkan dalam penelitian ini hanya memeriksa tautan pada elemen \texttt{<a>}. Akibatnya, perangkat lunak pembanding sering kali menemukan lebih banyak tautan rusak daripada aplikasi yang dikembangkan dalam penelitian ini. Dengan demikian, dapat disimpulkan bahwa perbedaan hasil pemeriksaan antarperangkat lunak disebabkan oleh perbedaan jangkauan elemen HTML yang diperiksa.
+   \item Hasil perbandingan dengan Broken Link Checker dan Dead Link Checker menunjukkan bahwa perbedaan cakupan pemeriksaan merupakan faktor utama yang menyebabkan variasi hasil pemeriksaan. Kedua perangkat lunak pembanding memeriksa lebih banyak elemen HTML, seperti \texttt{<img>}, \texttt{<link>}, atau URL yang muncul pada berkas CSS, sedangkan aplikasi yang dikembangkan dalam penelitian ini hanya memeriksa tautan pada elemen \texttt{<a>}. Akibatnya, perangkat lunak pembanding sering kali menemukan lebih banyak tautan rusak daripada aplikasi yang dikembangkan dalam penelitian ini. Dengan demikian, dapat disimpulkan bahwa perbedaan hasil pemeriksaan antarperangkat lunak disebabkan oleh perbedaan jangkauan elemen HTML yang diperiksa.
 \end{enumerate}

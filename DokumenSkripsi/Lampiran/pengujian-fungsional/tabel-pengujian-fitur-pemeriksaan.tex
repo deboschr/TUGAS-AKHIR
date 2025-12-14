@@ -1,10 +1,10 @@
-\renewcommand{\arraystretch}{1.4}
+\renewcommand{\arraystretch}{1.5}
 \begin{longtable}{
 |>{\centering\arraybackslash}p{1cm}
 |>{\raggedright\arraybackslash}p{4.5cm} 
 |>{\raggedright\arraybackslash}p{4.5cm}
 |>{\raggedright\arraybackslash}p{4.5cm}|}
-\caption{Hasil Pengujian Fungsional Fitur Pemeriksaan}
+\caption{Hasil pengujian fungsional fitur pemeriksaan}
 \vspace{-3mm}
 \label{tab:hasil-pengujian-fungsional-fitur-pemeriksaan} \\
 
@@ -46,7 +46,7 @@ Seluruh daftar URL halaman menunjukkan bahwa \textit{host}-nya ``informatika.unp
 3 &
 Membuat \textit{counter} untuk masing-masing URL yang ditemukan, lalu tampilkan jendela notifikasi jika \textit{counter} lebih dari satu. &
 Aplikasi tidak membuka jendela notifikasi untuk menampilkan pesan tautan diperiksa lebih dari satu kali. &
-Pemeriksaan berjalan sampai proses selesai tanpa menampilkan jendela notifikasi apapun. \\ \hline
+Pemeriksaan berjalan sampai proses selesai tanpa menampilkan jendela notifikasi apa pun. \\ \hline
 
 
 4 &
@@ -62,22 +62,22 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
 % ###################################################################################
 % ###################################################################################
 
-\renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1.8}
 \begin{table}[H]
    \centering
-   \caption{Ringkasan Proses Pemeriksaan}
+   \caption{Ringkasan proses pemeriksaan}
    \vspace{3mm}
    \label{tab:ringkasan-proses-pemeriksaan-fitur-pemeriksaan}
    
    \begin{tabular}{|p{7cm}|p{5cm}|}
       \hline      
       \textbf{Status Pemeriksaan} & COMPLETED \\ \hline
-      \textbf{Waktu Mulai Pemeriksaan} & 26-11-2025 06:41:36 \\ \hline
-      \textbf{Waktu Selesai Pemeriksaan} & 26-11-2025 06:54:43 \\ \hline
-      \textbf{Durasi Pemeriksaan} & 13~menit 6~detik \\ \hline
-      \textbf{Jumlah Total Tautan} & 602 \\ \hline
-      \textbf{Jumlah Tautan Halaman} & 302 \\ \hline
-      \textbf{Jumlah Tautan Rusak} & 80 \\ \hline
+      \textbf{Waktu Mulai Pemeriksaan} & 2-12-2025 06:41:36 \\ \hline
+      \textbf{Waktu Selesai Pemeriksaan} & 2-12-2025 06:54:43 \\ \hline
+      \textbf{Durasi Pemeriksaan} & 13~menit 7~detik \\ \hline
+      \textbf{Jumlah Total Tautan} & 603 \\ \hline
+      \textbf{Jumlah Tautan Halaman} & 369 \\ \hline
+      \textbf{Jumlah Tautan Rusak} & 74 \\ \hline
    \end{tabular}
 \end{table}
 
@@ -85,12 +85,12 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
 % ###################################################################################
 % ###################################################################################
 
-\renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1.4}
 \begin{longtable}{
    |>{\raggedright\arraybackslash}m{4cm}
    |>{\raggedright\arraybackslash}m{6cm}
    |>{\centering\arraybackslash}m{2cm}|}
-\caption{Ringkasan Tautan Rusak}
+\caption{Ringkasan tautan rusak}
 \vspace{-3mm}
 \label{tab:ringkasan-tautan-rusak-fitur-pemeriksaan} \\
 \hline
@@ -119,11 +119,11 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
 % ********************************************
 
 \multirow{5}{*}{\textbf{Connection Error}}
- & ConnectException & 13 \\ \cline{2-3}
- & HttpConnectTimeoutException & 5 \\ \cline{2-3}
- & IOException & 1 \\ \cline{2-3}
- & IllegalArgumentException & 1 \\ \cline{2-3}
- & SSLHandshakeException & 5 \\ \hline
+ & Host Not Found & 14 \\ \cline{2-3}
+ & I/O Error & 1 \\ \cline{2-3}
+ & Invalid URL & 1 \\ \cline{2-3}
+ & SSL Error & 6 \\ \cline{2-3}
+ & Timeout & 3 \\ \hline
 
 \multicolumn{2}{|c|}{{\centering\textbf{Total Connection Error}}} &
 {\centering\arraybackslash\textbf{25}} \\ \hline
@@ -133,12 +133,11 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
 \multirow{5}{*}{\textbf{4XX Client Error}}
  & 400 Bad Request & 2 \\ \cline{2-3}
  & 403 Forbidden & 12 \\ \cline{2-3}
- & 404 Not Found & 31 \\ \cline{2-3}
+ & 404 Not Found & 29 \\ \cline{2-3}
  & 410 Gone & 1 \\ \cline{2-3}
- & 429 Too Many Requests & 4 \\ \hline
 
 \multicolumn{2}{|c|}{{\centering\textbf{Total 4XX Client Error}}} &
-{\centering\arraybackslash\textbf{50}} \\ \hline
+{\centering\arraybackslash\textbf{44}} \\ \hline
 
 % ********************************************
 

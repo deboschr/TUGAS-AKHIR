@@ -28,12 +28,7 @@ import java.awt.*;
 import java.io.File;
 import java.net.URI;
 
-/**
- * Controller utama aplikasi Broken Link Checker.
- */
 public class MainController implements LinkReceiver {
-
-   // =================================================================================================
    @FXML
    private HBox titleBar, paginationBar;
    @FXML
@@ -50,8 +45,6 @@ public class MainController implements LinkReceiver {
    private TableView<Link> brokenLinkTable;
    @FXML
    private TableColumn<Link, String> errorColumn, urlColumn;
-
-   // =================================================================================================
 
    private final ObservableList<Link> allLinks = FXCollections.observableArrayList();
 
