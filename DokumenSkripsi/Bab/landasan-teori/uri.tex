@@ -1,34 +1,44 @@
 \textit{Uniform Resource Identifier} (URI) adalah rangkaian karakter yang digunakan untuk mengidentifikasi suatu sumber daya, baik berupa entitas fisik maupun abstrak. URI menyediakan cara standar untuk merepresentasikan identitas sumber daya melalui sintaksis yang terstruktur. Terdapat dua bentuk utama URI, yaitu \textit{Uniform Resource Locator} (URL) dan \textit{Uniform Resource Name} (URN).  URL adalah URI yang menyertakan informasi lokasi dan mekanisme akses terhadap sumber daya, sedangkan URN adalah URI yang berfungsi sebagai nama tetap suatu sumber daya tanpa menyertakan lokasi penyimpanannya.
 
 
-\subsection{Struktur Sintaksis URL}
+\subsection{Struktur URL}
 \label{subsec:0202-struktur-url}
-URL sebagai bentuk URI yang bersifat hierarkis, memiliki struktur sintaksis yang terdiri atas beberapa komponen. Format umum penulisan URL ditunjukkan sebagai berikut:
+URL khusus untuk skema \texttt{http} atau \texttt{https} memiliki strukturnya tersendiri. Pada struktur URL ini terdapat tujuh komponen dan komponen yang ditandai dengan karakter kurung siku artinya komponen tersebut bersifat opsional. Berikut adalah struktur dari URL tersebut:
+
+\vspace{5mm}
+
 \begin{center}
-\texttt{scheme:[//[user:password@]host[:port]]path[?query][\#fragment]}
+\texttt{scheme ":" "//" [userinfo "@"] host [":" port] path-abempty ["?" query] ["\#" fragment]}
 \end{center}
 
+\vspace{5mm}
 
-Komponen-komponen dalam URL dijelaskan sebagai berikut:
-\begin{itemize}
+Komponen-komponen dalam URL tersebut dijelaskan sebagai berikut:
+\begin{itemize}[itemsep=5pt]
   \item \textbf{\textit{Scheme}}\\
-  Bagian ini dituliskan pada awal URL dan diakhiri dengan tanda titik dua (\texttt{:}). \textit{Scheme} menunjukkan protokol atau mekanisme akses yang digunakan, seperti \texttt{http}, \texttt{https}, \texttt{ftp}, atau \texttt{mailto}.
-  
-  \item \textbf{\textit{Authority}}\\
-  Bagian ini bersifat opsional dan diawali dengan dua garis miring (\texttt{//}). \textit{Authority} dapat terdiri atas tiga subkomponen, yaitu \textit{userinfo}, \textit{host}, dan \textit{port}. \textit{Userinfo} berisi informasi pengguna dengan format \texttt{user:password@} yang digunakan dalam beberapa skema seperti FTP. \textit{Host} adalah lokasi sumber daya yang dapat berupa nama domain atau alamat IP. \textit{Port} adalah nomor port koneksi, contohnya seperti \texttt{80} untuk HTTP atau \texttt{443} untuk HTTPS. Jika port tidak dituliskan, maka \textit{port default} dari skema tersebut digunakan.
-  
-  \item \textbf{\textit{Path}}\\
-  Bagian ini menunjukkan jalur menuju sumber daya pada host. \textit{Path} terdiri atas segmen-segmen yang dipisahkan tanda garis miring (\texttt{/}). Di dalamnya dapat terdapat \textit{dot-segments}, yaitu segmen khusus berupa sebuah titik (\texttt{.}) yang merujuk ke direktori saat ini dan dua titik (\texttt{..}) yang merujuk ke direktori induk.
-  
+  Komponen ini bersifat wajib serta diakhiri dengan tanda titik dua (\texttt{:}) dan dua garis miring (\texttt{//}). \textit{Scheme} menunjukkan protokol yang digunakan untuk mengakses sumber daya. Pada URL khusus untuk protokol HTTP, nilai yang digunakan adalah \texttt{http} atau \texttt{https} yang didefinisikan dalam format penulisan \textit{lowercase}.
+
+  \item \textbf{\textit{User Info}}\\
+  Komponen ini bersifat opsional dan diakhiri dengan tanda at (\texttt{@}). \textit{User info} digunakan untuk menyertakan informasi identitas pengguna. Komponen ini jarang digunakan karena pertimbangan keamanan.
+
+  \item \textbf{\textit{Host}}\\
+  Komponen ini bersifat wajib dan menunjukkan lokasi \textit{server} tempat sumber daya berada. \textit{Host} dapat berupa nama domain dalam format penulisan \textit{lowercase}, alamat IPv4, atau alamat IPv6, dan digunakan oleh \textit{client} untuk menentukan tujuan koneksi.
+
+  \item \textbf{\textit{Port}}\\
+  Komponen ini bersifat opsional dan diawali dengan tanda titik dua (\texttt{:}). \textit{Port} menunjukkan nomor port pada \textit{host} yang digunakan untuk komunikasi. Jika tidak dituliskan, maka digunakan port standar sesuai dengan \textit{scheme}, yaitu port 80 untuk HTTP dan port 443 untuk HTTPS.
+
+  \item \textbf{\textit{Path-abempty}}\\
+  Komponen ini bersifat wajib pada URL HTTP dan diawali dengan tanda garis miring (\texttt{/}) atau dapat berupa \textit{string} kosong. \textit{Path-abempty} menunjukkan jalur menuju sumber daya pada \textit{server}. Jika tidak dituliskan, maka \textit{path} dianggap sebagai \textit{string} kosong.
+
   \item \textbf{\textit{Query}}\\
-  Bagian ini bersifat opsional dan diawali dengan tanda tanya (\texttt{?}). \textit{Query} berisi parameter dalam format pasangan \texttt{key=value}. Jika terdapat lebih dari satu parameter, maka masing-masing dipisahkan dengan tanda \texttt{\&}.
+  Komponen ini bersifat opsional dan diawali dengan tanda tanya (\texttt{?}). \textit{Query} digunakan untuk menyertakan parameter tambahan dalam bentuk pasangan kunci dan nilai yang dipisahkan oleh karakter tertentu, selain itu \textit{query} juga digunakan untuk menyampaikan data ke \textit{server} tanpa mengubah struktur \textit{path}.
 
   \item \textbf{\textit{Fragment}}\\
-  Bagian ini bersifat opsional dan diawali dengan tanda pagar (\texttt{\#}). \textit{Fragment} digunakan untuk merujuk ke bagian tertentu dari sumber daya. Informasi ini tidak dikirim ke server, melainkan diproses oleh agen pengguna seperti browser.
+  Komponen ini bersifat opsional dan diawali dengan tanda pagar (\texttt{\#}). \textit{Fragment} digunakan untuk merujuk ke bagian tertentu dari sumber daya. Informasi ini tidak dikirim ke \textit{server}, melainkan diproses oleh \textit{user agent} seperti \textit{browser}.
 \end{itemize}
 
 
-
+\vspace{5mm}
 
 \subsection{Kategori Karakter dan \textit{Percent-Encoding}}
 \label{subsec:0202-karakter-percent-encoding}
@@ -46,18 +56,13 @@ Kategori karakter yang dapat digunakan dalam URI dikelompokkan beserta aturan pe
   Karakter non-ASCII, spasi, dan simbol lain yang tidak termasuk dalam kategori \textit{Unreserved characters} dan \textit{Reserved characters} tidak dapat digunakan secara langsung. Karakter ini harus dikodekan sebelum dapat dimasukkan ke dalam URI.
 \end{itemize}
 
-\vspace{2mm}
+\vspace{3mm}
 
 Pengkodean karakter dilakukan dengan mekanisme \textit{percent-encoding}. Mekanisme ini menggantikan karakter dengan representasi heksadesimalnya dalam format \texttt{\%HH}, di mana \texttt{HH} adalah nilai ASCII karakter tersebut. Sebagai contoh, spasi ditulis sebagai \texttt{\%20}, tanda kutip ganda sebagai \texttt{\%22}, dan tanda pagar sebagai \texttt{\%23}. RFC~3986 juga mengatur bahwa karakter \textit{unreserved} yang tidak perlu dikodekan sebaiknya dituliskan dalam bentuk aslinya. Selain itu, digit heksadesimal dalam \textit{percent-encoding} harus ditulis dengan huruf besar.
 
 
-\vspace{3mm}
-
 \subsection{Referensi Absolut dan Relatif}
 \label{subsec:0202-referensi-url}
+URL dapat berupa referensi absolut maupun relatif. URL absolut mencantumkan seluruh komponen utama, termasuk \textit{scheme} dan \textit{host}, sehingga dapat diinterpretasikan secara mandiri tanpa bergantung pada konteks lain. Contoh URL absolut adalah \texttt{https://unpar.ac.id/page.html}. Sebaliknya, URL relatif tidak mencantumkan \textit{scheme} atau \textit{host} dan hanya menyertakan bagian seperti \textit{path}, \textit{query}, atau \textit{fragment}. Contoh URL relatif adalah \texttt{/images/logo.png}. Selain itu, terdapat pula \textit{same-document reference}, yaitu URL yang hanya berisi \textit{fragment} untuk merujuk ke bagian tertentu dalam dokumen yang sama, contohnya \texttt{\#section2}.
 
-URL dapat berupa referensi absolut maupun relatif. URL absolut mencantumkan seluruh komponen utama termasuk \textit{scheme} dan \textit{authority}, sehingga dapat diinterpretasikan secara mandiri. Contohnya adalah \texttt{https://unpar.ac.id/page.html}. URL relatif tidak mencantumkan \textit{scheme} atau \textit{authority} dan hanya menyertakan \textit{path}, \textit{query}, atau \textit{fragment}. Contohnya adalah \texttt{images/logo.png}. Selain itu terdapat pula \textit{same-document reference}, yaitu URL yang hanya berisi \textit{fragment} untuk merujuk ke bagian tertentu dalam dokumen yang sama, contohnya \texttt{\#section2}.
-
-RFC~3986 mendefinisikan mekanisme resolusi yang digunakan untuk menyusun URL absolut dari sebuah referensi relatif. Resolusi dilakukan dengan menentukan base URI, menggabungkannya dengan URL relatif, lalu menyederhanakan hasilnya. Salah satu tahap penting dalam resolusi adalah penghapusan \textit{dot-segments}. Prosedur ini menghilangkan segmen \texttt{.} dan \texttt{..} agar \textit{path} hasil resolusi berada dalam bentuk yang ringkas dan tidak ambigu.
-
-\vspace{20mm}
+Agar referensi relatif dapat digunakan dalam komunikasi berbasis HTTP, referensi tersebut harus terlebih dahulu diubah menjadi URL absolut melalui suatu mekanisme resolusi. Proses resolusi dilakukan dengan menentukan sebuah base URI, kemudian menggabungkannya dengan referensi relatif yang digunakan untuk membentuk URL yang lengkap. Salah satu tahap penting dalam proses ini adalah penyederhanaan \textit{path}, termasuk penghapusan \textit{dot-segments} seperti \texttt{/./} dan \texttt{/../}, sehingga struktur \textit{path} menjadi ringkas dan tidak ambigu. Base URI umumnya diperoleh dari URL dokumen yang memuat referensi relatif tersebut, atau dari elemen \texttt{<base>} apabila didefinisikan dalam dokumen HTML. Mekanisme ini memastikan bahwa setiap referensi relatif dapat diinterpretasikan secara konsisten dan diarahkan ke sumber daya yang tepat.

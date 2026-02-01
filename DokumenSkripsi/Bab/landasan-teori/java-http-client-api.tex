@@ -1,7 +1,5 @@
 Java HTTP Client API adalah sebuah API dari Java yang digunakan untuk mengirim \textit{request} dan menerima \textit{response} melalui protokol HTTP. API ini menyediakan dua model komunikasi, yaitu sinkron dan asinkron. Komunikasi sinkron berarti eksekusi program akan menunggu hingga \textit{response} dari \textit{server} diterima sepenuhnya sebelum melanjutkan instruksi berikutnya. Sebaliknya, komunikasi asinkron menggunakan kelas \texttt{CompletableFuture}, yang memungkinkan hasil komputasi diperoleh di masa mendatang tanpa harus menunggu proses selesai. 
 
-\vspace{10mm}
-
 Objek pada kelas \texttt{HttpClient} juga memiliki karakteristik yang penting untuk penggunaan di lingkungan \textit{multithread}. Objek ini bersifat \textit{immutable}, artinya konfigurasi tidak dapat diubah setelah dibuat, serta bersifat \textit{thread-safe}, artinya dapat diakses secara bersamaan oleh beberapa \textit{thread} tanpa menimbulkan \textit{race condition}.
 
 \subsection{Kelas \texttt{HttpClient}}
@@ -9,119 +7,76 @@ Objek pada kelas \texttt{HttpClient} juga memiliki karakteristik yang penting un
 Kelas \texttt{HttpClient} merupakan komponen inti dalam Java HTTP Client API yang digunakan untuk mengirim \textit{request} HTTP dan menerima \textit{response} dari \textit{server}. Objek dari kelas ini dapat dibuat dengan menggunakan metode \texttt{newHttpClient} dengan konfigurasi bawaan yang siap pakai, atau bisa menggunakan metode \texttt{newBuilder} apabila ingin membuat objek dengan konfigurasi yang dapat disesuaikan.
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpClient}:
-\begin{itemize}
-    \item \texttt{version}: Metode ini digunakan untuk menerapkan versi HTTP yang digunakan.
+\begin{itemize}[itemsep=5pt]
+    \item \texttt{version}\\
+    Metode ini digunakan untuk menetapkan versi protokol HTTP yang digunakan oleh \textit{client}. Pengaturan versi ini memungkinkan aplikasi untuk menentukan apakah komunikasi dilakukan menggunakan HTTP/1.1 atau HTTP/2 sesuai dengan dukungan \textit{server} dan kebutuhan sistem.
     
-    \item \texttt{connectTimeout}: Metode ini digunakan untuk menetapkan batas waktu maksimal dalam membangun koneksi ke \textit{server}.
+    \item \texttt{connectTimeout}\\
+    Metode ini digunakan untuk menetapkan batas waktu maksimal dalam proses pembentukan koneksi ke \textit{server}. Apabila koneksi tidak berhasil dibangun dalam rentang waktu yang ditentukan, permintaan akan dihentikan dan dianggap gagal.
     
-    \item \texttt{cookieHandler}: Metode ini digunakan untuk menetapkan konfigurasi \textit{cookie} pada komunikasi antara \textit{client} dan \textit{server}.
+    \item \texttt{cookieHandler}\\
+    Metode ini digunakan untuk mengatur mekanisme pengelolaan \textit{cookie} pada komunikasi HTTP. Dengan konfigurasi ini, \textit{client} dapat menyimpan dan mengirim kembali \textit{cookie} yang diberikan oleh \textit{server} pada permintaan berikutnya.
 
-    \item \texttt{followRedirects}: Metode ini digunakan untuk mengatur kebijakan ketika \textit{server} memberikan instruksi \textit{redirect}. Nilai yang dapat ditetapkan pada metode ini adalah \texttt{ALWAYS} untuk selalu mengikuti \textit{redirect}, \texttt{NEVER} untuk tidak pernah mengikuti, dan \texttt{NORMAL} untuk selalu mengikuti \textit{redirect}, kecuali dari URL dengan \textit{scheme} HTTPS ke HTTP.
-    
-    \item \texttt{authenticator}: Metode ini digunakan untuk menangani mekanisme autentikasi.
+    \item \texttt{followRedirects}\\
+    Metode ini digunakan untuk mengatur kebijakan penanganan \textit{redirect} yang diberikan oleh \textit{server}. Nilai \texttt{ALWAYS} digunakan untuk selalu mengikuti \textit{redirect}, \texttt{NEVER} untuk tidak mengikuti \textit{redirect} sama sekali, sedangkan \texttt{NORMAL} mengikuti \textit{redirect} kecuali dari URL dengan \textit{scheme} HTTPS ke HTTP.
 
+    \item \texttt{authenticator}\\
+    Metode ini digunakan untuk menangani proses autentikasi ketika \textit{server} memerlukan kredensial akses. Mekanisme ini memungkinkan \textit{client} untuk secara otomatis merespons permintaan autentikasi yang diberikan oleh \textit{server}.
 \end{itemize}
 
 \subsection{Kelas \texttt{HttpRequest}}
 \label{subsec:020702-kelas-httprequest}
+Kelas \texttt{HttpRequest} merepresentasikan sebuah \textit{request} HTTP yang akan dikirimkan ke \textit{server} menggunakan \texttt{HttpClient}. Kelas ini digunakan untuk mendefinisikan informasi yang berkaitan dengan permintaan HTTP, seperti URI tujuan, metode HTTP, \textit{header}, serta batas waktu permintaan. Untuk membangun objek kelas ini, digunakan metode \texttt{newBuilder}, sehingga konfigurasi \textit{request} dapat disesuaikan sebelum dikirim, tanpa memengaruhi pengaturan global pada objek \texttt{HttpClient}.
 
-\vspace{-1mm}
-
-Kelas \texttt{HttpRequest} merepresentasikan sebuah \textit{request} HTTP yang akan dikirim menggunakan \texttt{HttpClient}. Untuk membangun objek kelas ini, dapat digunakan metode \texttt{newBuilder}, sehingga penyesuaian konfigurasi \textit{request} dapat dilakukan.
+\vspace{3mm}
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpRequest}:
-\begin{itemize}
+\begin{itemize}[itemsep=2pt]
+    \item \texttt{uri}\\
+    Metode ini digunakan untuk menentukan alamat tujuan dari \textit{request} HTTP dalam bentuk objek \texttt{URI}.
+    
+    \item \texttt{header}\\
+    Metode ini digunakan untuk menetapkan satu pasangan \textit{name-value} sebagai \textit{header}, namun jika ingin menetapkan beberapa \textit{header} sekaligus maka dapat digunakan metode \texttt{headers}.
+    
+    \item \texttt{timeout}\\
+    Metode ini menerima parameter berupa objek \texttt{Duration} untuk menentukan batas waktu maksimal pemrosesan \textit{request}.
 
-    \item \texttt{uri}: Metode ini digunakan untuk menentukan alamat tujuan dari \textit{request} HTTP dalam bentuk objek \texttt{URI}.
+    \item \texttt{version}\\
+    Metode ini digunakan untuk menentukan versi protokol HTTP yang akan digunakan pada proses \textit{request}.
     
-    \item \texttt{header}: Metode ini digunakan untuk menetapkan satu pasangan \textit{name-value} sebagai \textit{header}, namun jika ingin menetapkan beberapa \textit{header} sekaligus maka dapat digunakan metode \texttt{headers}.
-    
-    \item \texttt{timeout}: Metode ini menerima parameter berupa objek \texttt{Duration} untuk menentukan batas waktu maksimal pemrosesan \textit{request}.
-
-    \item \texttt{version}: Metode ini digunakan untuk menentukan versi protokol HTTP yang akan digunakan pada proses \textit{request}.
-    
-    \item \texttt{method}: Metode ini menetapkan jenis operasi HTTP yang akan dilakukan. Selain melalui metode ini, penetapan jenis operasi juga dapat dilakukan menggunakan metode yang lebih eksplisit, seperti \texttt{GET}, \texttt{POST}, \texttt{PUT}, dan \texttt{DELETE}.
+    \item \texttt{method}\\
+    Metode ini menetapkan jenis operasi HTTP yang akan dilakukan. Selain melalui metode ini, penetapan jenis operasi juga dapat dilakukan menggunakan metode yang lebih eksplisit, seperti \texttt{GET}, \texttt{POST}, \texttt{PUT}, dan \texttt{DELETE}.
     
 \end{itemize}
 
-\vspace{-2mm}
 
 \subsection{Kelas \texttt{HttpResponse}}
 \label{subsec:020703-kelas-httpresponse}
-\vspace{-1mm}
-
 Kelas \texttt{HttpResponse} merepresentasikan \textit{response} yang diterima setelah sebuah \textit{request} dieksekusi oleh \texttt{HttpClient}. Kelas ini menggunakan parameter generik \texttt{<T>} yang menunjukkan tipe data dari isi \textit{response body}. Nilai generik ini ditentukan oleh \texttt{HttpResponse.BodyHandler} yang digunakan saat mengirim \textit{request}.
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpResponse}:
-\begin{itemize}[itemsep=3pt]
-    \item \texttt{statusCode}: Metode ini digunakan untuk mendapatkan kode status HTTP yang dikirim oleh \textit{server}.
+\begin{itemize}[itemsep=2pt]
+    \item \texttt{statusCode}\\
+    Metode ini digunakan untuk mendapatkan kode status HTTP yang dikirim oleh \textit{server}.
     
-    \item \texttt{headers}: Metode ini digunakan untuk mendapatkan daftar seluruh \textit{header} dari \textit{response}.
+    \item \texttt{headers}\\
+    Metode ini digunakan untuk mendapatkan daftar seluruh \textit{header} dari \textit{response}.
     
-    \item \texttt{body}: Metode ini digunakan untuk mendapatkan isi \textit{response body} dengan tipe data generik \texttt{<T>}.
+    \item \texttt{body}\\
+    Metode ini digunakan untuk mendapatkan isi \textit{response body} dengan tipe data generik \texttt{<T>}.
     
-    \item \texttt{previousResponse}: Metode ini digunakan untuk mendapatkan \textit{response} sebelumnya apabila terjadi \textit{redirect}.
+    \item \texttt{previousResponse}\\
+    Metode ini digunakan untuk mendapatkan \textit{response} sebelumnya apabila terjadi \textit{redirect}.
     
-    \item \texttt{sslSession}: Metode ini digunakan untuk mendapatkan informasi sesi SSL jika koneksi dilakukan melalui protokol HTTPS.
+    \item \texttt{sslSession}\\
+    Metode ini digunakan untuk mendapatkan informasi sesi SSL jika koneksi dilakukan melalui protokol HTTPS.
     
-    \item \texttt{uri}: Metode ini digunakan untuk mendapatkan URL tujuan akhir dari \textit{request}, termasuk setelah terjadi \textit{redirect}.
+    \item \texttt{uri}\\
+    Metode ini digunakan untuk mendapatkan URL tujuan akhir dari \textit{request}, termasuk setelah terjadi \textit{redirect}.
     
-    \item \texttt{version}: Metode ini digunakan untuk mendapatkan versi protokol HTTP yang digunakan pada komunikasi.
+    \item \texttt{version}\\
+    Metode ini digunakan untuk mendapatkan versi protokol HTTP yang digunakan pada komunikasi.
 
 \end{itemize}
 
-
-\subsection{Kelas \texttt{HttpHeaders}}
-\label{subsec:020704-kelas-httpheaders}
-
-Kelas \texttt{HttpHeaders} merepresentasikan kumpulan \textit{header} yang terdapat pada \textit{request} maupun \textit{response} HTTP. Setiap \textit{header} dapat memiliki lebih dari satu nilai, dan semua nilai disimpan dalam struktur yang mempertahankan urutan kemunculannya.
-
-Berikut adalah beberapa metode yang tersedia pada \texttt{HttpHeaders}:
-\begin{itemize}[itemsep=3pt]
-    \item \texttt{firstValue}: Metode ini digunakan untuk mendapatkan nilai pertama dari \textit{header} dengan nama tertentu dalam bentuk \texttt{String}.
-    
-    \item \texttt{allValues}: Metode ini digunakan untuk mendapatkan seluruh nilai dari \textit{header} dengan nama tertentu dalam bentuk daftar.
-    
-    \item \texttt{map}: Metode ini digunakan untuk mendapatkan seluruh isi \textit{header} dalam struktur \texttt{Map}, dengan \texttt{kay} berubah nama \textit{header} dan \texttt{value} berupa nilai pada nama tersebut. 
-\end{itemize}
-
-
-\subsection{Contoh Kode Program}
-\label{subsec:0228-contoh-kode-program}
-
-Kode~\ref{lst:httpclient-example} menunjukkan contoh penggunaan Java HTTP Client API untuk melakukan permintaan HTTP ke sebuah alamat web dan menampilkan hasil tanggapannya. Kode ini ditulis untuk menggambarkan bagaimana kelas-kelas utama yang telah dijelaskan sebelumnya, yaitu \texttt{HttpClient}, \texttt{HttpRequest}, \texttt{HttpResponse}, dan \texttt{HttpHeaders}, digunakan secara bersama-sama dalam sebuah program nyata. Hasil eksekusi dari kode ini berupa informasi \textit{status code}, daftar \textit{header}, serta isi \textit{response body} yang diterima dari server tujuan.
-
-\begin{lstlisting}[language=Java, caption={Contoh penggunaan Java HTTP Client API}, label={lst:httpclient-example}]
-public class HttpClientExample {
-    public static void main(String[] args) throws Exception {
-        HttpClient client = HttpClient.newBuilder()
-                .version(HttpClient.Version.HTTP_2)
-                .connectTimeout(Duration.ofSeconds(5))
-                .followRedirects(HttpClient.Redirect.NORMAL)
-                .build();
-
-        HttpRequest request = HttpRequest.newBuilder(URI.create("https://informatika.unpar.ac.id"))
-                .header("User-Agent", "BrokenLinkChecker 1.0")
-                .timeout(Duration.ofSeconds(10))
-                .GET()
-                .build();
-
-        HttpResponse<String> response = client.send(
-                request, HttpResponse.BodyHandlers.ofString()
-        );
-
-        System.out.println("Status Code : " + response.statusCode());
-
-        HttpHeaders headers = response.headers();
-        Map<String, List<String>> headerMap = headers.map();
-        for (Map.Entry<String, List<String>> e : headerMap.entrySet()) {
-            String name = e.getKey();
-            String values = String.join(", ", e.getValue());
-            System.out.println(name + ": " + values);
-        }
-        System.out.println("Body        : " + response.body());
-    }
-}
-\end{lstlisting}
-
-Alur dari Kode~\ref{lst:httpclient-example} dimulai dengan pembuatan objek \texttt{HttpClient} melalui \texttt{newBuilder()} dan penetapan beberapa konfigurasi, yaitu versi protokol HTTP melalui \texttt{version()}, batas waktu koneksi dengan \texttt{connectTimeout()}, serta kebijakan \textit{redirect} menggunakan \texttt{followRedirects()}. Setelah itu dipanggil \texttt{build()} untuk menghasilkan objek \texttt{HttpClient}. Berikutnya, sebuah \texttt{HttpRequest} dibangun dengan \texttt{HttpRequest.newBuilder(URI)} untuk menentukan alamat tujuan, kemudian ditambahkan informasi tambahan melalui \texttt{header()}, ditetapkan batas waktu menggunakan \texttt{timeout()}, dan jenis operasi HTTP dipilih dengan \texttt{GET()}, lalu diselesaikan dengan \texttt{build()}. Permintaan tersebut dikirim menggunakan \texttt{HttpClient.send()} dengan parameter \texttt{HttpResponse.BodyHandlers.ofString()}, sehingga isi \textit{response body} diproses menjadi \textit{string}. Hasil eksekusi berupa objek \texttt{HttpResponse} yang menyediakan \textit{status code}, kumpulan \textit{header}, serta isi \textit{response body}. Daftar \textit{header} diperoleh dari \texttt{HttpHeaders.map()}, kemudian ditampilkan seluruhnya dalam bentuk pasangan \textit{name-value}, diikuti dengan pencetakan isi \textit{response body}.
+\vspace{50mm}

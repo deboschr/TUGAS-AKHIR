@@ -1,6 +1,9 @@
-Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi desktop pemeriksa tautan rusak berjalan sesuai dengan kebutuhan yang telah ditetapkan (lihat Subbab~\ref{sec:030300-analisis-kebutuhan}). Pengujian dilakukan secara manual menggunakan berbagai skenario input dan interaksi dengan antarmuka pengguna. Berikut adalah daftar hasil pengujian fungsional:
+Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi desktop pemeriksa tautan rusak berjalan sesuai dengan kebutuhan yang telah ditetapkan (lihat Subbab~\ref{sec:030300-analisis-kebutuhan}). Pengujian dilakukan secara manual menggunakan berbagai skenario input dan interaksi dengan antarmuka pengguna.
 
-\vspace{2mm}
+\subsubsection{Hasil Pengujian Fungsional}
+\label{subsubsec:05020201-hasil-pengujian-fungsional}
+
+Berikut adalah daftar hasil pengujian fungsional:
 \begin{enumerate}
    \item \textbf{Pengujian pada \textit{Input Seed} URL}\\
    Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat melakukan validasi terhadap URL yang dimasukkan pengguna sebelum memulai proses pemeriksaan. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-input-seed-url}.
@@ -8,13 +11,13 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-input-seed-url.tex}
 
 
-   \item \textbf{Pengujian pada Tombol}\\
+   \item \textbf{Pengujian pada Tombol Kontrol}\\
    Pengujian dilakukan untuk memastikan bahwa tombol \textit{Start}, \textit{Stop}, dan \textit{Export} merespons sesuai dengan kondisi status pemeriksaan dan tindakan lain dari pengguna. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-tombol}.
 
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-tombol.tex}
 
 
-   \vspace{5mm}
+   \vspace{10mm}
 
 
    \item \textbf{Pengujian pada \textit{Pagination}}\\
@@ -22,31 +25,177 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-pagination.tex}
 
-   \vspace{8mm}
+   \vspace{5mm}
 
    \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
-   Subjek pada pengujian ini adalah situs web Program Studi Informatika Universitas Katolik Parahyangan\footnote{\url{https://informatika.unpar.ac.id} (Diakses pada 2 Desember 2025)}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-pemeriksaan}, sedangkan ringkasan proses pemeriksaan dapat dilihat pada Tabel~\ref{tab:ringkasan-proses-pemeriksaan-fitur-pemeriksaan} dan ringkasan tautan rusak dapat dilihat pada Tabel~\ref{tab:ringkasan-tautan-rusak-fitur-pemeriksaan}. Pengujian ini dilakukan untuk memastikan bahwa proses pemeriksaan sesuai dengan ketentuan berikut:
-   \begin{itemize}
-      \item Memastikan tautan rusak teridentifikasi dengan benar.
-      \item Memastikan setiap URL hanya diperiksa satu kali.
-      \item Memastikan \textit{rate limiting} dikelompokkan berdasarkan \textit{host} URL.
-      \item Memastikan \textit{crawling} hanya dilakukan pada halaman situs web yang sedang diperiksa.
-   \end{itemize}
+   Dalam pengujian fitur pemeriksaan telah disiapkan sebuah situs web khusus untuk pengujian. Situs web ini berjalan di komputer lokal pengujian dan dibangun dengan spesifikasi yang terkontrol sehingga dalam pengujian ini dapat ditentukan kebenaran dasar (\textit{ground truth}) secara pasti. 
    
+   Berikut adalah spesifikasi dari situs web yang dikembangkan khusus untuk pengujian fitur pemeriksaan:
+
+   \begin{itemize}[itemsep=5pt]
+      \item Bahasa pemrograman: JavaScript
+      \item \textit{Runtime platform}: Node.js
+      \item \textit{Framework}: Express.js 
+      \item Jumlah total tautan: 200 tautan.
+      \item Jumlah tautan halaman: 100 tautan.
+      \item Jumlah tautan rusak: 100 tautan.
+      \item Distribusi tautan rusak:
+      \begin{itemize}[itemsep=3pt]
+         \item 400 \textit{Bad Request}: 10 tautan.
+         \item 401 \textit{Unauthorized}: 10 tautan.
+         \item 403 \textit{Forbidden}: 10 tautan.
+         \item 404 \textit{Not Found}: 10 tautan.
+         \item 410 \textit{Gone}: 10 tautan.
+         \item 500 \textit{Internal Server Error}: 10 tautan.
+         \item 999 (\textit{Non-Standard Error}): 10 tautan.
+         \item \textit{Timeout}: 10 tautan.
+         \item \textit{Invalid URL}: 10 tautan.
+         \item \textit{Host Not Found}: 10 tautan.
+      \end{itemize}
+   \end{itemize}
+
+   \vspace{10mm}
+
+   Hasil dari pengujian ditampilkan dalam \textit{confusion matrix} pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-pemeriksaan}, sedangkan untuk ringkasan hasil pemeriksaan ditampilkan Tabel~\ref{tab:ringkasan-tautan-rusak-fitur-pemeriksaan} dan ringkasan proses pemeriksaan ditampilkan pada Tabel~\ref{tab:ringkasan-proses-pemeriksaan-fitur-pemeriksaan}. Untuk menilai ketepatan kinerja fitur pemeriksaan dalam mengidentifikasi tautan rusak, dilakukan perhitungan sebagai berikut:
+
+
+   \begin{itemize}[itemsep=10pt]
+      \item \textbf{\textit{Sensitivity}} \\
+      \textit{Sensitivity} (\textit{true positive rate}) menunjukkan kemampuan sistem dalam mendeteksi tautan rusak dengan benar dari seluruh tautan yang memang rusak.
+
+      \vspace{2mm}
+      \textbf{Perhitungan:} \\
+      \begin{equation}
+         \begin{aligned}
+            Sensitivity &= \frac{TP}{TP + FN} \\
+            Sensitivity &= \frac{100}{100 + 0} \\
+            Sensitivity &= 1.00 \; (100\%)
+         \end{aligned}
+      \end{equation}
+
+      \vspace{2mm}
+      \textbf{Keterangan:} \\
+      {\renewcommand{\arraystretch}{1}
+         \begin{tabular}{ll}
+            $TP$ & : Jumlah \textit{true positive} \\
+            $FN$ & : Jumlah \textit{false negative}
+         \end{tabular}
+      }
+
+
+      \vspace{5mm}
+      % -------------------------------------------------------------
+      \item \textbf{\textit{Specificity}} \\
+      \textit{Specificity} (\textit{true negative rate}) menunjukkan kemampuan sistem dalam mengenali tautan yang tidak rusak dengan benar dari seluruh tautan yang memang tidak rusak.
+
+      \vspace{2mm}
+      \textbf{Perhitungan:} \\
+      \begin{equation}
+         \begin{aligned}
+            Specificity &= \frac{TN}{TN + FP} \\
+            Specificity &= \frac{100}{100 + 0} \\
+            Specificity &= 1.00 \; (100\%)
+         \end{aligned}
+      \end{equation}
+
+      \vspace{2mm}
+      \textbf{Keterangan:} \\
+      {\renewcommand{\arraystretch}{1}
+         \begin{tabular}{ll}
+            $TN$ & : Jumlah \textit{true negative} \\
+            $FP$ & : Jumlah \textit{false positive}
+         \end{tabular}
+      }
+
+
+      \vspace{5mm}
+      % -------------------------------------------------------------
+      \item \textbf{\textit{Accuracy}} \\
+      \textit{Accuracy} menunjukkan tingkat ketepatan sistem secara keseluruhan dalam mengklasifikasikan seluruh tautan yang diperiksa, baik tautan rusak maupun tidak rusak.
+
+      \vspace{2mm}
+      \textbf{Perhitungan:} \\
+      \begin{equation}
+         \begin{aligned}
+            Accuracy &= \frac{TP + TN}{TP + TN + FP + FN} \\
+            Accuracy &= \frac{100 + 100}{100 + 100 + 0 + 0} \\
+            Accuracy &= 1.00 \; (100\%)
+         \end{aligned}
+      \end{equation}
+
+      \vspace{2mm}
+      \textbf{Keterangan:} \\
+      {\renewcommand{\arraystretch}{1.3}
+         \begin{tabular}{ll}
+            $TP$ & : Jumlah \textit{true positive} \\
+            $TN$ & : Jumlah \textit{true negative} \\
+            $FP$ & : Jumlah \textit{false positive} \\
+            $FN$ & : Jumlah \textit{false negative}
+         \end{tabular}
+      }
+
+      \vspace{5mm}
+      % -------------------------------------------------------------
+      \item \textbf{\textit{Precision}} \\
+      \textit{Precision} menunjukkan tingkat ketepatan sistem dalam menyatakan sebuah tautan sebagai rusak, yaitu seberapa banyak tautan yang benar-benar rusak dari seluruh tautan yang dilaporkan rusak oleh sistem.
+      
+      \vspace{2mm}
+      \textbf{Perhitungan:} \\
+      \begin{equation}
+         \begin{aligned}
+            Precision &= \frac{TP}{TP + FP} \\
+            Precision &= \frac{100}{100 + 0} \\
+            Precision &= 1.00 \; (100\%)
+         \end{aligned}
+      \end{equation}
+
+      \vspace{2mm}
+      \textbf{Keterangan:} \\
+      {\renewcommand{\arraystretch}{1.3}
+         \begin{tabular}{ll}
+            $TP$ & : Jumlah \textit{true positive} \\
+            $FP$ & : Jumlah \textit{false positive}
+         \end{tabular}
+      }
+
+      \vspace{5mm}
+      % -------------------------------------------------------------
+      \item \textbf{\textit{Negative Predictive Value}} \\
+      \textit{Negative Predictive Value} menunjukkan tingkat ketepatan sistem dalam menyatakan sebuah tautan sebagai tidak rusak, yaitu seberapa banyak tautan yang benar-benar tidak rusak dari seluruh tautan yang dilaporkan tidak rusak oleh sistem.
+      
+      \vspace{2mm}
+      \textbf{Perhitungan:} \\
+      \begin{equation}
+         \begin{aligned}
+            NPV &= \frac{TN}{TN + FN} \\
+            NPV &= \frac{100}{100 + 0} \\
+            NPV &= 1.00 \; (100\%)
+         \end{aligned}
+      \end{equation}
+
+      \vspace{2mm}
+      \textbf{Keterangan:} \\
+      {\renewcommand{\arraystretch}{1.3}
+         \begin{tabular}{ll}
+            $NPV$ & : \textit{Negative Predictive Value} \\
+            $TN$ & : Jumlah \textit{true negative} \\
+            $FN$ & : Jumlah \textit{false negative}
+         \end{tabular}
+      }
+
+   \end{itemize}
+
 
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
 
-   \vspace{20mm}
 
+   \vspace{10mm}
    \item \textbf{Pengujian pada Fitur \textit{Filter}}\\
-   Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring isi tabel berdasarkan kondisi URL maupun kode status HTTP. Kondisi awal pada pengujian ini adalah proses pemeriksaan sedang berlangsung atau sudah selesai dan menggunakan situs web Program Studi Informatika Universitas Katolik Parahyangan\footnote{\url{https://informatika.unpar.ac.id} (Diakses pada 2 Desember 2025)}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-filter}.
+   Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring isi tabel berdasarkan kondisi URL maupun kode status HTTP. Kondisi awal pada pengujian ini adalah proses pemeriksaan sedang berlangsung atau sudah selesai dan menggunakan situs web Informatika UNPAR\footnote{\url{https://informatika.unpar.ac.id} (Diakses pada 2 Desember 2025)}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-filter}.
 
-   
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-filter.tex}
 
-
-   \vspace{3mm}
 
    \item \textbf{Pengujian pada Fitur Ekspor}\\
    Pengujian ini dilakukan untuk memastikan bahwa aplikasi dapat mengekspor data hasil pemeriksaan ke berkas Excel dengan benar. Kondisi awal pada pengujian ini adalah proses pemeriksaan sudah selesai dengan status \texttt{COMPLETED} atau \texttt{STOPPED}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-ekspor}.
@@ -54,12 +203,12 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-ekspor.tex}
 
 
-   \vspace{5mm}
+   \vspace{2mm}
 
    \item \textbf{Pengujian pada Jendela Detail Tautan}\\
    Pengujian ini dilakukan untuk memastikan jendela detail tautan dapat menampilkan informasi sebuah tautan rusak dengan benar. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-jendela-detail-tautan}.
 
-   \vspace{5mm}
+   \vspace{2mm}
 
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-detail-tautan.tex}
 
@@ -72,3 +221,14 @@ Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi deskt
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-notifikasi.tex}
 
 \end{enumerate}
+
+\vspace{10mm}
+
+\subsubsection{Kesimpulan Pengujian Fungsional}
+\label{subsubsec:05020202-kesimpulan-pengujian-fungsional}
+Berdasarkan seluruh rangkaian pengujian fungsional yang telah dilakukan, dapat disimpulkan bahwa fitur-fitur utama pada aplikasi desktop pemeriksa tautan rusak telah berjalan sesuai dengan kebutuhan yang telah ditetapkan. Pengujian pada \textit{input seed} URL menunjukkan bahwa sistem mampu melakukan validasi masukan dengan benar sebelum proses pemeriksaan dimulai. Pengujian pada tombol, \textit{pagination}, fitur \textit{filter}, fitur ekspor, jendela detail tautan, serta jendela notifikasi juga memperlihatkan bahwa setiap komponen antarmuka pengguna merespons dengan tepat terhadap kondisi sistem dan interaksi pengguna, sehingga mendukung alur penggunaan aplikasi secara konsisten dan dapat dipahami.
+
+Secara khusus, pengujian fungsional pada fitur pemeriksaan menunjukkan bahwa sistem mampu mengidentifikasi kondisi tautan dengan tingkat ketepatan yang sangat tinggi. Melalui penggunaan situs web pengujian yang dirancang secara terkontrol dan memiliki kebenaran dasar (\textit{ground truth}) yang pasti, hasil pemeriksaan dapat dievaluasi secara objektif menggunakan \textit{confusion matrix}. Berdasarkan hasil pengujian tersebut, seluruh tautan rusak dan tautan tidak rusak berhasil diklasifikasikan dengan benar oleh sistem, tanpa ditemukan kasus \textit{false positive} maupun \textit{false negative}.
+
+Hasil perhitungan metrik evaluasi yang meliputi \textit{sensitivity}, \textit{specificity}, \textit{accuracy}, \textit{precision}, dan \textit{negative predictive value} menunjukkan nilai sebesar 100\% pada seluruh metrik. Nilai \textit{sensitivity} dan \textit{specificity} yang tinggi menandakan bahwa sistem mampu mendeteksi tautan rusak dan mengenali tautan tidak rusak secara tepat. Nilai \textit{precision} yang maksimal menunjukkan bahwa seluruh tautan yang dilaporkan sebagai rusak memang benar-benar berada dalam kondisi rusak, sedangkan nilai \textit{negative predictive value} yang tinggi menunjukkan bahwa seluruh tautan yang dinyatakan tidak rusak oleh sistem memang benar-benar valid. Selain itu, nilai \textit{accuracy} sebesar 100\% mencerminkan konsistensi dan keandalan sistem dalam mengklasifikasikan seluruh tautan yang diperiksa. Dengan demikian, dapat disimpulkan bahwa fitur pemeriksaan pada aplikasi yang dikembangkan telah berfungsi dengan benar dan mampu menghasilkan hasil pemeriksaan yang akurat pada skenario pengujian yang telah ditentukan.
+

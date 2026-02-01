@@ -1,15 +1,16 @@
 Pemilihan Jsoup sebagai pustaka utama untuk pengambilan dan pemrosesan dokumen HTML didasarkan pada kebutuhan sistem untuk mengekstraksi tautan dari halaman web dengan cara yang andal, termasuk dari dokumen yang tidak valid atau tidak sepenuhnya sesuai standar. Kebutuhan ini secara eksplisit dinyatakan pada aspek ketahanan terhadap HTML tidak valid (lihat Subsubbab~\ref{subsec:030302-kebutuhan-non-fungsional}). Sebagaimana dijelaskan pada Subbab~\ref{sec:020600-jsoup}, Jsoup menyediakan parser yang toleran kesalahan dan mendukung spesifikasi HTML5, sehingga struktur DOM tetap dapat dibentuk meskipun dokumen bermasalah. 
 
 Dari sisi fungsional, penggunaan Jsoup relevan dengan kebutuhan untuk:
-\begin{itemize}
-  \item menerima masukan URL dan mengambil halaman web terkait (lihat Subsubbab~\ref{subsec:030301-kebutuhan-fungsional}).
-  \item mengekstraksi seluruh tautan yang terdapat di dalam elemen HTML, khususnya elemen \texttt{<a>} dengan atribut \texttt{href}.
-  \item menampilkan hasil pemeriksaan secara \textit{streaming}, sehingga setiap tautan yang diperoleh dari hasil parsing dapat segera diperiksa dan ditampilkan ke antarmuka pengguna.
+\begin{itemize}[itemsep=1mm]
+  \item Menerima masukan URL dan mengambil halaman web terkait (lihat Subsubbab~\ref{subsec:030301-kebutuhan-fungsional}).
+  \item Mengekstraksi seluruh tautan yang terdapat di dalam elemen HTML, khususnya elemen \texttt{<a>} dengan atribut \texttt{href}.
+  \item Menampilkan hasil pemeriksaan secara \textit{streaming}, sehingga setiap tautan yang diperoleh dari hasil parsing dapat segera diperiksa dan ditampilkan ke antarmuka pengguna.
 \end{itemize}
 
-\vspace{5mm}
+\vspace{3mm}
+
 Dalam implementasi, beberapa kelas dan metode dari Jsoup dapat digunakan secara langsung adalah sebagai berikut:
-\begin{itemize}[itemsep=5pt]
+\begin{itemize}[itemsep=1mm]
   \item \texttt{Jsoup}\\
   Kelas ini dipakai sebagai titik masuk untuk membuat koneksi HTTP ke sebuah halaman melalui \texttt{connect(String url)}. Metode ini dilanjutkan dengan konfigurasi \texttt{userAgent(String ua)} untuk memenuhi etika \textit{crawling} dan \texttt{timeout(int millis)} untuk memenuhi kebutuhan non-fungsional terkait batas waktu respon. Eksekusi permintaan dilakukan dengan \texttt{get()} atau \texttt{execute()}, menghasilkan \texttt{Document} atau \texttt{Connection.Response}.
 
@@ -21,5 +22,48 @@ Dalam implementasi, beberapa kelas dan metode dari Jsoup dapat digunakan secara 
 
   \item \texttt{Elements} dan \texttt{Element}\\
   Koleksi \texttt{Elements} berisi banyak \texttt{Element} yang masing-masing mewakili sebuah tautan. Metode penting yang digunakan adalah \texttt{attr("href")} untuk mengambil nilai atribut asli, \texttt{text()} untuk isi teks tautan, serta \texttt{absUrl("href")} untuk memperoleh URL absolut berdasarkan \texttt{baseUri()} dokumen. Normalisasi URL ini mendukung konsistensi identifikasi sumber daya (lihat Subsubbab~\ref{subsec:030302-kebutuhan-non-fungsional}).
-
 \end{itemize}
+
+\vspace{3mm}
+
+Kode~\ref{lst:javafx-basic-structure} memperlihatkan contoh struktur program JavaFX yang memuat antarmuka dari berkas FXML dan menerapkan gaya visual dengan CSS.
+
+\begin{lstlisting}[language=Java, caption={Contoh struktur dasar aplikasi JavaFX}, label=lst:javafx-basic-structure]
+@Override
+public void start(Stage stage) throws Exception {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("view.fxml"));
+    Scene scene = new Scene(loader.load());
+    scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+    stage.setTitle("Contoh JavaFX");
+    stage.setScene(scene);
+    stage.setMaximized(true);
+    stage.show();
+}
+\end{lstlisting}
+
+
+Kode~\ref{lst:javafx-basic-structure} menunjukkan bagaimana sebuah aplikasi JavaFX dimulai dari metode \texttt{start}. Pertama, sebuah objek \texttt{FXMLLoader} dibuat untuk memuat berkas \texttt{view.fxml}, yang berisi definisi antarmuka pengguna secara deklaratif. Hasil pemuatan berkas tersebut kemudian dibungkus ke dalam sebuah objek \texttt{Scene}, sehingga seluruh elemen UI yang didefinisikan di FXML dapat ditampilkan. Setelah itu, berkas \texttt{style.css} ditambahkan ke scene untuk mengatur gaya visual menggunakan CSS. Tahap berikutnya adalah konfigurasi jendela utama aplikasi: judul jendela diatur melalui \texttt{setTitle}, lalu scene dipasang ke dalam stage dengan \texttt{setScene}. Agar jendela tampil penuh, stage diperbesar ke ukuran maksimum melalui \texttt{setMaximized(true)}. Akhirnya, aplikasi ditampilkan ke layar dengan memanggil metode \texttt{show()} pada objek stage.
+
+
+Kode~\ref{lst:jsoup-example} menunjukkan contoh penggunaan Jsoup untuk mengambil sebuah halaman web, memprosesnya menjadi objek \texttt{Document}, dan mengekstraksi sejumlah informasi dari dokumen tersebut. Contoh ini menggambarkan bagaimana kelas-kelas utama yang telah dijelaskan sebelumnya, yaitu \texttt{Jsoup}, \texttt{Connection}, \texttt{Connection.Response}, \texttt{Document}, \texttt{Elements}, dan \texttt{Element}, digunakan secara bersama-sama dalam sebuah program nyata. Hasil eksekusi dari kode ini berupa informasi judul halaman, URI dasar dokumen, serta daftar tautan beserta teks, URL absolut, dan atribut lain yang terkait.
+
+\begin{lstlisting}[language=Java, caption={Contoh penggunaan Jsoup}, label={lst:jsoup-example}]
+public class JsoupExample {
+    public static void main(String[] args) throws Exception {
+        Connection connection = Jsoup.connect("https://www.example.com").userAgent("BrokenLinkChecker 1.0").timeout(5000);
+        Connection.Response response = connection.execute();
+        Document doc = response.parse();
+        Elements links = doc.select("a[href]");
+        for (Element link : links) {
+            System.out.println("Teks   : " + link.text());
+            System.out.println("Href   : " + link.attr("href"));
+            System.out.println("AbsURL : " + link.absUrl("href"));
+        }
+    }
+}
+\end{lstlisting}
+
+\vspace{5mm}
+
+Alur dari Kode~\ref{lst:jsoup-example} dimulai dengan pembuatan objek \texttt{Connection} melalui pemanggilan metode \texttt{Jsoup.connect()}, kemudian ditetapkan nilai \textit{User-Agent} dengan \texttt{userAgent()} dan batas waktu koneksi dengan \texttt{timeout()}. Permintaan dieksekusi melalui \texttt{execute()} untuk menghasilkan objek \texttt{Connection.Response}, dari mana dapat diperoleh kode status dengan \texttt{statusCode()} dan \textit{header} tertentu melalui \texttt{headers()}. Isi respons kemudian diproses menjadi objek \texttt{Document} menggunakan \texttt{parse()}, yang selanjutnya menyediakan informasi judul halaman dengan \texttt{title()} dan URI dasar dengan \texttt{baseUri()}. Setelah itu, method \texttt{select()} digunakan untuk memilih seluruh elemen \texttt{<a>} yang memiliki atribut \texttt{href}, menghasilkan koleksi \texttt{Elements}. Koleksi ini diiterasi, dan untuk setiap \texttt{Element} diperoleh teks melalui \texttt{text()}, nilai atribut melalui \texttt{attr("href")}, serta URL absolut melalui \texttt{absUrl("href")}. Dengan demikian, kode ini tidak hanya menampilkan daftar tautan, tetapi juga memperlihatkan cara menggunakan beberapa method penting yang telah dijelaskan sebelumnya.
+

@@ -80,7 +80,8 @@
 %\mode{sidangakhir} 	% untuk sidang 2 / sidang pada Skripsi 2(IF)
 %\mode{final} 			% untuk mencetak buku skripsi 
 %=============================================================================
-\mode{sidangakhir}
+\mode{final}
+% \mode{sidangakhir}
 
 %_____________________________________________________________________________
 %=============================================================================
@@ -133,8 +134,8 @@
 %=============================================================================
 \gambar{yes}
 %\gambar{no}
-%\tabel{yes}
-\tabel{no} 
+\tabel{yes}
+% \tabel{no} 
 \kode{yes}
 % \kode{no} 
 %\notasi{yes}
@@ -145,7 +146,7 @@
 %=============================================================================
 % 								BAGIAN VI
 %=============================================================================
-% Pada mode final, sidang da sidangkahir, seluruh bab yang ada di folder "Bab"
+% Pada mode final, sidang dan sidangkahir, seluruh bab yang ada di folder "Bab"
 % dengan nama file bab1.tex, bab2.tex s.d. bab9.tex akan dicetak terurut, 
 % apapun isi dari perintah \bab.
 % Pada mode bimbingan, jika ingin:
@@ -203,9 +204,9 @@
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda
 %=============================================================================
 \namanpm{Ade Rimbo Spencher}{6182001060}
-\tanggal{8}{12}{2025}         %isi bulan dengan angka
+\tanggal{5}{1}{2026}         %isi bulan dengan angka
 \pembimbing{\PAN}{}
-\penguji{<<penguji 1>>}{<<penguji 2>>} 
+\penguji{\RCP}{\HUH} 
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -239,13 +240,23 @@
 % - hilangkan tanda << & >>, dan isi sesuai dengan data anda
 % - langsung mulai setelah '{' awal, jangan mulai menulis di baris bawahnya
 %=============================================================================
-\abstrakINA{Keberadaan tautan rusak pada situs web dapat mengganggu aksesibilitas informasi serta menurunkan kualitas pengalaman pengguna. Untuk membantu mengatasi permasalahan tersebut, penelitian ini mengembangkan sebuah aplikasi berbasis desktop yang mampu memeriksa tautan rusak pada situs web. Aplikasi yang dikembangkan melakukan \textit{web crawling} dengan menelusuri setiap halaman pada situs web dan pada setiap halaman yang dikunjungi dilakukan ekstraksi terhadap tautan di dalamnya. Setiap tautan akan diperiksa dengan melakukan permintaan HTTP untuk menentukan apakah tautan tersebut masih dapat diakses, dan hasil pemeriksaan ditampilkan secara langsung melalui antarmuka grafis.
-\\
-Hasil pengujian menunjukkan bahwa aplikasi berhasil melakukan pemeriksaan tautan rusak pada situs web. Pengujian lebih lanjut mengungkap bahwa pengaturan waktu tunggu ketika menghubungi \textit{server} dan waktu tunggu untuk mendapatkan respons dari \textit{server} pada permintaan HTTP berpengaruh secara langsung terhadap keakuratan hasil pemeriksaan. Waktu tunggu yang terlalu singkat menyebabkan lebih banyak tautan yang keliru teridentifikasi sebagai tautan rusak, sedangkan waktu tunggu yang lebih panjang menghasilkan hasil yang lebih stabil meskipun mengorbankan waktu pemeriksaan yang menjadi lebih lama.}
 
-\abstrakENG{The presence of broken links on websites can disrupt information accessibility and reduce the quality of user experience. To help address this issue, this research develops a desktop-based application capable of checking broken links on websites. The developed application performs web crawling by traversing each page within a website, and for every visited page, hyperlinks contained in the page are extracted. Each link is then examined by sending an HTTP request to determine whether the link is still accessible, and the inspection results are displayed directly through a graphical user interface.
+\abstrakINA{
+Keberadaan tautan rusak pada situs web dapat mengganggu aksesibilitas informasi, menurunkan kualitas pengalaman pengguna, serta berdampak negatif terhadap kredibilitas dan pemeliharaan situs web. Permasalahan ini umum terjadi pada berbagai jenis situs web dan sulit ditangani secara manual ketika jumlah halaman dan tautan yang dimiliki cukup besar. Oleh karena itu, penelitian ini bertujuan untuk mengembangkan sebuah aplikasi berbasis desktop yang mampu melakukan pemeriksaan tautan rusak pada situs web secara otomatis.
 \\
-The testing results indicate that the application is able to successfully perform broken link checking on websites. Further testing reveals that the configuration of timeout values when establishing connections to the server and waiting for server responses in HTTP requests directly affects the accuracy of the inspection results. Timeout values that are too short lead to a higher number of links being incorrectly identified as broken, whereas longer timeout values produce more stable results, although at the cost of longer inspection duration.}
+Aplikasi yang dikembangkan menerima masukan berupa URL awal situs web, kemudian melakukan penelusuran halaman menggunakan mekanisme \textit{web crawling}. Pada setiap halaman yang dikunjungi, aplikasi melakukan ekstraksi tautan dari elemen HTML \texttt{<a>} dan memeriksa setiap tautan dengan mengirimkan permintaan HTTP untuk menentukan status aksesibilitasnya. Tautan yang teridentifikasi sebagai rusak diklasifikasikan berdasarkan jenis kesalahan yang terjadi dan ditampilkan secara langsung melalui antarmuka pengguna grafis. Selain itu, aplikasi dilengkapi dengan fitur ekspor hasil pemeriksaan ke berkas Excel untuk mempermudah membaca hasil pemeriksaan.
+\\
+Hasil pengujian menunjukkan bahwa aplikasi mampu melakukan pemeriksaan tautan rusak dengan akurat dan konsisten sesuai dengan skenario pengujian yang ditetapkan. Pengujian eksperimental memperlihatkan bahwa parameter waktu tunggu koneksi dan waktu tunggu respons HTTP berpengaruh terhadap hasil dan durasi pemeriksaan. Nilai waktu tunggu yang terlalu kecil menyebabkan meningkatnya kesalahan identifikasi tautan rusak, sedangkan nilai yang lebih besar menghasilkan hasil yang lebih stabil dengan konsekuensi durasi pemeriksaan yang lebih lama. Berdasarkan hasil pengujian fungsional dan eksperimental, dapat disimpulkan bahwa aplikasi yang dikembangkan telah memenuhi tujuan penelitian sebagai alat bantu pemeriksa tautan rusak pada situs web.
+}
+
+\abstrakENG{
+The presence of broken links on websites can disrupt information accessibility, reduce the quality of user experience, and negatively affect website credibility and maintenance. This problem commonly occurs across various types of websites and is difficult to handle manually when a website contains a large number of pages and links. Therefore, this research aims to develop a desktop-based application capable of automatically checking broken links on websites.
+\\
+The developed application accepts an initial website URL as input and performs page traversal using a \textit{web crawling} mechanism. For each visited page, the application extracts hyperlinks from HTML \texttt{<a>} elements and examines each link by sending an HTTP request to determine its accessibility status. Links identified as broken are classified based on the type of error encountered and are displayed directly through a graphical user interface. In addition, the application provides an export feature that allows inspection results to be saved into an Excel file to facilitate result analysis.
+\\
+The testing results show that the application is able to perform broken link inspection accurately and consistently according to the defined testing scenarios. Experimental testing indicates that connection timeout and HTTP response timeout parameters have a direct impact on both the accuracy and duration of the inspection process. Timeout values that are too short increase the number of incorrectly identified broken links, whereas longer timeout values produce more stable results at the cost of longer inspection time. Based on the functional and experimental testing results, it can be concluded that the developed application fulfills the research objectives as a supporting tool for checking broken links on websites.
+}
+
 
 %=============================================================================
 
@@ -258,7 +269,7 @@ The testing results indicate that the application is able to successfully perfor
 % - kunciENG: keywords in english
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\kunciINA{Tautan Rusak, Tautan Halaman, Web Crawling, Pemeriksaan Tautan, Aplikasi Desktop}
+\kunciINA{Tautan Rusak, Tautan Halaman, \textit{Web Crawling}, Pemeriksaan Tautan, Aplikasi Desktop}
 \kunciENG{Broken Links, Webpage Links, Web Crawling, Link Checking, Desktop Application}
 
 %=============================================================================
@@ -270,7 +281,7 @@ The testing results indicate that the application is able to successfully perfor
 % Persembahan : kepada siapa anda mempersembahkan skripsi ini ...
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-% \untuk{<<kepada siapa anda mempersembahkan skripsi ini\ldots?>>}
+\untuk{<<kepada siapa anda mempersembahkan skripsi ini\ldots?>>}
 
 %=============================================================================
 
@@ -282,7 +293,7 @@ The testing results indicate that the application is able to successfully perfor
 % kasih kepada yang telah membantu anda bla bla bla ....  
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-% \prakata{<<Tuliskan kata pengantar dari anda di sini \ldots>>} 
+\prakata{<<Tuliskan kata pengantar dari anda di sini \ldots>>} 
 
 %=============================================================================
 
@@ -325,9 +336,9 @@ The testing results indicate that the application is able to successfully perfor
 % apakah harus mengisi ``no" atau ``yes". Default = no 
 % Untuk mahasiswa Informatika = yes
 %=============================================================================
-%\ttddosen{yes}
+\ttddosen{yes}
+% \ttddosen{no}
 %=============================================================================
-\ttddosen{no}
 
 %_____________________________________________________________________________
 %=============================================================================
@@ -355,6 +366,10 @@ The testing results indicate that the application is able to successfully perfor
 \usepackage{makecell}
 \usepackage{longtable}
 % \usepackage{caption}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{setspace}
 
 %=============================================================================
 

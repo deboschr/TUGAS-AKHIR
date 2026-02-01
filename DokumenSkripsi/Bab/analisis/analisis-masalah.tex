@@ -1,9 +1,208 @@
-Bab ini membahas analisis terhadap permasalahan yang menjadi dasar perancangan sistem. Analisis difokuskan pada dua aspek utama, yaitu penentuan kondisi yang menyebabkan sebuah tautan dinyatakan rusak serta mekanisme \textit{web crawling} yang diperlukan untuk memperoleh halaman yang akan diperiksa.
+Permasalahan utama yang menjadi fokus dalam tugas akhir ini adalah keberadaan tautan rusak pada sebuah situs web. Untuk mengatasi permasalahan tersebut, diperlukan sebuah solusi berupa perangkat lunak yang mampu melakukan penelusuran halaman situs web dan melakukan pemeriksaan tautan rusak secara otomatis. Untuk mencapai solusi tersebut diperlukan langkah-langkah berisi permasalahan yang harus diselesaikan. Langkah awal untuk mencapai solusi tersebut adalah dengan mendefinisikan alur penyelesaian masalah yang ditampilkan dalam Pseudocode~\ref{alg:web-crawler}.
 
-\subsection{Tautan Rusak}
-\label{subsec:030101-tautan-rusak}
-\input{Bab/analisis/analisis-masalah/tautan-rusak}
+\vspace{5mm}
 
-\subsection{\textit{Web Crawling}}
-\label{subsec:030102-web-crawlin}
-\input{Bab/analisis/analisis-masalah/web-crawling}
+\begin{algorithm}[H]
+   \caption{WebCrawler($u_0$)}
+   \label{alg:web-crawler}
+
+   \begin{algorithmic}[1]
+
+      \State Enqueue $u_0$ ke dalam $frontier$
+      \While{$frontier \neq \emptyset$}
+         \State $u \leftarrow$ dequeue URL internal dari $frontier$
+         \State Fetch URL internal $u$
+         \If{$u$ tautan rusak}
+            \State Tampilkan hasil ke GUI
+         \EndIf
+         \State Parse response body menjadi dokumen HTML
+         \State Ekstrak seluruh tautan $T$ dari HTML
+         \For{setiap tautan $t \in T$}
+            \State $t \leftarrow$ normalisasi URL $t$
+            \If{$t$ merupakan tautan internal}
+               \State Enqueue $t$ ke dalam $frontier$
+            \Else
+               \State Fetch URL eksternal $t$ secara konkuren
+               \If{$t$ tautan rusak}
+                  \State Tampilkan hasil ke GUI
+               \EndIf
+               \State Masukkan $t$ ke dalam $repository$
+            \EndIf
+         \EndFor
+      \EndWhile
+
+   \end{algorithmic}
+\end{algorithm}
+
+
+Pseudocode~\ref{alg:web-crawler} menggambarkan alur umum penyelesaian permasalahan pemeriksaan tautan rusak yang diterapkan dalam sistem. Setiap langkah pada pseudocode tersebut merepresentasikan tahapan utama yang harus dilakukan, mulai dari penelusuran halaman situs web, pemeriksaan tautan yang ditemukan, hingga pengelolaan hasil pemeriksaan. Untuk memperjelas hubungan antar tahapan serta alur eksekusi proses secara visual, pseudocode tersebut kemudian diturunkan ke dalam bentuk flow diagram (lihat Gambar~\ref{fig:use-case-diagram}). Flow diagram ini digunakan sebagai representasi visual dari pseudocode yang sama dan menjadi dasar dalam menguraikan permasalahan serta solusi pada setiap tahapan proses pemeriksaan.
+
+\vspace{5mm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{Gambar/030100-flow-diagram-analisis-masalah.png}
+    \caption{Flow diagram analisis masalah}
+    \label{fig:use-case-diagram}
+\end{figure}
+
+Berdasarkan alur penyelesaian masalah yang ditampilkan pada Gambar~\ref{fig:use-case-diagram}, setiap tahapan pada proses pemeriksaan tautan rusak dapat diuraikan menjadi permasalahan yang lebih spesifik. Setiap tahapan tersebut memiliki karakteristik dan tantangan tersendiri yang perlu dianalisis serta diselesaikan secara terpisah. Oleh karena itu, pada subsubbab berikutnya akan dibahas secara bertahap strategi dan solusi yang diterapkan pada setiap tahapan, dimulai dari strategi penelusuran halaman situs web hingga mekanisme identifikasi tautan rusak.
+
+
+\subsection{Strategi \textit{Crawling}}
+\label{subsec:030101-strategi-crawling}
+Strategi \textit{crawling} yang digunakan dalam penelitian ini adalah \textit{Breadth-First Crawler}. Strategi ini dipilih karena permasalahan yang ingin diselesaikan tidak memerlukan penentuan prioritas halaman berdasarkan bobot tertentu, relevansi konten, atau tingkat kepentingan halaman. Seluruh halaman pada situs web dianggap memiliki tingkat prioritas yang sama untuk ditelusuri, karena tujuan utama sistem adalah menemukan dan memeriksa keberadaan tautan rusak secara menyeluruh.
+
+Pada \textit{Breadth-First Crawler}, penelusuran halaman dilakukan berdasarkan urutan kedalaman yang sama terlebih dahulu, di mana seluruh halaman yang ditemukan pada suatu tingkat akan diproses sebelum melanjutkan ke tingkat berikutnya. Pendekatan ini sesuai dengan kebutuhan sistem, karena memungkinkan seluruh halaman situs web dijangkau secara merata tanpa mengabaikan halaman tertentu akibat perbedaan prioritas.
+
+Berbeda dengan strategi \textit{preferential crawling} yang umumnya digunakan untuk tujuan pengindeksan atau pencarian informasi dan memerlukan penilaian bobot atau heuristik tertentu, sistem yang dikembangkan dalam penelitian ini tidak membutuhkan mekanisme penilaian semacam itu. Fokus sistem sepenuhnya diarahkan pada pemeriksaan tautan rusak, sehingga seluruh halaman situs web perlu diakses dan diproses tanpa pengecualian.
+
+
+
+\subsection{Penyimpanan Data}
+\label{subsec:030102-penyimpanan-data}
+Dalam proses penelusuran halaman dan pemeriksaan tautan rusak, diperlukan mekanisme penyimpanan data yang mampu mendukung alur kerja \textit{Breadth-First Crawler} serta mencegah terjadinya pemeriksaan berulang terhadap URL yang sama. Oleh karena itu, sistem menggunakan dua jenis penyimpanan utama, yaitu \textit{frontier} dan \textit{repository}, yang masing-masing memiliki peran dan kebutuhan yang berbeda.
+
+\textit{Frontier} digunakan untuk menyimpan daftar URL internal yang akan ditelusuri. Karena strategi \textit{crawling} yang digunakan adalah \textit{Breadth-First Crawler}, urutan pemrosesan URL menjadi hal yang sangat penting. URL harus diproses berdasarkan urutan penemuan, sehingga halaman yang ditemukan lebih awal akan diperiksa terlebih dahulu. Untuk memenuhi kebutuhan tersebut, struktur data yang sesuai untuk \textit{frontier} adalah \textit{queue} dengan prinsip \textit{First-In First-Out} (FIFO). Dengan menggunakan \textit{queue}, sistem dapat memastikan bahwa penelusuran halaman dilakukan secara berlapis sesuai dengan urutan kedalaman halaman.
+
+Selain \textit{frontier}, sistem juga membutuhkan \textit{repository} yang berfungsi untuk menyimpan seluruh URL yang telah diperiksa atau sedang dalam proses pemeriksaan. \textit{Repository} digunakan untuk memastikan bahwa setiap URL hanya diperiksa satu kali, sehingga dapat mencegah terjadinya duplikasi pemeriksaan dan potensi perulangan tak berhingga selama proses \textit{crawling}. Berdasarkan kebutuhan tersebut, struktur data yang digunakan untuk \textit{repository} harus mampu menjaga keunikan URL serta menyediakan akses pencarian yang cepat.
+
+Struktur data yang dipilih untuk \textit{repository} adalah \textit{HashMap}, di mana URL disimpan sebagai \textit{key} dan objek tautan yang memuat informasi hasil pemeriksaan disimpan sebagai \textit{value}. Pemilihan \textit{HashMap} memungkinkan sistem untuk melakukan pengecekan keberadaan URL secara efisien sebelum melakukan pemeriksaan, sekaligus menyimpan informasi hasil pemeriksaan tautan untuk digunakan pada proses pelaporan dan penampilan hasil pada antarmuka pengguna.
+
+
+\subsection{\textit{Fetching} Tautan}
+\label{subsec:030103-fetching-tautan}
+Proses \textit{fetching} atau pengiriman permintaan HTTP merupakan bagian inti dalam pemeriksaan tautan rusak, karena seluruh informasi yang digunakan untuk menentukan kondisi sebuah tautan diperoleh pada tahap ini. Melalui proses \textit{fetching}, sistem menerima respons dari \textit{server} yang berisi kode status HTTP, \textit{header}, serta isi respons yang kemudian dianalisis untuk mengidentifikasi apakah sebuah tautan dapat diakses atau dikategorikan sebagai tautan rusak (lihat Subsubbab~\ref{subsec:030108-identifikasi-tautan-rusak}).
+
+Metode HTTP yang digunakan dalam proses \textit{fetching} adalah metode \texttt{GET}. Pemilihan metode ini didasarkan pada pertimbangan bahwa metode \texttt{GET} memiliki perilaku yang menyerupai cara kerja \textit{browser} ketika pengguna menekan sebuah tautan pada situs web. Dengan demikian, respons yang diterima dari \textit{server} mencerminkan kondisi akses yang dialami oleh pengguna secara langsung. Lebih detail cara melakukan permintaan HTTP dapat dilihat pada Subsubbab~\ref{subsec:030403-java-http-client-api}.
+
+Dalam praktik \textit{web crawling}, pengiriman permintaan HTTP secara cepat dan berulang dapat membebani \textit{server} target dan berpotensi menyebabkan respons yang tidak merepresentasikan kondisi sebenarnya dari tautan, seperti pemblokiran sementara atau pengembalian kode status 429 \textit{Too Many Requests}. Oleh karena itu, sesuai dengan etika \textit{crawling} yang telah dibahas pada Subbab~\ref{sec:020400-web-crawling}, sistem menerapkan mekanisme \textit{rate limiting} untuk membatasi frekuensi permintaan HTTP.
+
+Penerapan \textit{rate limiting} dilakukan dengan pengelompokan berdasarkan \textit{host} URL. Pendekatan ini dipilih karena setiap \textit{server} umumnya memiliki kebijakan yang berbeda terhadap jumlah dan kecepatan permintaan HTTP yang diterima. Meskipun pendekatan ini tidak sepenuhnya akurat karena beberapa \textit{host} yang berbeda dapat berada pada \textit{server} yang sama, pendekatan ini dianggap memadai untuk menjaga keseimbangan antara kepatuhan terhadap etika \textit{crawling} dan efisiensi durasi pemeriksaan.
+
+Selain pembatasan kecepatan permintaan, sistem juga menerapkan identifikasi \textit{crawler} melalui \textit{user-agent} pada setiap permintaan HTTP. Penerapan \textit{user-agent} bertujuan untuk memberikan informasi identitas aplikasi kepada \textit{server} target sebagai bentuk transparansi dan tanggung jawab. Informasi yang dicantumkan dalam \textit{user-agent} meliputi alamat repositori kode sumber aplikasi serta alamat surat elektronik pengembang, sehingga pihak pengelola \textit{server} dapat melakukan komunikasi apabila diperlukan.
+
+
+\subsection{\textit{Parsing} HTML}
+\label{subsec:030104-parsing-html}
+\textit{Parsing} HTML merupakan tahap penting dalam proses \textit{web crawling} karena pada tahap inilah isi halaman web yang diperoleh melalui proses \textit{fetching} diubah menjadi struktur data yang dapat dianalisis lebih lanjut. Hasil \textit{parsing} digunakan sebagai dasar untuk melakukan ekstraksi elemen-elemen HTML yang mengandung tautan, yang selanjutnya akan diperiksa untuk menentukan kondisi setiap tautan.
+
+Salah satu tantangan utama dalam proses \textit{parsing} HTML adalah keberagaman kualitas struktur dokumen HTML yang ditemukan di lapangan. Tidak semua halaman web memiliki struktur HTML yang valid sesuai standar, seperti \textit{tag} yang tidak ditutup dengan benar, atribut yang tidak lengkap, atau penulisan elemen yang tidak konsisten. Kondisi ini dapat menyebabkan kegagalan \textit{parsing} apabila digunakan parser yang bersifat ketat terhadap sintaks HTML.
+
+Berdasarkan tantangan tersebut, sistem yang dikembangkan menggunakan parser HTML yang bersifat toleran terhadap kesalahan struktur dokumen. Parser yang digunakan adalah \textit{Jsoup}, yang dirancang untuk mampu menangani dokumen HTML yang tidak sepenuhnya valid dengan tetap menghasilkan struktur dokumen yang dapat diproses. Dengan pendekatan ini, proses \textit{parsing} tetap dapat dilakukan meskipun halaman web memiliki kesalahan penulisan HTML. Hasil dari proses \textit{parsing} HTML pada tahap ini adalah representasi dokumen HTML dalam bentuk struktur DOM, yang kemudian digunakan pada tahap selanjutnya untuk melakukan ekstraksi tautan sesuai dengan kriteria yang telah ditetapkan. Detail cara melakukan \textit{parsing} dapat dilihat pada Subsubbab~\ref{subsec:030402-jsoup}.
+
+
+\subsection{Ekstraksi Tautan}
+\label{subsec:030105-ekstraksi-tautan}
+Ekstraksi tautan merupakan tahap lanjutan setelah proses \textit{parsing} HTML, yang bertujuan untuk mengidentifikasi seluruh URL yang terdapat pada sebuah halaman web. Pada tahap ini, sistem menelusuri struktur dokumen HTML hasil \textit{parsing} untuk menemukan elemen-elemen yang mengandung alamat tujuan yang dapat diakses melalui protokol HTTP atau HTTPS.
+
+Berdasarkan pembahasan mengenai HTML pada Subbab~\ref{sec:020300-html}, terdapat beberapa elemen HTML yang dapat mengandung URL, seperti elemen \texttt{<img>} dengan atribut \texttt{src}, elemen \texttt{<form>} dengan atribut \texttt{action}, serta elemen \texttt{<a>} dengan atribut \texttt{href}. Seluruh elemen tersebut secara teknis dapat dianggap sebagai tautan karena mengarah ke sumber daya tertentu. 
+
+Namun, dalam penelitian ini fokus utama adalah pada tautan yang digunakan pengguna untuk menelusuri halaman situs web, yaitu \textit{hyperlink}. Oleh karena itu, proses ekstraksi tautan dibatasi hanya pada elemen \texttt{<a>} yang memiliki atribut \texttt{href}. Pembatasan ini dilakukan karena elemen \texttt{<a>} secara langsung merepresentasikan jalur navigasi antarhalaman yang dapat memengaruhi aksesibilitas informasi dan pengalaman pengguna. Lebih detail cara melakukan ekstraksi tautan dapat dilihat pada Subsubbab~\ref{subsec:030402-jsoup}.
+
+
+\subsection{Normalisasi URL}
+\label{subsec:030106-normalisasi-url}
+Normalisasi URL merupakan tahap penting dalam proses \textit{web crawling} dan pemeriksaan tautan, yang bertujuan untuk menyamakan bentuk URL sehingga dapat menghindari duplikasi pemeriksaan serta meminimalkan kesalahan identifikasi tautan. URL yang secara semantik merujuk pada sumber daya yang sama dapat memiliki representasi teks yang berbeda, sehingga tanpa normalisasi sistem berisiko memeriksa tautan yang sama lebih dari satu kali atau menganggap URL valid sebagai URL berbeda.
+
+Aturan normalisasi URL pada penelitian ini dibatasi khusus untuk URL dengan skema \texttt{http} dan \texttt{https}, karena kedua skema tersebut merupakan skema yang digunakan dalam protokol komunikasi HTTP pada situs web. URL dengan skema lain seperti \texttt{ftp://}, \texttt{mailto://}, atau \texttt{file://} tidak diproses lebih lanjut dan tidak termasuk dalam cakupan pemeriksaan. Proses normalisasi URL dilakukan berdasarkan komponen struktur URL untuk skema \texttt{http}/\texttt{https} dengan ketentuan sebagai berikut:
+
+\begin{enumerate}[itemsep=15pt]
+   \item \textbf{\textit{Scheme}}\\  
+   Komponen \textit{scheme} bersifat wajib dan harus bernilai \texttt{http} atau \texttt{https}. Untuk menjaga konsistensi, nilai \textit{scheme} diubah ke bentuk huruf kecil sesuai dengan anjuran kanonisasi pada RFC~3986. Contoh normalisasi \textit{scheme} adalah sebagai berikut:
+
+   \vspace{2mm}
+   
+   \texttt{HTTPS://unpar.ac.id} $\rightarrow$ \texttt{https://unpar.ac.id}
+
+   
+   \item \textbf{\textit{User Info}}\\  
+   Komponen \textit{user info} tidak digunakan dalam proses normalisasi. Komponen ini diabaikan karena tidak memengaruhi representasi sumber daya dan umumnya diabaikan oleh \textit{server} apabila tidak diharapkan, sehingga tidak berpengaruh terhadap hasil \textit{response} HTTP. Contoh normalisasi \textit{user info} adalah sebagai berikut:
+
+   \vspace{2mm}
+
+   \texttt{https://debo@unpar.ac.id} $\rightarrow$ \texttt{https://unpar.ac.id}
+
+
+   \item \textbf{\textit{Host}}\\  
+   Komponen \textit{host} bersifat wajib. Nilai \textit{host} dinormalisasi ke bentuk huruf kecil sesuai anjuran RFC~3986. Apabila \textit{host} berupa \textit{Internationalized Domain Name} (IDN) yang mengandung karakter non-ASCII, maka \textit{host} tersebut dikonversi ke representasi ASCII agar dapat diproses secara konsisten oleh sistem. Contoh normalisasi \textit{host} adalah sebagai berikut:
+
+   \vspace{2mm}
+   
+   \texttt{https://UNPAR.AC.ID} $\rightarrow$ \texttt{https://unpar.ac.id}
+   
+   \vspace{1mm}
+   
+   \texttt{https://tr\"{a}dg\aa rd.se} $\rightarrow$ \texttt{https://xn--trdgrd-cuak.se}
+
+   \item \textbf{\textit{Port}}\\  
+   Apabila URL menggunakan \textit{port} bawaan, yaitu \textit{port} 80 untuk \texttt{http} dan \textit{port} 443 untuk \texttt{https}, maka komponen \textit{port} dihilangkan. Penghilangan \textit{port} bawaan dilakukan untuk mencegah duplikasi URL antara URL yang secara eksplisit mencantumkan \textit{port} dan URL yang tidak mencantumkannya. Contoh normalisasi \textit{port} adalah sebagai berikut:
+
+   \vspace{2mm}
+
+   \texttt{https://unpar.ac.id:443} $\rightarrow$ \texttt{https://unpar.ac.id}
+
+
+   \item \textbf{\textit{Path}}\\  
+   Normalisasi pada komponen \textit{path} mencakup penghilangan \textit{dot-segment}. Segmen \texttt{/./} yang merepresentasikan direktori saat ini dihilangkan, sedangkan segmen \texttt{/../} yang merepresentasikan direktori induk dihilangkan bersama dengan segmen direktori sebelumnya. Selain itu, \textit{slash} berlebih yang dapat muncul akibat penggabungan URL relatif dan absolut juga dihilangkan untuk mencegah terbentuknya URL tidak valid. Contoh normalisasi \textit{path} adalah sebagai berikut:
+
+   \vspace{2mm}
+
+   \texttt{https://unpar.ac.id/student/./nilai} $\rightarrow$ \texttt{https://unpar.ac.id/student/nilai}
+   
+   \vspace{1mm}
+   
+   \texttt{https://unpar.ac.id/student/../nilai} $\rightarrow$ \texttt{https://unpar.ac.id/nilai}
+   
+   \vspace{1mm}
+   
+   \texttt{https://unpar.ac.id//student} $\rightarrow$ \texttt{https://unpar.ac.id/student}
+
+
+   \item \textbf{\textit{Query}}\\  
+   Komponen \textit{query} tidak dinormalisasi dan tidak dihilangkan. Seluruh nilai \textit{query} digunakan apa adanya. Apabila sintaks \textit{query} tidak valid, URL tersebut tetap diproses dan akan dikategorikan sebagai \textit{Invalid URL} pada tahap identifikasi tautan rusak.
+
+
+   \item \textbf{\textit{Fragment}}\\  
+   Komponen \textit{fragment} dihilangkan karena tidak dikirim ke \textit{server} dalam permintaan HTTP dan tidak memengaruhi hasil \textit{response}. Penghilangan \textit{fragment} juga mencegah terjadinya duplikasi pemeriksaan terhadap URL yang secara teknis merujuk pada sumber daya yang sama. Contoh normalisasi \textit{path} adalah sebagai berikut:
+
+   \vspace{2mm}
+
+   \texttt{https://unpar.ac.id/student\#nilai} $\rightarrow$ \texttt{https://unpar.ac.id/student}
+
+   \vspace{4mm}
+\end{enumerate}
+
+Dengan menerapkan aturan normalisasi tersebut, sistem dapat memastikan bahwa setiap URL direpresentasikan secara konsisten, menghindari pemeriksaan berulang terhadap sumber daya yang sama, serta meminimalkan kesalahan klasifikasi tautan akibat variasi penulisan URL.
+
+
+\subsection{Concurrency}
+\label{subsec:030107-concurrency}
+Penerapan \textit{concurrency} dalam proses \textit{web crawling} bertujuan untuk mempercepat durasi pemeriksaan dengan memungkinkan beberapa permintaan HTTP diproses secara bersamaan. Sebagaimana dijelaskan pada subbab \textit{web crawling} (Subbab~\ref{sec:020400-web-crawling}), salah satu tantangan dalam proses crawling adalah waktu tunggu terhadap respons \textit{server}, terutama ketika memeriksa jumlah tautan yang besar. Oleh karena itu, pemanfaatan \textit{multithreading} menjadi salah satu pendekatan yang dapat digunakan untuk meningkatkan efisiensi waktu pemeriksaan.
+
+Namun demikian, dalam aplikasi yang dikembangkan pada penelitian ini, penerapan \textit{concurrency} dilakukan secara terbatas dan terkontrol. Proses \textit{concurrency} hanya diterapkan pada pemeriksaan tautan eksternal, yaitu tautan yang memiliki \textit{host} berbeda dengan \textit{host} dari URL awal. Pemeriksaan tautan eksternal bersifat independen terhadap proses penelusuran halaman situs web, sehingga dapat dilakukan secara paralel tanpa memengaruhi urutan atau strategi penelusuran halaman.
+
+Sebaliknya, pemeriksaan tautan internal, yaitu tautan yang memiliki \textit{host} yang sama dengan \textit{host} URL awal, dieksekusi secara sekuensial sesuai dengan strategi \textit{Breadth-First Crawler}. Pendekatan ini dipilih untuk menjaga urutan penelusuran halaman, memastikan bahwa setiap halaman diproses secara terkontrol, serta menghindari kompleksitas sinkronisasi yang dapat muncul apabila proses crawling internal dilakukan secara paralel. Dengan pemisahan ini, sistem tetap memperoleh peningkatan performa melalui \textit{concurrency} pada tautan eksternal, sekaligus mempertahankan konsistensi dan kestabilan proses penelusuran halaman internal.
+
+
+\subsection{Identifikasi Tautan Rusak}
+\label{subsec:030108-identifikasi-tautan-rusak}
+Tautan rusak didefinisikan sebagai tautan yang mengarah ke sumber daya yang sudah tidak dapat diakses lagi, baik karena halaman tujuan telah dihapus, dipindahkan ke alamat lain, maupun tidak lagi memberikan respons yang dapat diterima oleh pengguna~\cite{popitsch:10:dsnotify}. Berdasarkan definisi tersebut, sistem yang dikembangkan melakukan identifikasi tautan rusak dengan mengevaluasi hasil pemeriksaan terhadap setiap URL yang ditemukan selama proses penelusuran halaman situs web.
+
+Untuk menentukan apakah sebuah tautan dikategorikan sebagai tautan rusak, digunakan beberapa kriteria identifikasi sebagai berikut:
+\begin{enumerate}[itemsep=10pt]
+   \item \textbf{\textit{Invalid URL}} \\ 
+   URL yang tidak valid berdasarkan aturan struktur dan normalisasi URL dapat menyebabkan sumber daya tidak dapat diakses atau gagal diproses sejak awal. Kondisi ini dapat terjadi akibat format URL yang tidak sesuai, kesalahan penulisan, atau hasil penggabungan URL relatif dan URL absolut yang tidak valid. Oleh karena itu, URL yang tidak memenuhi aturan normalisasi yang telah ditetapkan dikategorikan sebagai tautan rusak tanpa perlu dilakukan permintaan HTTP ke \textit{server}.
+
+   Apabila tautan rusak disebabkan oleh URL yang tidak valid, pemilik situs web disarankan untuk melakukan pemeriksaan terhadap penulisan URL pada halaman sumber. Kesalahan ini umumnya dapat diperbaiki dengan memperbaiki format URL, mengoreksi kesalahan penulisan, atau menyesuaikan proses penggabungan URL relatif menjadi URL absolut. Jika tautan tersebut sudah tidak relevan, maka sebaiknya tautan dihapus atau diganti dengan URL yang benar dan dapat diakses.
+
+   \item \textbf{Kegagalan \textit{Fetching}} \\ 
+   Proses \textit{fetching} merupakan tahap permintaan HTTP untuk memperoleh respons dari \textit{server}. Kegagalan pada tahap ini dapat disebabkan oleh berbagai faktor, seperti kesalahan keamanan (misalnya SSL \textit{Error}), kegagalan pembentukan koneksi, \textit{timeout} saat menunggu respons dari \textit{server}, maupun gangguan jaringan lainnya. Apabila permintaan HTTP tidak menghasilkan respons yang valid, maka sumber daya dianggap tidak dapat diakses dan tautan tersebut dikategorikan sebagai tautan rusak.
+
+   Untuk tautan yang gagal diakses akibat kegagalan \textit{fetching}, pemilik situs web perlu melakukan pemeriksaan lanjutan terhadap kondisi jaringan dan konfigurasi \textit{server} tujuan. Jika kegagalan disebabkan oleh masalah keamanan seperti SSL \textit{Error}, maka konfigurasi sertifikat keamanan perlu diperbaiki. Apabila kegagalan berupa \textit{timeout} atau kegagalan koneksi sementara, disarankan untuk melakukan pemeriksaan ulang secara berkala guna memastikan apakah masalah tersebut bersifat sementara atau permanen.
+
+   \item \textbf{Kode Status HTTP} \\
+   Kode status HTTP yang dikembalikan oleh \textit{server} dapat digunakan untuk menentukan keberhasilan atau kegagalan akses terhadap sumber daya. Kode status pada kelas \textit{client error} (4xx) dan \textit{server error} (5xx) menunjukkan bahwa permintaan tidak berhasil diproses sebagaimana mestinya. Oleh karena itu, setiap tautan yang pada proses \textit{fetching} mengembalikan kode status dari kedua kelas tersebut dikategorikan sebagai tautan rusak. Selain itu, sistem juga mempertimbangkan kode status non-standar, seperti 999 atau 0, yang meskipun tidak didefinisikan dalam standar HTTP, sering kali menandakan kegagalan dalam mengakses sumber daya, sehingga juga diklasifikasikan sebagai tautan rusak.
+
+   Pada tautan yang mengembalikan kode status HTTP kelas 4xx atau 5xx, tindakan yang disarankan bergantung pada jenis kesalahannya. Untuk kesalahan 4xx, pemilik situs web perlu memastikan bahwa URL tujuan masih tersedia dan dapat diakses oleh pengguna. Jika halaman telah dipindahkan, maka sebaiknya diterapkan mekanisme \textit{redirection} yang sesuai. Untuk kesalahan 5xx, perbaikan perlu difokuskan pada sisi \textit{server}, seperti konfigurasi layanan atau ketersediaan sumber daya. Sementara itu, untuk kode status non-standar, disarankan dilakukan pemeriksaan manual untuk memastikan kondisi sebenarnya dari sumber daya yang ditautkan.
+\end{enumerate}

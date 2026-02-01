@@ -4,7 +4,7 @@ OLE2 merupakan standar penyimpanan biner yang digunakan oleh Microsoft Office un
 
 
 Struktur proyek Apache POI terdiri dari beberapa modul yang masing-masing dirancang untuk menangani format berkas tertentu dalam ekosistem Microsoft Office. Berikut adalah modul-modul tersebut:
-\begin{itemize}[itemsep=1pt]
+\begin{itemize}[itemsep=5pt]
     \item \textbf{\texttt{POIFS}}: Modul ini digunakan untuk membaca dan menulis struktur penyimpanan pada standar OLE2 sebagai kumpulan \textit{storages} dan \textit{streams}.
     
     \item \textbf{\texttt{HSSF}}: Modul ini digunakan untuk memproses isi berkas Microsoft Excel dengan format XLS pada standar OLE2.
@@ -21,34 +21,6 @@ Struktur proyek Apache POI terdiri dari beberapa modul yang masing-masing diranc
     
 \end{itemize}
 
+\vspace{3mm}
+
 Untuk mendukung pemrosesan berkas \textit{spreadsheet} pada modul \texttt{HSSF} dan \texttt{XSSF}, Apache POI menyediakan sebuah API bernama SS UserModel melalui paket \texttt{org.apache.poi.ss.usermodel}. API ini mendefinisikan elemen-elemen umum \textit{spreadsheet} seperti \texttt{Workbook}, \texttt{Sheet}, \texttt{Row}, dan \texttt{Cell}. Melalui API ini, pemrosesan \textit{spreadsheet} dapat dilakukan menggunakan antarmuka yang sama pada kedua modul, tanpa perlu menangani perbedaan struktur antara berkas dengan format XLS dan XLSX secara langsung.
-
-Kode~\ref{lst:poi-xlsx-example} menunjukkan contoh sederhana penggunaan Apache POI untuk membuat sebuah dokumen Excel dengan format XLSX. Contoh ini menggunakan modul \texttt{XSSF} karena berkas yang dihasilkan termasuk dalam standar OOXML, serta memanfaatkan SS UserModel melalui kelas-kelas seperti \texttt{Workbook}, \texttt{Sheet}, \texttt{Row}, dan \texttt{Cell}.
-
-
-\begin{lstlisting}[language=Java, caption={Contoh penggunaan Apache POI}, label={lst:poi-xlsx-example}]
-public class ExcelExportExample {
-    public static void main(String[] args) throws Exception {
-        // Membuat workbook untuk format XLSX
-        Workbook workbook = new XSSFWorkbook();
-        // Membuat sheet baru dengan nama
-        Sheet sheet = workbook.createSheet("Data");
-        // Membuat baris pertama (indeks 0)
-        Row row = sheet.createRow(0);
-        
-        // Membuat sel (kolom 0 dan 1) dan mengisinya
-        Cell cellA = row.createCell(0);
-        cellA.setCellValue("Hello");
-        Cell cellB = row.createCell(1);
-        cellB.setCellValue("World");
-
-        // Menyimpan workbook ke berkas fisik
-        try (FileOutputStream out = new FileOutputStream("contoh.xlsx")) {
-            workbook.write(out);
-        }
-        workbook.close(); // Menutup workbook
-    }
-}
-\end{lstlisting}
-
-Alur kerja dari Kode~\ref{lst:poi-xlsx-example} dimulai dengan pembuatan objek \texttt{Workbook} menggunakan kelas \texttt{XSSFWorkbook}, yang merupakan implementasi untuk format OOXML (XLSX). Pada objek \texttt{Workbook} tersebut dibuat sebuah \texttt{Sheet} baru, yang merepresentasikan satu lembar dalam \textit{spreadsheet}. Lembar kerja tersebut kemudian diisi dengan sebuah \texttt{Row}, dan di dalam baris tersebut dibuat beberapa \texttt{Cell} yang berisi data teks menggunakan metode \texttt{setCellValue()}. Setelah struktur \textit{spreadsheet} terbentuk, selanjutnya akan ditulis ke berkas eksternal menggunakan metode \texttt{write()}. Pada bagian akhir objek \texttt{Workbook} ditutup agar tidak bisa menerima data baru.

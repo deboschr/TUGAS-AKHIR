@@ -1,4 +1,4 @@
-\textit{Web crawling} adalah proses otomatis untuk mengunduh halaman web dan menelusuri tautan yang terdapat di dalamnya agar halaman lain dapat dikunjungi. Proses ini dilakukan oleh program yang disebut \textit{crawler} atau \textit{spider}, yang bekerja secara iteratif dengan memulai dari satu atau lebih URL awal (\textit{seed} URL) dan mengikuti \textit{hyperlink} dari satu halaman ke halaman berikutnya.
+\textit{Web crawling} adalah proses otomatis untuk melakukan \textit{fetching} halaman web dan menelusuri tautan yang terdapat di dalamnya agar halaman lain dapat dikunjungi. Proses ini dilakukan oleh program yang disebut \textit{crawler} atau \textit{spider}, yang bekerja secara iteratif dengan memulai dari satu atau lebih URL awal (\textit{seed} URL) dan mengikuti \textit{hyperlink} dari satu halaman ke halaman berikutnya.
 
 
 
@@ -7,6 +7,8 @@
 
 \textit{Web crawling} bekerja dengan mengikuti tautan dari satu halaman ke halaman lain. Program \textit{crawler} mempertahankan sebuah struktur antrean yang disebut \textit{frontier}, yaitu kumpulan URL yang sudah ditemukan tetapi belum dikunjungi. URL yang sudah diambil dicatat terpisah untuk mencegah pengambilan ulang. Alur kerja dasar \textit{crawler} diperlihatkan pada Gambar~\ref{fig:0204-crawler-algorithm-flowchart}. Diagram tersebut menunjukkan urutan operasi yang dilakukan sebuah \textit{crawler} saat menjelajahi halaman-halaman situs web.
 
+\vspace{5mm}
+
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.55\textwidth]{Gambar/0204-crawler-algorithm-flowchart.png}
@@ -14,56 +16,61 @@
   \label{fig:0204-crawler-algorithm-flowchart}
 \end{figure}
 
-\vspace{20mm}
-
 Berdasarkan \textit{flowchart} pada Gambar~\ref{fig:0204-crawler-algorithm-flowchart}, proses \textit{crawling} berlangsung melalui langkah-langkah berikut:
 
 \begin{enumerate}[itemsep=5pt]
-  \item \textbf{Memulai proses}: Program dijalankan dan menyiapkan struktur internal yang diperlukan.
+  \item \textbf{Memulai proses}\\
+  Program dijalankan dan menyiapkan struktur internal yang diperlukan.
 
-  \item \textbf{Menginisialisasi \textit{frontier}}: Daftar URL awal (\textit{seed URLs}) dimasukkan ke dalam \textit{frontier}. URL ini menjadi titik awal penelusuran.
+  \item \textbf{Menginisialisasi \textit{frontier}}\\
+  Daftar URL awal (\textit{seed URLs}) dimasukkan ke dalam \textit{frontier}. URL ini menjadi titik awal penelusuran.
 
-  \item \textbf{Mengambil URL dari \textit{frontier}}: Sebuah URL diambil dari \textit{frontier} mengikuti strategi antrean yang digunakan, seperti FIFO untuk \textit{breadth-first crawler} atau \textit{priority queue} untuk \textit{preferential crawler}.
+  \item \textbf{Mengambil URL Halaman dari \textit{frontier}}\\
+  Sebuah URL diambil dari \textit{frontier} mengikuti strategi antrean yang digunakan, seperti FIFO untuk \textit{breadth-first crawler} atau \textit{priority queue} untuk \textit{preferential crawler}.
 
-  \item \textbf{Mengunduh halaman}: Program mengirim permintaan HTTP untuk mengambil halaman yang dituju URL tersebut.
+  \item \textbf{\textit{Fetch} halaman}\\
+  Program mengirim permintaan HTTP untuk mengambil halaman yang dituju URL tersebut.
 
-  \item \textbf{Menemukan dan mengambil tautan}: Setelah halaman berhasil diunduh, program mengekstraksi \textit{hyperlink} dari dokumen tersebut dan mendapatkan URL.
+  \item \textbf{\textit{Extract} tautan}\\
+  Setelah halaman berhasil di-\textit{fetch}, program mengekstraksi \textit{hyperlink} dari dokumen tersebut dan mendapatkan URL.
 
-  \item \textbf{Menambahkan URL baru ke \textit{frontier}}: URL yang ditemukan ditambahkan ke \textit{frontier} apabila belum pernah ditemukan sebelumnya.
+  \item \textbf{Menyimpan URL baru ke \textit{frontier}}\\
+  URL yang ditemukan ditambahkan ke \textit{frontier} apabila belum pernah ditemukan sebelumnya.
 
-  \item \textbf{Menyimpan halaman}: Halaman yang berhasil diunduh disimpan dalam \textit{repository} bersama metadata yang diperlukan.
+  \item \textbf{Menyimpan URL halaman ke \textit{repository}}\\
+  Halaman yang berhasil di-\textit{fetch} selanjutnya disimpan dalam \textit{repository} bersama metadata yang diperlukan.
 
-  \item \textbf{Proses selesai}: Proses berulang hingga URL dalam \textit{frontier} habis
+  \item \textbf{Proses selesai}\\
+  Proses berulang hingga URL dalam \textit{frontier} habis.
 \end{enumerate}
+
+\vspace{5mm}
 
 Untuk menentukan urutan halaman yang dikunjungi, dua strategi yang digunakan adalah sebagai berikut:
 
-\begin{itemize}
+\begin{itemize}[itemsep=5pt]
   \item \textbf{\textit{Breadth-First Crawler}}\\
   Pada strategi ini, \textit{frontier} disusun sebagai antrean FIFO (\textit{First-In First-Out}). URL yang dimasukkan lebih dulu akan diambil lebih dulu. Pendekatan ini sering membuat \textit{crawler} menjangkau halaman dengan banyak tautan masuk lebih awal.
 
   \item \textbf{\textit{Preferential Crawler}}\\
   Pada strategi ini, \textit{frontier} disusun sebagai \textit{priority queue}. Setiap URL diberi skor berdasarkan petunjuk topologis dan leksikal, seperti struktur \textit{hyperlink} dan kesesuaian teks pada \textit{anchor}. URL dengan skor lebih tinggi dianggap lebih menjanjikan dan akan diambil lebih dahulu.
-
 \end{itemize}
 
-
-\vspace{2mm}
 
 \subsection{Tantangan Implementasi}
 \label{subsec:0204-tantangan-crawling}
 
 Selama proses penelusuran, sebuah \textit{crawler} perlu menangani beberapa hal teknis agar dapat bekerja dengan baik. Beberapa di antaranya adalah sebagai berikut.
 
-\begin{itemize}[itemsep=5pt]
+\begin{itemize}[itemsep=3pt]
   \item \textbf{\textit{Fetching}} \\
   \textit{Crawler} mengambil halaman dengan mengirim permintaan HTTP ke \textit{server} dan membaca respons yang diterima. Pada tahap ini perlu ditetapkan batas waktu agar tidak terlalu lama menunggu \textit{server} yang lambat atau halaman yang berukuran sangat besar. Respons yang diterima perlu diperiksa, seperti kode status dan pengalihan. Rantai pengalihan yang berulang harus dideteksi dan dihentikan. Kesalahan dan pengecualian yang terjadi saat mengambil halaman juga perlu ditangani, karena \textit{crawler} berhadapan dengan banyak \textit{server} yang berbeda.
 
   \item \textbf{\textit{Parsing}} \\
-  Setelah halaman diunduh, isi halaman perlu diurai untuk mengambil informasi yang dibutuhkan, seperti teks atau tautan. Struktur HTML nyata sering jauh dari sempurna: ada tag yang hilang, tidak tertutup, atau ditulis tidak sesuai aturan. Parser harus cukup toleran terhadap bentuk HTML seperti ini agar \textit{crawler} tidak membuang banyak halaman yang sebenarnya penting. Pada beberapa sistem, isi HTML dibersihkan terlebih dahulu sebelum di-\textit{parsing}.
+  Setelah halaman di-\textit{fetch}, isi halaman perlu diurai untuk mengambil informasi yang dibutuhkan, seperti teks atau tautan. Struktur HTML nyata sering jauh dari sempurna: ada tag yang hilang, tidak tertutup, atau ditulis tidak sesuai aturan. Parser harus cukup toleran terhadap bentuk HTML seperti ini agar \textit{crawler} tidak membuang banyak halaman yang sebenarnya penting. Pada beberapa sistem, isi HTML dibersihkan terlebih dahulu sebelum di-\textit{parsing}.
 
   \item \textbf{\textit{Link Extraction} dan \textit{Canonicalization}} \\
-  Dari hasil \textit{parsing}, \textit{crawler} mengambil URL yang muncul di dalam \textit{hyperlink}. Tautan yang ditemukan dapat di-\textit{filter}, seperti dengan hanya mengikuti tipe konten tertentu. Untuk menghindari unduhan yang tidak diperlukan, \textit{crawler} dapat menggunakan permintaan HEAD untuk memeriksa tipe konten sebelum mengunduh isi lengkap. URL relatif harus diubah menjadi URL absolut berdasarkan alamat halaman asal. Selain itu, URL perlu diubah ke bentuk yang konsisten agar variasi penulisan yang berbeda tidak diperlakukan sebagai halaman yang berbeda. Langkah ini membantu mengurangi duplikasi saat menambah URL ke \textit{frontier}.
+  Dari hasil \textit{parsing}, \textit{crawler} mengambil URL yang muncul di dalam \textit{hyperlink}. Tautan yang ditemukan dapat di-\textit{filter}, seperti dengan hanya mengikuti tipe konten tertentu. Untuk menghindari \textit{fetch}an yang tidak diperlukan, \textit{crawler} dapat menggunakan permintaan HEAD untuk memeriksa tipe konten sebelum meng\textit{fetch} isi lengkap. URL relatif harus diubah menjadi URL absolut berdasarkan alamat halaman asal. Selain itu, URL perlu diubah ke bentuk yang konsisten agar variasi penulisan yang berbeda tidak diperlakukan sebagai halaman yang berbeda. Langkah ini membantu mengurangi duplikasi saat menambah URL ke \textit{frontier}.
 
   \item \textbf{\textit{Spider Traps}} \\
   Ada situs yang menghasilkan URL baru secara dinamis berdasarkan jejak klik pengguna. Pola seperti ini dapat membuat \textit{crawler} seolah-olah menemukan halaman baru tanpa henti, padahal isi yang dituju sebenarnya sama atau tidak menambah informasi. Jika \textit{crawler} terus mengikuti tautan tersebut, sumber daya jaringan, ruang penyimpanan, dan bahkan basis data di sisi \textit{server} bisa terbuang sia-sia. Untuk membatasi dampak \textit{spider trap}, \textit{crawler} dapat memberi batas panjang URL atau membatasi banyaknya halaman yang diambil dari satu \textit{host}.
@@ -76,27 +83,19 @@ Selama proses penelusuran, sebuah \textit{crawler} perlu menangani beberapa hal 
 \end{itemize}
 
 
-\vspace{20mm}
+
 \subsection{Etika dan Kepatuhan \textit{Crawling}}
 \label{subsec:0204-etika-crawling}
-\vspace{-2mm}
 
 Aktivitas \textit{web crawling} perlu dilakukan dengan hati-hati agar tidak mengganggu \textit{server} dan tidak menimbulkan masalah bagi pengelola situs. Beberapa aturan yang umum diterapkan berkaitan dengan cara \textit{crawler} mengirim permintaan dan berinteraksi dengan \textit{server}:
 
-\begin{itemize}[itemsep=-1pt]
-  \item \textbf{Pembatasan Laju Permintaan} \\
-  Sebuah \textit{crawler} tidak boleh mengirim permintaan ke satu \textit{server} terlalu cepat. Banyaknya permintaan dalam waktu singkat dapat membebani \textit{server} hingga mengganggu pengguna lain. Karena itu, \textit{crawler} perlu mengatur jeda antar permintaan sehingga satu \textit{host} tidak menerima permintaan secara berlebihan.
+\begin{itemize}
+  \item \textbf{Pembatasan Laju \textit{Fetching}} \\
+  Sebuah \textit{crawler} tidak boleh mengirim permintaan HTTP ke satu \textit{server} terlalu cepat. Banyaknya permintaan dalam waktu singkat dapat membebani \textit{server} hingga mengganggu pengguna lain. Karena itu, \textit{crawler} perlu mengatur jeda antar permintaan sehingga satu \textit{host} tidak menerima permintaan secara berlebihan.
 
   \item \textbf{\texttt{robots.txt}} \\
   Administrator situs dapat menentukan bagian yang boleh atau tidak boleh diakses oleh \textit{crawler} melalui berkas \texttt{robots.txt}. Berkas ini berada di direktori akar situs dan memuat aturan seperti \texttt{User-agent} dan \texttt{Disallow}. Kepatuhan terhadap \texttt{robots.txt} bersifat sukarela, tetapi banyak \textit{server} akan memblokir klien yang mengabaikannya.
 
   \item \textbf{Identifikasi melalui \texttt{User-Agent}} \\
   Permintaan HTTP dari \textit{crawler} sebaiknya menyertakan \texttt{User-Agent} yang jelas. Informasi ini biasanya mencantumkan nama program dan alamat yang dapat dihubungi. Identitas ini membantu administrator memahami siapa yang mengakses situs dan memungkinkan mereka memberi tanggapan bila diperlukan.
-
-  \item \textbf{Pemblokiran oleh \textit{Server}} \\
-  \textit{Server} dapat memblokir alamat IP yang dianggap terlalu agresif atau tidak mematuhi aturan akses. Meskipun \texttt{robots.txt} tidak bersifat memaksa, \textit{server} tetap dapat menolak permintaan dari \textit{crawler} yang tidak mengikuti kebijakan yang ditetapkan.
-
-  \item \textbf{\textit{Cloaking}} \\
-  Ada pula situs yang memberikan konten berbeda kepada \textit{crawler} dibandingkan kepada pengguna biasa. Praktik ini disebut \textit{cloaking} dan sering dilakukan untuk mempengaruhi peringkat pada mesin pencari. Tindakan ini menambah tantangan bagi \textit{crawler} dalam mendapatkan representasi halaman yang sebenarnya.
-
 \end{itemize}

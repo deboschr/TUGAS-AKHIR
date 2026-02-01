@@ -4,16 +4,17 @@ Dead Link Checker\footnote{\url{https://www.deadlinkchecker.com} (Diakses pada 3
 
 Gambar~\ref{fig:analisis-deadlinkchecker} menunjukkan tampilan antarmuka pengguna Dead Link Checker pada layanan \textit{site check} saat proses pemeriksaan berlangsung. Alur penggunaan secara umum dimulai dengan memasukkan alamat situs, memilih mode pemeriksaan, lalu menekan tombol \textit{check} untuk memulai proses. Selama pemeriksaan berjalan, sistem menampilkan ringkasan progres dan hasilnya diperbarui secara langsung dalam bentuk tabel.
 
+\vspace{5mm}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{Gambar/030202-dead-link-checker.png}
+    \includegraphics[width=0.95\textwidth]{Gambar/030202-dead-link-checker.png}
     \caption{Antarmuka pengguna Dead Link Checker}
     \label{fig:analisis-deadlinkchecker}
 \end{figure}
 
 Berikut adalah penjelasan komponen antarmuka pengguna pada layanan \textit{site check} :
-\begin{enumerate}
+\begin{enumerate}[itemsep=4mm]
     \item \textbf{Input URL}\\  
     Pengguna cukup memasukkan alamat domain atau halaman dengan URL absolut yang ingin diperiksa. Jika skema tidak dituliskan, sistem secara otomatis menambahkan awalan \texttt{http://}. Hal ini menyederhanakan input, meskipun dapat menimbulkan masalah pada situs yang hanya mendukung skema HTTPS.  
 
@@ -28,14 +29,12 @@ Berikut adalah penjelasan komponen antarmuka pengguna pada layanan \textit{site 
 
     \item \textbf{Tabel hasil}\\
     Hasil pemeriksaan ditampilkan dalam bentuk tabel dengan tiga kolom utama yang isinya diperbarui secara langsung (\textit{real time}) selama pemeriksaan berlangsung. Tautan yang valid dihapus otomatis dari tabel setelah berhasil diperiksa, sehingga yang tersisa hanya entri yang bermasalah atau sedang diproses. Berikut adalah penjelasan untuk tiap kolom:
-    \begin{itemize}
-    
+    \begin{itemize}[itemsep=2mm]
         \item \textbf{Status}: Pada kolom ini, awalnya semua tautan diberi status \textit{Checking}, jika pada tahap ini terjadi kegagalan koneksi atau tidak ada respons dari server, sistem secara otomatis melakukan percobaan ulang yang ditandai dengan \textit{Retry\#1} dan \textit{Retry\#2}. Apabila setelah dua kali percobaan ulang tautan tetap tidak dapat diakses, maka status akhir ditetapkan sesuai kondisi terakhir, seperti \texttt{Timeout} atau \texttt{Host not found}. Sebaliknya, jika server memberikan respons yang jelas, sistem langsung menampilkan kode hasil tanpa melakukan retry, seperti \texttt{404 Not Found}, \texttt{500 Internal Server Error}, \texttt{429 Too Many Requests}, atau kode non-standar seperti \texttt{999}. Warna latar baris juga digunakan untuk memperjelas status: kuning untuk \textit{Checking}, ungu untuk \textit{Retry}, dan merah untuk tautan yang rusak.
         
         \item \textbf{URL}: Kolom ini berisi alamat tautan yang sedang atau sudah diperiksa. Setiap entri dapat diklik untuk membuka alamat tersebut secara langsung di \textit{browser}.
         
         \item \textbf{Source link text}: Kolom ini menunjukkan teks jangkar dari tautan atau konteks halaman sumber tempat tautan ditemukan. Bagian ini juga dapat diklik untuk membuka halaman asal tautan ditemukan.
-        
     \end{itemize}
 \end{enumerate}
 

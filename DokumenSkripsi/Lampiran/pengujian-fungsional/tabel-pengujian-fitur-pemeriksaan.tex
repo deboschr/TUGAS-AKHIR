@@ -1,68 +1,36 @@
 \renewcommand{\arraystretch}{1.5}
-\begin{longtable}{
-|>{\centering\arraybackslash}p{1cm}
-|>{\raggedright\arraybackslash}p{4.5cm} 
-|>{\raggedright\arraybackslash}p{4.5cm}
-|>{\raggedright\arraybackslash}p{4.5cm}|}
-\caption{Hasil pengujian fungsional fitur pemeriksaan}
-\vspace{-3mm}
-\label{tab:hasil-pengujian-fungsional-fitur-pemeriksaan} \\
+\begin{table}[H]
+   \centering
+   \caption{Hasil pengujian fungsional pada fitur pemeriksaan}
+   \vspace{3mm}
+   \label{tab:hasil-pengujian-fungsional-fitur-pemeriksaan}
+   
+   \begin{tabular}{
+   |>{\centering\arraybackslash}p{4cm}
+   |>{\centering\arraybackslash}p{4cm}
+   |>{\centering\arraybackslash}p{4cm}|}
+   \hline
+   \multicolumn{1}{|c|}{\textbf{Kondisi Sebenarnya}} &
+   \multicolumn{2}{c|}{\textbf{Hasil Pemeriksaan Sistem}} \\ \cline{2-3}
+   \multicolumn{1}{|c|}{} &
+   \textbf{Tautan Rusak} &
+   \textbf{Tautan Tidak Rusak} \\ \hline
+   \textbf{Tautan Rusak} &
+   100 (True Positive) &
+   0 (False Negative) \\ \hline
+   \textbf{Tautan Tidak Rusak} &
+   0 (False Positive) &
+   100 (True Negative) \\ \hline
+   \end{tabular}
+\end{table}
 
-\hline
-\multicolumn{1}{|c|}{\textbf{Kasus}} &
-\multicolumn{1}{c|}{\textbf{Skenario}} &
-\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
-\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
-\hline
-\endfirsthead
-
-\multicolumn{4}{c}{Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-pemeriksaan} dilanjutkan dari halaman sebelumnya}\\[4pt]
-
-\hline
-\multicolumn{1}{|c|}{\textbf{Kasus}} &
-\multicolumn{1}{c|}{\textbf{Skenario}} &
-\multicolumn{1}{c|}{\textbf{Hasil yang Diharapkan}} &
-\multicolumn{1}{c|}{\textbf{Hasil Uji}} \\
-\hline
-\endhead
-
-\hline
-\multicolumn{4}{|r|}{Bersambung ke halaman berikutnya} \\ \hline
-\endfoot
-
-\hline
-\endlastfoot
-
-1 &
-Memeriksa satu per satu tautan rusak yang ditemukan dengan menekan URL pada tabel. &
-Aplikasi mengarahkan tautan untuk terbuka ke \textit{browser} dan menampilkan \textit{error} yang sama. &
-Tautan terbuka ke \textit{browser} dan menunjukkan \textit{error} yang sama dengan hasil pemeriksaan aplikasi. \\ \hline
-
-2 &
-Mengekspor hasil pemeriksaan lalu memeriksa satu per satu daftar halaman sumber. &
-Seluruh daftar URL halaman sumber memiliki \textit{host} yang sama dengan \textit{host} URL awal. &
-Seluruh daftar URL halaman menunjukkan bahwa \textit{host}-nya ``informatika.unpar.ac.id'', sama dengan \textit{host} URL awal. \\ \hline
-
-3 &
-Membuat \textit{counter} untuk masing-masing URL yang ditemukan, lalu tampilkan jendela notifikasi jika \textit{counter} lebih dari satu. &
-Aplikasi tidak membuka jendela notifikasi untuk menampilkan pesan tautan diperiksa lebih dari satu kali. &
-Pemeriksaan berjalan sampai proses selesai tanpa menampilkan jendela notifikasi apa pun. \\ \hline
-
-
-4 &
-Menambahkan log waktu pemeriksaan pada setiap permintaan HTTP. &
-Tautan dengan \textit{host} yang sama menampilkan jeda waktu yang konsisten antar permintaan, sedangkan tautan dari \textit{host} yang berbeda tidak mengikuti jeda yang sama. &
-Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' muncul dengan selang waktu tetap, sementara permintaan ke \textit{host} lain dapat muncul di antara jeda tersebut. \\ \hline
-
-
-\end{longtable}
 
 
 % ###################################################################################
 % ###################################################################################
 % ###################################################################################
 
-\renewcommand{\arraystretch}{1.8}
+\renewcommand{\arraystretch}{1.5}
 \begin{table}[H]
    \centering
    \caption{Ringkasan proses pemeriksaan}
@@ -72,12 +40,12 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
    \begin{tabular}{|p{7cm}|p{5cm}|}
       \hline      
       \textbf{Status Pemeriksaan} & COMPLETED \\ \hline
-      \textbf{Waktu Mulai Pemeriksaan} & 2-12-2025 06:41:36 \\ \hline
-      \textbf{Waktu Selesai Pemeriksaan} & 2-12-2025 06:54:43 \\ \hline
-      \textbf{Durasi Pemeriksaan} & 13~menit 7~detik \\ \hline
-      \textbf{Jumlah Total Tautan} & 603 \\ \hline
-      \textbf{Jumlah Tautan Halaman} & 369 \\ \hline
-      \textbf{Jumlah Tautan Rusak} & 74 \\ \hline
+      \textbf{Waktu Mulai Pemeriksaan} & 12-01-2026 11:06:45 \\ \hline
+      \textbf{Waktu Selesai Pemeriksaan} & 12-01-2026 11:10:11 \\ \hline
+      \textbf{Durasi Pemeriksaan} & 3~menit 25~detik \\ \hline
+      \textbf{Jumlah Total Tautan} & 200 \\ \hline
+      \textbf{Jumlah Tautan Halaman} & 100 \\ \hline
+      \textbf{Jumlah Tautan Rusak} & 100 \\ \hline
    \end{tabular}
 \end{table}
 
@@ -85,7 +53,7 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
 % ###################################################################################
 % ###################################################################################
 
-\renewcommand{\arraystretch}{1.4}
+\renewcommand{\arraystretch}{1.25}
 \begin{longtable}{
    |>{\raggedright\arraybackslash}m{4cm}
    |>{\raggedright\arraybackslash}m{6cm}
@@ -118,42 +86,40 @@ Log menunjukkan bahwa permintaan ke \textit{host} ``informatika.unpar.ac.id'' mu
 
 % ********************************************
 
-\multirow{5}{*}{\textbf{Connection Error}}
- & Host Not Found & 14 \\ \cline{2-3}
- & I/O Error & 1 \\ \cline{2-3}
- & Invalid URL & 1 \\ \cline{2-3}
- & SSL Error & 6 \\ \cline{2-3}
- & Timeout & 3 \\ \hline
+\multirow{3}{*}{\textbf{Connection Error}}
+ & Host Not Found & 10 \\ \cline{2-3}
+ & Invalid URL & 10 \\ \cline{2-3}
+ & Timeout & 10 \\ \hline
 
 \multicolumn{2}{|c|}{{\centering\textbf{Total Connection Error}}} &
-{\centering\arraybackslash\textbf{25}} \\ \hline
+{\centering\arraybackslash\textbf{30}} \\ \hline
 
 % ********************************************
 
 \multirow{5}{*}{\textbf{4XX Client Error}}
- & 400 Bad Request & 2 \\ \cline{2-3}
- & 403 Forbidden & 12 \\ \cline{2-3}
- & 404 Not Found & 29 \\ \cline{2-3}
- & 410 Gone & 1 \\ \cline{2-3}
+ & 400 Bad Request & 10 \\ \cline{2-3}
+ & 401 Unauthorized & 10 \\ \cline{2-3}
+ & 403 Forbidden & 10 \\ \cline{2-3}
+ & 404 Not Found & 10 \\ \cline{2-3}
+ & 410 Gone & 10 \\ \hline
 
 \multicolumn{2}{|c|}{{\centering\textbf{Total 4XX Client Error}}} &
-{\centering\arraybackslash\textbf{44}} \\ \hline
+{\centering\arraybackslash\textbf{50}} \\ \hline
 
 % ********************************************
 
 \multirow{1}{*}{\textbf{5XX Server Error}}
- & 503 Service Unavailable & 1 \\ \hline
+ & 500 Internal Server Error & 10 \\ \hline
 
 \multicolumn{2}{|c|}{{\centering\textbf{Total 5XX Server Error}}} &
-{\centering\arraybackslash\textbf{1}} \\ \hline
+{\centering\arraybackslash\textbf{10}} \\ \hline
 
 % ********************************************
 
-\multirow{2}{*}{\textbf{Non-Standard Error}}
- & 520 & 2 \\ \cline{2-3}
- & 999 & 2 \\ \hline
+\multirow{1}{*}{\textbf{Non-Standard Error}}
+ & 999 & 10 \\ \hline
 
 \multicolumn{2}{|c|}{{\centering\textbf{Total Non-Standard Error}}} &
-{\centering\arraybackslash\textbf{4}} \\ \hline
+{\centering\arraybackslash\textbf{10}} \\ \hline
 
 \end{longtable}

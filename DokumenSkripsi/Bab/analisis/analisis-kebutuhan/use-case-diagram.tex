@@ -2,10 +2,9 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
 
 \begin{enumerate}
     \item \textbf{Memeriksa Tautan Rusak}\\  
-    Fitur ini digunakan untuk melakukan pemeriksaan terhadap seluruh tautan yang terdapat dalam sebuah situs web untuk mendeteksi tautan rusak (broken links).  
+    Fitur ini digunakan untuk melakukan pemeriksaan terhadap seluruh tautan yang terdapat dalam sebuah situs web untuk mendeteksi tautan rusak (\textit{broken links}).  
     
     \begin{itemize}
-    
         \item Nama: Memeriksa Tautan Rusak
         
         \item Aktor: Pengguna
@@ -19,7 +18,7 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
         \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-01}
         \begin{table}[htbp]
             \centering
-            \caption{Skenario Memeriksa Tautan Rusak}
+            \caption{Skenario memeriksa tautan rusak}
             \vspace{6pt}
             \begin{tabular}{|p{0.5cm} |p{6cm}| p{6cm}|}\hline
                 No & Aksi Aktor & Reaksi Sistem \\ \hline
@@ -32,6 +31,34 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
     \end{itemize}
     
 
+    % \vspace{5mm}
+
+    \item \textbf{Menghentikan pemeriksaan}\\
+    Fitur ini digunakan untuk menghentikan proses pemeriksaan tautan rusak ketika proses pemeriksaan sedang berlangsung.
+    \begin{itemize}
+        \item Nama: Menghentikan Pemeriksaan
+        \item Aktor: Pengguna
+        \item Deskripsi: Mengentikan proses pemeriksaan.
+        \item Kondisi awal: Proses pemeriksaan sedang berlangsung (status aplikasi \textit{checking}).
+        \item Kondisi akhir: Proses pemeriksaan berhenti dan status menjadi \textit{stopped}.
+        \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-02}
+        
+        \vspace{5mm}
+
+        \begin{table}[htbp]
+            \centering
+            \caption{Skenario menghentikan pemeriksaan}
+            \vspace{6pt}
+            \begin{tabular}{|p{0.5cm} |p{6cm}| p{6cm}|}\hline
+                No & Aksi Aktor & Reaksi Sistem \\ \hline
+                1 & Pengguna menekan tombol \textit{stop} & Sistem mengantikan proses \textit{crawling} dan pemeriksaan.\\ \hline
+                2 & & Sistem memperbarui status pemeriksaan menjadi \textit{stopped}. \\ \hline
+            \end{tabular}
+            \label{tab:skenario-02}
+        \end{table}
+    \end{itemize}
+
+
     \item \textbf{\textit{Filter} Hasil}\\
     Fitur ini digunakan untuk menyaring hasil pemeriksaan sehingga pengguna dapat menemukan tautan rusak dengan jenis kesalahan atau URL tertentu.
     \begin{itemize}
@@ -40,10 +67,10 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
         \item Deskripsi: Melakukan penyaringan pada hasil pemeriksaan.
         \item Kondisi awal: Terdapat hasil pemeriksaan pada tabel hasil.
         \item Kondisi akhir: Tabel hasil menampilkan daftar tautan rusak berdasarkan ketentuan penyaringan.
-        \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-02}
+        \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-03}
         \begin{table}[htbp]
             \centering
-            \caption{Skenario Ekspor Hasil}
+            \caption{Skenario filter hasil}
             \vspace{6pt}
             \begin{tabular}{|p{0.5cm} |p{6cm}| p{6cm}|}\hline
                 No & Aksi Aktor & Reaksi Sistem \\ \hline
@@ -51,7 +78,7 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
                 2 & Pengguna memasukkan kata kunci pencarian & Sistem menyaring hasil pemeriksaan sesuai masukan pengguna \\ \hline
                 3 & & Sistem menampilkan hasil penyaringan ke tabel hasil. \\ \hline
             \end{tabular}
-            \label{tab:skenario-02}
+            \label{tab:skenario-03}
         \end{table}
     \end{itemize}
     
@@ -61,26 +88,24 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
     \begin{itemize}
         \item Nama: Ekspor Hasil
         \item Aktor: Pengguna
-        \item Deskripsi: Ekspor hasil pemeriksaan tautan rusak ke berkas ekternal dalam format Excel.
+        \item Deskripsi: Ekspor hasil pemeriksaan tautan rusak ke berkas dalam format Excel.
         \item Kondisi awal: Pemeriksaan tautan telah selesai dan hasilnya telah ditampilkan di tabel.
         \item Kondisi akhir: Berkas hasil ekspor tersimpan di perangkat pengguna.
-        \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-03}
+        \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-04}
         \begin{table}[htbp]
             \centering
-            \caption{Skenario Ekspor Hasil}
+            \caption{Skenario ekspor hasil}
             \vspace{6pt}
             \begin{tabular}{|p{0.5cm} |p{6cm}| p{6cm}|}\hline
                 No & Aksi Aktor & Reaksi Sistem \\ \hline
                 1 & Pengguna menekan tombol \textit{Export}. & Sistem membuka dialog penyimpanan berkas. \\ \hline
-                2 & Pengguna menentukan nama dan lokasi penyimpanan berkas. & Sistem memproses data hasil pemeriksaan menjadi format \texttt{.xlsx}. \\ \hline
-                3 & & Sistem menyimpan berkas hasil ekspor di lokasi yang telah dipilih pengguna. \\ \hline
+                2 & Pengguna menentukan nama dan lokasi penyimpanan berkas. & Sistem memproses data hasil pemeriksaan menjadi format \texttt{xlsx}. \\ \hline
+                3 & & Sistem menyimpan berkas hasil ekspor di lokasi yang telah dipilih. \\ \hline
             \end{tabular}
-            \label{tab:skenario-03}
+            \label{tab:skenario-04}
         \end{table}
     \end{itemize}
 \end{enumerate}
-
-% \vspace{10mm}
 
 \begin{figure}[H]
     \centering

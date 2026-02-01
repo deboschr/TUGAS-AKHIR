@@ -1,4 +1,3 @@
-
         TEMPLATE SKRIPSI / TUGAS AKHIR FTIS UNPAR 
             http://tiny.cc/templateSkripsiFTIS
 			   versi: 13.1 (01-09-2021)
