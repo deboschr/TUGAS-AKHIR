@@ -4,7 +4,7 @@ Pemanfaatan Java HTTP Client API sejalan dengan beberapa kebutuhan non-fungsiona
 
 Beberapa kelas dan method utama dari API ini yang dapat digunakan dalam implementasi adalah sebagai berikut:
 
-\begin{itemize}[itemsep=1mm]
+\begin{itemize}[itemsep=2mm]
   \item \texttt{HttpClient}: Kelas ini dipakai sebagai titik masuk untuk membangun klien HTTP. Objek dibuat melalui \texttt{HttpClient.newBuilder()}, dengan konfigurasi penting seperti \texttt{version()} untuk memilih protokol HTTP/1.1 atau HTTP/2, \texttt{connectTimeout(Duration)} untuk menetapkan batas waktu koneksi, dan \texttt{followRedirects()} untuk menentukan kebijakan pengalihan. Objek yang dihasilkan bersifat \textit{immutable} dan \textit{thread-safe}, sehingga dapat digunakan secara bersamaan oleh banyak \textit{thread} pemeriksaan.
 
   \item \texttt{HttpRequest}: Kelas ini digunakan untuk menyusun permintaan HTTP yang akan dikirim. Metode \texttt{uri(URI)} menentukan alamat tujuan, sementara \texttt{header()} dipakai untuk menyertakan informasi tambahan seperti \texttt{User-Agent}. Jenis operasi HTTP ditentukan dengan \texttt{method()} atau \texttt{GET()}, sedangkan \texttt{timeout(Duration)} memastikan setiap permintaan memiliki batas waktu pemrosesan.
@@ -18,42 +18,94 @@ Beberapa kelas dan method utama dari API ini yang dapat digunakan dalam implemen
 
 Kode~\ref{lst:httpclient-example} menunjukkan contoh penggunaan Java HTTP Client API untuk melakukan permintaan HTTP ke sebuah alamat web dan menampilkan hasil tanggapannya. Kode ini ditulis untuk menggambarkan bagaimana kelas-kelas utama yang telah dijelaskan sebelumnya, yaitu \texttt{HttpClient}, \texttt{HttpRequest}, \texttt{HttpResponse}, dan \texttt{HttpHeaders}, digunakan secara bersama-sama dalam sebuah program nyata. Hasil eksekusi dari kode ini berupa informasi \textit{status code}, daftar \textit{header}, serta isi \textit{response body} yang diterima dari server tujuan.
 
+\vspace{20mm}
+
+% \begin{lstlisting}[language=Java, caption={Contoh penggunaan Java HTTP Client API}, label={lst:httpclient-example}]
+% public class HttpClientExample {
+%     public static void main(String[] args) throws Exception {
+%         HttpClient client = HttpClient.newBuilder()
+%                 .version(HttpClient.Version.HTTP_2)
+%                 .connectTimeout(Duration.ofSeconds(5))
+%                 .followRedirects(HttpClient.Redirect.NORMAL)
+%                 .build();
+
+%         HttpRequest request = HttpRequest
+%                 .newBuilder(URI.create("https://informatika.unpar.ac.id"))
+%                 .header("User-Agent", "BrokenLinkChecker 1.0")
+%                 .timeout(Duration.ofSeconds(10))
+%                 .GET()
+%                 .build();
+
+%         HttpResponse<String> response = client.send(
+%                 request, HttpResponse.BodyHandlers.ofString()
+%         );
+
+%         System.out.println("Status Code : " + response.statusCode());
+
+%         HttpHeaders headers = response.headers();
+
+%         Map<String, List<String>> headerMap = headers.map();
+
+%         for (Map.Entry<String, List<String>> e : headerMap.entrySet()) {
+%             String name = e.getKey();
+%             String values = String.join(", ", e.getValue());
+%             System.out.println(name + ": " + values);
+%         }
+
+%         System.out.println("Body        : " + response.body());
+%     }
+% }
+% \end{lstlisting}
+
 \begin{lstlisting}[language=Java, caption={Contoh penggunaan Java HTTP Client API}, label={lst:httpclient-example}]
-public class HttpClientExample {
-    public static void main(String[] args) throws Exception {
+public class HttpClientExample { 
+    public static void main(String[] args) throws Exception { 
+
         HttpClient client = HttpClient.newBuilder()
+                // Menetapkan versi protokol HTTP yang digunakan
                 .version(HttpClient.Version.HTTP_2)
+                // Menetapkan batas waktu maksimal proses pembentukan koneksi
                 .connectTimeout(Duration.ofSeconds(5))
+                // Mengatur kebijakan penanganan redirect
                 .followRedirects(HttpClient.Redirect.NORMAL)
+                // Membangun objek HttpClient dengan konfigurasi yang telah ditentukan
                 .build();
 
         HttpRequest request = HttpRequest
+                // Menentukan URI tujuan dari request HTTP
                 .newBuilder(URI.create("https://informatika.unpar.ac.id"))
+                // Menambahkan header User-Agent untuk mengidentifikasi client
                 .header("User-Agent", "BrokenLinkChecker 1.0")
+                // Menetapkan batas waktu maksimal 10 detik untuk request
                 .timeout(Duration.ofSeconds(10))
+                // Menetapkan metode HTTP GET sebagai jenis request
                 .GET()
+                // Membangun objek HttpRequest berdasarkan konfigurasi yang diberikan
                 .build();
 
+        // Mengirim request HTTP secara sinkron menggunakan HttpClient
         HttpResponse<String> response = client.send(
+                // Menentukan bahwa response body akan diproses dalam bentuk String
                 request, HttpResponse.BodyHandlers.ofString()
         );
 
-        System.out.println("Status Code : " + response.statusCode());
-
+        // Mengambil seluruh header dari response HTTP
         HttpHeaders headers = response.headers();
-
+        
+        // Mengonversi header menjadi struktur Map
         Map<String, List<String>> headerMap = headers.map();
-
         for (Map.Entry<String, List<String>> e : headerMap.entrySet()) {
             String name = e.getKey();
             String values = String.join(", ", e.getValue());
             System.out.println(name + ": " + values);
         }
-
+            
+        System.out.println("Status Code : " + response.statusCode());
         System.out.println("Body        : " + response.body());
     }
 }
 \end{lstlisting}
+
 
 \vspace{3mm}
 

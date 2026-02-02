@@ -1,7 +1,7 @@
 Pemilihan Jsoup sebagai pustaka utama untuk pengambilan dan pemrosesan dokumen HTML didasarkan pada kebutuhan sistem untuk mengekstraksi tautan dari halaman web dengan cara yang andal, termasuk dari dokumen yang tidak valid atau tidak sepenuhnya sesuai standar. Kebutuhan ini secara eksplisit dinyatakan pada aspek ketahanan terhadap HTML tidak valid (lihat Subsubbab~\ref{subsec:030302-kebutuhan-non-fungsional}). Sebagaimana dijelaskan pada Subbab~\ref{sec:020600-jsoup}, Jsoup menyediakan parser yang toleran kesalahan dan mendukung spesifikasi HTML5, sehingga struktur DOM tetap dapat dibentuk meskipun dokumen bermasalah. 
 
 Dari sisi fungsional, penggunaan Jsoup relevan dengan kebutuhan untuk:
-\begin{itemize}[itemsep=1mm]
+\begin{itemize}[itemsep=2mm]
   \item Menerima masukan URL dan mengambil halaman web terkait (lihat Subsubbab~\ref{subsec:030301-kebutuhan-fungsional}).
   \item Mengekstraksi seluruh tautan yang terdapat di dalam elemen HTML, khususnya elemen \texttt{<a>} dengan atribut \texttt{href}.
   \item Menampilkan hasil pemeriksaan secara \textit{streaming}, sehingga setiap tautan yang diperoleh dari hasil parsing dapat segera diperiksa dan ditampilkan ke antarmuka pengguna.
@@ -10,7 +10,7 @@ Dari sisi fungsional, penggunaan Jsoup relevan dengan kebutuhan untuk:
 \vspace{3mm}
 
 Dalam implementasi, beberapa kelas dan metode dari Jsoup dapat digunakan secara langsung adalah sebagai berikut:
-\begin{itemize}[itemsep=1mm]
+\begin{itemize}[itemsep=2mm]
   \item \texttt{Jsoup}\\
   Kelas ini dipakai sebagai titik masuk untuk membuat koneksi HTTP ke sebuah halaman melalui \texttt{connect(String url)}. Metode ini dilanjutkan dengan konfigurasi \texttt{userAgent(String ua)} untuk memenuhi etika \textit{crawling} dan \texttt{timeout(int millis)} untuk memenuhi kebutuhan non-fungsional terkait batas waktu respon. Eksekusi permintaan dilakukan dengan \texttt{get()} atau \texttt{execute()}, menghasilkan \texttt{Document} atau \texttt{Connection.Response}.
 
@@ -24,7 +24,7 @@ Dalam implementasi, beberapa kelas dan metode dari Jsoup dapat digunakan secara 
   Koleksi \texttt{Elements} berisi banyak \texttt{Element} yang masing-masing mewakili sebuah tautan. Metode penting yang digunakan adalah \texttt{attr("href")} untuk mengambil nilai atribut asli, \texttt{text()} untuk isi teks tautan, serta \texttt{absUrl("href")} untuk memperoleh URL absolut berdasarkan \texttt{baseUri()} dokumen. Normalisasi URL ini mendukung konsistensi identifikasi sumber daya (lihat Subsubbab~\ref{subsec:030302-kebutuhan-non-fungsional}).
 \end{itemize}
 
-\vspace{3mm}
+\vspace{20mm}
 
 Kode~\ref{lst:javafx-basic-structure} memperlihatkan contoh struktur program JavaFX yang memuat antarmuka dari berkas FXML dan menerapkan gaya visual dengan CSS.
 

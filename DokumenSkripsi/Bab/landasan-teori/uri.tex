@@ -5,16 +5,16 @@
 \label{subsec:0202-struktur-url}
 URL khusus untuk skema \texttt{http} atau \texttt{https} memiliki strukturnya tersendiri. Pada struktur URL ini terdapat tujuh komponen dan komponen yang ditandai dengan karakter kurung siku artinya komponen tersebut bersifat opsional. Berikut adalah struktur dari URL tersebut:
 
-\vspace{5mm}
+\vspace{2mm}
 
 \begin{center}
 \texttt{scheme ":" "//" [userinfo "@"] host [":" port] path-abempty ["?" query] ["\#" fragment]}
 \end{center}
 
-\vspace{5mm}
+\vspace{2mm}
 
 Komponen-komponen dalam URL tersebut dijelaskan sebagai berikut:
-\begin{itemize}[itemsep=5pt]
+\begin{itemize}[itemsep=1mm]
   \item \textbf{\textit{Scheme}}\\
   Komponen ini bersifat wajib serta diakhiri dengan tanda titik dua (\texttt{:}) dan dua garis miring (\texttt{//}). \textit{Scheme} menunjukkan protokol yang digunakan untuk mengakses sumber daya. Pada URL khusus untuk protokol HTTP, nilai yang digunakan adalah \texttt{http} atau \texttt{https} yang didefinisikan dalam format penulisan \textit{lowercase}.
 
@@ -38,31 +38,27 @@ Komponen-komponen dalam URL tersebut dijelaskan sebagai berikut:
 \end{itemize}
 
 
-\vspace{5mm}
-
 \subsection{Kategori Karakter dan \textit{Percent-Encoding}}
 \label{subsec:0202-karakter-percent-encoding}
-
-Kategori karakter yang dapat digunakan dalam URI dikelompokkan beserta aturan pengkodeannya sebagai berikut:
-\begin{itemize}[itemsep=5pt]
+Kategori karakter yang dapat digunakan dalam URI dikelompokkan berdasarkan tingkat kebolehan penggunaannya serta aturan pengkodean yang menyertainya. Kategori karakter tersebut dijelaskan sebagai berikut:
+\begin{itemize}[itemsep=1mm]
   \item \textbf{\textit{Unreserved characters}}\\
   Karakter ini dapat digunakan langsung tanpa pengkodean tambahan. Termasuk di dalamnya huruf alfabet A sampai Z dan a sampai z, digit angka 0 sampai 9, serta simbol \texttt{-}, \texttt{\_}, \texttt{.}, dan \texttt{\textasciitilde}.
-  
+
   \item \textbf{\textit{Reserved characters}}\\
-  Karakter ini memiliki fungsi khusus tergantung pada konteks penggunaannya. 
-  \textit{Reserved characters} dibagi menjadi dua kelompok yaitu \textit{general delimiters} dan \textit{subcomponent delimiters}. \textit{General delimiters} meliputi \texttt{:}, \texttt{/}, \texttt{?}, \texttt{\#}, \texttt{[}, \texttt{]}, dan \texttt{@}. \textit{Subcomponent delimiters} meliputi \texttt{!}, \texttt{\$}, \texttt{\&}, \texttt{'}, \texttt{(}, \texttt{)}, \texttt{*}, \texttt{+}, \texttt{,}, \texttt{;}, dan \texttt{=}. Jika karakter ini digunakan di luar konteks yang diperbolehkan, maka harus dikodekan.
+  Karakter ini memiliki fungsi khusus yang bergantung pada konteks penggunaannya dalam URI. Oleh karena itu, penggunaannya harus memperhatikan aturan struktur URI yang berlaku. \textit{Reserved characters} dibagi menjadi dua kelompok, yaitu \textit{general delimiters} dan \textit{subcomponent delimiters}. \textit{General delimiters} meliputi \texttt{:}, \texttt{/}, \texttt{?}, \texttt{\#}, \texttt{[}, \texttt{]}, dan \texttt{@}, yang digunakan untuk memisahkan komponen utama URI. Sementara itu, \textit{subcomponent delimiters} meliputi \texttt{!}, \texttt{\$}, \texttt{\&}, \texttt{'}, \texttt{(}, \texttt{)}, \texttt{*}, \texttt{+}, \texttt{,}, \texttt{;}, dan \texttt{=}, yang digunakan di dalam subkomponen URI. Apabila karakter-karakter ini digunakan di luar konteks yang diperbolehkan, maka karakter tersebut harus dikodekan agar tidak disalahartikan.
   
   \item \textbf{Karakter lain}\\
   Karakter non-ASCII, spasi, dan simbol lain yang tidak termasuk dalam kategori \textit{Unreserved characters} dan \textit{Reserved characters} tidak dapat digunakan secara langsung. Karakter ini harus dikodekan sebelum dapat dimasukkan ke dalam URI.
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 
-Pengkodean karakter dilakukan dengan mekanisme \textit{percent-encoding}. Mekanisme ini menggantikan karakter dengan representasi heksadesimalnya dalam format \texttt{\%HH}, di mana \texttt{HH} adalah nilai ASCII karakter tersebut. Sebagai contoh, spasi ditulis sebagai \texttt{\%20}, tanda kutip ganda sebagai \texttt{\%22}, dan tanda pagar sebagai \texttt{\%23}. RFC~3986 juga mengatur bahwa karakter \textit{unreserved} yang tidak perlu dikodekan sebaiknya dituliskan dalam bentuk aslinya. Selain itu, digit heksadesimal dalam \textit{percent-encoding} harus ditulis dengan huruf besar.
+Pengkodean karakter dilakukan dengan mekanisme \textit{percent-encoding}. Mekanisme ini bekerja dengan menggantikan karakter tertentu dengan representasi nilai heksadesimalnya dalam format \texttt{\%HH}, di mana \texttt{HH} merupakan nilai ASCII dari karakter yang bersangkutan. Sebagai contoh, karakter spasi direpresentasikan sebagai \texttt{\%20}, tanda kutip ganda sebagai \texttt{\%22}, dan tanda pagar sebagai \texttt{\%23}. RFC~3986 juga menegaskan bahwa karakter \textit{unreserved} yang tidak memerlukan pengkodean sebaiknya tetap dituliskan dalam bentuk aslinya untuk menjaga keterbacaan URI. Selain itu, digit heksadesimal pada \textit{percent-encoding} harus ditulis menggunakan huruf besar guna menjaga konsistensi penulisan.
 
 
 \subsection{Referensi Absolut dan Relatif}
 \label{subsec:0202-referensi-url}
-URL dapat berupa referensi absolut maupun relatif. URL absolut mencantumkan seluruh komponen utama, termasuk \textit{scheme} dan \textit{host}, sehingga dapat diinterpretasikan secara mandiri tanpa bergantung pada konteks lain. Contoh URL absolut adalah \texttt{https://unpar.ac.id/page.html}. Sebaliknya, URL relatif tidak mencantumkan \textit{scheme} atau \textit{host} dan hanya menyertakan bagian seperti \textit{path}, \textit{query}, atau \textit{fragment}. Contoh URL relatif adalah \texttt{/images/logo.png}. Selain itu, terdapat pula \textit{same-document reference}, yaitu URL yang hanya berisi \textit{fragment} untuk merujuk ke bagian tertentu dalam dokumen yang sama, contohnya \texttt{\#section2}.
+URL dapat dinyatakan dalam bentuk referensi absolut maupun relatif, bergantung pada kelengkapan komponen yang dicantumkan. URL absolut memuat seluruh komponen utama URI, termasuk \textit{scheme} dan \textit{host}, sehingga dapat diinterpretasikan secara mandiri tanpa memerlukan konteks tambahan. Contoh URL absolut adalah \texttt{https://unpar.ac.id/page.html}, yang secara eksplisit menunjukkan protokol dan lokasi sumber daya. Sebaliknya, URL relatif tidak mencantumkan \textit{scheme} atau \textit{host} dan hanya berisi sebagian komponen URI, seperti \textit{path}, \textit{query}, atau \textit{fragment}. Contoh URL relatif adalah \texttt{/images/logo.png}. Selain itu, terdapat pula \textit{same-document reference}, yaitu URL yang hanya memuat komponen \textit{fragment} untuk merujuk ke bagian tertentu dalam dokumen yang sama, misalnya \texttt{\#section2}.
 
-Agar referensi relatif dapat digunakan dalam komunikasi berbasis HTTP, referensi tersebut harus terlebih dahulu diubah menjadi URL absolut melalui suatu mekanisme resolusi. Proses resolusi dilakukan dengan menentukan sebuah base URI, kemudian menggabungkannya dengan referensi relatif yang digunakan untuk membentuk URL yang lengkap. Salah satu tahap penting dalam proses ini adalah penyederhanaan \textit{path}, termasuk penghapusan \textit{dot-segments} seperti \texttt{/./} dan \texttt{/../}, sehingga struktur \textit{path} menjadi ringkas dan tidak ambigu. Base URI umumnya diperoleh dari URL dokumen yang memuat referensi relatif tersebut, atau dari elemen \texttt{<base>} apabila didefinisikan dalam dokumen HTML. Mekanisme ini memastikan bahwa setiap referensi relatif dapat diinterpretasikan secara konsisten dan diarahkan ke sumber daya yang tepat.
+Agar referensi relatif dapat digunakan dalam komunikasi berbasis HTTP, referensi tersebut harus terlebih dahulu diubah menjadi URL absolut melalui suatu mekanisme resolusi. Proses resolusi ini dilakukan dengan menentukan sebuah base URI, kemudian menggabungkannya dengan referensi relatif yang digunakan sehingga membentuk URL yang lengkap. Salah satu tahap penting dalam proses tersebut adalah penyederhanaan \textit{path}, termasuk penghapusan \textit{dot-segments} seperti \texttt{/./} dan \texttt{/../}, agar struktur \textit{path} menjadi lebih ringkas dan tidak menimbulkan ambiguitas. Base URI umumnya diperoleh dari URL dokumen yang memuat referensi relatif tersebut, atau dari elemen \texttt{<base>} apabila elemen tersebut didefinisikan di dalam dokumen HTML. Dengan mekanisme ini, setiap referensi relatif dapat diinterpretasikan secara konsisten dan diarahkan ke sumber daya yang sesuai.

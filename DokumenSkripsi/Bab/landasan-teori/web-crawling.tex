@@ -4,10 +4,9 @@
 
 \subsection{Algoritma Dasar \textit{Web Crawler}}
 \label{subsec:0204-algoritma-dasar-crawler}
-
 \textit{Web crawling} bekerja dengan mengikuti tautan dari satu halaman ke halaman lain. Program \textit{crawler} mempertahankan sebuah struktur antrean yang disebut \textit{frontier}, yaitu kumpulan URL yang sudah ditemukan tetapi belum dikunjungi. URL yang sudah diambil dicatat terpisah untuk mencegah pengambilan ulang. Alur kerja dasar \textit{crawler} diperlihatkan pada Gambar~\ref{fig:0204-crawler-algorithm-flowchart}. Diagram tersebut menunjukkan urutan operasi yang dilakukan sebuah \textit{crawler} saat menjelajahi halaman-halaman situs web.
 
-\vspace{5mm}
+\vspace{10mm}
 
 \begin{figure}[H]
   \centering
@@ -16,12 +15,11 @@
   \label{fig:0204-crawler-algorithm-flowchart}
 \end{figure}
 
+\vspace{5mm}
+
 Berdasarkan \textit{flowchart} pada Gambar~\ref{fig:0204-crawler-algorithm-flowchart}, proses \textit{crawling} berlangsung melalui langkah-langkah berikut:
 
-\begin{enumerate}[itemsep=5pt]
-  \item \textbf{Memulai proses}\\
-  Program dijalankan dan menyiapkan struktur internal yang diperlukan.
-
+\begin{enumerate}[itemsep=1mm]
   \item \textbf{Menginisialisasi \textit{frontier}}\\
   Daftar URL awal (\textit{seed URLs}) dimasukkan ke dalam \textit{frontier}. URL ini menjadi titik awal penelusuran.
 
@@ -44,11 +42,11 @@ Berdasarkan \textit{flowchart} pada Gambar~\ref{fig:0204-crawler-algorithm-flowc
   Proses berulang hingga URL dalam \textit{frontier} habis.
 \end{enumerate}
 
-\vspace{5mm}
+\vspace{2mm}
 
 Untuk menentukan urutan halaman yang dikunjungi, dua strategi yang digunakan adalah sebagai berikut:
 
-\begin{itemize}[itemsep=5pt]
+\begin{itemize}[itemsep=1mm]
   \item \textbf{\textit{Breadth-First Crawler}}\\
   Pada strategi ini, \textit{frontier} disusun sebagai antrean FIFO (\textit{First-In First-Out}). URL yang dimasukkan lebih dulu akan diambil lebih dulu. Pendekatan ini sering membuat \textit{crawler} menjangkau halaman dengan banyak tautan masuk lebih awal.
 
@@ -59,10 +57,9 @@ Untuk menentukan urutan halaman yang dikunjungi, dua strategi yang digunakan ada
 
 \subsection{Tantangan Implementasi}
 \label{subsec:0204-tantangan-crawling}
-
 Selama proses penelusuran, sebuah \textit{crawler} perlu menangani beberapa hal teknis agar dapat bekerja dengan baik. Beberapa di antaranya adalah sebagai berikut.
 
-\begin{itemize}[itemsep=3pt]
+\begin{itemize}[itemsep=1mm]
   \item \textbf{\textit{Fetching}} \\
   \textit{Crawler} mengambil halaman dengan mengirim permintaan HTTP ke \textit{server} dan membaca respons yang diterima. Pada tahap ini perlu ditetapkan batas waktu agar tidak terlalu lama menunggu \textit{server} yang lambat atau halaman yang berukuran sangat besar. Respons yang diterima perlu diperiksa, seperti kode status dan pengalihan. Rantai pengalihan yang berulang harus dideteksi dan dihentikan. Kesalahan dan pengecualian yang terjadi saat mengambil halaman juga perlu ditangani, karena \textit{crawler} berhadapan dengan banyak \textit{server} yang berbeda.
 
@@ -73,7 +70,7 @@ Selama proses penelusuran, sebuah \textit{crawler} perlu menangani beberapa hal 
   Dari hasil \textit{parsing}, \textit{crawler} mengambil URL yang muncul di dalam \textit{hyperlink}. Tautan yang ditemukan dapat di-\textit{filter}, seperti dengan hanya mengikuti tipe konten tertentu. Untuk menghindari \textit{fetch}an yang tidak diperlukan, \textit{crawler} dapat menggunakan permintaan HEAD untuk memeriksa tipe konten sebelum meng\textit{fetch} isi lengkap. URL relatif harus diubah menjadi URL absolut berdasarkan alamat halaman asal. Selain itu, URL perlu diubah ke bentuk yang konsisten agar variasi penulisan yang berbeda tidak diperlakukan sebagai halaman yang berbeda. Langkah ini membantu mengurangi duplikasi saat menambah URL ke \textit{frontier}.
 
   \item \textbf{\textit{Spider Traps}} \\
-  Ada situs yang menghasilkan URL baru secara dinamis berdasarkan jejak klik pengguna. Pola seperti ini dapat membuat \textit{crawler} seolah-olah menemukan halaman baru tanpa henti, padahal isi yang dituju sebenarnya sama atau tidak menambah informasi. Jika \textit{crawler} terus mengikuti tautan tersebut, sumber daya jaringan, ruang penyimpanan, dan bahkan basis data di sisi \textit{server} bisa terbuang sia-sia. Untuk membatasi dampak \textit{spider trap}, \textit{crawler} dapat memberi batas panjang URL atau membatasi banyaknya halaman yang diambil dari satu \textit{host}.
+  Ada situs yang menghasilkan URL baru secara dinamis berdasarkan jejak klik pengguna. Pola seperti ini dapat membuat \textit{crawler} seolah-olah menemukan halaman baru tanpa henti, padahal isi yang dituju sebenarnya sama atau tidak menambah informasi. Jika \textit{crawler} terus mengikuti tautan tersebut, sumber daya jaringan dan ruang penyimpanan di sisi \textit{crawler} bisa terbuang sia-sia. Untuk membatasi dampak \textit{spider trap}, \textit{crawler} dapat memberi batas panjang URL atau membatasi banyaknya halaman yang diambil dari satu \textit{host}.
 
   \item \textbf{\textit{Page Repository}} \\
   Halaman yang sudah diambil disimpan dalam suatu himpunan berkas atau basis data sehingga dapat digunakan oleh aplikasi utama, seperti mesin pencari. Salah satu cara adalah memetakan setiap URL ke nama berkas yang ringkas menggunakan fungsi hash, kemudian menyimpan isi halaman dengan nama tersebut. Untuk skala besar, penyimpanan dapat dibuat lebih efisien dengan menggabungkan banyak halaman ke dalam satu berkas atau menggunakan basis data tersemat yang diindeks oleh URL sehingga akses baca tulis menjadi lebih cepat.
@@ -83,13 +80,11 @@ Selama proses penelusuran, sebuah \textit{crawler} perlu menangani beberapa hal 
 \end{itemize}
 
 
-
-\subsection{Etika dan Kepatuhan \textit{Crawling}}
+\subsection{Etika \textit{Crawling}}
 \label{subsec:0204-etika-crawling}
-
 Aktivitas \textit{web crawling} perlu dilakukan dengan hati-hati agar tidak mengganggu \textit{server} dan tidak menimbulkan masalah bagi pengelola situs. Beberapa aturan yang umum diterapkan berkaitan dengan cara \textit{crawler} mengirim permintaan dan berinteraksi dengan \textit{server}:
 
-\begin{itemize}
+\begin{itemize}[itemsep=1mm]
   \item \textbf{Pembatasan Laju \textit{Fetching}} \\
   Sebuah \textit{crawler} tidak boleh mengirim permintaan HTTP ke satu \textit{server} terlalu cepat. Banyaknya permintaan dalam waktu singkat dapat membebani \textit{server} hingga mengganggu pengguna lain. Karena itu, \textit{crawler} perlu mengatur jeda antar permintaan sehingga satu \textit{host} tidak menerima permintaan secara berlebihan.
 

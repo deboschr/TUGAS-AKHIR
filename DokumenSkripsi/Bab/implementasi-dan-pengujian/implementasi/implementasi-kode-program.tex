@@ -1,13 +1,13 @@
-Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan perancangan yang telah dibuat pada perancangan kelas (lihat Subbab~\ref{sec:040100-perancangan-kelas}) dan perancangan alur (lihat Subbab~\ref{sec:040200-perancangan-alur}). Berikut adalah penjelasan dari setiap hasil implementasi kode program aplikasi:
+Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan perancangan yang telah dibuat pada perancangan kelas (lihat Subbab~\ref{sec:040100-perancangan-kelas}) dan perancangan alur (lihat Subbab~\ref{sec:040200-perancangan-alur}).
 
-\vspace{2mm}
+\vspace{10mm}
 
+Berikut adalah penjelasan dari setiap hasil implementasi kode program aplikasi:
 \begin{enumerate}
-
    \item \textbf{Berkas \texttt{Application.java}}\\
    Kelas \texttt{Application} merupakan titik awal aplikasi JavaFX serta bertugas untuk membuka jendela aplikasi seperti jendela utama, jendela detail tautan, dan jendela notifikasi. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:application-java}, namun pada bagian ini akan dijelaskan lebih rinci untuk metode \texttt{openMainWindow}, yaitu metode yang digunakan untuk membuka jendela utama aplikasi. Berikut adalah penjelasan lebih rinci untuk metode \texttt{openMainWindow} (lihat Kode~\ref{code:application-open-main-window-java}):
 
-   \begin{enumerate}
+   \begin{enumerate}[itemsep=1mm]
       \item (Baris 3) Menentukan lokasi berkas \texttt{main-scene.fxml} yang berisi struktur tampilan.
 
       \item (Baris 4) Membaca berkas \texttt{main-scene.fxml}.
@@ -41,10 +41,13 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
    \vspace{8mm}
 
    \item \textbf{Berkas \texttt{MainController.java}, \texttt{main-scene.fxml} dan \texttt{main-style.css}}\\
-   Ketiga kode program ini bertanggung jawab untuk mengelola jendela utama aplikasi (lihat Gambar~\ref{fig:implementasi-jendela-utama}). Kelas \texttt{MainController} digunakan untuk mengendalikan interaksi pada jendela utama (lihat Lampiran~\ref{code:main-controller-java}). Berkas \texttt{main-scene.fxml} digunakan untuk mendefinisikan struktur, hierarki, dan komponen antarmuka pengguna pada jendela utama (lihat Lampiran~\ref{code:main-scene-fxml}). Sementara itu, berkas \texttt{main-style.css} digunakan untuk mengatur gaya visual pada jendela utama (lihat Lampiran~\ref{code:main-style-css}). Pada kelas \texttt{MainController} terdapat metode \texttt{onStartClick} yang digunakan untuk menjalankan proses pemeriksaan ketika pengguna menekan tombol \textit{Start}, berikut adalah penjelasan lebih rinci untuk metode ini (lihat Kode~\ref{code:main-controller-on-start-click-java}):
+   Ketiga kode program ini bertanggung jawab untuk mengelola jendela utama aplikasi (lihat Gambar~\ref{fig:implementasi-jendela-utama}). Kelas \texttt{MainController} digunakan untuk mengendalikan interaksi pada jendela utama (lihat Lampiran~\ref{code:main-controller-java}). Berkas \texttt{main-scene.fxml} digunakan untuk mendefinisikan struktur, hierarki, dan komponen antarmuka pengguna pada jendela utama (lihat Lampiran~\ref{code:main-scene-fxml}). Sementara itu, berkas \texttt{main-style.css} digunakan untuk mengatur gaya visual pada jendela utama (lihat Lampiran~\ref{code:main-style-css}). 
+   
+   \vspace{10mm}
 
-   \begin{enumerate}
+   Pada kelas \texttt{MainController} terdapat metode \texttt{onStartClick} yang digunakan untuk menjalankan proses pemeriksaan ketika pengguna menekan tombol \textit{Start}, berikut adalah penjelasan lebih rinci untuk metode ini (lihat Kode~\ref{code:main-controller-on-start-click-java}):
 
+   \begin{enumerate}[itemsep=1mm]
       \item (Baris 3--8) Mendapatkan URL masukan lalu menormalisasi URL tersebut, jika tidak valid maka hentikan proses dan tampilkan jendela notifikasi bertipe \textit{warning}.
       
       \item (Baris 9--11) Menampilkan URL hasil normalisasi kembali ke GUI lalu membersihkan data lama dan memperbarui status pemeriksaan.
@@ -101,22 +104,17 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
       \item (Baris 3--8) Menetapkan \textit{styling} pada jendela berdasarkan tipe pesan. 
    \end{enumerate}
 
-   \vspace{10mm}
-
    \lstinputlisting[
       language=Java, 
       caption=Kelas \texttt{NotifController} metode \texttt{setNotifValue},
       label={code:notif-controller-set-notif-value-java}
    ]{Lampiran/implementasi-kode-program/NotifController_setNotifValue.java}
 
-   \vspace{4mm}
-   
 
    \item \textbf{Berkas \texttt{Crawler.java}}\\
    Kelas \texttt{Crawler} bertugas untuk melakukan proses pemeriksaan tautan rusak dengan cara menjalankan proses \textit{crawling}. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:crawler-java}, namun pada bagian ini akan dijelaskan lebih rinci untuk metode \texttt{start}, \texttt{checkLink} dan \texttt{extractLink}. Kelas ini juga memiliki beberapa atribut sebagai berikut:
 
-   \begin{enumerate}
-      
+   \begin{enumerate}[itemsep=1mm]
       \item \texttt{frontier}: Atribut ini menyimpan antrean halaman situs web yang akan dilakukan \textit{crawling}. Struktur data yang digunakan adalah \texttt{Queue<Link>} agar halaman situs web diproses menggunakan urutan \textit{First-In-First-Out} (FIFO), sesuai dengan kebutuhan strategi \textit{Breadth-First Crawler}. Implementasi dari antrean ini menggunakan kelas \texttt{ConcurrentLinkedQueue} agar setiap pembacaan dan penulisan \textit{entry} tidak mengalami \textit{race condition}.
       
       \item \texttt{repositories}: Atribut ini menyimpan seluruh URL unik yang diperiksa selama proses \textit{crawling} dan digunakan untuk memastikan tidak ada duplikasi dalam pemeriksaan. Struktur data yang digunakan adalah \texttt{Map<String, Link>}, dengan \textit{key} berupa URL dan \textit{value} berupa objek \texttt{Link} yang mewakili URL tersebut. Implementasinya menggunakan \texttt{ConcurrentHashMap} agar setiap pembacaan dan penulisan \textit{entry} tidak mengalami \textit{race condition}.
@@ -138,7 +136,7 @@ Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan pera
    Metode \texttt{start} merupakan metode utama dari kelas \texttt{Crawler} dan digunakan untuk menjalankan proses \textit{crawling}. Masukan metode ini adalah URL yang menjadi titik awal proses \texttt{crawling}. Berikut adalah penjelasan lebih rinci untuk metode \texttt{start} (lihat Kode~\ref{code:crawler-start-java}):
 
 
-   \begin{enumerate}[itemsep=3pt]
+   \begin{enumerate}[itemsep=1mm]
       \item (Baris 2--5) Mengatur ulang status penghentian dan membersihkan seluruh struktur data internal agar proses \textit{crawling} dimulai dalam keadaan bersih.
       
       \item (Baris 7) Membuat \textit{executor service} baru berbasis \textit{virtual thread} untuk menjalankan pemeriksaan tautan eksternal secara paralel.

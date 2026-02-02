@@ -9,13 +9,10 @@ Tujuan dari sebuah \textit{request} adalah \textit{resource} yang disediakan ole
 \label{subsec:0201-metode-http}
 Metode HTTP berfungsi untuk menunjukkan tujuan dari \textit{request} yang dibuat oleh \textit{client} dan hasil sukses apa yang diharapkan dari \textit{request} tersebut. Metode HTTP memiliki beberapa sifat umum, diantaranya adalah \textit{safe} dan \textit{idempotent}. Sebuah metode dikatakan \textit{safe} apabila semantik yang didefinisikan bersifat \textit{read-only}, yaitu \textit{client} tidak meminta dan tidak mengharapkan adanya perubahan keadaan pada \textit{origin server} akibat penerapan metode tersebut. Metode yang termasuk \textit{safe} adalah \texttt{GET}, \texttt{HEAD}, \texttt{OPTIONS}, dan \texttt{TRACE}. Sebuah metode disebut \textit{idempotent} apabila dampak yang dimaksudkan pada \textit{server} dari beberapa \textit{request} identik, sama dengan dampak dari satu \textit{request}. Metode \texttt{PUT}, \texttt{DELETE}, serta seluruh metode aman adalah \textit{idempotent}. 
 
-\vspace{10mm}
-
-Berikut ini adalah daftar beberapa metode HTTP:
-
 \vspace{2mm}
 
-\begin{itemize}[itemsep=5pt]
+Berikut ini adalah daftar beberapa metode HTTP:
+\begin{itemize}[itemsep=1.5mm]
     \item \textbf{GET}: Metode ini digunakan untuk meminta transfer representasi terkini dari \textit{resource} target.
   
     \item \textbf{HEAD}: Metode ini identik dengan \texttt{GET}, tetapi \textit{server} tidak boleh mengirimkan konten dalam \textit{response}. \texttt{HEAD} digunakan untuk memperoleh metadata dari representasi yang dipilih tanpa harus mentransfer data representasi itu sendiri.
@@ -27,22 +24,22 @@ Berikut ini adalah daftar beberapa metode HTTP:
     \item \textbf{DELETE}: Metode ini digunakan untuk meminta agar \textit{origin server} menghapus asosiasi antara \textit{resource} target dengan fungsionalitasnya saat ini.
   
     \item \textbf{OPTIONS}: Metode ini digunakan untuk meminta informasi mengenai opsi komunikasi yang tersedia bagi \textit{resource} target, baik pada \textit{origin server} maupun perantara. Metode ini memungkinkan \textit{client} mengetahui opsi dan/atau persyaratan yang terkait dengan sebuah \textit{resource}, atau kemampuan dari sebuah \textit{server}, tanpa menyiratkan adanya tindakan terhadap \textit{resource} tersebut.
-  
 \end{itemize}
 
 
 
 \subsection{Kode Status HTTP}
 \label{subsec:0201-kode-status-http}
-
 Kode status HTTP adalah bagian dari baris awal pada \textit{response} \textit{server} yang menunjukkan hasil pemrosesan terhadap suatu \textit{request}. Kode ini terdiri dari tiga digit numerik dan dikelompokkan ke dalam lima kelas utama berdasarkan digit pertamanya: informasi (1xx), keberhasilan (2xx), pengalihan (3xx), kesalahan dari \textit{client} (4xx), dan kesalahan dari \textit{server} (5xx).
 
 \subsubsection{\textit{Informational} 1xx}
 \label{subsubsec:020104-infotmational-1xx}
+Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima dan sedang diproses, tetapi belum ada \textit{response} final.
 
-Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima dan sedang diproses, tetapi belum ada \textit{response} final. Berikut adalah daftar kode status pada kategori ini:
+\vspace{2mm}
 
-\begin{itemize}[itemsep=5pt]
+Berikut adalah daftar kode status pada kategori ini:
+\begin{itemize}[itemsep=1.5mm]
     \item \textbf{100 (\textit{Continue})}: Menunjukkan bahwa \textit{server} telah menerima bagian awal dari \textit{request} dan tidak menemukan masalah pada tahap tersebut. \textit{Client} dapat melanjutkan pengiriman sisa \textit{request}, dan \textit{server} akan mengirimkan \textit{response} akhir setelah seluruh \textit{request} selesai diproses.
   
     \item \textbf{101 (\textit{Switching Protocols})}: Menunjukkan bahwa \textit{server} menyetujui permintaan \textit{client} untuk mengganti protokol aplikasi yang digunakan pada koneksi yang sama, sesuai dengan yang diminta dalam \textit{request}.
@@ -54,10 +51,12 @@ Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima dan s
 
 \subsubsection{\textit{Successful} 2xx}
 \label{subsubsec:201004-successful-2xx}
+Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima, dipahami, dan diproses dengan sukses.
 
-Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima, dipahami, dan diproses dengan sukses. Berikut adalah daftar kode status pada kategori ini:
+\vspace{2mm}
 
-\begin{itemize}[itemsep=5pt]
+Berikut adalah daftar kode status pada kategori ini:
+\begin{itemize}[itemsep=1mm]
     \item \textbf{200 (\textit{OK})}: Menunjukkan bahwa \textit{request} berhasil diproses dan \textit{response} berisi hasil yang sesuai dengan jenis \textit{request} yang dikirimkan.
   
     \item \textbf{201 (\textit{Created})}: Menunjukkan bahwa \textit{request} berhasil diproses dan menghasilkan satu atau lebih \textit{resource} baru pada \textit{server}.
@@ -79,10 +78,12 @@ Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima, dipa
 
 \subsubsection{\textit{Redirection} 3xx}
 \label{subsubsec:020104-redirection-3xx}
+Kode-kode pada kelas ini menunjukkan bahwa \textit{client} harus melakukan langkah tambahan untuk menyelesaikan \textit{request}, seperti mengikuti \textit{redirect}.
 
-Kode-kode pada kelas ini menunjukkan bahwa \textit{client} harus melakukan langkah tambahan untuk menyelesaikan \textit{request}, seperti mengikuti \textit{redirect}. Berikut adalah daftar kode status pada kategori ini:
+\vspace{2mm}
 
-\begin{itemize}[itemsep=8pt]
+Berikut adalah daftar kode status pada kategori ini:
+\begin{itemize}[itemsep=1.5mm]
     \item \textbf{300 (\textit{Multiple Choices})}: Menunjukkan bahwa \textit{resource} yang diminta memiliki beberapa alternatif representasi atau lokasi. \textit{Server} menyediakan daftar pilihan tersebut agar \textit{user agent} atau pengguna dapat memilih representasi yang diinginkan.
     
     \item \textbf{301 (\textit{Moved Permanently})}: Menunjukkan bahwa \textit{resource} target telah dipindahkan secara permanen ke URI baru. Untuk \textit{request} selanjutnya, \textit{client} sebaiknya menggunakan URI baru tersebut.
@@ -102,10 +103,12 @@ Kode-kode pada kelas ini menunjukkan bahwa \textit{client} harus melakukan langk
 
 \subsubsection{\textit{Client Error} 4xx}
 \label{subsubsec:020104-client-error-4xx}
+Kode-kode pada kelas ini menunjukkan bahwa telah terjadi kesalahan di sisi \textit{client}.
 
-Kode-kode pada kelas ini menunjukkan bahwa telah terjadi kesalahan di sisi \textit{client}. Berikut adalah daftar kode status pada kategori ini:
+\vspace{2mm}
 
-\begin{itemize}[itemsep=5pt]
+Berikut adalah daftar kode status pada kategori ini:
+\begin{itemize}[itemsep=2mm]
     \item \textbf{400 (\textit{Bad Request})}: Menunjukkan bahwa \textit{request} tidak dapat diproses karena kesalahan dari sisi \textit{client}, misalnya format \textit{request} tidak valid, sintaks salah, atau parameter yang dikirim tidak sesuai.
   
     \item \textbf{401 (\textit{Unauthorized})}: Menunjukkan bahwa \textit{request} memerlukan autentikasi, tetapi \textit{client} tidak menyertakan kredensial yang sah atau belum melakukan autentikasi.
@@ -166,12 +169,12 @@ Kode-kode pada kelas ini menunjukkan bahwa telah terjadi kesalahan di sisi \text
 
 \subsubsection{\textit{Server Error} 5xx}
 \label{subsubsec:020104-server-error-5xx}
+Kode-kode pada kelas ini menunjukkan bahwa \textit{server} menyadari bahwa terjadi kesalahan di sisi \textit{server}.
 
-Kode-kode pada kelas ini menunjukkan bahwa \textit{server} menyadari bahwa terjadi kesalahan di sisi \textit{server}. Berikut adalah daftar kode status pada kategori ini:
+\vspace{2mm}
 
-\vspace{3mm}
-
-\begin{itemize}[itemsep=5pt]
+Berikut adalah daftar kode status pada kategori ini:
+\begin{itemize}[itemsep=2mm]
     \item \textbf{500 (\textit{Internal Server Error})}: Menunjukkan bahwa \textit{server} mengalami kesalahan internal yang tidak terduga, sehingga tidak dapat memproses \textit{request} yang diterima.
   
     \item \textbf{501 (\textit{Not Implemented})}: Menunjukkan bahwa \textit{server} tidak mendukung fungsionalitas yang diperlukan untuk memproses \textit{request}. Kode ini biasanya muncul ketika \textit{server} tidak mengenali atau tidak mendukung metode HTTP yang digunakan.

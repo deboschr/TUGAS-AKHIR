@@ -14,7 +14,7 @@ Gambar~\ref{fig:analisis-brokenlinkchecker} menunjukkan antarmuka pengguna Broke
 
 Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layanan pemeriksaan tautan rusak:
 
-\begin{enumerate}
+\begin{enumerate}[itemsep=2mm]
     \item \textbf{Input URL}\\
     Komponen ini digunakan untuk memasukkan alamat situs web yang akan diperiksa. Pengguna dapat menuliskan alamat dalam bentuk domain saja, tanpa harus menyertakan skema \texttt{http://} atau \texttt{https://}. Sistem akan tetap menerima input tersebut dan mengolahnya sebagai URL awal pemeriksaan. Kemudahan ini mempersingkat proses input, meskipun dapat menimbulkan potensi ambiguitas pada situs web yang hanya mendukung skema tertentu, misalnya hanya \texttt{https://}.
 
@@ -27,12 +27,10 @@ Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layana
     \item \textbf{Tombol kontrol}\\
     Proses pemeriksaan dimulai dengan menekan tombol \textit{Find broken links now!}. Setelah pemeriksaan berjalan, tombol \textit{Stop} berwarna merah akan muncul di bawah tabel hasil. Tombol ini memungkinkan pengguna menghentikan proses pemeriksaan kapan saja sesuai kebutuhan. Selain itu, disediakan pula opsi \textit{Disable page auto-scrolling} yang dapat diaktifkan untuk menonaktifkan pengguliran otomatis pada tabel hasil, sehingga tampilan tetap stabil meskipun data baru terus ditambahkan secara real-time.
 
-    \vspace{3mm}
     \item \textbf{Tabel hasil}\\
     Hasil pemeriksaan ditampilkan dalam bentuk tabel yang diperbarui secara langsung. Tabel ini hanya menampilkan tautan yang telah dipastikan bermasalah, sehingga laporan lebih fokus dan tidak bercampur dengan tautan valid atau sedang dalam proses pemeriksaan. Terdapat lima kolom utama pada tabel hasil, yaitu:
     
-    \begin{itemize}
-    
+    \begin{itemize}[itemsep=1mm]
         \item \textbf{\#}: kolom nomor urut hasil. Setiap nomor dapat diklik untuk membuka tautan rusak yang bersangkutan secara langsung.
         
         \item \textbf{Broken link}: berisi alamat tautan yang teridentifikasi rusak. Tautan ini ditampilkan dalam bentuk teks biasa tanpa fungsi klik.
@@ -42,10 +40,8 @@ Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layana
         \item \textbf{Page where found}: berisi dua tautan, yaitu \textit{url} yang mengarah ke halaman web tempat tautan rusak ditemukan, serta \textit{src} yang menunjuk ke dokumen HTML sumber untuk memperlihatkan lokasi tautan yang bermasalah.
         
         \item \textbf{Server response}: menampilkan status akhir dari hasil pemeriksaan tautan, baik berupa kode status HTTP seperti \texttt{404} dan \texttt{500}, maupun pesan kesalahan non-HTTP seperti \texttt{bad host} atau \texttt{timeout}.
-        
     \end{itemize}
 
-    \vspace{3mm}
     \item \textbf{Ringkasan pemeriksaan}\\
     Pada bagian bawah tabel, sistem menampilkan ringkasan proses pemeriksaan yang sedang berlangsung. Bagian ini memuat status terkini, yang ditandai dengan animasi titik berjalan selama proses aktif. Jika pemeriksaan dihentikan oleh pengguna melalui tombol \textit{Stop}, status akan berubah menjadi \texttt{DONE : process was terminated by user}. Sebaliknya, jika pemeriksaan selesai secara normal, status ditampilkan sebagai \texttt{COMPLETED!}. Selain menampilkan status, ringkasan ini juga memperlihatkan jumlah total halaman dan tautan yang telah diperiksa, serta jumlah tautan rusak yang ditemukan.
 \end{enumerate}
@@ -54,10 +50,8 @@ Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layana
 \subsubsection*{Mekanisme dan Ketentuan Teknis}  
 Selain fitur yang tampak pada antarmuka pengguna, Broken Link Checker juga memiliki sejumlah mekanisme teknis yang menentukan cara kerja dan batasan layanan. Mekanisme ini penting untuk dipahami agar pengguna dapat menafsirkan hasil pemeriksaan dengan tepat dan menyesuaikan penggunaan sesuai kebutuhan.
 
-\vspace{20mm}
-
 Mekanisme dan ketentuan teknis tersebut dapat dirangkum sebagai berikut:
-\begin{enumerate}
+\begin{enumerate}[itemsep=1mm]
     \item \textbf{Cakupan pemeriksaan}\\
     Broken Link Checker melakukan pemeriksaan terhadap tautan internal maupun eksternal dari sebuah situs web. Tautan internal adalah tautan yang berada dalam domain yang sama dengan URL awal, sedangkan tautan eksternal adalah tautan yang mengarah keluar ke domain lain. Hanya tautan yang bermasalah yang ditampilkan dalam laporan, sedangkan tautan valid tidak ditampilkan. Pendekatan ini membuat hasil pemeriksaan lebih bersih dan mudah dianalisis karena pengguna tidak perlu memilah-milah tautan yang sebenarnya masih berfungsi.
 

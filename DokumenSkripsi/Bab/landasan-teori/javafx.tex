@@ -4,9 +4,10 @@ Antarmuka pengguna dalam JavaFX dibangun berdasarkan konsep \textit{scene graph}
 
 
 \subsection{Siklus Hidup Aplikasi}
+\label{subsec:020501-siklus-hidup-javafx}
 Setiap aplikasi JavaFX diturunkan dari kelas abstrak \texttt{javafx.application.Application}. Kelas ini mendefinisikan tiga metode utama yang membentuk siklus hidup aplikasi, yaitu:  
 
-\begin{enumerate}
+\begin{enumerate}[itemsep=1.5mm]
     \item \texttt{init()}\\
     Metode ini dipanggil pertama kali sebelum antarmuka pengguna dibuat. Umumnya digunakan untuk melakukan inisialisasi data awal atau membuka koneksi yang dibutuhkan.  
 
@@ -19,9 +20,10 @@ Setiap aplikasi JavaFX diturunkan dari kelas abstrak \texttt{javafx.application.
 
 
 \subsection{Stage, Scene, dan Node}
+\label{subsec:020502-stage-scene-node}
 JavaFX menyusun antarmuka pengguna berdasarkan hierarki yang dikenal dengan \textit{scene graph}. Tiga komponen utama dalam hierarki ini adalah sebagai berikut:
 
-\begin{itemize}[itemsep=2pt]
+\begin{itemize}[itemsep=1.5mm]
     \item \texttt{Stage}\\
     \texttt{Stage} merupakan \textit{top-level container} dalam JavaFX yang merepresentasikan sebuah jendela aplikasi. Setiap aplikasi JavaFX memiliki setidaknya satu \textit{primary stage} yang disediakan secara otomatis oleh \textit{JavaFX runtime} dan diteruskan sebagai parameter ke dalam metode \texttt{start}. Objek \texttt{Stage} berfungsi sebagai wadah untuk menampilkan sebuah objek \texttt{Scene}.
 
@@ -35,70 +37,28 @@ JavaFX menyusun antarmuka pengguna berdasarkan hierarki yang dikenal dengan \tex
 
 
 \subsection{Kontrol dan Tata Letak Antarmuka JavaFX}
+\label{subsec:020503-kontrol-dan-tata-letak-javafx}
+JavaFX menyediakan berbagai elemen antarmuka pengguna yang dirancang untuk mendukung pembangunan aplikasi desktop yang interaktif dan responsif. Elemen-elemen tersebut secara umum terbagi menjadi dua kelompok utama, yaitu kontrol antarmuka (\textit{controls}) dan kontainer tata letak (\textit{layout panes}). Kontrol antarmuka berfungsi sebagai komponen yang secara langsung berinteraksi dengan pengguna, sedangkan kontainer tata letak digunakan untuk mengatur posisi dan susunan kontrol antarmuka di dalam jendela aplikasi. Beberapa elemen antarmuka yang umum digunakan antara lain sebagai berikut:
 
-JavaFX menyediakan berbagai elemen antarmuka pengguna yang terdiri atas kontrol antarmuka (\textit{controls}) dan kontainer tata letak (\textit{layout panes}) untuk membangun aplikasi interaktif. Beberapa elemen antarmuka yang umum digunakan antara lain sebagai berikut:
-
-\begin{itemize}[itemsep=2pt]
-    \item \texttt{TextField}, untuk menerima input teks satu baris.
-    \item \texttt{TextArea}, untuk menerima input teks dalam bentuk multi-baris.
-    \item \texttt{ComboBox}, untuk menampilkan pilihan dalam bentuk daftar tarik turun.
-    \item \texttt{Button}, untuk memicu suatu aksi tertentu.
-    \item \texttt{Label}, untuk menampilkan teks.
-    \item \texttt{TableView}, untuk menyajikan data dalam bentuk baris dan kolom.
-    \item \texttt{VBox}, \texttt{HBox}, dan \texttt{GridPane}, sebagai kontainer tata letak vertikal, horizontal, dan grid.
+\begin{itemize}[itemsep=1.5mm]
+    \item \texttt{TextField}, elemen yang digunakan untuk menerima input teks satu baris dari pengguna.
+    \item \texttt{TextArea}, elemen untuk menerima input teks dalam bentuk multi-baris.
+    \item \texttt{ComboBox}, elemen yang menampilkan pilihan dalam bentuk daftar tarik turun.
+    \item \texttt{Button}, elemen yang digunakan untuk memicu suatu aksi tertentu ketika ditekan.
+    \item \texttt{Label}, elemen untuk menampilkan teks atau keterangan statis.
+    \item \texttt{TableView}, elemen untuk menyajikan data terstruktur dalam bentuk baris dan kolom.
+    \item \texttt{VBox}, \texttt{HBox}, dan \texttt{GridPane}, yang berfungsi sebagai kontainer tata letak dengan susunan vertikal, horizontal, dan berbasis grid.
 \end{itemize}
 
-Elemen-elemen antarmuka tersebut dapat didefinisikan secara deklaratif menggunakan FXML, yaitu bahasa markah berbasis XML yang digunakan untuk mendeskripsikan struktur antarmuka pengguna secara terpisah dari logika aplikasi. Dalam berkas FXML, sebuah kelas \texttt{controller} dapat dihubungkan melalui atribut \texttt{fx:controller}, sedangkan elemen antarmuka yang perlu diakses dari kode program diberi pengenal menggunakan atribut \texttt{fx:id}. Selain itu, \textit{event handling} dapat didefinisikan secara deklaratif melalui atribut seperti \texttt{onAction}.
+\vspace{2mm}
 
-% Kode~\ref{lst:javafx-fxml} memperlihatkan contoh struktur antarmuka berbasis FXML yang menggunakan \texttt{BorderPane} sebagai \textit{root node} dan \texttt{HBox} sebagai kontainer tata letak.
-
-% \begin{lstlisting}[language=XML, caption={Contoh struktur dasar dokumen FXML}, label=lst:javafx-fxml]
-% <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller">
-%   <top>
-%     <HBox spacing="10">
-%       <Label text="Input:"/>
-%       <TextField fx:id="inputField"/>
-%       <Button fx:id="submitButton" text="Submit" onAction="#handleSubmit"/>
-%     </HBox>
-%   </top>
-% </BorderPane>
-% \end{lstlisting}
-
-% \vspace{3mm}
-
-% Kode~\ref{lst:javafx-fxml} menunjukkan bahwa elemen akar antarmuka adalah \texttt{BorderPane}. Pada bagian atasnya terdapat sebuah \texttt{HBox} dengan jarak antar elemen sebesar 10 piksel. Di dalam \texttt{HBox} didefinisikan sebuah \texttt{Label} untuk menampilkan teks, sebuah \texttt{TextField} yang diberi atribut \texttt{fx:id} agar dapat diakses dari \texttt{controller}, serta sebuah \texttt{Button} yang memiliki atribut \texttt{onAction} untuk memanggil metode penanganan kejadian pada \texttt{controller}.
+Elemen-elemen antarmuka tersebut dapat didefinisikan secara deklaratif menggunakan FXML, yaitu bahasa markah berbasis XML yang digunakan untuk mendeskripsikan struktur antarmuka pengguna secara terpisah dari logika aplikasi. Pendekatan ini memungkinkan pemisahan yang jelas antara aspek tampilan dan aspek pemrograman. Dalam berkas FXML, sebuah kelas \texttt{controller} dapat dihubungkan melalui atribut \texttt{fx:controller}, sedangkan elemen antarmuka yang perlu diakses dari kode program diberi pengenal menggunakan atribut \texttt{fx:id}. Selain itu, mekanisme \textit{event handling} juga dapat didefinisikan secara deklaratif melalui atribut seperti \texttt{onAction}, sehingga interaksi pengguna dapat langsung dipetakan ke metode yang sesuai pada \texttt{controller}.
 
 
 \subsection{\textit{Controller}, \textit{Property}, dan \textit{Binding}}
+\label{subsec:020504-controller-property-binding}
+Dalam JavaFX, kelas \texttt{controller} berperan sebagai penghubung antara antarmuka pengguna yang didefinisikan melalui FXML dengan logika aplikasi yang diimplementasikan dalam kode program. Kelas ini bertanggung jawab untuk menangani interaksi pengguna serta mengelola perubahan data yang terjadi selama aplikasi berjalan. Elemen antarmuka yang dideklarasikan di dalam berkas FXML dapat diakses dari kelas \texttt{controller} dengan menggunakan anotasi \texttt{@FXML}. Interaksi pengguna, seperti penekanan tombol atau perubahan nilai input, dapat ditangani melalui metode \textit{event handler} yang didefinisikan di dalam \texttt{controller}.
 
-Dalam JavaFX, kelas \texttt{controller} digunakan sebagai penghubung antara antarmuka pengguna yang didefinisikan melalui FXML dengan logika aplikasi. Elemen antarmuka yang dideklarasikan di dalam berkas FXML dapat diakses dari kelas \texttt{controller} dengan menggunakan anotasi \texttt{@FXML}. Interaksi pengguna, seperti penekanan tombol, dapat ditangani melalui metode \textit{event handler} yang didefinisikan di dalam \texttt{controller}.
+Selain itu, JavaFX menyediakan mekanisme \textit{property} untuk merepresentasikan data yang bersifat dinamis dan dapat berubah selama eksekusi aplikasi. \textit{Property} memungkinkan suatu nilai untuk dipantau sehingga setiap perubahan yang terjadi dapat dideteksi dan dipropagasikan ke bagian lain dari aplikasi yang bergantung pada nilai tersebut. Pendekatan ini mempermudah pengelolaan sinkronisasi antara data dan tampilan. Salah satu implementasi property yang umum digunakan adalah \texttt{StringProperty}, yang digunakan untuk menyimpan dan mengamati perubahan nilai bertipe \texttt{String}.
 
-Selain itu, JavaFX menyediakan mekanisme \textit{property} untuk merepresentasikan data yang bersifat dinamis. \textit{Property} memungkinkan suatu nilai dipantau sehingga perubahan nilai tersebut dapat dideteksi dan dipropagasikan ke bagian lain dari aplikasi. Salah satu implementasi property yang umum digunakan adalah \texttt{StringProperty}, yang digunakan untuk menyimpan dan mengamati perubahan nilai bertipe \texttt{String}.
-
-Untuk menghubungkan property dengan elemen antarmuka pengguna, JavaFX mendukung konsep \textit{binding}. \textit{Binding} memungkinkan nilai suatu property terhubung dengan property lain sehingga perubahan pada satu sisi akan secara otomatis memengaruhi sisi yang terikat. \textit{Binding} dapat bersifat satu arah (\textit{unidirectional}), di mana nilai mengalir dari sumber ke target, maupun dua arah (\textit{bidirectional}), di mana perubahan pada salah satu \textit{property} akan memperbarui \textit{property} lainnya.
-
-% Kode~\ref{lst:javafx-controller-binding} memperlihatkan contoh kelas \texttt{Controller} yang menggunakan \textit{property} dan \textit{binding} untuk menghubungkan \texttt{TextField} dengan \texttt{Label} melalui \texttt{StringProperty}.
-
-% \vspace{3mm}
-
-% \begin{lstlisting}[language=Java, caption={Contoh controller dengan \textit{property} dan \textit{binding}}, label=lst:javafx-controller-binding]
-% public class Controller {
-%     @FXML private TextField inputField;
-%     @FXML private Label statusLabel;
-%     private StringProperty inputText = new SimpleStringProperty();
-
-%     public void initialize() {
-%         inputField.textProperty().bindBidirectional(inputText);
-%         statusLabel.textProperty().bind(inputText);
-%     }
-
-%     @FXML
-%     public void handleSubmit() {
-%         inputText.set("Input diterima: " + inputText.get());
-%     }
-% }
-% \end{lstlisting}
-
-
-% Kode program pada Kode~\ref{lst:javafx-controller-binding} menunjukkan bahwa komponen \texttt{TextField} dan \texttt{Label} dihubungkan ke kelas \texttt{Controller} melalui anotasi \texttt{@FXML}. Sebuah \textit{property} berupa \texttt{StringProperty} digunakan untuk menyimpan nilai teks. Pada metode \texttt{initialize()}, property tersebut diikat secara dua arah dengan properti teks milik \texttt{TextField}, sehingga perubahan nilai pada salah satunya akan tercermin pada yang lain. Selanjutnya, properti teks milik \texttt{Label} diikat secara satu arah dengan property tersebut, sehingga nilai yang ditampilkan selalu sesuai. Ketika metode \texttt{handleSubmit()} dipanggil, nilai property diperbarui dan perubahan tersebut secara otomatis ditampilkan pada \texttt{Label} melalui mekanisme \textit{binding}.
-
+Untuk menghubungkan property dengan elemen antarmuka pengguna, JavaFX mendukung konsep \textit{binding}. \textit{Binding} memungkinkan nilai suatu property terhubung dengan property lain sehingga perubahan pada satu sisi akan secara otomatis memengaruhi sisi yang terikat. Mekanisme ini membantu mengurangi kebutuhan penulisan kode pembaruan secara manual. \textit{Binding} dapat bersifat satu arah (\textit{unidirectional}), di mana nilai mengalir dari sumber ke target, maupun dua arah (\textit{bidirectional}), di mana perubahan pada salah satu \textit{property} akan memperbarui \textit{property} lainnya secara otomatis.

@@ -1,13 +1,15 @@
-Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi sebelum proses implementasi dilakukan. Perancangan ini menunjukkan hubungan antarkelas, atribut, serta metode yang dimiliki oleh setiap kelas. Hasil pada perancangan ini ditunjukkan melalui diagram kelas pada Gambar~\ref{fig:class-diagram}. Berikut adalah penjelasan dari diagram kelas tersebut:
+Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi sebelum proses implementasi dilakukan. Perancangan ini menunjukkan hubungan antarkelas, atribut, serta metode yang dimiliki oleh setiap kelas. Hasil pada perancangan ini ditunjukkan melalui diagram kelas pada Gambar~\ref{fig:class-diagram}. 
+
 
 \vspace{1mm}
 
-\begin{enumerate}[itemsep=2mm]
+Berikut adalah penjelasan dari diagram kelas tersebut:
+\begin{enumerate}[itemsep=4mm]
     \item \textbf{Kelas \texttt{Application}}\\
-    Kelas \texttt{Application} merupakan titik awal aplikasi JavaFX dan bertugas untuk membuka jendela aplikasi. Kelas ini memiliki atribut \texttt{mainStage} yang menyimpan referensi ke jendela utama dan digunakan untuk menjadikan jendela lain sebagai turunan dari jendela utama. Kelas ini memiliki relasi \textit{dependency} dengan kelas \texttt{LinkController}. Berikut adalah penjelasan lebih rinci untuk metode pada kelas ini:
-
+    Kelas \texttt{Application} merupakan titik awal aplikasi JavaFX dan bertugas untuk membuka jendela aplikasi. Kelas ini memiliki atribut \texttt{mainStage} yang menyimpan referensi ke jendela utama dan digunakan untuk menjadikan jendela lain sebagai turunan dari jendela utama. Kelas ini memiliki relasi \textit{dependency} dengan kelas \texttt{LinkController}.
+    
     \vspace{1mm}
-
+    Berikut adalah penjelasan lebih rinci untuk metode pada kelas ini:
     \begin{itemize}
         \item \texttt{start}: Metode ini digunakan untuk memulai aplikasi. Masukan dari metode ini adalah sebuah objek \texttt{Stage} yang digunakan untuk membuat jendela utama.
         
@@ -20,16 +22,16 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
     \item \textbf{Kelas \texttt{LinkController}}\\ 
     Kelas \texttt{LinkController} bertugas untuk mengatur logika antarmuka pengguna, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela detail tautan. Kelas ini memiliki satu atribut, yaitu \texttt{link}, yang digunakan untuk menyimpan objek dari kelas \texttt{Link} yang akan ditampilkan pada jendela detail tautan. Selain itu, kelas ini memiliki satu metode \texttt{initialize} yang berfungsi untuk menyiapkan komponen antarmuka pengguna. Dengan adanya atribut \texttt{link}, maka kelas \texttt{LinkController} memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Link}.
-
-    \vspace{20mm}
     
     \item \textbf{Kelas \texttt{MainController}}\\
-    Kelas \texttt{MainController} bertugas untuk mengatur logika antarmuka pengguna, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela utama. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
+    Kelas \texttt{MainController} bertugas untuk mengatur logika antarmuka pengguna, mengendalikan interaksi pengguna, serta mengelola data yang ditampilkan pada jendela utama.
     
     \vspace{1mm}
     
+    Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi yang terdapat pada kelas \texttt{MainController}:
+    
     \textbf{Atribut:}
-    \begin{itemize}
+    \begin{itemize}[itemsep=1mm]
         \item \texttt{crawler}: Atribut ini menyimpan objek dari kelas \texttt{Crawler} yang digunakan untuk menjalankan proses pemeriksaan.
         
         \item \texttt{summary}: Atribut ini menyimpan objek dari kelas \texttt{Summary} yang digunakan untuk mencatat ringkasan hasil pemeriksaan.
@@ -44,7 +46,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \vspace{1mm}
     
     \textbf{Metode:}
-    \begin{itemize}
+    \begin{itemize}[itemsep=1mm]
         \item \texttt{initialize}: Metode ini digunakan untuk menyiapkan komponen antarmuka pengguna.
         
         \item \texttt{onStartClick}: Metode ini digunakan untuk menangani aksi pengguna ketika tombol \textit{Start} ditekan dan akan memulai proses pemeriksaan.
@@ -77,12 +79,14 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
 
     \item \textbf{Kelas \texttt{Crawler}}\\
-    Kelas \texttt{Crawler} bertugas untuk menjalankan proses \textit{web crawling} dan melakukan pemeriksaan pada setiap tautan yang ditemukan dalam proses tersebut. Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
-
+    Kelas \texttt{Crawler} bertugas untuk menjalankan proses \textit{web crawling} dan melakukan pemeriksaan pada setiap tautan yang ditemukan dalam proses tersebut. 
+    
     \vspace{1mm}
     
+    Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
+    
     \textbf{Atribut:}
-    \begin{itemize}[itemsep=2mm]
+    \begin{itemize}[itemsep=1mm]
         \item \texttt{HTTP\_CLIENT}: Atribut ini menyimpan objek \texttt{HttpClient} yang digunakan untuk melakukan permintaan HTTP.
 
         \item \texttt{MAX\_LINKS}: Atribut ini menyimpan batas maksimum jumlah tautan yang diperiksa untuk mencegah proses pemeriksaan berlangsung terlalu lama.
@@ -101,7 +105,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \vspace{1mm}
 
     \textbf{Metode:}
-    \begin{itemize}[itemsep=2mm]
+    \begin{itemize}
         \item \texttt{start}: Metode ini digunakan untuk menjalankan proses \textit{web crawling}. Masukan dari metode ini adalah URL dari situs web yang ingin diperiksa.
         
         \item \texttt{stop}: Metode ini digunakan untuk menghentikan proses \textit{web crawling}.
@@ -114,7 +118,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \vspace{1mm}
 
     \textbf{Relasi:}
-    \begin{itemize}[itemsep=2mm]
+    \begin{itemize}
         \item Relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{LinkReceiver}.
         
         \item Relasi \textit{association} berkardinalitas \textit{one-to-many} dengan kelas \texttt{Link}.
@@ -129,7 +133,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \begin{algorithm}[H]
         \caption{checkLink($link$, $isParseDoc$)}
         \label{alg:crawler-checklink}
-        \begin{spacing}{1.5}
+        \begin{spacing}{0.8}
         \begin{algorithmic}[1]
 
             \If{$link.url \in repositories$ \textbf{atau} $|repositories| > MAX\_LINKS$}
@@ -177,12 +181,13 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
 
 
     \item \textbf{Kelas \texttt{Exporter}}\\
-    Kelas \texttt{Exporter} bertugas untuk melakukan ekspor hasil pemeriksaan ke berkas Microsoft Excel (\texttt{xlsx}). Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
+    Kelas \texttt{Exporter} bertugas untuk melakukan ekspor hasil pemeriksaan ke berkas Microsoft Excel (\texttt{xlsx}). 
     
     \vspace{1mm}
-    
+
+    Berikut adalah penjelasan lebih rinci untuk atribut, metode, dan relasi pada kelas ini:
     \textbf{Atribut:}
-    \begin{itemize}[itemsep=2mm]
+    \begin{itemize}[itemsep=1.5mm]
         \item \texttt{summary}: Atribut ini menyimpan ringkasan hasil pemeriksaan yang akan diekspor.
         
         \item \texttt{brokenLinks}: Atribut ini menyimpan daftar tautan rusak yang akan diekspor.
@@ -191,7 +196,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \vspace{1mm}
     
     \textbf{Metode:}
-    \begin{itemize}
+    \begin{itemize}[itemsep=1.5mm]
         \item \texttt{save}: Metode ini digunakan untuk membuat dan menyimpan berkas Excel ke dalam penyimpanan lokal komputer. Masukan dari metode ini adalah objek \texttt{File} yang menunjukkan lokasi berkas hasil ekspor.
         
         \item \texttt{writeSummaryTable}: Metode ini digunakan untuk menulis tabel ringkasan hasil pemeriksaan pada berkas Excel yang akan diekspor. Masukan dari metode ini adalah objek \texttt{Sheet} tempat tabel ditulis. 
@@ -202,7 +207,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \vspace{1mm}
     
     \textbf{Relasi:}
-    \begin{itemize}
+    \begin{itemize}[itemsep=1.5mm]
         \item Relasi \textit{association} berkardinalitas \textit{one-to-many} dengan kelas \texttt{Link}.
         
         \item Relasi \textit{association} berkardinalitas \textit{one-to-one} dengan kelas \texttt{Summary}.
@@ -215,16 +220,18 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     
     \vspace{1mm}
 
-    \begin{itemize}
+    \begin{itemize}[itemsep=1.5mm]
         \item \texttt{INTERVAL}: Atribut ini memiliki nilai yang bertipe \texttt{long} dan digunakan untuk mengatur jarak antarpermintaan HTTP.
         
         \item \texttt{lastRequestTime}: Atribut ini memiliki nilai yang bertipe \texttt{long} dan digunakan untuk menyimpan waktu terakhir permintaan HTTP dilakukan.
     \end{itemize}
+
+    \vspace{5mm}
     
     \begin{algorithm}[H]
         \caption{delay()}
         \label{alg:rate-limiter-delay}
-        \begin{spacing}{1.2}
+        \begin{spacing}{2}
         \begin{algorithmic}[1]
             \State $now \leftarrow$ waktu sistem saat ini
             \State $waitTime \leftarrow lastRequestTime + INTERVAL - now$
@@ -236,12 +243,15 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         \end{spacing}
     \end{algorithm}
 
+    \vspace{10mm}
+
     \item \textbf{Kelas \texttt{UrlHandler}}\\
-    Kelas \texttt{UrlHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait URL. Berikut adalah penjelasan lebih rinci untuk metode pada kelas ini:
+    Kelas \texttt{UrlHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait URL. 
     
     \vspace{1mm}
     
-    \begin{itemize}
+    Berikut adalah penjelasan lebih rinci untuk metode pada kelas ini:
+    \begin{itemize}[itemsep=2mm]
         \item \texttt{normalizeUrl}: Metode ini digunakan untuk melakukan normalisasi sebuah URL dengan menetapkan aturan-aturan tertentu. Masukan dari metode ini adalah sebuah URL, sedangkan keluarannya adalah URL yang sudah dinormalisasi.
 
         \item \texttt{getHost}: Metode ini digunakan untuk mendapatkan \textit{host} dari sebuah URL. Masukan dari metode ini adalah sebuah URL, sedangkan keluarannya adalah \textit{host} dari URL tersebut.
@@ -253,7 +263,7 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     
     \vspace{1mm}
     Berikut adalah penjelasan lebih rinci untuk metode pada kelas \texttt{ErrorHandler}:
-    \begin{itemize}[itemsep=1.5mm]
+    \begin{itemize}[itemsep=2mm]
         \item \texttt{getExceptionError}: Metode ini digunakan untuk memperoleh pesan kesalahan yang lebih mudah dipahami berdasarkan \texttt{exception} yang diberikan. Masukan dari metode ini adalah sebuah objek \texttt{Throwable} yang mewakili kesalahan yang terjadi, sedangkan keluarannya berupa teks yang mewakili kesalahan tersebut.
         
         \item \texttt{getHttpError}: Metode ini digunakan untuk mendapatkan pesan kesalahan pada HTTP yang diambil dari atribut \texttt{HTTP\_ERROR\_MAP}. Masukan dari metode ini adalah sebuah kode status HTTP, sedangkan keluarannya adalah pesan kesalahan yang sesuai dengan kode status tersebut.
@@ -296,12 +306,14 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
         \item Relasi \textit{dependency} dengan kelas \texttt{ErrorHandler}.
     \end{itemize}
 
+    \vspace{3mm}
 
     \item \textbf{Kelas \texttt{Summary}}\\
-    Kelas \texttt{Summary} merupakan model yang digunakan untuk merepresentasikan data ringkasan dari proses pemeriksaan. Kelas ini memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan enumerasi \texttt{Status}. Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
-
+    Kelas \texttt{Summary} merupakan model yang digunakan untuk merepresentasikan data ringkasan dari proses pemeriksaan. Kelas ini memiliki relasi \textit{association} berkardinalitas \textit{one-to-one} dengan enumerasi \texttt{Status}.
+    
     \vspace{1mm}
-
+    
+    Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
     \begin{itemize}[itemsep=2mm]
         \item \texttt{status}: Atribut ini menyimpan enumerasi \texttt{Status} yang menunjukkan status terakhir dari proses pemeriksaan.
         
@@ -320,10 +332,11 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \vspace{3mm}
 
     \item \textbf{Enumerasi \texttt{Status}}\\
-    Enumerasi \texttt{Status} merupakan model yang digunakan untuk mendefinisikan status dari proses pemeriksaan. Enumerasi ini digunakan pada kelas \texttt{MainController} untuk menampilkan status ke jendela utama. Berikut adalah penjelasan lebih rinci untuk konstanta pada enumerasi ini:
-
+    Enumerasi \texttt{Status} merupakan model yang digunakan untuk mendefinisikan status dari proses pemeriksaan. Enumerasi ini digunakan pada kelas \texttt{MainController} untuk menampilkan status ke jendela utama.
+    
     \vspace{1mm}
-
+    
+    Berikut adalah penjelasan lebih rinci untuk konstanta pada enumerasi ini:
     \begin{itemize}[itemsep=2mm]
         \item \texttt{IDLE}: Konstanta ini menunjukkan bahwa belum ada aktivitas pada sistem.
         
@@ -350,3 +363,5 @@ Perancangan kelas digunakan untuk menggambarkan struktur kode program aplikasi s
     \caption{Class diagram aplikasi}
     \label{fig:class-diagram}
 \end{figure}
+
+\vspace{50mm}

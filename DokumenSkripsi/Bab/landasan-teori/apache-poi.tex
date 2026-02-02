@@ -2,25 +2,30 @@ Apache POI merupakan pustaka Java yang dikembangkan oleh The Apache Software Fou
 
 OLE2 merupakan standar penyimpanan biner yang digunakan oleh Microsoft Office untuk berkas-berkas generasi lama seperti DOC, XLS, dan PPT. Standar ini mendefinisikan struktur penyimpanan berbentuk \textit{compound file}, yaitu sistem berkas yang terdiri atas \textit{storages} dan \textit{streams}, di mana \textit{streams} menyimpan data utama dokumen dan \textit{storages} menjadi kontainer hierarkis yang memuat elemen-elemen lain di dalamnya~\cite{ms:cfb}. Sementara itu, OOXML merupakan standar yang digunakan oleh Microsoft Office untuk berkas-berkas generasi baru seperti DOCX, XLSX, dan PPTX. Standar ini mendefinisikan dokumen sebagai kumpulan berkas XML yang dikemas dalam struktur ZIP~\cite{ecma:376}.
 
-
 Struktur proyek Apache POI terdiri dari beberapa modul yang masing-masing dirancang untuk menangani format berkas tertentu dalam ekosistem Microsoft Office. Berikut adalah modul-modul tersebut:
-\begin{itemize}[itemsep=5pt]
-    \item \textbf{\texttt{POIFS}}: Modul ini digunakan untuk membaca dan menulis struktur penyimpanan pada standar OLE2 sebagai kumpulan \textit{storages} dan \textit{streams}.
+\begin{itemize}[itemsep=2mm]
+    \item \textbf{\texttt{POIFS}}\\
+    Modul ini digunakan untuk membaca dan menulis struktur penyimpanan pada standar OLE2 sebagai kumpulan \textit{storages} dan \textit{streams}.
     
-    \item \textbf{\texttt{HSSF}}: Modul ini digunakan untuk memproses isi berkas Microsoft Excel dengan format XLS pada standar OLE2.
+    \item \textbf{\texttt{HSSF}}\\
+    Modul ini digunakan untuk memproses isi berkas Microsoft Excel dengan format XLS pada standar OLE2.
     
-    \item \textbf{\texttt{XSSF}}: Modul ini digunakan untuk memproses berkas Microsoft Excel dengan format XLSX pada standar OOXML.
+    \item \textbf{\texttt{XSSF}}\\
+    Modul ini digunakan untuk memproses berkas Microsoft Excel dengan format XLSX pada standar OOXML.
 
-    \item \textbf{\texttt{HWPF}}: Modul ini digunakan untuk memproses isi berkas Microsoft Word dengan format DOC pada standar OLE2.
+    \item \textbf{\texttt{HWPF}}\\
+    Modul ini digunakan untuk memproses isi berkas Microsoft Word dengan format DOC pada standar OLE2.
     
-    \item \textbf{\texttt{XWPF}}: Modul ini digunakan untuk memproses berkas Microsoft Word dengan format DOCX pada standar OOXML.
+    \item \textbf{\texttt{XWPF}}\\
+    Modul ini digunakan untuk memproses berkas Microsoft Word dengan format DOCX pada standar OOXML.
     
-    \item \textbf{\texttt{HSLF}}: Modul ini digunakan untuk memproses isi berkas Microsoft PowerPoint dengan format PPT pada standar OLE2.
+    \item \textbf{\texttt{HSLF}}\\
+    Modul ini digunakan untuk memproses isi berkas Microsoft PowerPoint dengan format PPT pada standar OLE2.
     
-    \item \textbf{\texttt{XSLF}}: Modul ini digunakan untuk memproses berkas Microsoft PowerPoint dengan format PPTX pada standar OOXML.
-    
+    \item \textbf{\texttt{XSLF}}\\
+    Modul ini digunakan untuk memproses berkas Microsoft PowerPoint dengan format PPTX pada standar OOXML.
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 
 Untuk mendukung pemrosesan berkas \textit{spreadsheet} pada modul \texttt{HSSF} dan \texttt{XSSF}, Apache POI menyediakan sebuah API bernama SS UserModel melalui paket \texttt{org.apache.poi.ss.usermodel}. API ini mendefinisikan elemen-elemen umum \textit{spreadsheet} seperti \texttt{Workbook}, \texttt{Sheet}, \texttt{Row}, dan \texttt{Cell}. Melalui API ini, pemrosesan \textit{spreadsheet} dapat dilakukan menggunakan antarmuka yang sama pada kedua modul, tanpa perlu menangani perbedaan struktur antara berkas dengan format XLS dan XLSX secara langsung.

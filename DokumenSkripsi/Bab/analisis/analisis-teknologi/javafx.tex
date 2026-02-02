@@ -2,7 +2,7 @@ Pemilihan JavaFX sebagai pustaka antarmuka pengguna didasarkan pada kebutuhan si
 
 Dalam implementasi, JavaFX akan digunakan melalui beberapa komponen utama berikut:
 
-\begin{itemize}[itemsep=3mm]
+\begin{itemize}[itemsep=1mm]
   \item \textbf{Stage, Scene, dan Node}. Struktur dasar aplikasi akan mengikuti siklus hidup JavaFX dengan menurunkan kelas dari \texttt{Application}. Objek \texttt{Stage} akan berperan sebagai jendela utama, sedangkan \texttt{Scene} digunakan untuk menampung keseluruhan antarmuka. Komponen UI seperti \texttt{Button}, \texttt{Label}, dan \texttt{TextField} direpresentasikan sebagai turunan \texttt{Node} yang diorganisasi dalam kontainer tata letak, misalnya \texttt{VBox} atau \texttt{BorderPane}.
 
   \item \textbf{FXML dan Controller}. Untuk memisahkan logika aplikasi dari tampilan, struktur antarmuka didefinisikan secara deklaratif dalam berkas FXML. Atribut \texttt{fx:id} akan dipakai agar komponen UI dapat diakses dari kelas controller, sedangkan event handler seperti \texttt{onAction} digunakan untuk menangani interaksi pengguna, misalnya saat memulai atau menghentikan proses pemeriksaan tautan.
@@ -14,7 +14,7 @@ Dalam implementasi, JavaFX akan digunakan melalui beberapa komponen utama beriku
   \item \textbf{Pengendalian Thread}. Karena proses pemeriksaan tautan berjalan secara paralel, pembaruan antarmuka pengguna harus dijalankan melalui \texttt{Platform.runLater()}. Hal ini menjamin sinkronisasi antara \textit{thread} pemeriksaan dengan \textit{thread} JavaFX, sehingga tampilan dapat diperbarui secara aman tanpa menimbulkan error \texttt{Not on FX application thread}.
 \end{itemize}
 
-\vspace{5mm}
+\vspace{2mm}
 
 Kode~\ref{lst:javafx-fxml} memperlihatkan contoh struktur antarmuka berbasis FXML yang menggunakan \texttt{BorderPane} sebagai \textit{root node} dan \texttt{HBox} sebagai kontainer tata letak.
 
@@ -30,21 +30,19 @@ Kode~\ref{lst:javafx-fxml} memperlihatkan contoh struktur antarmuka berbasis FXM
 </BorderPane>
 \end{lstlisting}
 
-\vspace{5mm}
+\vspace{2mm}
 
 Kode~\ref{lst:javafx-fxml} menunjukkan bahwa elemen akar antarmuka adalah \texttt{BorderPane}. Pada bagian atasnya terdapat sebuah \texttt{HBox} dengan jarak antar elemen sebesar 10 piksel. Di dalam \texttt{HBox} didefinisikan sebuah \texttt{Label} untuk menampilkan teks, sebuah \texttt{TextField} yang diberi atribut \texttt{fx:id} agar dapat diakses dari \texttt{controller}, serta sebuah \texttt{Button} yang memiliki atribut \texttt{onAction} untuk memanggil metode penanganan kejadian pada \texttt{controller}.
 
 Kode~\ref{lst:javafx-controller-binding} memperlihatkan contoh kelas \texttt{Controller} yang menggunakan \textit{property} dan \textit{binding} untuk menghubungkan \texttt{TextField} dengan \texttt{Label} melalui \texttt{StringProperty}.
 
-\vspace{5mm}
+\vspace{2mm}
 
 \begin{lstlisting}[language=Java, caption={Contoh controller dengan \textit{property} dan \textit{binding}}, label=lst:javafx-controller-binding]
 public class Controller {
-    // TextField yang dihubungkan dari FXML
     @FXML
     private TextField inputField;
 
-    // Label yang dihubungkan dari FXML
     @FXML
     private Label statusLabel;
 
@@ -63,14 +61,12 @@ public class Controller {
     // Dipanggil saat Button ditekan
     @FXML
     public void handleSubmit() {
-        // Memperbarui nilai property, perubahan langsung tercermin di Label
         inputText.set("Input diterima: " + inputText.get());
     }
 }
 
 \end{lstlisting}
 
-\vspace{5mm}
 
 Kode program pada Kode~\ref{lst:javafx-controller-binding} menunjukkan bahwa komponen \texttt{TextField} dan \texttt{Label} dihubungkan ke kelas \texttt{Controller} melalui anotasi \texttt{@FXML}. Sebuah \textit{property} berupa \texttt{StringProperty} digunakan untuk menyimpan nilai teks. Pada metode \texttt{initialize()}, property tersebut diikat secara dua arah dengan properti teks milik \texttt{TextField}, sehingga perubahan nilai pada salah satunya akan tercermin pada yang lain. Selanjutnya, properti teks milik \texttt{Label} diikat secara satu arah dengan property tersebut, sehingga nilai yang ditampilkan selalu sesuai. Ketika metode \texttt{handleSubmit()} dipanggil, nilai property diperbarui dan perubahan tersebut secara otomatis ditampilkan pada \texttt{Label} melalui mekanisme \textit{binding}.
 

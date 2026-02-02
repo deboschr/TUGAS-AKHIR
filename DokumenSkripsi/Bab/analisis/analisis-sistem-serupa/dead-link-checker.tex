@@ -38,10 +38,12 @@ Berikut adalah penjelasan komponen antarmuka pengguna pada layanan \textit{site 
     \end{itemize}
 \end{enumerate}
 
+\vspace{5mm}
+
 \subsubsection*{Mekanisme dan Ketentuan Teknis}  
 Selain fitur yang terlihat pada antarmuka pengguna, Dead Link Checker juga memiliki mekanisme dan ketentuan teknis berikut:
 
-\begin{enumerate}
+\begin{enumerate}[itemsep=4mm]
     \item \textbf{\textit{Crawling} rekursif}\\
     Dead Link Checker bekerja dengan cara \textit{crawling} halaman web secara rekursif, yaitu dengan mengikuti setiap tautan yang ditemukan untuk kemudian dipindai kembali. Proses dimulai dari URL awal, lalu setiap tautan dalam domain yang sama diperiksa dan jika valid akan diperlakukan sebagai halaman baru untuk dianalisis. Pola ini terus diulangi hingga batas kedalaman tertentu, di mana pemeriksaan penuh (\textit{full scan}) dapat menjangkau hingga sepuluh tingkat halaman. 
 

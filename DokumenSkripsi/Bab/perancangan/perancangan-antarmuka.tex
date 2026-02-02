@@ -1,15 +1,17 @@
-Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual komponen antarmuka yang tersedia pada aplikasi desktop pemeriksa tautan rusak yang dikembangkan. Pada aplikasi ini akan dibuat dua jendela, yaitu jendela utama dan jendela detail tautan. Berikut adalah penjelasan lebih detail untuk masing-masing jendela:
+Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual komponen antarmuka yang tersedia pada aplikasi desktop pemeriksa tautan rusak yang dikembangkan. Pada aplikasi ini akan dibuat dua jendela, yaitu jendela utama dan jendela detail tautan. 
 
+\vspace{1mm}
+
+Berikut adalah penjelasan lebih detail untuk masing-masing jendela:
 \begin{enumerate}
-    \vspace{5mm}
     \item \textbf{Jendela Utama} \\
     Jendela utama merupakan antarmuka pengguna yang muncul ketika aplikasi baru dijalankan. Melalui jendela ini, pengguna dapat memasukkan URL situs web yang menjadi target pemeriksaan, memulai dan menghentikan proses pemeriksaan, melihat daftar hasil pemeriksaan, melihat ringkasan hasil pemeriksaan, serta menyaring dan mengekspor hasil pemeriksaan. Rancangan jendela ini terdapat pada Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}.
     
-    \vspace{2mm}
+    \vspace{1mm}
 
     Berikut adalah penjelasan komponen-komponen antarmuka yang ada pada jendela ini:
 
-    \begin{enumerate}[itemsep=7pt]
+    \begin{enumerate}[itemsep=1mm]
 
         \item \textbf{Kolom Masukan URL}: Digunakan untuk memasukkan URL situs web sebagai titik awal pemeriksaan.
         
@@ -27,7 +29,7 @@ Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual kompon
         
         \item \textbf{Opsi \textit{Filter} URL}: Digunakan untuk menentukan jenis pencarian berdasarkan URL. Opsi yang tersedia adalah:
         
-        \begin{itemize}[itemsep=3pt]
+        \begin{itemize}[itemsep=1mm]
             \item \textbf{\textit{Equals}}: Menampilkan tautan rusak dengan URL yang sama persis dengan kata kunci yang dimasukkan.
             
             \item \textbf{\textit{Contains}}: Menampilkan tautan rusak dengan URL yang mengandung kata kunci yang dimasukkan.
@@ -39,10 +41,8 @@ Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual kompon
         
         \item \textbf{Kolom Masukan \textit{Filter} URL}: Digunakan untuk memasukkan kata kunci pencarian URL sesuai dengan opsi \textit{filter} yang dipilih sebelumnya.
         
-        \vspace{30mm}
-
         \item \textbf{Opsi \textit{Filter} Status Code}: Digunakan untuk menentukan jenis pencarian berdasarkan kode status HTTP. Opsi yang tersedia adalah:
-        \begin{itemize}[itemsep=3pt]
+        \begin{itemize}[itemsep=1mm]
             \item \textbf{\textit{Equals}}: Menampilkan tautan rusak dengan kode status sama persis dengan kata kunci yang dimasukkan.
             
             \item \textbf{\textit{Greater Than}}: Menampilkan tautan rusak dengan kode status lebih besar dari kata kunci yang dimasukkan.
@@ -67,31 +67,27 @@ Perancangan antarmuka pengguna digunakan untuk memberikan gambaran visual kompon
     \end{enumerate}
 
 
-    \vspace{5mm}
     \item \textbf{Jendela Detail Tautan} \\
     Jendela ini menampilkan informasi lengkap dari sebuah tautan yang dipilih oleh pengguna dengan menekan salah satu baris pada tabel hasil di jendela utama. Rancangan jendela ini terdapat pada Gambar~\ref{fig:rancangan-antarmuka-jendela-detail-tautan}. 
     
-    \vspace{2mm}
+    \vspace{1mm}
+
     Berikut adalah penjelasan komponen-komponen antarmuka yang ada pada jendela ini:
-
-    \begin{enumerate}[itemsep=7pt]
-
+    \begin{enumerate}[itemsep=2mm]
         \item \textbf{Kolom URL}: Menunjukkan URL asli dari tautan.
-        
         \item \textbf{Kolom \textit{Final} URL}: Menunjukkan URL terakhir setelah proses \textit{redirect}.
-        
         \item \textbf{Kolom \textit{Content Type}}: Menunjukkan jenis konten dari tautan.
-        
         \item \textbf{Kolom \textit{Error}}: Menunjukkan pesan \textit{error} jika tautan gagal diperiksa.
-        
         \item \textbf{Tabel \textit{Webpage Link}}: Menampilkan daftar halaman yang menjadi sumber tautan rusak ditemukan. Tabel ini memiliki dua kolom sebagai berikut:
-        \begin{enumerate}[itemsep=3pt]
+        \begin{enumerate}[itemsep=1mm]
             \item \textbf{\textit{Anchor Text}}: Menunjukkan teks tautan yang muncul pada halaman sumber.
             \item \textbf{\textit{Webpage URL}}: Menunjukkan URL halaman tempat tautan rusak ditemukan.
         \end{enumerate}
     \end{enumerate}
 
 \end{enumerate}
+
+\vspace{5mm}
 
 \begin{figure}[H]
     \centering

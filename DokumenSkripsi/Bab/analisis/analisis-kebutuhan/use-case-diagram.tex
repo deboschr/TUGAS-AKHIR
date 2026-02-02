@@ -1,22 +1,26 @@
-Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram \textit{use case} sebagaimana ditunjukkan pada Gambar~\ref{fig:use-case-diagram}. Diagram tersebut memperlihatkan aktor utama yaitu pengguna yang berinteraksi langsung dengan perangkat lunak yang dikembangkan. Terdapat dua layanan inti yang dapat dilakukan pengguna, yaitu melakukan pemeriksaan tautan rusak pada sebuah situs web dan mengekspor hasil pemeriksaan ke dalam berkas eksternal. 
+Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram \textit{use case} sebagaimana ditunjukkan pada Gambar~\ref{fig:use-case-diagram-applikasi}. Diagram tersebut memperlihatkan aktor utama yaitu pengguna yang berinteraksi langsung dengan perangkat lunak yang dikembangkan. Terdapat dua layanan inti yang dapat dilakukan pengguna, yaitu melakukan pemeriksaan tautan rusak pada sebuah situs web dan mengekspor hasil pemeriksaan ke dalam berkas eksternal. 
 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{Gambar/030301-use-case-diagram.png}
+    \caption{Use case diagram aplikasi}
+    \label{fig:use-case-diagram-applikasi}
+\end{figure}
+
+Berikut adalah penjelasan untuk setiap fitur berdasarkan Gambar~\ref{fig:use-case-diagram-applikasi}:
 \begin{enumerate}
     \item \textbf{Memeriksa Tautan Rusak}\\  
     Fitur ini digunakan untuk melakukan pemeriksaan terhadap seluruh tautan yang terdapat dalam sebuah situs web untuk mendeteksi tautan rusak (\textit{broken links}).  
     
-    \begin{itemize}
+    \begin{itemize}[itemsep=1mm]
         \item Nama: Memeriksa Tautan Rusak
-        
         \item Aktor: Pengguna
-        
         \item Deskripsi: Memeriksa tautan rusak yang ada pada sebuah situs web.
-        
         \item Kondisi awal: Aplikasi telah dijalankan dan pengguna berada pada jendela utama.
-        
         \item Kondisi akhir: Daftar tautan rusak ditampilkan di tabel hasil pemeriksaan.
-        
         \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-01}
-        \begin{table}[htbp]
+        \begin{table}[H]
             \centering
             \caption{Skenario memeriksa tautan rusak}
             \vspace{6pt}
@@ -31,21 +35,17 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
     \end{itemize}
     
 
-    % \vspace{5mm}
-
     \item \textbf{Menghentikan pemeriksaan}\\
     Fitur ini digunakan untuk menghentikan proses pemeriksaan tautan rusak ketika proses pemeriksaan sedang berlangsung.
-    \begin{itemize}
+    \begin{itemize}[itemsep=1mm]
         \item Nama: Menghentikan Pemeriksaan
         \item Aktor: Pengguna
         \item Deskripsi: Mengentikan proses pemeriksaan.
         \item Kondisi awal: Proses pemeriksaan sedang berlangsung (status aplikasi \textit{checking}).
         \item Kondisi akhir: Proses pemeriksaan berhenti dan status menjadi \textit{stopped}.
         \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-02}
-        
-        \vspace{5mm}
 
-        \begin{table}[htbp]
+        \begin{table}[H]
             \centering
             \caption{Skenario menghentikan pemeriksaan}
             \vspace{6pt}
@@ -61,14 +61,14 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
 
     \item \textbf{\textit{Filter} Hasil}\\
     Fitur ini digunakan untuk menyaring hasil pemeriksaan sehingga pengguna dapat menemukan tautan rusak dengan jenis kesalahan atau URL tertentu.
-    \begin{itemize}
+    \begin{itemize}[itemsep=1mm]
         \item Nama: \textit{Filter} Hasil
         \item Aktor: Pengguna
         \item Deskripsi: Melakukan penyaringan pada hasil pemeriksaan.
         \item Kondisi awal: Terdapat hasil pemeriksaan pada tabel hasil.
         \item Kondisi akhir: Tabel hasil menampilkan daftar tautan rusak berdasarkan ketentuan penyaringan.
         \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-03}
-        \begin{table}[htbp]
+        \begin{table}[H]
             \centering
             \caption{Skenario filter hasil}
             \vspace{6pt}
@@ -82,17 +82,21 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
         \end{table}
     \end{itemize}
     
+    \vspace{5mm}
 
     \item \textbf{Ekspor Hasil}\\
     Fitur ini digunakan untuk mengekspor hasil pemeriksaan tautan rusak ke dalam berkas eksternal untuk keperluan dokumentasi atau analisis lebih lanjut.
-    \begin{itemize}
+    \begin{itemize}[itemsep=1mm]
         \item Nama: Ekspor Hasil
         \item Aktor: Pengguna
         \item Deskripsi: Ekspor hasil pemeriksaan tautan rusak ke berkas dalam format Excel.
         \item Kondisi awal: Pemeriksaan tautan telah selesai dan hasilnya telah ditampilkan di tabel.
         \item Kondisi akhir: Berkas hasil ekspor tersimpan di perangkat pengguna.
         \item Skenario utama: Ditampilkan dalam tabel \ref{tab:skenario-04}
-        \begin{table}[htbp]
+        
+        \vspace{-5mm}
+
+        \begin{table}[H]
             \centering
             \caption{Skenario ekspor hasil}
             \vspace{6pt}
@@ -107,9 +111,4 @@ Gambaran umum dari kebutuhan sistem dapat divisualisasikan dalam bentuk diagram 
     \end{itemize}
 \end{enumerate}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.55\textwidth]{Gambar/030301-use-case-diagram.png}
-    \caption{Use case diagram aplikasi}
-    \label{fig:use-case-diagram}
-\end{figure}
+

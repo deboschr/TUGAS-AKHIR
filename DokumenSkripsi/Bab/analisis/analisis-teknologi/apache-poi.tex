@@ -7,24 +7,24 @@ Dari sisi fungsional, penggunaan Apache POI mendukung kebutuhan sistem dalam men
   \item Menjaga konsistensi format keluaran, baik dari segi struktur tabel maupun keterbacaan data, sehingga hasil ekspor dapat digunakan secara langsung tanpa memerlukan pemrosesan tambahan.
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 
-Dalam implementasi sistem, beberapa modul dan kelas utama dari Apache POI digunakan untuk membangun dan menuliskan berkas Excel secara terstruktur, yaitu sebagai berikut:
-\begin{itemize}
-  \item \texttt{XSSFWorkbook}\\
-  Kelas ini merupakan implementasi \texttt{Workbook} untuk format \texttt{XLSX}. Objek \texttt{XSSFWorkbook} digunakan sebagai kontainer utama yang menampung seluruh \textit{sheet}, serta mengelola struktur berkas Excel yang akan dihasilkan sebelum disimpan ke berkas fisik.
+% Dalam implementasi sistem, beberapa modul dan kelas utama dari Apache POI digunakan untuk membangun dan menuliskan berkas Excel secara terstruktur, yaitu sebagai berikut:
+% \begin{itemize}
+%   \item \texttt{XSSFWorkbook}\\
+%   Kelas ini merupakan implementasi \texttt{Workbook} untuk format \texttt{XLSX}. Objek \texttt{XSSFWorkbook} digunakan sebagai kontainer utama yang menampung seluruh \textit{sheet}, serta mengelola struktur berkas Excel yang akan dihasilkan sebelum disimpan ke berkas fisik.
 
-  \item \texttt{Sheet}\\
-  Kelas \texttt{Sheet} digunakan untuk merepresentasikan satu lembar kerja dalam berkas Excel. Pada sistem ini, \textit{sheet} dimanfaatkan untuk memisahkan jenis informasi, seperti ringkasan hasil pemeriksaan dan daftar detail tautan rusak.
+%   \item \texttt{Sheet}\\
+%   Kelas \texttt{Sheet} digunakan untuk merepresentasikan satu lembar kerja dalam berkas Excel. Pada sistem ini, \textit{sheet} dimanfaatkan untuk memisahkan jenis informasi, seperti ringkasan hasil pemeriksaan dan daftar detail tautan rusak.
 
-  \item \texttt{Row} dan \texttt{Cell}\\
-  Kedua kelas ini digunakan untuk membentuk struktur tabel secara baris dan kolom. \texttt{Row} merepresentasikan satu baris data, sedangkan \texttt{Cell} digunakan untuk mengisikan nilai pada setiap kolom, seperti URL, sumber halaman, atau status HTTP, sehingga data tersusun secara sistematis.
+%   \item \texttt{Row} dan \texttt{Cell}\\
+%   Kedua kelas ini digunakan untuk membentuk struktur tabel secara baris dan kolom. \texttt{Row} merepresentasikan satu baris data, sedangkan \texttt{Cell} digunakan untuk mengisikan nilai pada setiap kolom, seperti URL, sumber halaman, atau status HTTP, sehingga data tersusun secara sistematis.
 
-  \item \texttt{FileOutputStream}\\
-  Kelas ini digunakan untuk menuliskan isi \texttt{Workbook} ke dalam berkas fisik dengan format \texttt{XLSX}. Setelah proses penulisan selesai, \texttt{Workbook} ditutup untuk memastikan seluruh data tersimpan dengan benar dan tidak terjadi kebocoran sumber daya.
-\end{itemize}
+%   \item \texttt{FileOutputStream}\\
+%   Kelas ini digunakan untuk menuliskan isi \texttt{Workbook} ke dalam berkas fisik dengan format \texttt{XLSX}. Setelah proses penulisan selesai, \texttt{Workbook} ditutup untuk memastikan seluruh data tersimpan dengan benar dan tidak terjadi kebocoran sumber daya.
+% \end{itemize}
 
-\vspace{3mm}
+% \vspace{3mm}
 
 Kode~\ref{lst:poi-xlsx-example} menunjukkan contoh sederhana penggunaan Apache POI untuk membuat sebuah dokumen Excel dengan format XLSX. Contoh ini menggunakan modul \texttt{XSSF} karena berkas yang dihasilkan termasuk dalam standar OOXML, serta memanfaatkan SS UserModel melalui kelas-kelas seperti \texttt{Workbook}, \texttt{Sheet}, \texttt{Row}, dan \texttt{Cell}.
 
@@ -54,6 +54,6 @@ public class ExcelExportExample {
 }
 \end{lstlisting}
 
-\vspace{5mm}
+\vspace{2mm}
 
 Alur kerja dari Kode~\ref{lst:poi-xlsx-example} dimulai dengan pembuatan objek \texttt{Workbook} menggunakan kelas \texttt{XSSFWorkbook}, yang merupakan implementasi untuk format OOXML (XLSX). Pada objek \texttt{Workbook} tersebut dibuat sebuah \texttt{Sheet} baru, yang merepresentasikan satu lembar dalam \textit{spreadsheet}. Lembar kerja tersebut kemudian diisi dengan sebuah \texttt{Row}, dan di dalam baris tersebut dibuat beberapa \texttt{Cell} yang berisi data teks menggunakan metode \texttt{setCellValue()}. Setelah struktur \textit{spreadsheet} terbentuk, selanjutnya akan ditulis ke berkas eksternal menggunakan metode \texttt{write()}. Pada bagian akhir objek \texttt{Workbook} ditutup agar tidak bisa menerima data baru.

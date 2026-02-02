@@ -7,7 +7,7 @@ Objek pada kelas \texttt{HttpClient} juga memiliki karakteristik yang penting un
 Kelas \texttt{HttpClient} merupakan komponen inti dalam Java HTTP Client API yang digunakan untuk mengirim \textit{request} HTTP dan menerima \textit{response} dari \textit{server}. Objek dari kelas ini dapat dibuat dengan menggunakan metode \texttt{newHttpClient} dengan konfigurasi bawaan yang siap pakai, atau bisa menggunakan metode \texttt{newBuilder} apabila ingin membuat objek dengan konfigurasi yang dapat disesuaikan.
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpClient}:
-\begin{itemize}[itemsep=5pt]
+\begin{itemize}[itemsep=2mm]
     \item \texttt{version}\\
     Metode ini digunakan untuk menetapkan versi protokol HTTP yang digunakan oleh \textit{client}. Pengaturan versi ini memungkinkan aplikasi untuk menentukan apakah komunikasi dilakukan menggunakan HTTP/1.1 atau HTTP/2 sesuai dengan dukungan \textit{server} dan kebutuhan sistem.
     
@@ -31,23 +31,23 @@ Kelas \texttt{HttpRequest} merepresentasikan sebuah \textit{request} HTTP yang a
 \vspace{3mm}
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpRequest}:
-\begin{itemize}[itemsep=2pt]
+\begin{itemize}[itemsep=1mm]
     \item \texttt{uri}\\
-    Metode ini digunakan untuk menentukan alamat tujuan dari \textit{request} HTTP dalam bentuk objek \texttt{URI}.
-    
+    Metode ini digunakan untuk menentukan alamat tujuan dari \textit{request} HTTP dalam bentuk objek \texttt{URI}. URI ini menjadi acuan utama bagi \texttt{HttpClient} dalam menentukan lokasi sumber daya yang akan diakses.
+
     \item \texttt{header}\\
-    Metode ini digunakan untuk menetapkan satu pasangan \textit{name-value} sebagai \textit{header}, namun jika ingin menetapkan beberapa \textit{header} sekaligus maka dapat digunakan metode \texttt{headers}.
-    
+    Metode ini digunakan untuk menetapkan satu pasangan \textit{name-value} sebagai \textit{header} pada \textit{request}. Apabila diperlukan penetapan beberapa \textit{header} sekaligus, dapat digunakan metode \texttt{headers} agar konfigurasi \textit{request} menjadi lebih ringkas.
+
     \item \texttt{timeout}\\
-    Metode ini menerima parameter berupa objek \texttt{Duration} untuk menentukan batas waktu maksimal pemrosesan \textit{request}.
+    Metode ini menerima parameter berupa objek \texttt{Duration} untuk menentukan batas waktu maksimal pemrosesan \textit{request}. Jika \textit{response} tidak diterima dalam durasi yang ditentukan, permintaan akan dihentikan dan dianggap gagal.
 
     \item \texttt{version}\\
-    Metode ini digunakan untuk menentukan versi protokol HTTP yang akan digunakan pada proses \textit{request}.
-    
+    Metode ini digunakan untuk menentukan versi protokol HTTP yang akan digunakan pada proses \textit{request}. Pengaturan versi ini dapat menimpa konfigurasi versi default yang ditetapkan pada objek \texttt{HttpClient}.
+
     \item \texttt{method}\\
-    Metode ini menetapkan jenis operasi HTTP yang akan dilakukan. Selain melalui metode ini, penetapan jenis operasi juga dapat dilakukan menggunakan metode yang lebih eksplisit, seperti \texttt{GET}, \texttt{POST}, \texttt{PUT}, dan \texttt{DELETE}.
-    
+    Metode ini digunakan untuk menetapkan jenis operasi HTTP yang akan dilakukan pada \textit{request}. Selain menggunakan metode ini secara langsung, penetapan operasi HTTP juga dapat dilakukan melalui metode yang lebih eksplisit, seperti \texttt{GET}, \texttt{POST}, \texttt{PUT}, dan \texttt{DELETE}, yang secara semantik merepresentasikan jenis permintaan yang dikirim.
 \end{itemize}
+
 
 
 \subsection{Kelas \texttt{HttpResponse}}
@@ -55,28 +55,22 @@ Berikut adalah beberapa metode yang tersedia pada \texttt{HttpRequest}:
 Kelas \texttt{HttpResponse} merepresentasikan \textit{response} yang diterima setelah sebuah \textit{request} dieksekusi oleh \texttt{HttpClient}. Kelas ini menggunakan parameter generik \texttt{<T>} yang menunjukkan tipe data dari isi \textit{response body}. Nilai generik ini ditentukan oleh \texttt{HttpResponse.BodyHandler} yang digunakan saat mengirim \textit{request}.
 
 Berikut adalah beberapa metode yang tersedia pada \texttt{HttpResponse}:
-\begin{itemize}[itemsep=2pt]
+\begin{itemize}[itemsep=1mm]
     \item \texttt{statusCode}\\
-    Metode ini digunakan untuk mendapatkan kode status HTTP yang dikirim oleh \textit{server}.
-    
+    Metode ini digunakan untuk memperoleh kode status HTTP yang dikirim oleh \textit{server}. Kode status ini menunjukkan hasil pemrosesan \textit{request}, seperti keberhasilan, pengalihan, atau kegagalan.
+
     \item \texttt{headers}\\
-    Metode ini digunakan untuk mendapatkan daftar seluruh \textit{header} dari \textit{response}.
-    
+    Metode ini digunakan untuk mendapatkan seluruh \textit{header} yang disertakan dalam \textit{response}. Informasi ini dapat digunakan untuk mengetahui metadata tambahan yang dikirim oleh \textit{server}.
+
     \item \texttt{body}\\
-    Metode ini digunakan untuk mendapatkan isi \textit{response body} dengan tipe data generik \texttt{<T>}.
-    
+    Metode ini digunakan untuk mendapatkan isi \textit{response body} dengan tipe data generik \texttt{<T>}. Tipe data ini bergantung pada \texttt{BodyHandler} yang digunakan saat \textit{request} dikirim.
+
     \item \texttt{previousResponse}\\
-    Metode ini digunakan untuk mendapatkan \textit{response} sebelumnya apabila terjadi \textit{redirect}.
-    
-    \item \texttt{sslSession}\\
-    Metode ini digunakan untuk mendapatkan informasi sesi SSL jika koneksi dilakukan melalui protokol HTTPS.
-    
+    Metode ini digunakan untuk memperoleh \textit{response} sebelumnya apabila terjadi \textit{redirect}. Dengan metode ini, riwayat \textit{redirect} dapat ditelusuri apabila diperlukan.
+
     \item \texttt{uri}\\
-    Metode ini digunakan untuk mendapatkan URL tujuan akhir dari \textit{request}, termasuk setelah terjadi \textit{redirect}.
-    
+    Metode ini digunakan untuk mendapatkan URL tujuan akhir dari \textit{request}, termasuk apabila terjadi \textit{redirect} selama proses komunikasi.
+
     \item \texttt{version}\\
-    Metode ini digunakan untuk mendapatkan versi protokol HTTP yang digunakan pada komunikasi.
-
+    Metode ini digunakan untuk mengetahui versi protokol HTTP yang digunakan dalam komunikasi antara \textit{client} dan \textit{server}.
 \end{itemize}
-
-\vspace{50mm}
