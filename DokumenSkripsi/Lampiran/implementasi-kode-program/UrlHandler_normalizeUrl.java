@@ -7,13 +7,9 @@ public static String normalizeUrl(String rawUrl, boolean isStrict) {
       URI uri = new URI(rawUrl.trim());
 
       String scheme = uri.getScheme();
-
       String host = uri.getHost();
-
       int port = uri.getPort();
-
       String path = uri.getRawPath();
-
       String query = uri.getRawQuery();
 
       if (isStrict) {
@@ -40,7 +36,6 @@ public static String normalizeUrl(String rawUrl, boolean isStrict) {
       URI cleaned = new URI(scheme.toLowerCase(), null, host.toLowerCase(), port, path, query, null);
 
       return cleaned.toASCIIString();
-
    } catch (Exception e) {
       return rawUrl;
    }

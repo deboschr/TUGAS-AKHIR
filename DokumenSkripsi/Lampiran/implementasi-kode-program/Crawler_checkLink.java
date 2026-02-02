@@ -31,7 +31,6 @@ private Document checkLink(Link link, boolean isParseDoc) {
             html = null;
          }
       }
-
       return html;
    } catch (Throwable e) {
       link.setError(ErrorHandler.getExceptionError(e));

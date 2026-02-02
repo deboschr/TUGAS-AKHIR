@@ -5,6 +5,8 @@ Setelah dilakukan penetapan nilai terbaik pada setiap parameter operasional, tah
 \label{subsubsec:05020401-hasil-pengujian-perbandingan}
 Pada tahap perbandingan ini, penting untuk memahami karakteristik kedua perangkat lunak pembanding, yaitu Broken Link Checker dan Dead Link Checker. Kedua perangkat lunak tersebut memeriksa tautan tidak hanya pada elemen \texttt{<a>} HTML, tetapi juga pada elemen \texttt{img} dengan atribut \texttt{src}, sehingga cakupan pemeriksaannya lebih luas. Selain itu, Broken Link Checker memiliki batas maksimum 3000 halaman dan tidak menganggap \textit{error} terkait keamanan seperti 403 \textit{Forbidden}, 401 \textit{Unauthorized}, maupun SSL \textit{Error} sebagai tautan rusak sehingga kategori tersebut tidak dilaporkan dalam hasil pemeriksaannya. Dead Link Checker juga memiliki batas maksimum 2000 tautan secara keseluruhan, tanpa memisahkan antara halaman dan tautan umum. Sementara itu, Broken Link Scanner hanya memeriksa tautan pada elemen \texttt{<a>} HTML sehingga elemen lain seperti \texttt{img} berada di luar cakupan pemeriksaan. Untuk menjaga kesetaraan kondisi pengujian, jumlah tautan rusak yang diproses oleh Broken Link Scanner dibatasi hingga 2000 tautan agar selaras dengan batas yang dimiliki oleh Dead Link Checker. Perbedaan dalam cakupan elemen, perlakuan terhadap \textit{error} tertentu, dan batas maksimum tautan tersebut menjadi faktor penting yang memengaruhi variasi hasil pemeriksaan antarperangkat lunak.
 
+\clearpage
+
 Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karakteristik situs web yang menjadi subjek pengujian dan tidak dimaksudkan untuk digeneralisasikan ke seluruh situs web. Berikut adalah hasil pengujian perbandingan pada tiga perangkat lunak pemeriksa tautan rusak:
 
 \begin{enumerate}
@@ -15,16 +17,16 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
 
    \input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unpar.tex}
 
-   \vspace{10mm}
-
    Berdasarkan hasil pengujian yang ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unpar}, berikut adalah penjelasan dari perbedaan hasil pada ketiga perangkat lunak:
 
-   \begin{itemize}[itemsep=5pt]
+   \begin{itemize}[itemsep=2mm]
       \item \textbf{Host Not Found}.  
       Broken Link Scanner mendeteksi 14 tautan dengan kategori \textit{Host Not Found}, lebih banyak dibandingkan Broken Link Checker yang mendeteksi 11 tautan dan Dead Link Checker yang mendeteksi 7 tautan. Setelah dilakukan pemeriksaan manual, seluruh 14 tautan yang ditemukan oleh Broken Link Scanner memang tidak dapat diakses. Selain itu, semua tautan yang teridentifikasi oleh Broken Link Checker dan Dead Link Checker merupakan bagian dari 14 tautan milik Broken Link Scanner.
 
       \item \textbf{I/O Error}.  
       Pada kategori ini, hanya Broken Link Scanner yang menghasilkan I/O \textit{Error}, sedangkan Broken Link Checker dan Dead Link Checker mengategorikan tautan yang sama sebagai SSL \textit{Error}. URL pada tautan tersebut adalah \url{https://kiri.travel/}. Berdasarkan pemeriksaan manual, situs ini menunjukkan perilaku yang tidak stabil, terkadang menampilkan halaman keamanan, terkadang mengarahkan ke situs yang tidak relevan seperti halaman perjudian, dan pada waktu lain membuka halaman unduhan berkas.
+
+      \clearpage
 
       \item \textbf{Invalid URL}.  
       Perbedaan pada kategori ini disebabkan oleh URL \url{https://itb.ac.id./}. Broken Link Scanner mengelompokkan URL ini sebagai \textit{Invalid} URL karena proses pembentukan objek \texttt{URI} pada Java gagal akibat adanya tanda titik pada akhir domain. Dead Link Checker mengategorikannya sebagai SSL \textit{Error}.
@@ -47,8 +49,6 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
       \item \textbf{405 Method Not Allowed}.  
       Hanya Dead Link Checker yang menemukan \textit{error} ini. URL pada tautan tersebut adalah \url{https://informatika.unpar.ac.id/xmlrpc.php}. Setelah diperiksa manual, server pada tautan ini mengharapkan permintaan dengan metode \texttt{POST}, sehingga ketika perangkat lunak menggunakan metode \texttt{GET}, server mengembalikan status 405.
 
-      \vspace{5mm}
-
       \item \textbf{410 Gone}.  
       Broken Link Scanner adalah satu-satunya perangkat lunak yang mendeteksi tautan yang mengembalikan status 410. Tautan tersebut adalah \url{https://pascalalfadian.wordpress.com/2018/09/29/catholicer-seminar-trip}. Hasil ini telah dikonfirmasi melalui pemeriksaan manual.
 
@@ -62,7 +62,7 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
       Berdasarkan hasil pemeriksaan manual, tautan dengan status 999 yang ditemukan Broken Link Scanner memang benar mengembalikan kode status tersebut. Seluruh tautan tersebut berasal dari situs \url{https://www.linkedin.com}.
    \end{itemize}
 
-   \vspace{5mm}
+   \clearpage
    
    % ######################################################################################
    % ######################################################################################
@@ -73,7 +73,7 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
 
    Berdasarkan hasil pengujian yang ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unpad}, berikut adalah penjelasan dari perbedaan hasil pada ketiga perangkat lunak:
 
-   \begin{itemize}[itemsep=5pt]
+   \begin{itemize}[itemsep=2mm]
       \item \textbf{Host Not Found}.  
       Dead Link Checker mendeteksi 11 tautan, lebih banyak dibandingkan Broken Link Scanner dan Broken Link Checker yang masing-masing menemukan 10 tautan. Pemeriksaan manual menunjukkan bahwa 10 tautan pada kedua perangkat lunak tersebut merupakan bagian dari 11 tautan milik Dead Link Checker, sementara satu tautan tambahan adalah \url{http://www.copus.com/}.
       
@@ -88,8 +88,6 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
 
       \item \textbf{SSL Error}.  
       Dua tautan dikategorikan sebagai SSL \textit{Error} oleh Broken Link Scanner, sedangkan perangkat lunak lain tidak melaporkannya. Pemeriksaan manual menunjukkan bahwa kedua tautan tersebut masih dapat diakses, namun seluruhnya berasal dari situs luar negeri, tautannya adalah \url{https://apps.univ-lr.fr/cgi-bin/WebObjects/Colloque.woa/1/wa/colloque?code=2141} dan \url{http://www.iaeng.org/}.
-
-      \vspace{10mm}
 
       \item \textbf{Too Many Redirections}.  
       Hanya Dead Link Checker yang mendeteksi dua tautan dengan kategori ini. Perbedaan ini dapat terjadi karena perangkat lunak tersebut menerapkan batas jumlah \textit{redirection} selama pemeriksaan, sedangkan Broken Link Scanner tidak menerapkan batasan serupa.
@@ -122,7 +120,7 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
       Hanya Broken Link Scanner dan Dead Link Checker yang mendapatkan tautan pada kategori \textit{error} ini. Tautan tersebut adalah \url{https://www.linkedin.com/school/universitas-padjadjaran}. Setelah diperiksa secara manual, ternyata memerlukan autentikasi untuk mengakses tautan ini.
    \end{itemize}
 
-   \vspace{10mm}
+   \clearpage
 
    % ######################################################################################
    % ######################################################################################
@@ -133,7 +131,7 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
    
    Berdasarkan hasil pengujian yang ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unpas}, berikut adalah penjelasan dari perbedaan hasil pada ketiga perangkat lunak:
 
-   \begin{itemize}[itemsep=4pt]
+   \begin{itemize}[itemsep=2mm]
       \item \textbf{Host Not Found}.  
       Ketiga perangkat lunak menghasilkan jumlah \textit{Host Not Found} yang tinggi, meskipun jumlahnya berbeda-beda. Pemeriksaan manual menunjukkan bahwa seluruh tautan tersebut memang tidak dapat diakses, dan masih terdapat irisan tautan yang konsisten di antara ketiganya.
 
@@ -146,6 +144,8 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
       \item \textbf{400 Bad Request}.  
       Dead Link Checker mendeteksi satu tautan yang mengembalikan status 400, yaitu \url{https://if.unpas.ac.id/?na=s}. Pemeriksaan manual menunjukkan bahwa respons 400 tersebut valid. Tautan ini diperoleh dari elemen \texttt{form} pada halaman HTML, yang tidak termasuk dalam cakupan pemeriksaan Broken Link Scanner maupun Broken Link Checker.
 
+      \clearpage
+      
       \item \textbf{404 Not Found}.  
       Broken Link Scanner hanya mendeteksi 8 tautan, sedangkan dua perangkat lunak lainnya mendeteksi 20 tautan. Perbedaan ini disebabkan oleh cakupan pemeriksaan: Broken Link Checker dan Dead Link Checker memeriksa tautan dari elemen HTML selain \texttt{<a>}, sehingga jumlah tautan 404 \textit{Not Found} yang ditemukan lebih banyak.
 
@@ -168,9 +168,11 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
    
    \input{Lampiran/pengujian-eksperimental/tabel-pengujian-informatika-unikom.tex}
 
+   \clearpage
+
    Berdasarkan hasil pengujian yang ditampilkan pada Tabel~\ref{tab:hasil-pengujian-if-unikom}, berikut adalah penjelasan dari perbedaan hasil pada ketiga perangkat lunak:
 
-   \begin{itemize}[itemsep=5pt]
+   \begin{itemize}[itemsep=1mm]
       \item \textbf{SSL Error}.  
       Broken Link Scanner mendeteksi 3 tautan dengan SSL \textit{Error}, sedangkan Dead Link Checker hanya mendeteksi 1 tautan. Tautan yang ditemukan oleh Dead Link Checker juga terdapat pada hasil Broken Link Scanner. Dua tautan tambahan pada Broken Link Scanner, yaitu \url{https://smarttour.unikom.ac.id/tour-without-login} dan \url{https://jpi.unikom.ac.id/ifjudul}, telah diperiksa secara manual dan tidak valid sebagai SSL \textit{Error}. Perbedaan ini dapat terjadi karena variasi respons server terhadap pola permintaan dari masing-masing perangkat lunak.
 
@@ -186,7 +188,6 @@ Hasil pengujian perbandingan pada penelitian ini bersifat relatif terhadap karak
 
 \end{enumerate}
 
-\vspace{5mm}
 
 \subsubsection{Kesimpulan Pengujian Perbandingan}
 \label{subsubsec:05020402-kesimpulan-pengujian-perbandingan}

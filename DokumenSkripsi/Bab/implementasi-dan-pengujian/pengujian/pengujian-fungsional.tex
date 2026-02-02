@@ -1,8 +1,11 @@
 Pengujian fungsional dilakukan untuk memastikan setiap fitur pada aplikasi desktop pemeriksa tautan rusak berjalan sesuai dengan kebutuhan yang telah ditetapkan (lihat Subbab~\ref{sec:030300-analisis-kebutuhan}). Pengujian dilakukan secara manual menggunakan berbagai skenario input dan interaksi dengan antarmuka pengguna.
 
+\clearpage
+
 \subsubsection{Hasil Pengujian Fungsional}
 \label{subsubsec:05020201-hasil-pengujian-fungsional}
 
+\vspace{1mm}
 Berikut adalah daftar hasil pengujian fungsional:
 \begin{enumerate}
    \item \textbf{Pengujian pada \textit{Input Seed} URL}\\
@@ -10,29 +13,28 @@ Berikut adalah daftar hasil pengujian fungsional:
 
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-input-seed-url.tex}
 
+   \vspace{10mm}
 
    \item \textbf{Pengujian pada Tombol Kontrol}\\
    Pengujian dilakukan untuk memastikan bahwa tombol \textit{Start}, \textit{Stop}, dan \textit{Export} merespons sesuai dengan kondisi status pemeriksaan dan tindakan lain dari pengguna. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-tombol}.
 
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-tombol.tex}
 
-
-   \vspace{10mm}
-
+   \clearpage
 
    \item \textbf{Pengujian pada \textit{Pagination}}\\
    Pengujian ini dilakukan untuk memastikan bahwa \textit{pagination} terbentuk dan berperilaku sesuai dengan keadaan data hasil pemeriksaan dan \textit{filter} serta untuk memastikan pengguna dapat melakukan navigasi pada halaman \textit{pagination}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-pagination}.
    
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-pagination.tex}
 
-   \vspace{5mm}
+   \clearpage
 
    \item \textbf{Pengujian pada Fitur Pemeriksaan}\\
    Dalam pengujian fitur pemeriksaan telah disiapkan sebuah situs web khusus untuk pengujian. Situs web ini berjalan di komputer lokal pengujian dan dibangun dengan spesifikasi yang terkontrol sehingga dalam pengujian ini dapat ditentukan kebenaran dasar (\textit{ground truth}) secara pasti. 
    
    Berikut adalah spesifikasi dari situs web yang dikembangkan khusus untuk pengujian fitur pemeriksaan:
 
-   \begin{itemize}[itemsep=5pt]
+   \begin{itemize}[itemsep=1mm]
       \item Bahasa pemrograman: JavaScript
       \item \textit{Runtime platform}: Node.js
       \item \textit{Framework}: Express.js 
@@ -40,7 +42,7 @@ Berikut adalah daftar hasil pengujian fungsional:
       \item Jumlah tautan halaman: 100 tautan.
       \item Jumlah tautan rusak: 100 tautan.
       \item Distribusi tautan rusak:
-      \begin{itemize}[itemsep=3pt]
+      \begin{itemize}[itemsep=1mm]
          \item 400 \textit{Bad Request}: 10 tautan.
          \item 401 \textit{Unauthorized}: 10 tautan.
          \item 403 \textit{Forbidden}: 10 tautan.
@@ -54,12 +56,12 @@ Berikut adalah daftar hasil pengujian fungsional:
       \end{itemize}
    \end{itemize}
 
-   \vspace{10mm}
+   \vspace{2mm}
 
-   Hasil dari pengujian ditampilkan dalam \textit{confusion matrix} pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-pemeriksaan}, sedangkan untuk ringkasan hasil pemeriksaan ditampilkan Tabel~\ref{tab:ringkasan-tautan-rusak-fitur-pemeriksaan} dan ringkasan proses pemeriksaan ditampilkan pada Tabel~\ref{tab:ringkasan-proses-pemeriksaan-fitur-pemeriksaan}. Untuk menilai ketepatan kinerja fitur pemeriksaan dalam mengidentifikasi tautan rusak, dilakukan perhitungan sebagai berikut:
+   Hasil dari pengujian ditampilkan dalam \textit{confusion matrix} pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-pemeriksaan}, sedangkan untuk ringkasan hasil pemeriksaan ditampilkan Tabel~\ref{tab:ringkasan-tautan-rusak-fitur-pemeriksaan}. Untuk menilai ketepatan kinerja fitur pemeriksaan dalam mengidentifikasi tautan rusak, dilakukan perhitungan sebagai berikut:
 
 
-   \begin{itemize}[itemsep=10pt]
+   \begin{itemize}[itemsep=1mm]
       \item \textbf{\textit{Sensitivity}} \\
       \textit{Sensitivity} (\textit{true positive rate}) menunjukkan kemampuan sistem dalam mendeteksi tautan rusak dengan benar dari seluruh tautan yang memang rusak.
 
@@ -88,7 +90,8 @@ Berikut adalah daftar hasil pengujian fungsional:
       \item \textbf{\textit{Specificity}} \\
       \textit{Specificity} (\textit{true negative rate}) menunjukkan kemampuan sistem dalam mengenali tautan yang tidak rusak dengan benar dari seluruh tautan yang memang tidak rusak.
 
-      \vspace{2mm}
+      \clearpage
+
       \textbf{Perhitungan:} \\
       \begin{equation}
          \begin{aligned}
@@ -189,7 +192,8 @@ Berikut adalah daftar hasil pengujian fungsional:
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-pemeriksaan.tex}
 
 
-   \vspace{10mm}
+   \clearpage
+
    \item \textbf{Pengujian pada Fitur \textit{Filter}}\\
    Pengujian ini dilakukan untuk memastikan bahwa pengguna dapat menyaring isi tabel berdasarkan kondisi URL maupun kode status HTTP. Kondisi awal pada pengujian ini adalah proses pemeriksaan sedang berlangsung atau sudah selesai dan menggunakan situs web Informatika UNPAR\footnote{\url{https://informatika.unpar.ac.id} (Diakses pada 2 Desember 2025)}. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-fitur-filter}.
 
@@ -203,7 +207,7 @@ Berikut adalah daftar hasil pengujian fungsional:
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-fitur-ekspor.tex}
 
 
-   \vspace{2mm}
+   \clearpage
 
    \item \textbf{Pengujian pada Jendela Detail Tautan}\\
    Pengujian ini dilakukan untuk memastikan jendela detail tautan dapat menampilkan informasi sebuah tautan rusak dengan benar. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-jendela-detail-tautan}.
@@ -213,7 +217,7 @@ Berikut adalah daftar hasil pengujian fungsional:
    \input{Lampiran/pengujian-fungsional/tabel-pengujian-jendela-detail-tautan.tex}
 
 
-   \vspace{5mm}
+   \vspace{2mm}
 
    \item \textbf{Pengujian pada Jendela Notifikasi}\\
    Pengujian ini dilakukan untuk memastikan bahwa jendela notifikasi untuk pesan bertipe \textit{success}, \textit{warning}, dan \textit{error} muncul pada kondisi yang tepat serta menampilkan pesan yang sesuai. Hasil pengujian dapat dilihat pada Tabel~\ref{tab:hasil-pengujian-fungsional-jendela-notifikasi}.
@@ -222,7 +226,6 @@ Berikut adalah daftar hasil pengujian fungsional:
 
 \end{enumerate}
 
-\vspace{10mm}
 
 \subsubsection{Kesimpulan Pengujian Fungsional}
 \label{subsubsec:05020202-kesimpulan-pengujian-fungsional}

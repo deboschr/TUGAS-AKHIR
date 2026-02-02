@@ -1,7 +1,7 @@
 Pada pengujian ini akan dilakukan eksplorasi terhadap parameter-parameter operasional yang memengaruhi performa dan hasil pemeriksaan. Tujuan dari eksplorasi ini adalah untuk mendapatkan nilai terbaik pada setiap parameter sehingga durasi pemeriksaan dan hasil pemeriksaan dapat optimal. Meskipun demikian, hasil pemeriksaan akan menjadi prioritas utama dalam menentukan nilai terbaik untuk setiap parameter.
 
 Berikut adalah daftar parameter yang akan dieksplorasi:
-\begin{itemize}
+\begin{itemize}[itemsep=1mm]
    \item \textbf{\texttt{INTERVAL} pada \texttt{RateLimiter}}: Parameter ini menentukan jarak antarpermintaan HTTP pada \textit{host} yang sama.
    
    \item \textbf{\texttt{CONNECTION\_TIMEOUT} pada \texttt{HttpClient}}: Parameter ini menentukan batas waktu pembentukan koneksi dalam permintaan HTTP.
@@ -16,7 +16,7 @@ Setiap pengujian akan difokuskan pada satu parameter dan parameter lain akan dib
 
 
 Berikut adalah daftar hasil pengujian eksperimental untuk mengeksplorasi parameter operasional:
-\begin{enumerate}
+\begin{enumerate}[itemsep=2mm]
    % ######################################################################################
    % ######################################################################################
    \item Pengujian pada Parameter \texttt{INTERVAL} \\
@@ -24,8 +24,10 @@ Berikut adalah daftar hasil pengujian eksperimental untuk mengeksplorasi paramet
    
    \input{Lampiran/pengujian-eksperimental/tabel-pengujian-interval.tex}   
    
+   \clearpage
+
    Hasil dari pengujian ini ditampilkan pada Tabel~\ref{tab:hasil-pengujian-interval}, sedangkan durasi pemeriksaan pada setiap percobaan adalah sebagai berikut:
-   \begin{itemize}[itemsep=5pt]
+   \begin{itemize}[itemsep=1mm]
       \item Percobaan dengan nilai 0 milidetik berdurasi 13 menit 6 detik.
       \item Percobaan dengan nilai 500 milidetik berdurasi 13 menit 24 detik.
       \item Percobaan dengan nilai 1000 milidetik berdurasi 14 menit 30 detik.
@@ -36,17 +38,15 @@ Berikut adalah daftar hasil pengujian eksperimental untuk mengeksplorasi paramet
    \vspace{3mm}
    
    Berdasarkan hasil pengujian yang telah didapatkan, diperoleh beberapa temuan sebagai berikut:
-   \begin{itemize}[itemsep=5pt]
+   \begin{itemize}[itemsep=1mm]
       \item Secara umum, seluruh kategori \textit{error} memiliki jumlah yang sama pada setiap percobaan, meskipun terdapat perbedaan kecil pada percobaan dengan nilai 500~milidetik, yaitu jumlah SSL \textit{Error} yang lebih rendah dan jumlah \textit{Timeout} yang lebih tinggi dibandingkan percobaan lainnya. Setelah ditelusuri, perbedaan ini disebabkan oleh satu tautan, yaitu \url{https://www.klikhotel.com/}, yang pada seluruh percobaan lain teridentifikasi sebagai SSL \textit{Error}, namun pada percobaan 500~milidetik menjadi \textit{Timeout}. Setelah dilakukan pemeriksaan secara terpisah pada tautan ini, didapati bahwa hasil pemeriksaan menghasilkan \textit{error} dengan kategori SSL \textit{Error}.
 
       \item Semakin besar nilai \texttt{INTERVAL}, semakin lama waktu yang dibutuhkan untuk menyelesaikan pemeriksaan. Peningkatan durasi ini bersifat konsisten dan linear, serta tidak menghasilkan perubahan pada jumlah hasil pemeriksaan.
    \end{itemize}
 
-   \vspace{3mm}
+   \vspace{1mm}
 
    Berdasarkan temuan tersebut, dapat disimpulkan bahwa parameter \texttt{INTERVAL} tidak memberikan pengaruh terhadap akurasi hasil pemeriksaan, karena seluruh variasi nilai \texttt{INTERVAL} menghasilkan jumlah tautan rusak yang relatif identik. Dengan demikian, pemilihan nilai terbaik dilakukan berdasarkan efisiensi waktu, yaitu nilai interval yang memberikan durasi pemeriksaan tercepat. Nilai tersebut adalah \textbf{0~milidetik} dengan durasi pemeriksaan 13 menit 6 detik.
-
-   \vspace{8mm}
 
    % ######################################################################################
    % ######################################################################################
@@ -54,11 +54,9 @@ Berikut adalah daftar hasil pengujian eksperimental untuk mengeksplorasi paramet
    Pengujian ini dilakukan untuk melihat pengaruh variasi nilai \texttt{CONNECTION\_TIMEOUT} pada \texttt{HttpClient} terhadap performa dan hasil pemeriksaan. Eksplorasi pada parameter ini menggunakan nilai dalam satuan detik, dengan nilai percobaan yaitu 5, 10, 15, 20, dan 25. Dalam pengujian ini parameter \texttt{INTERVAL} akan bernilai konstan 0~milidetik sesuai dengan pengujian sebelumnya dan \texttt{REQUEST\_TIMEOUT} bernilai konstan 20~detik. Hasil pengujian ini ditampilkan pada Tabel~\ref{tab:hasil-pengujian-connection-timeout}.
 
    \input{Lampiran/pengujian-eksperimental/tabel-pengujian-connection-timeout.tex}
-   
-   \vspace{5mm}
 
    Pada pengujian ini didapatkan durasi pemeriksaan pada setiap percobaan sebagai berikut:
-   \begin{itemize}[itemsep=2pt]
+   \begin{itemize}[itemsep=1mm]
       \item Percobaan dengan nilai 5 detik berdurasi 12 menit 27 detik.
       \item Percobaan dengan nilai 10 detik berdurasi 12 menit 59 detik.
       \item Percobaan dengan nilai 15 detik berdurasi 13 menit 55 detik.
@@ -66,10 +64,10 @@ Berikut adalah daftar hasil pengujian eksperimental untuk mengeksplorasi paramet
       \item Percobaan dengan nilai 25 detik berdurasi 13 menit 24 detik.
    \end{itemize}
 
-   \vspace{5mm}
+   \vspace{1mm}
 
    Berdasarkan hasil pengujian yang telah didapatkan, diperoleh beberapa temuan sebagai berikut:
-   \begin{itemize}[itemsep=5pt]
+   \begin{itemize}[itemsep=2mm]
       \item Nilai \texttt{CONNECTION\_TIMEOUT} memiliki pengaruh terhadap hasil pemeriksaan. Hal ini dapat terlihat dari variasi pada jumlah \textit{error} kategori \textit{Timeout}, yang cenderung menurun pada nilai \texttt{CONNECTION\_TIMEOUT} yang lebih besar. Nilai \texttt{CONNECTION\_TIMEOUT} yang terlalu kecil menyebabkan beberapa permintaan gagal terselesaikan dalam batas waktu, sehingga menghasilkan jumlah \textit{Timeout} yang lebih tinggi.
 
       \item Beberapa kategori \textit{error} lain, seperti SSL \textit{Error}, 403 \textit{Forbidden}, dan 404 \textit{Not Found}, menunjukkan pola yang lebih stabil pada nilai \texttt{CONNECTION\_TIMEOUT} yang lebih besar. Hal ini mengindikasikan bahwa nilai \texttt{CONNECTION\_TIMEOUT} yang terlalu rendah dapat menyebabkan pemeriksaan berhenti sebelum respons dari \textit{server} diterima sepenuhnya.
@@ -84,11 +82,7 @@ Berikut adalah daftar hasil pengujian eksperimental untuk mengeksplorasi paramet
 
    \end{itemize}
 
-   \vspace{5mm}
-
    Berdasarkan temuan tersebut, nilai \texttt{CONNECTION\_TIMEOUT} yang terlalu kecil menghasilkan jumlah \textit{Timeout} yang lebih tinggi dan menyebabkan pemeriksaan menjadi kurang akurat. Sebaliknya, nilai \texttt{CONNECTION\_TIMEOUT} yang terlalu besar tidak memberikan peningkatan berarti dan hanya menambah durasi pemeriksaan. Sesuai dengan prinsip pengujian bahwa akurasi hasil pemeriksaan lebih diprioritaskan dibandingkan durasi eksekusi, maka pemilihan nilai terbaik harus mempertimbangkan keakuratan hasil terlebih dahulu. Dengan demikian, nilai terbaik untuk parameter ini adalah \textbf{20 detik}, karena memberikan hasil yang lebih stabil dan masih sama dengan hasil pada pengujian \texttt{INTERVAL} dengan nilai 0~milidetik.
-
-   \vspace{5mm}
 
    % ######################################################################################
    % ######################################################################################
@@ -97,8 +91,10 @@ Berikut adalah daftar hasil pengujian eksperimental untuk mengeksplorasi paramet
 
    \input{Lampiran/pengujian-eksperimental/tabel-pengujian-request-timeout.tex}
 
+   \clearpage
+
    Pada pengujian ini didapatkan durasi pemeriksaan pada setiap percobaan sebagai berikut:
-   \begin{itemize}[itemsep=3pt]
+   \begin{itemize}[itemsep=1mm]
       \item Percobaan dengan nilai 5 detik berdurasi 7 menit 42 detik.
       \item Percobaan dengan nilai 10 detik berdurasi 12 menit 21 detik.
       \item Percobaan dengan nilai 15 detik berdurasi 14 menit 6 detik.
@@ -106,12 +102,10 @@ Berikut adalah daftar hasil pengujian eksperimental untuk mengeksplorasi paramet
       \item Percobaan dengan nilai 25 detik berdurasi 13 menit 50 detik.
    \end{itemize}
 
-   \vspace{2mm}
 
    Berdasarkan hasil pengujian yang telah didapatkan, diperoleh beberapa temuan sebagai berikut:
-   \begin{itemize}[itemsep=5pt]
+   \begin{itemize}[itemsep=2mm]
       \item Nilai \texttt{REQUEST\_TIMEOUT} memiliki pengaruh yang jelas terhadap hasil pemeriksaan. Hal ini terlihat dari jumlah \textit{Timeout} yang sangat tinggi pada nilai 5 detik (22 kasus), kemudian menurun drastis pada nilai yang lebih besar hingga mencapai 3 kasus pada nilai 20 dan 25 detik. Nilai \texttt{REQUEST\_TIMEOUT} yang terlalu kecil menyebabkan permintaan gagal sebelum respons \textit{server} diterima, sehingga menghasilkan \textit{Timeout} yang tidak mencerminkan kondisi tautan yang sebenarnya.
-
 
       \item Pada kategori SSL \textit{Error}, nilai 5 detik menghasilkan 5 kasus, berbeda dengan nilai lainnya yang menunjukkan 6 kasus. Setelah ditelusuri, satu tautan yang seharusnya menghasilkan SSL \textit{Error} justru berpindah ke kategori \textit{Timeout}. Tautan tersebut tidak lambat dalam pembentukan koneksi, tetapi lambat dalam memberikan respons setelah koneksi berhasil terbentuk, sehingga dengan nilai timeout yang kecil tautan tersebut gagal menyelesaikan proses dan tercatat sebagai \textit{Timeout}.
 
@@ -122,15 +116,16 @@ Berikut adalah daftar hasil pengujian eksperimental untuk mengeksplorasi paramet
       \item Pada kategori 403 \textit{Forbidden}, jumlah kasus pada nilai 5, 10, dan 15 detik lebih rendah dibandingkan nilai 20 dan 25 detik. Setelah dilakukan penelusuran, beberapa tautan yang seharusnya menghasilkan respons 403 gagal dimuat pada nilai timeout yang kecil. Hal ini menyebabkan tautan tersebut tidak sempat menerima respons 403 dari \textit{server} dan masuk ke kategori \textit{Timeout}. Fenomena ini juga muncul pada pengujian \texttt{CONNECTION\_TIMEOUT}, tetapi dijelaskan pada bagian ini agar tidak terjadi pengulangan.
    \end{itemize}
 
-   \vspace{3mm}
+   \vspace{1mm}
 
    Sesuai dengan prinsip pengujian bahwa akurasi hasil pemeriksaan lebih diprioritaskan dibandingkan durasi eksekusi, maka penentuan nilai terbaik harus didasarkan pada konsistensi hasil yang diperoleh. Berdasarkan data pada Tabel~\ref{tab:hasil-pengujian-request-timeout}, nilai \texttt{REQUEST\_TIMEOUT} yang terlalu kecil seperti 5 dan 10 detik menghasilkan jumlah \textit{Timeout} yang jauh lebih tinggi, yaitu masing-masing 22 dan 12 kasus, sehingga tidak mencerminkan kondisi tautan yang sebenarnya. Mulai pada nilai 20 detik, jumlah \textit{Timeout} menurun dan stabil pada 4 kasus, serta kategori \textit{error} lainnya menunjukkan pola yang konsisten. Durasi pemeriksaan pada nilai 20 detik juga masih berada dalam rentang yang baik, yaitu 13 menit 53 detik. Oleh karena itu, berdasarkan stabilitas hasil pemeriksaan, nilai terbaik untuk parameter ini adalah \textbf{20 detik}.
    
 \end{enumerate}
 
+\clearpage
 
 \subsubsection{Kesimpulan Pengujian Eksperimental}
 \label{subsubsec:05020302-kesimpulan-pengujian-eksperimental}
 Berdasarkan rangkaian pengujian yang telah dilakukan terhadap tiga parameter operasional, yaitu \texttt{INTERVAL}, \texttt{CONNECTION\_TIMEOUT}, dan \texttt{REQUEST\_TIMEOUT}, diperoleh kesimpulan bahwa setiap parameter memiliki pengaruh yang berbeda terhadap durasi pemeriksaan dan hasil identifikasi tautan rusak. Pada pengujian \texttt{INTERVAL}, seluruh variasi nilai menghasilkan jumlah tautan rusak yang relatif identik sehingga parameter ini tidak berpengaruh terhadap akurasi pemeriksaan, dan nilai terbaik ditetapkan pada \textbf{0~milidetik} karena memberikan durasi tercepat. Pada pengujian \texttt{CONNECTION\_TIMEOUT}, nilai yang terlalu kecil menghasilkan banyak \textit{error} \textit{Timeout}, sedangkan nilai yang lebih besar memberikan hasil yang lebih stabil, sehingga nilai terbaik adalah \textbf{20 detik}. Pola yang sama juga ditemukan pada pengujian \texttt{REQUEST\_TIMEOUT}, di mana nilai yang rendah menyebabkan kegagalan permintaan HTTP dan meningkatnya jumlah \textit{error} \textit{Timeout}, sementara hasil mulai stabil pada nilai 20 detik. Dengan demikian, nilai terbaik untuk parameter ini juga adalah \textbf{20 detik}.
 
-Selain pengaruh dari parameter operasional yang diuji, hasil pengujian juga menunjukkan bahwa kondisi jaringan internet memiliki peran yang signifikan terhadap durasi dan konsistensi hasil pemeriksaan. Pada beberapa percobaan ditemukan anomali baik pada durasi pemeriksaan maupun pada pengelompokan kategori \textit{error}, yang tidak sepenuhnya dapat dijelaskan oleh variasi nilai parameter yang diuji. Anomali tersebut diduga kuat dipengaruhi oleh faktor eksternal, khususnya kecepatan dan kestabilan koneksi jaringan internet pada saat pengujian berlangsung. Oleh karena itu, disarankan agar aplikasi Broken Link Scanner dijalankan pada kondisi jaringan internet yang cepat dan stabil untuk meminimalkan terjadinya \textit{Timeout} yang tidak mencerminkan kondisi tautan sebenarnya, menjaga konsistensi hasil pemeriksaan, serta memperoleh durasi pemeriksaan yang lebih cepat.
+Selain pengaruh dari parameter operasional yang diuji, hasil pengujian juga menunjukkan bahwa kondisi jaringan internet memiliki peran yang signifikan terhadap durasi dan konsistensi hasil pemeriksaan. Pada beberapa percobaan ditemukan anomali baik pada durasi pemeriksaan maupun pada pengelompokan kategori \textit{error}, yang tidak sepenuhnya dapat dijelaskan oleh variasi nilai parameter yang diuji. Anomali tersebut diduga kuat dipengaruhi oleh faktor eksternal, khususnya kecepatan dan kestabilan koneksi jaringan internet pada saat pengujian berlangsung. Oleh karena itu, disarankan agar aplikasi Broken Link Scanner dijalankan pada kondisi jaringan internet yang cepat dan stabil untuk meminimalkan terjadinya \textit{Timeout}, menjaga konsistensi hasil pemeriksaan, serta memperoleh durasi pemeriksaan yang lebih cepat.

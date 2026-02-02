@@ -1,5 +1,6 @@
 public void setNotifValue() {
    messageLabel.setText(message);
+   
    switch (type) {
       case "ERROR" -> applyStyle("-red", "\u2716", "ERROR");
       case "WARNING" -> applyStyle("-orange", "\u26A0", "WARNING");

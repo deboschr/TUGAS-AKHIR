@@ -1,23 +1,22 @@
-Bagian ini memaparkan hasil implementasi antarmuka pengguna berdasarkan perancangan yang telah dibuat pada perancangan antarmuka pengguna (lihat Subbab~\ref{sec:040300-perancangan-antarmuka-pengguna}). Antarmuka pengguna dikembangkan menggunakan JavaFX dengan struktur tampilan yang diatur melalui berkas FXML dan gaya visual yang diatur melalui berkas CSS. Berikut adalah penjelasan dari setiap hasil implementasi antarmuka pengguna:
+Bagian ini memaparkan hasil implementasi antarmuka pengguna berdasarkan perancangan yang telah dibuat pada perancangan antarmuka pengguna (lihat Subbab~\ref{sec:040300-perancangan-antarmuka-pengguna}). Antarmuka pengguna dikembangkan menggunakan JavaFX dengan struktur tampilan yang diatur melalui berkas FXML dan gaya visual yang diatur melalui berkas CSS. 
 
-\vspace{5mm}
 
+Berikut adalah penjelasan dari setiap hasil implementasi antarmuka pengguna:
 \begin{enumerate}
     \item \textbf{Jendela Utama}\\
     Hasil implementasi jendela utama aplikasi dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-utama}, implementasi ini didasarkan pada perancangan jendela utama yang telah dibuat sebelumnya (lihat Gambar~\ref{fig:rancangan-antarmuka-jendela-utama}). Struktur tampilan dari jendela ini diatur melalui berkas \texttt{main-scene.fxml} (lihat Lampiran~\ref{code:main-scene-fxml}), gaya visualnya diatur melalui berkas \texttt{main-style.css} (lihat Lampiran~\ref{code:main-style-css}), serta logika pengendali antarmuka pengguna diatur melalui kelas \texttt{MainController.java} (lihat Lampiran~\ref{code:main-controller-java}).
 
     Seluruh komponen antarmuka pengguna pada rancangan jendela utama telah berhasil diimplementasikan. Pada jendela ini terdapat kolom masukan URL, tombol kontrol \textit{Start} dan \textit{Stop}, \textit{filter}, \textit{pagination}, ringkasan proses pemeriksaan, ringkasan tabel, serta tabel hasil. Pengguna dapat memasukkan URL situs web yang menjadi awal proses pemeriksaan, menjalankan dan menghentikan proses pemeriksaan, melakukan penyaringan terhadap hasil yang ditampilkan pada tabel, serta melakukan ekspor terhadap hasil pemeriksaan dengan menekan tombol \textit{Export}.
 
-    \vspace{15mm}
+    \clearpage
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.95\textwidth]{Gambar/050104-implementasi-jendela-utama.png}
+        \includegraphics[width=0.6\textwidth]{Gambar/050104-implementasi-jendela-utama.png}
         \caption{Implementasi antarmuka pengguna jendela utama}
         \label{fig:implementasi-jendela-utama}
     \end{figure}
 
-    \vspace{15mm}
 
     \item \textbf{Jendela Detail Tautan}\\
     Hasil implementasi jendela detail tautan dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-detail-tautan}, implementasi ini didasarkan pada perancangan jendela detail tautan yang telah dibuat sebelumnya (lihat Gambar~\ref{fig:rancangan-antarmuka-jendela-detail-tautan}). Struktur tampilan dari jendela ini diatur melalui berkas \texttt{link-scene.fxml} (lihat Lampiran~\ref{code:link-scene-fxml}), gaya visualnya diatur melalui berkas \texttt{link-style.css} (lihat Lampiran~\ref{code:link-style-css}), serta logika pengendali antarmuka pengguna diatur melalui kelas \texttt{LinkController.java} (lihat Lampiran~\ref{code:link-controller-java}).
@@ -27,7 +26,7 @@ Bagian ini memaparkan hasil implementasi antarmuka pengguna berdasarkan perancan
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{Gambar/050104-implementasi-jendela-detail-tautan.png}
+        \includegraphics[width=0.50\textwidth]{Gambar/050104-implementasi-jendela-detail-tautan.png}
         \caption{Implementasi antarmuka pengguna jendela detail tautan}
         \label{fig:implementasi-jendela-detail-tautan}
     \end{figure}
@@ -38,9 +37,7 @@ Bagian ini memaparkan hasil implementasi antarmuka pengguna berdasarkan perancan
     
     Hasil implementasi jendela ini dapat dilihat pada Gambar~\ref{fig:implementasi-jendela-notifikasi}. Struktur tampilan dari jendela ini diatur melalui berkas \texttt{notif-scene.fxml} (lihat Lampiran~\ref{code:notif-scene-fxml}), gaya visualnya diatur melalui berkas \texttt{notif-style.css} (lihat Lampiran~\ref{code:notif-style-css}), serta logika pengendali antarmuka pengguna diatur melalui kelas \texttt{NotifController.java} (lihat Lampiran~\ref{code:notif-controller-java}).
 
-
-
-    \vspace{10mm}
+    \clearpage
 
     \begin{figure}[H]
         \centering
