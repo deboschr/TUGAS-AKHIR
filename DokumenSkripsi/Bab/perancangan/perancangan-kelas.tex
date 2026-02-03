@@ -216,17 +216,19 @@ Berikut adalah penjelasan dari diagram kelas tersebut:
     \end{itemize}
     
     \item \textbf{Kelas \texttt{RateLimiter}}\\
-    Kelas \texttt{RateLimiter} bertugas untuk membatasi frekuensi permintaan HTTP agar pemeriksaan tidak dilakukan terlalu cepat yang dapat membebani \textit{server} situs web tujuan. Kelas ini memiliki metode \texttt{delay} yang digunakan untuk mengatur jarak waktu antarpermintaan HTTP. Rancangan kode program untuk metode ini ditampilkan pada Pseudocode~\ref{alg:rate-limiter-delay}. Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
+    Kelas \texttt{RateLimiter} bertugas untuk membatasi frekuensi permintaan HTTP agar pemeriksaan tidak dilakukan terlalu cepat yang dapat membebani \textit{server} situs web tujuan. Kelas ini memiliki metode \texttt{delay} yang digunakan untuk mengatur jarak waktu antarpermintaan HTTP. Rancangan kode program untuk metode ini ditampilkan pada Pseudocode~\ref{alg:rate-limiter-delay}.
+    
     
     \vspace{1mm}
-
+    
+    Berikut adalah penjelasan lebih rinci untuk atribut pada kelas ini:
     \begin{itemize}[itemsep=1.5mm]
         \item \texttt{INTERVAL}: Atribut ini memiliki nilai yang bertipe \texttt{long} dan digunakan untuk mengatur jarak antarpermintaan HTTP.
         
         \item \texttt{lastRequestTime}: Atribut ini memiliki nilai yang bertipe \texttt{long} dan digunakan untuk menyimpan waktu terakhir permintaan HTTP dilakukan.
     \end{itemize}
 
-    \vspace{5mm}
+    \vspace{10mm}
     
     \begin{algorithm}[H]
         \caption{delay()}
@@ -243,7 +245,7 @@ Berikut adalah penjelasan dari diagram kelas tersebut:
         \end{spacing}
     \end{algorithm}
 
-    \vspace{10mm}
+    \clearpage
 
     \item \textbf{Kelas \texttt{UrlHandler}}\\
     Kelas \texttt{UrlHandler} bertugas untuk menyediakan metode yang menangani segala kebutuhan terkait URL. 

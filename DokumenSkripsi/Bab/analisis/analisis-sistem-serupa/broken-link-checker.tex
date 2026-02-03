@@ -5,6 +5,8 @@ Broken Link Checker\footnote{\url{https://www.brokenlinkcheck.com} (Diakses pada
 
 Gambar~\ref{fig:analisis-brokenlinkchecker} menunjukkan antarmuka pengguna Broken Link Checker saat proses pemeriksaan berlangsung. Alur penggunaan secara umum dimulai dengan memasukkan alamat situs pada kolom input, mengisi kode keamanan, memilih mode pemeriksaan, lalu menekan tombol \textit{Find broken links now!} untuk memulai proses. Selama pemeriksaan berjalan, hasil ditampilkan langsung dalam bentuk tabel, dan pengguna dapat menghentikan proses dengan menekan tombol \textit{Stop}.
 
+\vspace{3mm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{Gambar/030203-broken-link-checker.png}
@@ -12,9 +14,11 @@ Gambar~\ref{fig:analisis-brokenlinkchecker} menunjukkan antarmuka pengguna Broke
     \label{fig:analisis-brokenlinkchecker}
 \end{figure}
 
+\clearpage
+
 Berikut adalah komponen utama antarmuka pengguna Broken Link Checker pada layanan pemeriksaan tautan rusak:
 
-\begin{enumerate}[itemsep=2mm]
+\begin{enumerate}[itemsep=1mm]
     \item \textbf{Input URL}\\
     Komponen ini digunakan untuk memasukkan alamat situs web yang akan diperiksa. Pengguna dapat menuliskan alamat dalam bentuk domain saja, tanpa harus menyertakan skema \texttt{http://} atau \texttt{https://}. Sistem akan tetap menerima input tersebut dan mengolahnya sebagai URL awal pemeriksaan. Kemudahan ini mempersingkat proses input, meskipun dapat menimbulkan potensi ambiguitas pada situs web yang hanya mendukung skema tertentu, misalnya hanya \texttt{https://}.
 

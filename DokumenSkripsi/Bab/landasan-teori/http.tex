@@ -9,7 +9,7 @@ Tujuan dari sebuah \textit{request} adalah \textit{resource} yang disediakan ole
 \label{subsec:0201-metode-http}
 Metode HTTP berfungsi untuk menunjukkan tujuan dari \textit{request} yang dibuat oleh \textit{client} dan hasil sukses apa yang diharapkan dari \textit{request} tersebut. Metode HTTP memiliki beberapa sifat umum, diantaranya adalah \textit{safe} dan \textit{idempotent}. Sebuah metode dikatakan \textit{safe} apabila semantik yang didefinisikan bersifat \textit{read-only}, yaitu \textit{client} tidak meminta dan tidak mengharapkan adanya perubahan keadaan pada \textit{origin server} akibat penerapan metode tersebut. Metode yang termasuk \textit{safe} adalah \texttt{GET}, \texttt{HEAD}, \texttt{OPTIONS}, dan \texttt{TRACE}. Sebuah metode disebut \textit{idempotent} apabila dampak yang dimaksudkan pada \textit{server} dari beberapa \textit{request} identik, sama dengan dampak dari satu \textit{request}. Metode \texttt{PUT}, \texttt{DELETE}, serta seluruh metode aman adalah \textit{idempotent}. 
 
-\vspace{2mm}
+\vspace{1mm}
 
 Berikut ini adalah daftar beberapa metode HTTP:
 \begin{itemize}[itemsep=1.5mm]
@@ -36,10 +36,10 @@ Kode status HTTP adalah bagian dari baris awal pada \textit{response} \textit{se
 \label{subsubsec:020104-infotmational-1xx}
 Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima dan sedang diproses, tetapi belum ada \textit{response} final.
 
-\vspace{2mm}
+\vspace{1mm}
 
 Berikut adalah daftar kode status pada kategori ini:
-\begin{itemize}[itemsep=1.5mm]
+\begin{itemize}[itemsep=2mm]
     \item \textbf{100 (\textit{Continue})}: Menunjukkan bahwa \textit{server} telah menerima bagian awal dari \textit{request} dan tidak menemukan masalah pada tahap tersebut. \textit{Client} dapat melanjutkan pengiriman sisa \textit{request}, dan \textit{server} akan mengirimkan \textit{response} akhir setelah seluruh \textit{request} selesai diproses.
   
     \item \textbf{101 (\textit{Switching Protocols})}: Menunjukkan bahwa \textit{server} menyetujui permintaan \textit{client} untuk mengganti protokol aplikasi yang digunakan pada koneksi yang sama, sesuai dengan yang diminta dalam \textit{request}.
@@ -53,16 +53,18 @@ Berikut adalah daftar kode status pada kategori ini:
 \label{subsubsec:201004-successful-2xx}
 Kode-kode pada kelas ini menunjukkan bahwa \textit{request} telah diterima, dipahami, dan diproses dengan sukses.
 
-\vspace{2mm}
+\vspace{1mm}
 
 Berikut adalah daftar kode status pada kategori ini:
-\begin{itemize}[itemsep=1mm]
+\begin{itemize}[itemsep=2mm]
     \item \textbf{200 (\textit{OK})}: Menunjukkan bahwa \textit{request} berhasil diproses dan \textit{response} berisi hasil yang sesuai dengan jenis \textit{request} yang dikirimkan.
   
     \item \textbf{201 (\textit{Created})}: Menunjukkan bahwa \textit{request} berhasil diproses dan menghasilkan satu atau lebih \textit{resource} baru pada \textit{server}.
   
     \item \textbf{202 (\textit{Accepted})}: Menunjukkan bahwa \textit{request} telah diterima oleh \textit{server} untuk diproses, namun proses tersebut belum selesai pada saat \textit{response} dikirimkan.
   
+    % \clearpage
+
     \item \textbf{203 (\textit{Non-Authoritative Information})}: Menunjukkan bahwa \textit{request} berhasil diproses, tetapi konten dalam \textit{response} telah mengalami perubahan oleh \textit{transforming proxy}. Akibatnya, informasi yang diterima oleh \textit{client} tidak sepenuhnya identik dengan data yang dikirimkan oleh \textit{origin server}.
   
     \item \textbf{204 (\textit{No Content})}: Menunjukkan bahwa \textit{request} berhasil diproses, tetapi \textit{server} tidak mengirimkan konten apa pun dalam \textit{response}.
@@ -80,10 +82,10 @@ Berikut adalah daftar kode status pada kategori ini:
 \label{subsubsec:020104-redirection-3xx}
 Kode-kode pada kelas ini menunjukkan bahwa \textit{client} harus melakukan langkah tambahan untuk menyelesaikan \textit{request}, seperti mengikuti \textit{redirect}.
 
-\vspace{2mm}
+\vspace{1mm}
 
 Berikut adalah daftar kode status pada kategori ini:
-\begin{itemize}[itemsep=1.5mm]
+\begin{itemize}[itemsep=2mm]
     \item \textbf{300 (\textit{Multiple Choices})}: Menunjukkan bahwa \textit{resource} yang diminta memiliki beberapa alternatif representasi atau lokasi. \textit{Server} menyediakan daftar pilihan tersebut agar \textit{user agent} atau pengguna dapat memilih representasi yang diinginkan.
     
     \item \textbf{301 (\textit{Moved Permanently})}: Menunjukkan bahwa \textit{resource} target telah dipindahkan secara permanen ke URI baru. Untuk \textit{request} selanjutnya, \textit{client} sebaiknya menggunakan URI baru tersebut.
@@ -100,15 +102,16 @@ Berikut adalah daftar kode status pada kategori ini:
   
 \end{itemize}
 
+\clearpage
 
 \subsubsection{\textit{Client Error} 4xx}
 \label{subsubsec:020104-client-error-4xx}
 Kode-kode pada kelas ini menunjukkan bahwa telah terjadi kesalahan di sisi \textit{client}.
 
-\vspace{2mm}
+\vspace{1mm}
 
 Berikut adalah daftar kode status pada kategori ini:
-\begin{itemize}[itemsep=2mm]
+\begin{itemize}[itemsep=1.5mm]
     \item \textbf{400 (\textit{Bad Request})}: Menunjukkan bahwa \textit{request} tidak dapat diproses karena kesalahan dari sisi \textit{client}, misalnya format \textit{request} tidak valid, sintaks salah, atau parameter yang dikirim tidak sesuai.
   
     \item \textbf{401 (\textit{Unauthorized})}: Menunjukkan bahwa \textit{request} memerlukan autentikasi, tetapi \textit{client} tidak menyertakan kredensial yang sah atau belum melakukan autentikasi.
@@ -171,10 +174,10 @@ Berikut adalah daftar kode status pada kategori ini:
 \label{subsubsec:020104-server-error-5xx}
 Kode-kode pada kelas ini menunjukkan bahwa \textit{server} menyadari bahwa terjadi kesalahan di sisi \textit{server}.
 
-\vspace{2mm}
+\vspace{1mm}
 
 Berikut adalah daftar kode status pada kategori ini:
-\begin{itemize}[itemsep=2mm]
+\begin{itemize}[itemsep=1.5mm]
     \item \textbf{500 (\textit{Internal Server Error})}: Menunjukkan bahwa \textit{server} mengalami kesalahan internal yang tidak terduga, sehingga tidak dapat memproses \textit{request} yang diterima.
   
     \item \textbf{501 (\textit{Not Implemented})}: Menunjukkan bahwa \textit{server} tidak mendukung fungsionalitas yang diperlukan untuk memproses \textit{request}. Kode ini biasanya muncul ketika \textit{server} tidak mengenali atau tidak mendukung metode HTTP yang digunakan.
@@ -195,3 +198,5 @@ Berikut adalah daftar kode status pada kategori ini:
   
     \item \textbf{511 (\textit{Network Authentication Required})}: Menunjukkan bahwa \textit{client} harus melakukan autentikasi terlebih dahulu untuk memperoleh akses ke jaringan sebelum \textit{request} dapat diproses.~\cite{RFC6585}
 \end{itemize}
+
+\clearpage

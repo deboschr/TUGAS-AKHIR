@@ -1,6 +1,6 @@
 Bagian ini menjelaskan hasil implementasi kode program aplikasi berdasarkan perancangan yang telah dibuat pada perancangan kelas (lihat Subbab~\ref{sec:040100-perancangan-kelas}) dan perancangan alur (lihat Subbab~\ref{sec:040200-perancangan-alur}).
 
-\vspace{10mm}
+\clearpage
 
 Berikut adalah penjelasan dari setiap hasil implementasi kode program aplikasi:
 \begin{enumerate}[itemsep=2mm]
@@ -14,23 +14,22 @@ Berikut adalah penjelasan dari setiap hasil implementasi kode program aplikasi:
       
       \item (Baris 7) Membentuk tampilan antarmuka pengguna dari berkas \texttt{main-scene.fxml} untuk digunakan sebagai isi jendela utama.
       
-      \item (Baris 7) Memasukkan tampilan antarmuka pengguna ke dalam jendela utama.
+      \item (Baris 9) Memasukkan tampilan antarmuka pengguna ke dalam jendela utama.
       
-      \item (Baris 8) Menghilangkan dekorasi jendela bawaan sistem operasi agar tampilan dapat dikustomisasi sepenuhnya.
+      \item (Baris 10) Menghilangkan dekorasi jendela bawaan sistem operasi agar tampilan dapat dikustomisasi sepenuhnya.
       
-      \item (Baris 9) Menempatkan jendela pada posisi tengah layar.
+      \item (Baris 11) Menempatkan jendela pada posisi tengah layar.
       
-      \item (Baris 10) Membuat jendela tampil dalam ukuran maksimal saat pertama kali dibuka.
+      \item (Baris 12) Membuat jendela tampil dalam ukuran maksimal saat pertama kali dibuka.
       
-      \item (Baris 11--12) Menetapkan ukuran minimum jendela agar tata letak tidak rusak ketika jendela diperkecil.
+      \item (Baris 14--15) Menetapkan ukuran minimum jendela agar tata letak tidak rusak ketika jendela diperkecil.
       
-      \item (Baris 13) Menampilkan jendela ke layar.
+      \item (Baris 17) Menampilkan jendela ke layar.
       
-      \item (Baris 14--16) Jika terjadi \textit{exception}, maka tampilkan informasi \textit{error} ke konsol.
+      \item (Baris 18--19) Jika terjadi \textit{exception}, maka tampilkan informasi \textit{error} ke konsol.
       
    \end{enumerate}
 
-   \vspace{5mm}
 
    \lstinputlisting[
       language=Java, 
@@ -38,12 +37,11 @@ Berikut adalah penjelasan dari setiap hasil implementasi kode program aplikasi:
       label={code:application-open-main-window-java}
    ]{Lampiran/implementasi-kode-program/Application_openMainWindow.java}
 
-   \vspace{8mm}
 
    \item \textbf{Berkas \texttt{MainController.java}, \texttt{main-scene.fxml} dan \texttt{main-style.css}}\\
    Ketiga kode program ini bertanggung jawab untuk mengelola jendela utama aplikasi (lihat Gambar~\ref{fig:implementasi-jendela-utama}). Kelas \texttt{MainController} digunakan untuk mengendalikan interaksi pada jendela utama (lihat Lampiran~\ref{code:main-controller-java}). Berkas \texttt{main-scene.fxml} digunakan untuk mendefinisikan struktur, hierarki, dan komponen antarmuka pengguna pada jendela utama (lihat Lampiran~\ref{code:main-scene-fxml}). Sementara itu, berkas \texttt{main-style.css} digunakan untuk mengatur gaya visual pada jendela utama (lihat Lampiran~\ref{code:main-style-css}). 
    
-   \vspace{10mm}
+   \clearpage
 
    Pada kelas \texttt{MainController} terdapat metode \texttt{onStartClick} yang digunakan untuk menjalankan proses pemeriksaan ketika pengguna menekan tombol \textit{Start}, berikut adalah penjelasan lebih rinci untuk metode ini (lihat Kode~\ref{code:main-controller-on-start-click-java}):
 
@@ -77,7 +75,7 @@ Berikut adalah penjelasan dari setiap hasil implementasi kode program aplikasi:
       \item (Baris 10--12) Membuat komponen \texttt{urlField} dan \texttt{finalUrlField} dapat diklik untuk membuka URL tersebut di \textit{browser}.
    \end{enumerate}
 
-   \vspace{20mm}
+   \clearpage
 
    \lstinputlisting[
       language=Java, 
@@ -94,7 +92,7 @@ Berikut adalah penjelasan dari setiap hasil implementasi kode program aplikasi:
    \begin{enumerate}[itemsep=1mm]
       \item (Baris 2) Memasukkan pesan notifikasi ke komponen GUI.
       
-      \item (Baris 3--8) Menetapkan \textit{styling} pada jendela berdasarkan tipe pesan. 
+      \item (Baris 4--9) Menetapkan \textit{styling} pada jendela berdasarkan tipe pesan. 
    \end{enumerate}
 
    \lstinputlisting[
@@ -361,7 +359,6 @@ Berikut adalah penjelasan dari setiap hasil implementasi kode program aplikasi:
       label={code:url-handler-normalize-url-java}
    ]{Lampiran/implementasi-kode-program/UrlHandler_normalizeUrl.java}
 
-   \vspace{5mm}
 
    \item \textbf{Berkas \texttt{ErrorHandler.java}}\\
    Kelas \texttt{ErrorHandler} bertugas untuk menyediakan metode untuk menangani segala kebutuhan terkait pesan kesalahan pada kode program. Pada kelas ini terdapat tiga metode, yaitu \texttt{getHttpError} untuk mendapatkan pesan kesalahan berdasarkan kode status HTTP, metode \texttt{getExceptionError} untuk mendapatkan pesan kesalahan dari \textit{exception} yang terjadi pada kode program, dan metode \texttt{isHttpError} untuk menentukan apakah sebuah bilangan bulat merupakan kode status HTTP yang dikategorikan sebagai \textit{error}. Kode lengkap untuk kelas ini terdapat pada Lampiran~\ref{code:error-handler-java}.
